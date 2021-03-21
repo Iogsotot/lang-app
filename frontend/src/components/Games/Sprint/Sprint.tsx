@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
+import React, { useState, FC } from 'react';
 
-import { WordsProps } from './Sprint.model';
+import { shuffleArray } from '../../../libs/random';
+import { WordsProps } from '../../../models';
 
 import './style.scss';
 
 const Sprint: FC<WordsProps> = ({ words }) => {
+  const [sprintWords, setSprintWords] = useState(shuffleArray(words));
   console.log(words);
   return (
     <div className="sprint">
