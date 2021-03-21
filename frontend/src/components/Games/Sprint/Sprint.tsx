@@ -1,8 +1,11 @@
 import React, { FC } from 'react';
+
+import { WordsProps } from './Sprint.model';
+
 import './style.scss';
 
-const Sprint: FC = () => {
-  console.log('eslint ***');
+const Sprint: FC<WordsProps> = ({ words }) => {
+  console.log(words);
   return (
     <div className="sprint">
       <div className="box sprint__box">
