@@ -2,6 +2,7 @@ import React, { useState, useEffect, FC } from 'react';
 
 import Button from './Button';
 import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
+import { compareAnswer } from '../../../libs/gameLogic';
 import { WordsProps, Word } from '../../../models';
 import { WordPair } from './Sprint.model';
 
@@ -39,7 +40,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   }, []);
 
   const handleBtnClick = (arg:boolean):void => {
-    console.log(arg === pair.answer);
+    console.log(compareAnswer(arg, pair.answer));
     setPair(findWordPair());
   };
 
