@@ -3,6 +3,7 @@ import React, { useState, useEffect, FC } from 'react';
 import Button from './Button';
 import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
+import { animateBorderColor } from '../../../libs/common';
 import { WordsProps, Word } from '../../../models';
 import { WordPair } from './Sprint.model';
 
@@ -40,14 +41,18 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   }, []);
 
   const handleBtnClick = (arg:boolean):void => {
-    console.log(compareAnswer(arg, pair.answer));
+    if (compareAnswer(arg, pair.answer)) {
+      animateBorderColor('.sprint__box', '141, 71%, 48%');
+    } else {
+      animateBorderColor('.sprint__box', '348, 100%, 61%');
+    }
     setPair(findWordPair());
   };
 
   const { word, wordTranslate } = pair;
   return (
     <div className="sprint">
-      <div className="box sprint__box">
+      <div className='box sprint__box'>
         <div className="title">{word}</div>
         <div className="subtitle">{wordTranslate}</div>
         <div className="buttons">
