@@ -18,7 +18,10 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   });
 
   const findWordPair = ():WordPair => {
-    if (sprintWords.length < 1) throw new Error();
+    if (sprintWords.length < 1) {
+      // тута запускаем сообщение о конце игры
+      return pair;
+    }
     const wordsList = sprintWords.slice(0);
     const word = wordsList.pop() as Word;
 
