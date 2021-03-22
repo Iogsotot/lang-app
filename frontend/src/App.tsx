@@ -1,4 +1,6 @@
-import logo from './logo.svg';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// import logo from './logo.svg';
+// @ts-ignore
 import './App.scss';
 
 function App() {
