@@ -1,0 +1,17 @@
+.streak {
+  display: flex;
+  width: 11.8rem;
+  transform: background-color .2s;
+  &__circle {
+    width: 2.6rem;
+    height: 2.6rem;
+    margin-left: 1rem;
+    border-radius: 50%;
+    &-filled{
+      background-color: hsl(141, 71%, 48%);
+    }
+    &-empty {
+      background-color: hsl(0, 0%, 21%);
+    }
+  }
+}
