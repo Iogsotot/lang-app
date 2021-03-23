@@ -1,5 +1,5 @@
 import './savannah.scss';
-import { useState, FC } from 'react';
+import { FC, useState, useRef } from 'react';
 import { SavannahProps } from './Savannah.model';
 
 const Savannah: FC<SavannahProps> = () => {
@@ -9,22 +9,16 @@ const Savannah: FC<SavannahProps> = () => {
   const fourthWord = 'cat';
   const currentWord = 'pterodactille';
 
-  // const duration = 60;
-  // const [time, setTimer] = useState(duration);
-  // const start = Date.now();
+  const [count, setCount] = useState(0);
+  const countRef = useRef(count);
+  countRef.current = count;
 
-  // const timer = setInterval(() => {
-  //   const timeLast = Math.ceil(duration - (Date.now() - start) / 1000);
-  //   setTimer(timeLast >= 0 ? timeLast : 0);
-  //   if (timeLast >= 0) {
-  //     setTimer(timeLast);
-  //   } else {
-  //     setTimer(0);
-  //     // eslint-disable-next-line no-console
-  //     console.log('я маленький коллбек');
-  //     clearInterval(timer);
-  //   }
-  // }, 100);
+  const getCountTimeout = () => {
+    setTimeout(() => {
+      setCount(countRef.current);
+      console.log(count);
+    }, 2000);
+  };
 
   return (
     <section className="savannah">
@@ -44,7 +38,14 @@ const Savannah: FC<SavannahProps> = () => {
         <div className="current-word title is-4 has-text-centered">{currentWord}</div>
         <div className="answer-variants box">
           <div className="wrapper">
-            <a className="button is-info is-light">{firtsWord}</a>
+            <a
+              className="button is-info is-light"
+              onClick={() => {
+                getCountTimeout();
+              }}
+            >
+              {firtsWord}
+            </a>
             <a className="button is-info is-light">{secondWord}</a>
             <a className="button is-info is-light">{trirdWord}</a>
             <a className="button is-info is-light">{fourthWord}</a>
