@@ -1,13 +1,12 @@
-import logo from './logo.svg';
+import { FC } from 'react';
 import './App.scss';
+import Savannah from './components/Games/Savannah';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
-  );
-}
+const App: FC = () => (
+  <div className="App">
+    <header className="App-header"></header>
+    <Savannah></Savannah>
+  </div>
+);
 
 export default App;

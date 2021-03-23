@@ -1,0 +1,30 @@
+.savannah {
+  .current-word {
+    height: 30rem;
+  }
+  .status-bar {
+    text-align: right;
+    & > * {
+      display: inline-block;
+      height: 2rem;
+      line-height: 2rem;
+    }
+    .lives {
+      text-align: right;
+      color: lightcoral;
+      margin-right: 0.8rem;
+      .fa-heart {
+        margin: 0.1rem;
+      }
+    }
+  }
+  .answer-variants {
+    & > .wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      max-width: 50rem;
+      margin: auto;
+    }
+  }
+}
