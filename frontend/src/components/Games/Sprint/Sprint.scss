@@ -15,4 +15,11 @@
   &__game-wrapper{
     margin: auto 0;
   }
+
+
+  & .timer {
+    position: absolute;
+    left: 1rem;
+    top:1rem;
+  }
 }
