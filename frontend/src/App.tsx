@@ -16,7 +16,7 @@ const App: React.FC = () => (
             <PromoPage />
           </Route>
 
-          <Route path="/textbook" exact>
+          <Route path="/textbook/:group/:page" exact>
             <TextBook />
           </Route>
 
