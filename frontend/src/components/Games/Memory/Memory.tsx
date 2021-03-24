@@ -1,12 +1,10 @@
 import './memory.scss';
-import {MemoryProps} from "./Memory.model";
-import { useState, FC } from "react";
+import { useState, FC } from 'react';
+import { MemoryProps } from './Memory.model';
 
-const Memory: FC<MemoryProps> = () => {
-  return (
-    <>
-    </>
-  );
-}
+const Memory: FC<MemoryProps> = () => (
+  <>
+  </>
+);
 
 export default Memory;
