@@ -6,6 +6,8 @@ export interface WordListState {
   group: number;
   loading: boolean;
   error: null | string;
+  translate: boolean;
+  displayButtons: boolean;
 }
 
 interface FetchWordListAction {
@@ -27,6 +29,16 @@ interface GetWordListPage {
   payload: number;
 }
 
+interface ShowWordTranslate {
+  type: WordListActionTypes.SHOW_WORD_TRANSLATE;
+  payload: boolean;
+}
+
+interface ShowWordButtons {
+  type: WordListActionTypes.SHOW_WORD_BUTTONS;
+  payload: boolean;
+}
+
 interface GetWordListGroup {
   type: WordListActionTypes.GET_WORD_LIST_GROUP;
   payload: number;
@@ -38,6 +50,8 @@ export enum WordListActionTypes {
   FETCH_WORD_LIST_ERROR = 'FETCH_WORD_LIST_ERROR',
   GET_WORD_LIST_PAGE = 'GET_WORD_LIST_PAGE',
   GET_WORD_LIST_GROUP = 'GET_WORD_LIST_GROUP',
+  SHOW_WORD_TRANSLATE = 'SHOW_WORD_TRANSLATE',
+  SHOW_WORD_BUTTONS = 'SHOW_WORD_BUTTONS',
 }
 
 export interface WordAudioItem {
@@ -50,4 +64,6 @@ export type WordListAction =
   | FetchWordListSuccessAction
   | FetchWordListErrorAction
   | GetWordListPage
-  | GetWordListGroup;
+  | GetWordListGroup
+  | ShowWordTranslate
+  | ShowWordButtons;

@@ -7,6 +7,8 @@ const {
   FETCH_WORD_LIST_SUCCESS,
   GET_WORD_LIST_PAGE,
   GET_WORD_LIST_GROUP,
+  SHOW_WORD_TRANSLATE,
+  SHOW_WORD_BUTTONS,
 } = WordListActionTypes;
 
 const initialState: WordListState = {
@@ -15,6 +17,8 @@ const initialState: WordListState = {
   group: 0,
   loading: false,
   error: null,
+  translate: true,
+  displayButtons: true,
 };
 
 export const wordListReducer = (state = initialState, action: WordListAction): WordListState => {
@@ -33,6 +37,12 @@ export const wordListReducer = (state = initialState, action: WordListAction): W
 
     case FETCH_WORD_LIST_ERROR:
       return { ...state, loading: false, error: action.payload };
+
+    case SHOW_WORD_TRANSLATE:
+      return { ...state, translate: action.payload };
+
+    case SHOW_WORD_BUTTONS:
+      return { ...state, displayButtons: action.payload };
 
     default:
       return state;
@@ -65,7 +75,19 @@ export const changePage = (number: number) =>
   ((dispatch: Dispatch<WordListAction>): void => {
     dispatch({ type: GET_WORD_LIST_PAGE, payload: number });
   });
+
 export const changeGroup = (number: number) =>
   ((dispatch: Dispatch<WordListAction>): void => {
     dispatch({ type: GET_WORD_LIST_GROUP, payload: number });
+  });
+
+export const showTranslate = (show: boolean) =>
+  ((dispatch: Dispatch<WordListAction>): void => {
+    dispatch({ type: SHOW_WORD_TRANSLATE, payload: show });
+  });
+
+export const showButtons = (show: boolean) =>
+  ((dispatch: Dispatch<WordListAction>): void => {
+    console.log(show);
+    dispatch({ type: SHOW_WORD_BUTTONS, payload: show });
   });
