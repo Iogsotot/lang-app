@@ -5,8 +5,8 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordCard from '../WordCard';
 import {
   fetchWords,
-  changeGroup,
-  changePage,
+  setGroup,
+  setPage,
   showTranslate,
   showButtons,
 } from './WordList.reducer';
@@ -17,6 +17,7 @@ const WordList: React.FunctionComponent = () => {
     words,
     page,
     group,
+    loading,
     displayButtons,
     translate,
   } = useTypedSelector((store) => store.wordList);
@@ -41,15 +42,16 @@ const WordList: React.FunctionComponent = () => {
   };
 
   const nextPage = () => {
-    dispatch(changePage(page + 1));
+    dispatch(setPage(page + 1));
   };
 
   const prevPage = () => {
-    dispatch(changePage(page - 1));
+    dispatch(setPage(page - 1));
   };
 
   const chooseGroup = (number: number) => {
-    dispatch(changeGroup(number));
+    dispatch(setGroup(number));
+    dispatch(setPage(0));
   };
 
   useEffect(() => {
@@ -58,8 +60,8 @@ const WordList: React.FunctionComponent = () => {
   }, [group, page]);
 
   useEffect(() => {
-    dispatch(changePage(+pageFromUrl));
-    dispatch(changeGroup(+groupFromUrl));
+    dispatch(setPage(+pageFromUrl));
+    dispatch(setGroup(+groupFromUrl));
   }, []);
 
   return (
@@ -67,13 +69,23 @@ const WordList: React.FunctionComponent = () => {
       <div>
 
         {[0, 1, 2, 3, 4, 5].map((button) =>
-          <button key={button} onClick={() => chooseGroup(button)}>{button}</button>)}
+          <button disabled={button === group} key={button} onClick={() => chooseGroup(button)}>{button}</button>)}
       </div>
 
       <div>
-        <button onClick={prevPage}>prev</button>
+        <button
+          disabled={page === 0}
+          onClick={prevPage}
+        >
+          prev
+        </button>
         {page + 1}
-        <button onClick={nextPage}>next</button>
+        <button
+          disabled={page === 29}
+          onClick={nextPage}
+        >
+          next
+        </button>
       </div>
 
       <div>
@@ -98,14 +110,17 @@ const WordList: React.FunctionComponent = () => {
         </div>
       </div>
 
-      {words.map((word) => (
-        <WordCard
-          key={word.id}
-          playHandler={playHandler}
-          translate={translate}
-          displayButtons={displayButtons}
-          {...word}
-        />))}
+      {!loading
+        ? words.map((word) => (
+          <WordCard
+            key={word.id}
+            playHandler={playHandler}
+            translate={translate}
+            displayButtons={displayButtons}
+            {...word}
+          />))
+        : <h2>LOADING!!!</h2>
+      }
     </div>
   );
 };

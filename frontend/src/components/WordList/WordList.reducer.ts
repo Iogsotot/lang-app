@@ -71,12 +71,12 @@ export const fetchWords = (group: number, page: number) =>
     dispatch({ type: FETCH_WORD_LIST_SUCCESS, payload: response });
   });
 
-export const changePage = (number: number) =>
+export const setPage = (number: number) =>
   ((dispatch: Dispatch<WordListAction>): void => {
     dispatch({ type: GET_WORD_LIST_PAGE, payload: number });
   });
 
-export const changeGroup = (number: number) =>
+export const setGroup = (number: number) =>
   ((dispatch: Dispatch<WordListAction>): void => {
     dispatch({ type: GET_WORD_LIST_GROUP, payload: number });
   });
@@ -88,6 +88,5 @@ export const showTranslate = (show: boolean) =>
 
 export const showButtons = (show: boolean) =>
   ((dispatch: Dispatch<WordListAction>): void => {
-    console.log(show);
     dispatch({ type: SHOW_WORD_BUTTONS, payload: show });
   });
