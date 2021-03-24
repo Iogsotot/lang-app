@@ -11,6 +11,7 @@ const WordCard: React.FunctionComponent<WordCardProps> = (props) => {
     textExample,
     textMeaningTranslate,
     textExampleTranslate,
+    playHandler,
   } = props;
 
   return (
@@ -23,6 +24,7 @@ const WordCard: React.FunctionComponent<WordCardProps> = (props) => {
       <p className="word__meaning word__meaning-translate">{textMeaningTranslate}</p>
       <p className="word__example">{textExample}</p>
       <p className="word__example word__example-translate">{textExampleTranslate}</p>
+      <button onClick={() => playHandler(word)}>Play</button>
     </div>
   );
 };

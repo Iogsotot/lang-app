@@ -40,6 +40,11 @@ export enum WordListActionTypes {
   GET_WORD_LIST_GROUP = 'GET_WORD_LIST_GROUP',
 }
 
+export interface WordAudioItem {
+  word: string;
+  audios: string[],
+}
+
 export type WordListAction =
   FetchWordListAction
   | FetchWordListSuccessAction

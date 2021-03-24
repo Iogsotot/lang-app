@@ -8,6 +8,7 @@ import {
   changeGroup,
   changePage,
 } from './WordList.reducer';
+import { useAudios } from '../../hooks/useAudios';
 
 const WordList: React.FunctionComponent = () => {
   const { words, page, group } = useTypedSelector((store) => store.wordList);
@@ -17,6 +18,20 @@ const WordList: React.FunctionComponent = () => {
     group: groupFromUrl,
     page: pageFromUrl,
   }: { group: string, page: string } = useParams();
+  const audios = words.map((word) => ({
+    word: word.word,
+    audios: [
+      word.audio,
+      word.audioMeaning,
+      word.audioExample,
+    ],
+  }));
+  const { startAudio } = useAudios(audios);
+
+  const playHandler = (word: string) => {
+    console.log('click');
+    startAudio(word);
+  };
 
   const nextPage = () => {
     dispatch(changePage(page + 1));
@@ -48,7 +63,9 @@ const WordList: React.FunctionComponent = () => {
       <button onClick={prevPage}>prev</button>
       {page + 1}
       <button onClick={nextPage}>next</button>
-      {words.map((word) => <WordCard key={word.id} {...word} />)}
+
+      {words.map((word) =>
+        <WordCard key={word.id} playHandler={playHandler} {...word} />)}
     </div>
   );
 };
