@@ -1,5 +1,6 @@
+/* eslint-disable */
 import './savannah.scss';
-import { FC, useState, useRef } from 'react';
+import { FC, useState, useEffect, useRef } from 'react';
 import { SavannahProps } from './Savannah.model';
 
 const Savannah: FC<SavannahProps> = () => {
@@ -9,16 +10,23 @@ const Savannah: FC<SavannahProps> = () => {
   const fourthWord = 'cat';
   const currentWord = 'pterodactille';
 
-  const [count, setCount] = useState(0);
-  const countRef = useRef(count);
-  countRef.current = count;
+  const [time, setTime] = useState(false);
 
-  const getCountTimeout = () => {
-    setTimeout(() => {
-      setCount(countRef.current);
-      console.log(count);
-    }, 2000);
-  };
+  useEffect(() => {
+    if (!time) {
+      return;
+    }
+
+    const timerId = setTimeout(() => {
+      console.log('this is the end');
+
+      setTime(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [time]);
 
   return (
     <section className="savannah">
@@ -41,12 +49,19 @@ const Savannah: FC<SavannahProps> = () => {
             <a
               className="button is-info is-light"
               onClick={() => {
-                getCountTimeout();
+                setTime(true);
               }}
             >
-              {firtsWord}
+              {firtsWord} {time}
             </a>
-            <a className="button is-info is-light">{secondWord}</a>
+            <a
+              className="button is-info is-light"
+              onClick={() => {
+                setTime(false);
+              }}
+            >
+              {secondWord}
+            </a>
             <a className="button is-info is-light">{trirdWord}</a>
             <a className="button is-info is-light">{fourthWord}</a>
           </div>
