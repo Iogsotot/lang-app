@@ -11,7 +11,6 @@ const App: React.FC = () => (
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-
           <Route path="/" exact>
             <PromoPage />
           </Route>

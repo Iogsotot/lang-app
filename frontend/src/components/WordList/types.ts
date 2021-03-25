@@ -54,11 +54,6 @@ export enum WordListActionTypes {
   SHOW_WORD_BUTTONS = 'SHOW_WORD_BUTTONS',
 }
 
-export interface WordAudioItem {
-  word: string;
-  audios: string[],
-}
-
 export type WordListAction =
   FetchWordListAction
   | FetchWordListSuccessAction

@@ -1,52 +1,94 @@
 import { useState, useEffect } from 'react';
-import { WordAudioItem } from '../components/WordList/types';
+import { Word } from '../models/word';
 
-export const useAudios = (audios: WordAudioItem[]) => {
-  const list = [...audios];
-  const [currentWord, setCurrentWord] = useState<WordAudioItem>();
-  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement>();
+interface UseAudiosHook {
+  setAudio: (word: string) => void;
+  toggleAudio: () => void;
+  currentWord: string;
+  isPlaying: boolean;
+}
+
+export const useAudios = (data: Word[]): UseAudiosHook => {
+  const audios = data.map((word) => ({
+    word: word.word,
+    audios: [word.audio, word.audioMeaning, word.audioExample],
+  }));
+  const [current, setCurrent] = useState({
+    word: '',
+    audios: [''],
+  });
+  const [audioItem, setAudioItem] = useState<HTMLAudioElement | null>();
   const [audioIndex, setAudioIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  const startAudio = (word: string) => {
-    const current = list.find((wordObj) => wordObj.word === word)!;
-    const audio = new Audio(current.audios[audioIndex]);
-    setCurrentWord(current);
-
-    if (currentAudio) {
-      currentAudio.currentTime = 0;
-      audio.play();
-      setAudioIndex(audioIndex + 1);
+  const checkIsItPlayingForFixError = () => {
+    if (audioItem) {
+      return audioItem.currentTime > 0 && !audioItem.paused && !audioItem.ended
+        && audioItem.readyState > 2;
     }
 
-    setCurrentAudio(audio);
+    return false;
+  };
+
+  const play = () => {
+    if (audioItem) {
+      audioItem.play();
+      setIsPlaying(true);
+    }
+  };
+
+  const setAudio = (word: string) => {
+    const currentWord = audios.find((wordObj) => wordObj.word === word);
+    const check = checkIsItPlayingForFixError();
+
+    if (isPlaying && audioItem && check) {
+      audioItem.pause();
+      audioItem.currentTime = 0;
+      setAudioIndex(0);
+    }
+
+    if (currentWord) {
+      setCurrent(currentWord);
+      setAudioItem(new Audio(currentWord.audios[0]));
+    }
   };
 
   const playNext = () => {
-    if (audioIndex < 3 && currentWord) {
-      startAudio(currentWord?.word);
-    } else {
+    if (audioIndex >= 2) {
       setAudioIndex(0);
+      setIsPlaying(false);
+      setAudioItem(null);
+    } else {
+      setAudioIndex((prevIndex) => {
+        const newIndex = prevIndex + 1;
+        setAudioItem(new Audio(current.audios[newIndex]));
+
+        return newIndex;
+      });
     }
   };
 
-  const continueAudio = () => {};
-
-  const pauseAudio = () => {};
-
   useEffect(() => {
-    if (currentAudio) {
-      currentAudio.addEventListener('ended', playNext);
+    play();
+    audioItem?.addEventListener('ended', playNext);
+    return () => audioItem?.removeEventListener('ended', playNext);
+  }, [audioItem]);
+
+  const toggleAudio = () => {
+    const check = checkIsItPlayingForFixError();
+    if (isPlaying && check) {
+      audioItem?.pause();
+      setIsPlaying(false);
+    } else {
+      audioItem?.play();
+      setIsPlaying(true);
     }
-    return () => {
-      if (currentAudio) {
-        currentAudio.removeEventListener('ended', playNext);
-      }
-    };
-  }, [currentAudio]);
+  };
 
   return {
-    startAudio,
-    continueAudio,
-    pauseAudio,
+    setAudio,
+    toggleAudio,
+    isPlaying,
+    currentWord: current.word,
   };
 };
