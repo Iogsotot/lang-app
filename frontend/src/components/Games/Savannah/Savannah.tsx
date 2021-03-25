@@ -12,6 +12,8 @@ const Savannah: FC<SavannahProps> = () => {
 
   const [time, setTime] = useState(false);
   const [start, setStart] = useState(false);
+  let counter = 0;
+  const [startCountTimer, setStartCountTimer] = useState(counter);
 
   useEffect(() => {
     if (!time) {
@@ -21,24 +23,27 @@ const Savannah: FC<SavannahProps> = () => {
     const timerId = setTimeout(() => {
       console.log('this is the end');
       setTime(false);
-    }, 5000);
+    }, 5150);
 
     return () => {
       clearTimeout(timerId);
     };
   }, [time]);
 
+  let startGameTimerClassNames = 'timer--start';
   useEffect(() => {
-    let startCountTimer = 0;
     if (!start) {
       return;
     }
 
     const startTimerId = setInterval(() => {
-      console.log('tick');
-      startCountTimer += 1;
-      if (startCountTimer === 3) {
+      console.log('tick ' + counter);
+      counter += 1;
+      setStartCountTimer(counter);
+      if (counter === 3) {
         setTime(true);
+        startGameTimerClassNames += ' hide';
+        console.log('hide!');
         clearTimeout(startTimerId);
       }
     }, 1000);
@@ -85,14 +90,13 @@ const Savannah: FC<SavannahProps> = () => {
           </div>
 
           <div className="current-word__container title is-3 has-text-centered">
+            <div className={startGameTimerClassNames}>{startCountTimer}</div>
             <div className={currentWordClassNames}>{currentWord}</div>
           </div>
 
           <div className="answer-variants box">
             <div className="wrapper">
-              <a className="button is-info is-light">
-                {firtsWord} {time}
-              </a>
+              <a className="button is-info is-light">{firtsWord}</a>
               <a className="button is-info is-light">{secondWord}</a>
               <a className="button is-info is-light">{trirdWord}</a>
               <a className="button is-info is-light">{fourthWord}</a>

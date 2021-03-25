@@ -53,11 +53,22 @@
   }
 
   .current-word__container {
+    position: relative;
     height: 30rem;
     .current-word {
       height: inherit;
       &.start-anim {
         animation: fall 5000ms ease-in both;
+      }
+    }
+
+    .timer--start {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%);
+      &.hide {
+        animation: hide 150ms linear;
       }
     }
   }
@@ -95,5 +106,14 @@
   }
   100% {
     transform: translateY(100%);
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
