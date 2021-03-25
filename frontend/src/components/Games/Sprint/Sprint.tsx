@@ -1,8 +1,9 @@
 import React, { useState, useEffect, FC } from 'react';
 
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+
 import Button from './Button';
 import Streak from './Streak';
-import Timer from '../../Timer';
 import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
 import { animateBorderColor } from '../../../libs/common';
@@ -63,11 +64,17 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   const { word, wordTranslate } = pair;
   return (
     <div className="sprint">
-      <Timer
-        duration={60}
-        tick={tick}
-        callback={() => console.log('help!')}
-      />
+      <div className="countdown-wrapper">
+        <CountdownCircleTimer
+          onComplete={() => console.log('помогите, я застрял в коллбеке')}
+          size={80}
+          strokeWidth={3}
+          isPlaying={tick}
+          duration={10}
+          colors={'#00d1b2'}>
+          {({ remainingTime }) => remainingTime}
+        </CountdownCircleTimer>
+      </div>
       <button onClick={() => setTick((old) => !old)}>pause</button>
       <div className='box sprint__box'>
         <Streak streak={streak}/>
