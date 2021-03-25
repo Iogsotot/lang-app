@@ -1,5 +1,6 @@
 import { Dispatch } from 'react';
 import { WordListAction, WordListActionTypes, WordListState } from './types';
+import { API } from '../../constants/constants';
 
 const {
   FETCH_WORD_LIST,
@@ -54,7 +55,7 @@ export const fetchWords = (group: number, page: number) =>
     dispatch({ type: FETCH_WORD_LIST });
 
     const response = await fetch(
-      `https://rslang-2020q3.herokuapp.com/words?group=${group}&page=${page}`,
+      `${API.main}/words?group=${group}&page=${page}`,
       {
         method: 'GET',
         headers: {

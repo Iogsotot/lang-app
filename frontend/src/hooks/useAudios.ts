@@ -18,8 +18,8 @@ export const useAudios = (data: Word[]): UseAudiosHook => {
     audios: [''],
   });
   const [audioItem, setAudioItem] = useState<HTMLAudioElement | null>();
-  const [audioIndex, setAudioIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioIndex, setAudioIndex] = useState<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const checkIsItPlayingForFixError = () => {
     if (audioItem) {

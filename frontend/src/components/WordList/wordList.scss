@@ -1,7 +1,11 @@
-.words__container {
+.words {
   max-width: 900px;
-  height: 80vh;
   margin: 0 auto;
+  position: relative;
+}
+
+.words__inner {
+  height: 80vh;
   padding: 15px;
 
   position: relative;

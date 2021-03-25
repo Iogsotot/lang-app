@@ -18,7 +18,7 @@ const WordCard: React.FunctionComponent<WordCardProps> = props => {
   } = props;
 
   return (
-    <div className="word columns is-1">
+    <div className="word columns is-1 is-vcentered">
 
       <figure className="image">
         <img src={image} alt="Word" />
@@ -35,7 +35,7 @@ const WordCard: React.FunctionComponent<WordCardProps> = props => {
 
         <button className="button is-outlined" onClick={() => playHandler(word)}>
           <span className="icon is-small">
-            <i className="fas fa-volume-up"></i>
+            <i className="fas fa-volume-up">&#0;</i>
           </span>
         </button>
 
@@ -43,14 +43,14 @@ const WordCard: React.FunctionComponent<WordCardProps> = props => {
           <>
             <button className="button is-success">
               <span className="icon is-small">
-                <i className="fas fa-check"></i>
+                <i className="fas fa-check">&#0;</i>
               </span>
               <span>Save</span>
             </button>
             <button className="button is-danger is-outlined">
               <span>Delete</span>
               <span className="icon is-small">
-                <i className="fas fa-times"></i>
+                <i className="fas fa-times">&#0;</i>
               </span>
             </button>
           </>
