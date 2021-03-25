@@ -1,0 +1,17 @@
+.close-btn{
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: color .3s;
+
+  &__icon {
+    font-size: 2rem;
+    color: hsl(0, 0%, 48%);
+
+    &:hover{
+      color: hsl(0, 0%, 21%);
+    }
+  }
+}

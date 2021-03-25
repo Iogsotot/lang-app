@@ -1,9 +1,12 @@
 .sprint {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   height: 100vh;
+  grid-template-areas:
+    'timer . . close'
+    '. box box .';
   &__box {
+    grid-area: box;
     width: 30rem;
     height: 30rem;
     display: flex;
@@ -11,6 +14,7 @@
     align-items: center;
     flex-direction: column;
     border: 1px solid transparent;
+    justify-self: center;
   }
   &__game-wrapper{
     margin: auto 0;
@@ -18,9 +22,13 @@
 
 
   & .countdown-wrapper {
-    position: absolute;
-    left: 1rem;
-    top:1rem;
+    grid-area: timer;
+    margin: 1rem;
+  }
+
+  & .close-btn {
+    grid-area: close;
+    justify-self: end;
   }
 
 }

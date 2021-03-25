@@ -4,6 +4,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 import Button from './Button';
 import Streak from './Streak';
+import CloseButton from '../../CloseButton';
 import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
 import { animateBorderColor } from '../../../libs/common';
@@ -61,6 +62,10 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     setPair(findWordPair());
   };
 
+  const onCloseBtnClick = () => {
+    setTick((old) => !old);
+  };
+
   const { word, wordTranslate } = pair;
   return (
     <div className="sprint">
@@ -75,7 +80,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
           {({ remainingTime }) => remainingTime}
         </CountdownCircleTimer>
       </div>
-      <button onClick={() => setTick((old) => !old)}>pause</button>
+      <CloseButton callback={onCloseBtnClick} />
       <div className='box sprint__box'>
         <Streak streak={streak}/>
         <div className="sprint__game-wrapper">
