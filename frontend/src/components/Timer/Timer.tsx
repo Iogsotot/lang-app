@@ -8,27 +8,45 @@ import './Timer.scss';
 
 const { emptyColor, filledColor } = timerConsts;
 
-const Timer:FC<TimerProps> = ({ duration }) => {
+const Timer:FC<TimerProps> = ({ duration, tick, callback }) => {
   const timerRef = useRef<SVGCircleElement>(null);
-  const [time, setTimer] = useState(duration);
-  const start = Date.now();
-  let interval: NodeJS.Timer;
+  const [secondsElapsed, setSecondsElapsed] = useState(0);
+  const [timerId, setTimerId] = useState<NodeJS.Timer | undefined>(undefined);
+  const [start, setStart] = useState(Date.now());
+  const time = duration - secondsElapsed;
+  const clearTimerIdInterval = (id: NodeJS.Timer | undefined) => {
+    if (typeof id !== 'undefined') {
+      clearInterval(id);
+    }
+  };
+  useEffect(() => setSecondsElapsed(0), []);
   useEffect(() => {
-    timerRef.current?.animate([
-      { strokeDashoffset: 0 },
-    ],
-    {
-      duration: duration * 1000,
-      iterations: 1,
-    });
-    interval = setInterval(() => {
-      const timeLast = Math.ceil(duration - ((Date.now() - start) / 1000));
-      setTimer(timeLast >= 0 ? timeLast : 0);
-    }, 100);
+    if (!tick) {
+      clearTimerIdInterval(timerId);
+      return;
+    }
+
+    setStart(Date.now);
+    setTimerId(
+      setInterval(() => {
+        setSecondsElapsed(Math.ceil((Date.now() - start) / 1000));
+      }, 100),
+    );
+    // eslint-disable-next-line consistent-return
     return () => {
-      clearInterval(interval);
+      clearTimerIdInterval(timerId);
     };
-  }, []);
+  }, [tick]);
+  useEffect(() => {
+    if (timerRef.current) {
+      timerRef.current.style.strokeDashoffset = String(232.48 - ((232.48 / duration) * secondsElapsed));
+    }
+    if (duration > secondsElapsed) {
+      return;
+    }
+    callback();
+    clearTimerIdInterval(timerId);
+  }, [secondsElapsed]);
 
   return <svg className="timer" width="80" height="80">
     <circle

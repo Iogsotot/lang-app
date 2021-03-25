@@ -14,6 +14,7 @@ import './Sprint.scss';
 const Sprint: FC<WordsProps> = ({ words }) => {
   const [sprintWords, setSprintWords] = useState(shuffleArray(words));
   const [streak, setStreak] = useState(0);
+  const [tick, setTick] = useState(true);
   const [pair, setPair] = useState({
     word: 'null',
     wordTranslate: 'null',
@@ -62,7 +63,12 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   const { word, wordTranslate } = pair;
   return (
     <div className="sprint">
-      <Timer duration={60}/>
+      <Timer
+        duration={60}
+        tick={tick}
+        callback={() => console.log('help!')}
+      />
+      <button onClick={() => setTick((old) => !old)}>pause</button>
       <div className='box sprint__box'>
         <Streak streak={streak}/>
         <div className="sprint__game-wrapper">
