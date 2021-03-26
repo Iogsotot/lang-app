@@ -6,6 +6,7 @@ import Button from './Button';
 import Streak from './Streak';
 import ModalOnClose from './ModalOnClose';
 import CloseButton from '../../CloseButton';
+import GetReady from './GetReady';
 import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
 import { animateBorderColor } from '../../../libs/common';
@@ -17,8 +18,10 @@ import './Sprint.scss';
 const Sprint: FC<WordsProps> = ({ words }) => {
   const [sprintWords, setSprintWords] = useState(shuffleArray(words));
   const [streak, setStreak] = useState(0);
-  const [tick, setTick] = useState(true);
+  const [IsPlaying, setIsPlaying] = useState(true);
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [getReadyIsPlaying, setGetReadyIsPlaying] = useState(true);
   const [pair, setPair] = useState({
     word: 'null',
     wordTranslate: 'null',
@@ -65,7 +68,12 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   };
 
   const onCloseBtnClick = () => {
-    setTick(false);
+    if (ready) {
+      setIsPlaying(false);
+    } else {
+      setGetReadyIsPlaying(false);
+    }
+
     setModalOnCloseIsActive(true);
   };
 
@@ -74,41 +82,55 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   };
 
   const handleCancelModal = () => {
-    setTick(true);
+    if (ready) {
+      setIsPlaying(true);
+    } else {
+      setGetReadyIsPlaying(true);
+    }
     setModalOnCloseIsActive(false);
+  };
+
+  const setReadyCallback = () => {
+    setReady(true);
   };
 
   const { word, wordTranslate } = pair;
   return (
     <div className="sprint">
+      <CloseButton callback={onCloseBtnClick} />
       <ModalOnClose
         modalIsActive={modalOnCloseIsActive}
         handleCancelModal={handleCancelModal}
         handleSubmitClose={handleSubmitClose}
       />
-      <div className="countdown-wrapper">
-        <CountdownCircleTimer
-          onComplete={() => console.log('помогите, я застрял в коллбеке')}
-          size={80}
-          strokeWidth={3}
-          isPlaying={tick}
-          duration={10}
-          colors={'#00d1b2'}>
-          {({ remainingTime }) => remainingTime}
-        </CountdownCircleTimer>
-      </div>
-      <CloseButton callback={onCloseBtnClick} />
-      <div className='box sprint__box'>
-        <Streak streak={streak}/>
-        <div className="sprint__game-wrapper">
-          <div className="title">{word}</div>
-          <div className="subtitle">{wordTranslate}</div>
-          <div className="buttons">
-            <Button className="is-danger" text="Wrong" onBtnClick={handleAnswerBtnClick} props={false}/>
-            <Button className="is-success" text="Correct" onBtnClick={handleAnswerBtnClick} props={true}/>
+      {!ready ?
+        <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback}/> :
+        <>
+          <div className="countdown-wrapper">
+            <CountdownCircleTimer
+              onComplete={() => console.log('помогите, я застрял в коллбеке')}
+              size={80}
+              strokeWidth={3}
+              isPlaying={IsPlaying}
+              duration={60}
+              colors={'#00d1b2'}>
+              {({ remainingTime }) => remainingTime}
+            </CountdownCircleTimer>
           </div>
-        </div>
-      </div>
+
+          <div className='box sprint__box'>
+            <Streak streak={streak}/>
+            <div className="sprint__game-wrapper">
+              <div className="title">{word}</div>
+              <div className="subtitle">{wordTranslate}</div>
+              <div className="buttons">
+                <Button className="is-danger" text="Wrong" onBtnClick={handleAnswerBtnClick} props={false}/>
+                <Button className="is-success" text="Correct" onBtnClick={handleAnswerBtnClick} props={true}/>
+              </div>
+            </div>
+          </div>
+        </>
+      }
     </div>
   );
 };

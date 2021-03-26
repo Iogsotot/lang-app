@@ -33,7 +33,14 @@
       outline: none;
     }
   }
+
   .modal-buttons {
     justify-content: center;
+  }
+
+  .get-ready {
+    grid-area: box;
+    justify-self: center;
+    // align-self: start;
   }
 }
