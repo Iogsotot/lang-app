@@ -25,7 +25,8 @@
     margin: 1rem;
     cursor: pointer;
 
-    &.pause > div {
+    &.pause div[aria-label='Countdown timer'] > div {
+      font-size: 2rem;
       &::before,
       &::after {
         height: 2px;
@@ -43,11 +44,11 @@
       }
 
       &::before {
-        transform: translateY(37.5px) translateX(34px) rotate(90deg);
+        transform: translateY(50%) translateX(20%) rotate(90deg);
       }
 
       &::after {
-        transform: translateY(-48px) translateX(22px) rotate(90deg);
+        transform: translateY(-30%) translateX(-20%) rotate(90deg);
       }
     }
   }
