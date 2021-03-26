@@ -14,7 +14,7 @@ const {
 } = modalOnClose;
 
 const ModalOnClose:FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal, handleSubmitClose }) => (
-  <div className={`modal ${modalIsActive ? 'is-active' : ''}`}>
+  <div className={`modal ${modalIsActive ? 'is-active' : null}`}>
     <div onClick={handleCancelModal} className="modal-background"></div>
     <div className="modal-content">
       <div className="box">
