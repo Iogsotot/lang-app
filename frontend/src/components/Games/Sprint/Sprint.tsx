@@ -13,7 +13,20 @@ import { animateBorderColor } from '../../../libs/common';
 import { WordsProps, Word } from '../../../models';
 import { WordPair } from './Sprint.model';
 
+import { sprintConsts } from '../../constants';
+
 import './Sprint.scss';
+
+const {
+  gameDuration,
+  timerColor,
+  colorOnCorrectAnswer,
+  colorOnWrongAnswer,
+  wrongBtnText,
+  correctBtnText,
+  timerSize,
+  timerStrokeWidth,
+} = sprintConsts;
 
 const Sprint: FC<WordsProps> = ({ words }) => {
   const [sprintWords, setSprintWords] = useState(shuffleArray(words));
@@ -58,11 +71,11 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     if (compareAnswer(arg, pair.answer)) {
       // correct answer
       setStreak((old) => old + 1);
-      animateBorderColor('.sprint__box', '141, 71%, 48%');
+      animateBorderColor('.sprint__box', colorOnCorrectAnswer);
     } else {
       // wrong answer
       setStreak(0);
-      animateBorderColor('.sprint__box', '348, 100%, 61%');
+      animateBorderColor('.sprint__box', colorOnWrongAnswer);
     }
     setPair(findWordPair());
   };
@@ -109,11 +122,11 @@ const Sprint: FC<WordsProps> = ({ words }) => {
           <div className="countdown-wrapper">
             <CountdownCircleTimer
               onComplete={() => console.log('помогите, я застрял в коллбеке')}
-              size={80}
-              strokeWidth={3}
+              size={timerSize}
+              strokeWidth={timerStrokeWidth}
               isPlaying={IsPlaying}
-              duration={60}
-              colors={'#00d1b2'}>
+              duration={gameDuration}
+              colors={timerColor}>
               {({ remainingTime }) => remainingTime}
             </CountdownCircleTimer>
           </div>
@@ -124,8 +137,8 @@ const Sprint: FC<WordsProps> = ({ words }) => {
               <div className="title">{word}</div>
               <div className="subtitle">{wordTranslate}</div>
               <div className="buttons">
-                <Button className="is-danger" text="Wrong" onBtnClick={handleAnswerBtnClick} props={false}/>
-                <Button className="is-success" text="Correct" onBtnClick={handleAnswerBtnClick} props={true}/>
+                <Button className="is-danger" text={wrongBtnText} onBtnClick={handleAnswerBtnClick} props={false}/>
+                <Button className="is-success" text={correctBtnText} onBtnClick={handleAnswerBtnClick} props={true}/>
               </div>
             </div>
           </div>
