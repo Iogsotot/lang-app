@@ -68,6 +68,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   }, []);
 
   const handleAnswerBtnClick = (arg:boolean):void => {
+    if (!IsPlaying) return;
     if (compareAnswer(arg, pair.answer)) {
       // correct answer
       setStreak((old) => old + 1);
@@ -107,6 +108,10 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     setReady(true);
   };
 
+  const togglePause = () => {
+    setIsPlaying(old => !old);
+  };
+
   const { word, wordTranslate } = pair;
   return (
     <div className="sprint">
@@ -119,7 +124,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
       {!ready ?
         <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback}/> :
         <>
-          <div className="countdown-wrapper">
+          <div onClick={togglePause} className={`countdown-wrapper ${!IsPlaying ? 'pause' : null}`}>
             <CountdownCircleTimer
               onComplete={() => console.log('помогите, я застрял в коллбеке')}
               size={timerSize}
@@ -127,7 +132,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
               isPlaying={IsPlaying}
               duration={gameDuration}
               colors={timerColor}>
-              {({ remainingTime }) => remainingTime}
+              {({ remainingTime }) => (IsPlaying ? remainingTime : null)}
             </CountdownCircleTimer>
           </div>
 

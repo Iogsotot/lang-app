@@ -23,6 +23,33 @@
   & .countdown-wrapper {
     grid-area: timer;
     margin: 1rem;
+    cursor: pointer;
+
+    &.pause > div {
+      &::before,
+      &::after {
+        height: 2px;
+        width: 1.6rem;
+        background-color: hsl(0, 0%, 48%);
+        content: '';
+        display: block;
+        position: absolute;
+        transform-origin: center center;
+      }
+
+      &:hover::before,
+      &:hover::after {
+        background-color: hsl(0, 0%, 21%);
+      }
+
+      &::before {
+        transform: translateY(37.5px) translateX(34px) rotate(90deg);
+      }
+
+      &::after {
+        transform: translateY(-48px) translateX(22px) rotate(90deg);
+      }
+    }
   }
 
   & .close-btn {
@@ -41,6 +68,5 @@
   .get-ready {
     grid-area: box;
     justify-self: center;
-    // align-self: start;
   }
 }
