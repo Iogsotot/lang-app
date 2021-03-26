@@ -1,8 +1,7 @@
-import './wordCard.scss';
-import React from 'react';
+import React, { FC } from 'react';
 import { WordCardProps } from './WordCard.model';
 
-const WordCard: React.FunctionComponent<WordCardProps> = props => {
+const WordCard: FC<WordCardProps> = props => {
   const {
     word,
     transcription,
@@ -55,7 +54,7 @@ const WordCard: React.FunctionComponent<WordCardProps> = props => {
             </button>
           </>
         ) : (
-          ''
+          <></>
         )}
       </div>
     </div>

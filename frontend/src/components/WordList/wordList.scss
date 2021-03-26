@@ -7,20 +7,60 @@
 .words__inner {
   height: 80vh;
   padding: 15px;
-
   position: relative;
-
   overflow: auto;
 }
 
 .audio__controller {
   width: 100%;
   height: 50px;
-
   position: absolute;
   bottom: 0;
   left: 0;
   z-index: 1;
-
   background: #f4f4f4;
+}
+
+@keyframes ldio-letuulz7yil {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.ldio-letuulz7yil div {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 10px solid #93dbe9;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+
+.ldio-letuulz7yil div {
+  animation: ldio-letuulz7yil 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loadingio-spinner-rolling-awd1kz1suql {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ldio-letuulz7yil {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(0.95);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+
+.ldio-letuulz7yil div {
+  box-sizing: content-box;
 }

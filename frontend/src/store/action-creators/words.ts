@@ -1,6 +1,8 @@
 import { Dispatch } from 'react';
-import { WordListAction, WordListActionTypes, WordListState } from './types';
-import { API } from '../../constants/constants';
+import { constants } from '../../constants';
+import { WordListAction, WordListActionTypes } from '../../models/word';
+
+const { API_BASE_URL } = constants;
 
 const {
   FETCH_WORD_LIST,
@@ -12,50 +14,12 @@ const {
   SHOW_WORD_BUTTONS,
 } = WordListActionTypes;
 
-const initialState: WordListState = {
-  words: [],
-  page: 0,
-  group: 0,
-  loading: false,
-  error: null,
-  translate: true,
-  displayButtons: true,
-};
-
-export const wordListReducer = (state = initialState, action: WordListAction): WordListState => {
-  switch (action.type) {
-    case FETCH_WORD_LIST:
-      return { ...state, loading: true };
-
-    case GET_WORD_LIST_PAGE:
-      return { ...state, page: action.payload };
-
-    case GET_WORD_LIST_GROUP:
-      return { ...state, group: action.payload };
-
-    case FETCH_WORD_LIST_SUCCESS:
-      return { ...state, loading: false, words: action.payload };
-
-    case FETCH_WORD_LIST_ERROR:
-      return { ...state, loading: false, error: action.payload };
-
-    case SHOW_WORD_TRANSLATE:
-      return { ...state, translate: action.payload };
-
-    case SHOW_WORD_BUTTONS:
-      return { ...state, displayButtons: action.payload };
-
-    default:
-      return state;
-  }
-};
-
 export const fetchWords = (group: number, page: number) =>
   (async (dispatch: Dispatch<WordListAction>): Promise<void> => {
     dispatch({ type: FETCH_WORD_LIST });
 
     const response = await fetch(
-      `${API.main}/words?group=${group}&page=${page}`,
+      `${API_BASE_URL}/words?group=${group}&page=${page}`,
       {
         method: 'GET',
         headers: {

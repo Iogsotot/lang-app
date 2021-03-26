@@ -2,13 +2,13 @@ import './App.scss';
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import TextBook from './components/Textbook/index';
-import PromoPage from './components/PromoPage/index';
-import { store } from './store/store';
+import TextBook from './components/Textbook';
+import PromoPage from './components/PromoPage';
+import { index } from './store';
 
 const App: React.FC = () => (
   <div className="App">
-    <Provider store={store}>
+    <Provider store={index}>
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>

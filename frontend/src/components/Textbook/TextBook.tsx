@@ -1,7 +1,7 @@
-import React from 'react';
-import WordList from '../WordList/index';
+import React, { FC } from 'react';
+import WordList from '../WordList';
 
-const TextBook: React.FunctionComponent = () => (
+const TextBook: FC = () => (
   <div className="textbook">
     <WordList />
   </div>

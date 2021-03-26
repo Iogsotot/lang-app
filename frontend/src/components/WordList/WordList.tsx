@@ -1,16 +1,17 @@
 import './wordList.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordCard from '../WordCard';
-import { fetchWords, setGroup, setPage, showTranslate, showButtons } from './WordList.reducer';
 import { useAudios } from '../../hooks/useAudios';
-import { WORD_GROUPS } from '../../constants/constants';
+import { constants } from '../../constants';
 
-const WordList: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
+const { WORD_GROUPS } = constants;
+
+const WordList: FC = () => {
   const history = useHistory();
+  const { fetchWords, setGroup, setPage, showButtons, showTranslate } = useAction();
   const { group: groupFromUrl, page: pageFromUrl }: { group: string; page: string } = useParams();
   const [openSettings, setOpenSettings] = useState<boolean>(false);
   const { words, page, group, loading, displayButtons, translate } = useTypedSelector(store => store.wordList);
@@ -21,16 +22,16 @@ const WordList: React.FunctionComponent = () => {
   };
 
   const nextPage = () => {
-    dispatch(setPage(page + 1));
+    setPage(page + 1);
   };
 
   const prevPage = () => {
-    dispatch(setPage(page - 1));
+    setPage(page - 1);
   };
 
   const chooseGroup = (number: number) => {
-    dispatch(setGroup(number));
-    dispatch(setPage(0));
+    setGroup(number);
+    setPage(0);
   };
 
   const handleSettings = () => {
@@ -38,17 +39,17 @@ const WordList: React.FunctionComponent = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchWords(group, page));
+    fetchWords(group, page);
     history.push(`/textbook/${group}/${page}`);
   }, [group, page]);
 
   useEffect(() => {
-    dispatch(setPage(+pageFromUrl));
-    dispatch(setGroup(+groupFromUrl));
+    setPage(+pageFromUrl);
+    setGroup(+groupFromUrl);
   }, []);
 
   return (
-    <main>
+    <section>
       <div>
         <p>Groups</p>
         {Object.entries(WORD_GROUPS).map(([key, value]) => (
@@ -79,7 +80,7 @@ const WordList: React.FunctionComponent = () => {
                 type="checkbox"
                 name="translate"
                 checked={translate}
-                onChange={() => dispatch(showTranslate(!translate))}
+                onChange={() => showTranslate(!translate)}
               />
             </div>
             <hr className="dropdown-divider" />
@@ -89,7 +90,7 @@ const WordList: React.FunctionComponent = () => {
                 type="checkbox"
                 name="buttons"
                 checked={displayButtons}
-                onChange={() => dispatch(showButtons(!displayButtons))}
+                onChange={() => showButtons(!displayButtons)}
               />
             </div>
           </div>
@@ -118,7 +119,11 @@ const WordList: React.FunctionComponent = () => {
               />
             ))
           ) : (
-            <h2>LOADING!!!</h2>
+            <div className="loadingio-spinner-rolling-awd1kz1suql">
+              <div className="ldio-letuulz7yil">
+                <div>&#0;</div>
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -132,7 +137,7 @@ const WordList: React.FunctionComponent = () => {
           next
         </button>
       </div>
-    </main>
+    </section>
   );
 };
 
