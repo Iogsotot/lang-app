@@ -1,6 +1,6 @@
 export interface ButtonProps {
-  answer: boolean;
-  onBtnClick: (arg0: boolean) => void;
+  props?: any;
+  onBtnClick: (...args: any) => void;
   text: string;
   className: string;
 }

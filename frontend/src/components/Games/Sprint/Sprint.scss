@@ -16,10 +16,9 @@
     border: 1px solid transparent;
     justify-self: center;
   }
-  &__game-wrapper{
+  &__game-wrapper {
     margin: auto 0;
   }
-
 
   & .countdown-wrapper {
     grid-area: timer;
@@ -29,7 +28,12 @@
   & .close-btn {
     grid-area: close;
     justify-self: end;
+
+    &:focus {
+      outline: none;
+    }
   }
-
+  .modal-buttons {
+    justify-content: center;
+  }
 }
-

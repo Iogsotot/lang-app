@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import { ButtonProps } from './Button.model';
 
-const Button: FC<ButtonProps> = ({ answer, onBtnClick, text, className }) => {
+const Button: FC<ButtonProps> = ({ props, onBtnClick, text, className }) => {
   const handleClick = () => {
-    onBtnClick(answer);
+    onBtnClick(props);
   };
 
   return (

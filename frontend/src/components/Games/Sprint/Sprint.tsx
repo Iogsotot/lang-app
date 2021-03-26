@@ -4,6 +4,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 import Button from './Button';
 import Streak from './Streak';
+import ModalOnClose from './ModalOnClose';
 import CloseButton from '../../CloseButton';
 import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
@@ -17,6 +18,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   const [sprintWords, setSprintWords] = useState(shuffleArray(words));
   const [streak, setStreak] = useState(0);
   const [tick, setTick] = useState(true);
+  const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [pair, setPair] = useState({
     word: 'null',
     wordTranslate: 'null',
@@ -49,7 +51,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     setPair(findWordPair());
   }, []);
 
-  const handleBtnClick = (arg:boolean):void => {
+  const handleAnswerBtnClick = (arg:boolean):void => {
     if (compareAnswer(arg, pair.answer)) {
       // correct answer
       setStreak((old) => old + 1);
@@ -63,12 +65,27 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   };
 
   const onCloseBtnClick = () => {
-    setTick((old) => !old);
+    setTick(false);
+    setModalOnCloseIsActive(true);
+  };
+
+  const handleSubmitClose = () => {
+    window.location.href = '../';
+  };
+
+  const handleCancelModal = () => {
+    setTick(true);
+    setModalOnCloseIsActive(false);
   };
 
   const { word, wordTranslate } = pair;
   return (
     <div className="sprint">
+      <ModalOnClose
+        modalIsActive={modalOnCloseIsActive}
+        handleCancelModal={handleCancelModal}
+        handleSubmitClose={handleSubmitClose}
+      />
       <div className="countdown-wrapper">
         <CountdownCircleTimer
           onComplete={() => console.log('помогите, я застрял в коллбеке')}
@@ -87,8 +104,8 @@ const Sprint: FC<WordsProps> = ({ words }) => {
           <div className="title">{word}</div>
           <div className="subtitle">{wordTranslate}</div>
           <div className="buttons">
-            <Button className="is-danger" text="Wrong" onBtnClick={handleBtnClick} answer={false}/>
-            <Button className="is-success" text="Correct" onBtnClick={handleBtnClick} answer={true}/>
+            <Button className="is-danger" text="Wrong" onBtnClick={handleAnswerBtnClick} props={false}/>
+            <Button className="is-success" text="Correct" onBtnClick={handleAnswerBtnClick} props={true}/>
           </div>
         </div>
       </div>
