@@ -58,10 +58,22 @@ const Savannah: FC<SavannahProps> = () => {
     currentWordClassNames += ' start-anim';
   }
 
+  function resetGame() {
+    setStart(false);
+    setTime(false);
+    setStartCountTimer(maxCount);
+    counter = 0;
+  }
+  
   return (
     <section className="savannah">
       <div className="overlay"></div>
-      <div className="btn--close" onClick={() => setStart(false)}>
+      <div
+        className="btn--close"
+        onClick={() => {
+          resetGame();
+        }}
+      >
         <i className="far fa-times"></i>
       </div>
 
