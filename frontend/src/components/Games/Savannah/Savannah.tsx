@@ -36,7 +36,6 @@ const Savannah: FC<SavannahProps> = () => {
       return;
     }
 
-    let startGameTimerClassNames = 'timer--start';
     const startTimerId = setInterval(() => {
       console.log('tick ' + counter);
       counter += 1;

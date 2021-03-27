@@ -1,5 +1,7 @@
 other
 package-lock.json
+.DS_Store
+.idea
 # Logs
 logs
 *.log
