@@ -67,9 +67,6 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%);
-      &.hide {
-        animation: hide 150ms linear;
-      }
     }
   }
   .status-bar {
@@ -109,11 +106,3 @@
   }
 }
 
-@keyframes hide {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}

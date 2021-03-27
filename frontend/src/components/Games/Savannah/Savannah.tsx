@@ -13,7 +13,8 @@ const Savannah: FC<SavannahProps> = () => {
   const [time, setTime] = useState(false);
   const [start, setStart] = useState(false);
   let counter = 0;
-  const [startCountTimer, setStartCountTimer] = useState(counter);
+  const maxCount = 3;
+  const [startCountTimer, setStartCountTimer] = useState<number | null>(maxCount);
 
   useEffect(() => {
     if (!time) {
@@ -30,21 +31,21 @@ const Savannah: FC<SavannahProps> = () => {
     };
   }, [time]);
 
-  let startGameTimerClassNames = 'timer--start';
   useEffect(() => {
     if (!start) {
       return;
     }
 
+    let startGameTimerClassNames = 'timer--start';
     const startTimerId = setInterval(() => {
       console.log('tick ' + counter);
       counter += 1;
-      setStartCountTimer(counter);
+
+      setStartCountTimer(maxCount - counter);
       if (counter === 3) {
         setTime(true);
-        startGameTimerClassNames += ' hide';
-        console.log('hide!');
         clearTimeout(startTimerId);
+        setStartCountTimer(null);
       }
     }, 1000);
 
@@ -90,7 +91,7 @@ const Savannah: FC<SavannahProps> = () => {
           </div>
 
           <div className="current-word__container title is-3 has-text-centered">
-            <div className={startGameTimerClassNames}>{startCountTimer}</div>
+            <div className="timer--start">{startCountTimer}</div>
             <div className={currentWordClassNames}>{currentWord}</div>
           </div>
 
