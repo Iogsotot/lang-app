@@ -2,19 +2,42 @@
 import './savannah.scss';
 import { FC, useState, useEffect, useRef } from 'react';
 import { SavannahProps } from './Savannah.model';
+import { constants } from '../../../constants';
 
 const Savannah: FC<SavannahProps> = () => {
-  const firtsWord = 'crocodile';
-  const secondWord = 'duck';
-  const trirdWord = 'snake';
-  const fourthWord = 'cat';
-  const currentWord = 'pterodactille';
+  const { WORD_GROUPS, API_BASE_URL } = constants;
+  const [group, setGroup] = useState(0);
+  const [page, setPage] = useState(0);
+  const [currentWords, setCurrentWords] = useState([]);
+
+  async function fetchWords(page: number, group: number) {
+    const response = await fetch(`${API_BASE_URL}/words?group=${group}&page=${page}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(data => data.json().then(words => setCurrentWords(words)))
+      .catch(error => {
+        console.log(error);
+      });
+    return response;
+  }
 
   const [time, setTime] = useState(false);
   const [start, setStart] = useState(false);
   let counter = 0;
   const maxCount = 3;
   const [startCountTimer, setStartCountTimer] = useState<number | null>(maxCount);
+
+  useEffect(() => {
+    fetchWords(page, group);
+  }, [group, page]);
+
+  useEffect(() => {
+    console.log(currentWords);
+  }, [currentWords]);
 
   useEffect(() => {
     if (!time) {
@@ -64,7 +87,7 @@ const Savannah: FC<SavannahProps> = () => {
     setStartCountTimer(maxCount);
     counter = 0;
   }
-  
+
   return (
     <section className="savannah">
       <div className="overlay"></div>
@@ -84,6 +107,14 @@ const Savannah: FC<SavannahProps> = () => {
             In this game you will be able to repeat the learned words. You must have time to choose the correct
             translation of the word before it falls.
           </p>
+          <div>
+            <p>Groups</p>
+            {Object.entries(WORD_GROUPS).map(([key, value]) => (
+              <button disabled={value === group} key={key} onClick={() => setGroup(value)}>
+                {key}
+              </button>
+            ))}
+          </div>
           <a href="#" className="btn button is-primary is-outlined" onClick={() => setStart(true)}>
             Start game!
           </a>
@@ -103,15 +134,15 @@ const Savannah: FC<SavannahProps> = () => {
 
           <div className="current-word__container title is-3 has-text-centered">
             <div className="timer--start">{startCountTimer}</div>
-            <div className={currentWordClassNames}>{currentWord}</div>
+            <div className={currentWordClassNames}>{currentWords[0]['wordTranslate']}</div>
           </div>
 
           <div className="answer-variants box">
             <div className="wrapper">
-              <a className="button is-info is-light">{firtsWord}</a>
-              <a className="button is-info is-light">{secondWord}</a>
-              <a className="button is-info is-light">{trirdWord}</a>
-              <a className="button is-info is-light">{fourthWord}</a>
+              <a className="button is-info is-light">{currentWords[1]['word']}</a>
+              <a className="button is-info is-light">{currentWords[0]['word']}</a>
+              <a className="button is-info is-light">{currentWords[3]['word']}</a>
+              <a className="button is-info is-light">{currentWords[4]['word']}</a>
             </div>
           </div>
         </div>
