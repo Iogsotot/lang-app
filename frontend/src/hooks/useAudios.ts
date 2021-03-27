@@ -9,9 +9,9 @@ interface UseAudiosHook {
 }
 
 export const useAudios = (data: Word[]): UseAudiosHook => {
-  const audios = data.map((word) => ({
-    word: word.word,
-    audios: [word.audio, word.audioMeaning, word.audioExample],
+  const audios = data.map(({ word, audio, audioExample, audioMeaning }) => ({
+    word,
+    audios: [audio, audioMeaning, audioExample],
   }));
   const [current, setCurrent] = useState({
     word: '',

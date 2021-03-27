@@ -29,8 +29,8 @@ const WordList: FC = () => {
     setPage(page - 1);
   };
 
-  const chooseGroup = (number: number) => {
-    setGroup(number);
+  const chooseGroup = (groupNumber: number) => {
+    setGroup(groupNumber);
     setPage(0);
   };
 
@@ -44,8 +44,10 @@ const WordList: FC = () => {
   }, [group, page]);
 
   useEffect(() => {
-    setPage(+pageFromUrl);
-    setGroup(+groupFromUrl);
+    if (Number.isInteger(+pageFromUrl) && Number.isInteger(+groupFromUrl)) {
+      setPage(+pageFromUrl);
+      setGroup(+groupFromUrl);
+    }
   }, []);
 
   return (
@@ -119,8 +121,8 @@ const WordList: FC = () => {
               />
             ))
           ) : (
-            <div className="loadingio-spinner-rolling-awd1kz1suql">
-              <div className="ldio-letuulz7yil">
+            <div className="spinner">
+              <div className="spinner__inner">
                 <div>&#0;</div>
               </div>
             </div>
