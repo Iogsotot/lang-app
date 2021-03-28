@@ -23,9 +23,9 @@
   & .countdown-wrapper {
     height: fit-content;
     width: fit-content;
-    font-size: 1.8rem;
     grid-area: timer;
     margin: 1rem;
+    user-select: none;
     cursor: pointer;
 
     &.pause div[aria-label='Countdown timer'] > div {
