@@ -199,7 +199,7 @@ const Audiocall: FC = () => {
   const [currentWordNumber, setCurrentWordNumber] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[currentWordNumber]);
 
-  const stepAnswers = [currentWord.wordTranslate];
+  const stepAnswers = [currentWord?.wordTranslate] || '';
   const fillStepAnswers = () => {
     while (stepAnswers.length < 5) {
       const randomWordNumber = Math.floor(Math.random() * words.length);
@@ -222,8 +222,15 @@ const Audiocall: FC = () => {
   };
 
   useEffect(() => {
-    playAudio();
+    if (currentWordNumber < words.length) playAudio();
   }, [currentWord]);
+
+  useEffect(() => {
+    setCurrentWord(words[currentWordNumber]);
+    fillStepAnswers();
+    shuffle(stepAnswers);
+    setCurrentView(false);
+  }, [currentWordNumber]);
 
   const OpenCurrentWord = () => (
     <div>
@@ -238,17 +245,19 @@ const Audiocall: FC = () => {
     </div>
   );
   const nextStep = () => {
-    setCurrentWordNumber(currentWordNumber + 1);
-    setCurrentWord(words[currentWordNumber]);
-    fillStepAnswers();
-    shuffle(stepAnswers);
-    setCurrentView(false);
+    if (currentWordNumber < words.length) setCurrentWordNumber(currentWordNumber + 1);
+  };
+
+  const answerClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setCurrentView(true);
+    const target = e.target as Element;
+    if (target.innerHTML === currentWord.wordTranslate) setCount(count + 1);
   };
 
   fillStepAnswers();
   shuffle(stepAnswers);
   if (currentWordNumber >= words.length) {
-    return <div>FINISH</div>;
+    return <div>{`${count} изучено, ${words.length - count} на изучении`}</div>;
   }
   return (
     <div className="audiocall">
@@ -257,19 +266,19 @@ const Audiocall: FC = () => {
         {!currentView && <CloseCurrentWord />}
       </div>
       <div className="variants">
-        <button className="word_button" onClick={() => setCurrentView(true)}>
+        <button className="word_button" onClick={(e) => answerClick(e)}>
           {stepAnswers[0]}
         </button>
-        <button className="word_button" onClick={() => setCurrentView(true)}>
+        <button className="word_button" onClick={(e) => answerClick(e)}>
           {stepAnswers[1]}
         </button>
-        <button className="word_button" onClick={() => setCurrentView(true)}>
+        <button className="word_button" onClick={(e) => answerClick(e)}>
           {stepAnswers[2]}
         </button>
-        <button className="word_button" onClick={() => setCurrentView(true)}>
+        <button className="word_button" onClick={(e) => answerClick(e)}>
           {stepAnswers[3]}
         </button>
-        <button className="word_button" onClick={() => setCurrentView(true)}>
+        <button className="word_button" onClick={(e) => answerClick(e)}>
           {stepAnswers[4]}
         </button>
       </div>
