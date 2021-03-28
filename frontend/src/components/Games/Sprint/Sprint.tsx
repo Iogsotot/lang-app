@@ -124,7 +124,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
       {!ready ?
         <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback}/> :
         <>
-          <div onClick={togglePause} className={`countdown-wrapper ${!IsPlaying ? 'pause' : null}`}>
+          <div onClick={togglePause} className={`countdown-wrapper ${!IsPlaying ? 'pause' : ''}`}>
             <CountdownCircleTimer
               onComplete={() => console.log('помогите, я застрял в коллбеке')}
               size={timerSize}
