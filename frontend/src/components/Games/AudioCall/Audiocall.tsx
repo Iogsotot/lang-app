@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
+import './Audiocall.scss';
 
 const Audiocall: FC = () => {
   const [count, setCount] = useState(0);
@@ -231,19 +232,6 @@ const Audiocall: FC = () => {
     shuffle(stepAnswers);
     setCurrentView(false);
   }, [currentWordNumber]);
-
-  const OpenCurrentWord = () => (
-    <div>
-      <img src={`https://rslang-2020q3.herokuapp.com/${currentWord.image}`} />
-      <button onClick={playAudio}>Play</button>
-      <div>{currentWord.word}</div>
-    </div>
-  );
-  const CloseCurrentWord = () => (
-    <div>
-      <button onClick={playAudio}>Play</button>
-    </div>
-  );
   const nextStep = () => {
     if (currentWordNumber < words.length) setCurrentWordNumber(currentWordNumber + 1);
   };
@@ -256,34 +244,67 @@ const Audiocall: FC = () => {
 
   fillStepAnswers();
   shuffle(stepAnswers);
+
+  const OpenCurrentWord = () => (
+    <div className="audiocall__current-word">
+      <div className="audiocall__current-word__img">
+        <img src={`https://rslang-2020q3.herokuapp.com/${currentWord.image}`} />
+      </div>
+      <button onClick={playAudio} className="audiocall__volume volume-button">
+        <i className="fas fa-volume-up"></i>
+      </button>
+      <div className="audiocall__current-word__text">{currentWord.word}</div>
+    </div>
+  );
+
+  const CloseCurrentWord = () => (
+    <div className="audiocall__current-word">
+      <button onClick={playAudio} className="audiocall__volume_main volume-button">
+        <i className="fas fa-volume-up"></i>
+      </button>
+    </div>
+  );
+
   if (currentWordNumber >= words.length) {
     return <div>{`${count} изучено, ${words.length - count} на изучении`}</div>;
   }
   return (
     <div className="audiocall">
-      <div className="current_word__box">
-        {currentView && <OpenCurrentWord />}
-        {!currentView && <CloseCurrentWord />}
+      <div className="audiocall_inner">
+        <div>
+          {currentView && <OpenCurrentWord />}
+          {!currentView && <CloseCurrentWord />}
+        </div>
+        <div className="audiocall__answers">
+          <div className="audiocall__answers__variants">
+            <button className="button is-ghost" onClick={e => answerClick(e)}>
+              {stepAnswers[0]}
+            </button>
+            <button className="button is-ghost" onClick={e => answerClick(e)}>
+              {stepAnswers[1]}
+            </button>
+            <button className="button is-ghost" onClick={e => answerClick(e)}>
+              {stepAnswers[2]}
+            </button>
+            <button className="button is-ghost" onClick={e => answerClick(e)}>
+              {stepAnswers[3]}
+            </button>
+            <button className="button is-ghost" onClick={e => answerClick(e)}>
+              {stepAnswers[4]}
+            </button>
+          </div>
+          {currentView && (
+            <button className="button is-danger" onClick={() => nextStep()}>
+              <i className="fas fa-angle-double-right"></i>
+            </button>
+          )}
+          {!currentView && (
+            <button className="button is-danger" onClick={() => setCurrentView(true)}>
+              Я не знаю
+            </button>
+          )}
+        </div>
       </div>
-      <div className="variants">
-        <button className="word_button" onClick={(e) => answerClick(e)}>
-          {stepAnswers[0]}
-        </button>
-        <button className="word_button" onClick={(e) => answerClick(e)}>
-          {stepAnswers[1]}
-        </button>
-        <button className="word_button" onClick={(e) => answerClick(e)}>
-          {stepAnswers[2]}
-        </button>
-        <button className="word_button" onClick={(e) => answerClick(e)}>
-          {stepAnswers[3]}
-        </button>
-        <button className="word_button" onClick={(e) => answerClick(e)}>
-          {stepAnswers[4]}
-        </button>
-      </div>
-      {currentView && <button onClick={() => nextStep()}>Next</button>}
-      {!currentView && <button onClick={() => setCurrentView(true)}>Я не знаю</button>}
     </div>
   );
 };

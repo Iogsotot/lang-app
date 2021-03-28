@@ -1,0 +1,107 @@
+.audiocall {
+  width: 100vw;
+  height: 100vh;
+  background: rgb(141, 219, 224);
+  background: linear-gradient(0deg, rgba(141, 219, 224, 1) 0%, rgba(70, 92, 255, 1) 100%);
+
+  &_inner {
+    margin: 0 auto;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__current-word {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    & img {
+      width: 250px;
+      height: 250px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    &__text {
+        font-size: 1.8rem;
+        color: #465CFF;
+    }
+  }
+
+  &__answers {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 15%;
+
+    &__variants {
+      width: 80%;
+      display: flex;
+      justify-content: space-around;
+
+      & button {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__volume {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+
+    &_main {
+      width: 150px;
+      height: 150px;
+      font-size: 75px;
+    }
+  }
+
+  & .button.is-ghost {
+    color: #fff;
+
+    &:hover {
+        text-decoration: none;
+        color: #FFEB7D;
+    }
+  }
+
+  & .button.is-danger {
+    color: #fff;
+        background-color: #FF5C76;
+        font-size: 1.5rem;
+
+    &:hover {
+        background-color: #e94c66;
+    }
+  }
+}
+
+.volume-button {
+  background-color: transparent;
+  border-radius: 50%;
+  color: #FFEB7D;
+  border: none;
+
+  &:hover {
+    background-color: #fff3;
+  }
+
+  &:active {
+    outline: none;
+    background-color: #fff5;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+}
