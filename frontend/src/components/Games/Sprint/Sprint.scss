@@ -21,6 +21,7 @@
   }
 
   & .countdown-wrapper {
+    font-size: 1.8rem;
     grid-area: timer;
     margin: 1rem;
     cursor: pointer;
@@ -44,11 +45,11 @@
       }
 
       &::before {
-        transform: translateY(50%) translateX(20%) rotate(90deg);
+        transform: translateX(20%) rotate(90deg);
       }
 
       &::after {
-        transform: translateY(-30%) translateX(-20%) rotate(90deg);
+        transform: translateX(-20%) rotate(90deg);
       }
     }
   }
