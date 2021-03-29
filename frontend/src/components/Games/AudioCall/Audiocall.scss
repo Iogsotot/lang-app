@@ -1,6 +1,9 @@
 .audiocall {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: rgb(141, 219, 224);
   background: linear-gradient(0deg, rgba(141, 219, 224, 1) 0%, rgba(70, 92, 255, 1) 100%);
 
@@ -29,8 +32,8 @@
     }
 
     &__text {
-        font-size: 1.8rem;
-        color: #465CFF;
+      font-size: 1.8rem;
+      color: #465cff;
     }
   }
 
@@ -69,18 +72,27 @@
     color: #fff;
 
     &:hover {
-        text-decoration: none;
-        color: #FFEB7D;
+      text-decoration: none;
+      color: #ffeb7d;
     }
   }
 
   & .button.is-danger {
     color: #fff;
-        background-color: #FF5C76;
-        font-size: 1.5rem;
+    background-color: #ff5c76;
+    font-size: 1.5rem;
 
     &:hover {
-        background-color: #e94c66;
+      background-color: #e94c66;
+    }
+  }
+
+  & .button.is-warning {
+    background-color: #ffeb7d;
+    font-size: 1.5rem;
+
+    &:hover {
+      background-color: #e4d26e;
     }
   }
 }
@@ -88,7 +100,7 @@
 .volume-button {
   background-color: transparent;
   border-radius: 50%;
-  color: #FFEB7D;
+  color: #ffeb7d;
   border: none;
 
   &:hover {
@@ -103,5 +115,4 @@
   &:focus {
     outline: none;
   }
-
 }

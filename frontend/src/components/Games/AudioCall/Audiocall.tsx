@@ -3,6 +3,7 @@ import './Audiocall.scss';
 
 const Audiocall: FC = () => {
   const [count, setCount] = useState(0);
+  const [start, setStart] = useState(false);
   const [currentView, setCurrentView] = useState(false);
 
   const words = [
@@ -266,45 +267,58 @@ const Audiocall: FC = () => {
   );
 
   if (currentWordNumber >= words.length) {
-    return <div>{`${count} изучено, ${words.length - count} на изучении`}</div>;
+    return <div className="audiocall"><div>{`${count} изучено, ${words.length - count} на изучении`}</div></div>;
   }
   return (
     <div className="audiocall">
-      <div className="audiocall_inner">
-        <div>
-          {currentView && <OpenCurrentWord />}
-          {!currentView && <CloseCurrentWord />}
-        </div>
-        <div className="audiocall__answers">
-          <div className="audiocall__answers__variants">
-            <button className="button is-ghost" onClick={e => answerClick(e)}>
-              {stepAnswers[0]}
-            </button>
-            <button className="button is-ghost" onClick={e => answerClick(e)}>
-              {stepAnswers[1]}
-            </button>
-            <button className="button is-ghost" onClick={e => answerClick(e)}>
-              {stepAnswers[2]}
-            </button>
-            <button className="button is-ghost" onClick={e => answerClick(e)}>
-              {stepAnswers[3]}
-            </button>
-            <button className="button is-ghost" onClick={e => answerClick(e)}>
-              {stepAnswers[4]}
-            </button>
+      {!start && (
+        <button
+          className="button is-warning"
+          onClick={() => {
+            setStart(true);
+            playAudio();
+          }}
+        >
+          Начать игру
+        </button>
+      )}
+      {start && (
+        <div className="audiocall_inner">
+          <div>
+            {currentView && <OpenCurrentWord />}
+            {!currentView && <CloseCurrentWord />}
           </div>
-          {currentView && (
-            <button className="button is-danger" onClick={() => nextStep()}>
-              <i className="fas fa-angle-double-right"></i>
-            </button>
-          )}
-          {!currentView && (
-            <button className="button is-danger" onClick={() => setCurrentView(true)}>
-              Я не знаю
-            </button>
-          )}
+          <div className="audiocall__answers">
+            <div className="audiocall__answers__variants">
+              <button className="button is-ghost" onClick={e => answerClick(e)}>
+                {stepAnswers[0]}
+              </button>
+              <button className="button is-ghost" onClick={e => answerClick(e)}>
+                {stepAnswers[1]}
+              </button>
+              <button className="button is-ghost" onClick={e => answerClick(e)}>
+                {stepAnswers[2]}
+              </button>
+              <button className="button is-ghost" onClick={e => answerClick(e)}>
+                {stepAnswers[3]}
+              </button>
+              <button className="button is-ghost" onClick={e => answerClick(e)}>
+                {stepAnswers[4]}
+              </button>
+            </div>
+            {currentView && (
+              <button className="button is-danger" onClick={() => nextStep()}>
+                <i className="fas fa-angle-double-right"></i>
+              </button>
+            )}
+            {!currentView && (
+              <button className="button is-danger" onClick={() => setCurrentView(true)}>
+                Я не знаю
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
