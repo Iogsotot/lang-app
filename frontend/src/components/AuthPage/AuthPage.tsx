@@ -1,8 +1,9 @@
 import './authPage.scss';
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import Input from '../Input';
 import { useValidation } from '../../hooks/useValidation';
 import { constants } from '../../constants';
+import { useAction } from '../../hooks/useAction';
 
 const {
   NAME,
@@ -13,12 +14,15 @@ const {
   ENVELOPE_ICON,
   LOCK_ICON,
   SIGN_UP,
+  SIGN_IN,
 } = constants.messages;
 
 const AuthPage: FC = () => {
+  const { register, login } = useAction();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(false);
   const {
     nameError,
     emailErorr,
@@ -41,20 +45,47 @@ const AuthPage: FC = () => {
     setPassword(event.target.value);
   };
 
+  const onSubmit = () => {
+    const formData = new FormData();
+
+    if (isLogin) {
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('password', password);
+
+      login(formData);
+    } else {
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('password', password);
+
+      register(formData);
+    }
+  };
+
+  useEffect(() => {
+    setName('');
+    setEmail('');
+    setPassword('');
+  }, [isLogin]);
+
   return (
     <main>
 
       <div className="form">
 
-        <Input
-          placeholder={NAME}
-          icon={USER_ICON}
-          type={TYPE.text}
-          value={name}
-          successText={nameSuccess}
-          errorText={nameError}
-          onChangeHandler={onNameChange}
-        />
+        {!isLogin
+          ? <Input
+            placeholder={NAME}
+            icon={USER_ICON}
+            type={TYPE.text}
+            value={name}
+            successText={nameSuccess}
+            errorText={nameError}
+            onChangeHandler={onNameChange}
+          />
+          : <></>
+        }
         <Input
           placeholder={EMAIL}
           icon={ENVELOPE_ICON}
@@ -76,11 +107,17 @@ const AuthPage: FC = () => {
 
         <div className="field is-grouped">
           <div className="control">
-            <button disabled={!formReady} className="button is-link">{SIGN_UP}</button>
+            <button
+              disabled={!formReady}
+              className="button is-link"
+              onClick={onSubmit}
+            >
+              {!isLogin ? SIGN_UP : SIGN_IN}
+            </button>
           </div>
         </div>
 
-        <p>Do u have acc? Sign in</p>
+        <p>Do u have acc?</p> <button onClick={() => setIsLogin(!isLogin)}>{isLogin ? SIGN_UP : SIGN_IN}</button>
 
       </div>
 
