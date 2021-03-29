@@ -31,7 +31,7 @@ const AuthPage: FC = () => {
     emailSuccess,
     passwordSuccess,
     formReady,
-  } = useValidation({ name, email, password });
+  } = useValidation({ name, email, password, isLogin });
 
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -47,18 +47,15 @@ const AuthPage: FC = () => {
 
   const onSubmit = () => {
     const formData = new FormData();
-
     if (isLogin) {
       formData.append('name', name);
       formData.append('email', email);
       formData.append('password', password);
-
       login(formData);
     } else {
       formData.append('name', name);
       formData.append('email', email);
       formData.append('password', password);
-
       register(formData);
     }
   };

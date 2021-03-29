@@ -17,6 +17,7 @@ interface UseValidationProps {
   name: string;
   email: string;
   password: string;
+  isLogin: boolean;
 }
 
 interface UseValidation {
@@ -29,7 +30,7 @@ interface UseValidation {
   formReady: boolean;
 }
 
-export const useValidation = ({ name, email, password }: UseValidationProps): UseValidation => {
+export const useValidation = ({ name, email, password, isLogin }: UseValidationProps): UseValidation => {
   const [nameError, setNameError] = useState('');
   const [emailErorr, setEmailErorr] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -43,7 +44,7 @@ export const useValidation = ({ name, email, password }: UseValidationProps): Us
   const passwordCheck = !PASSWORD_TEST_REGEX.test(password);
 
   useEffect(() => {
-    if (name) {
+    if (name && isLogin) {
       if (nameCheck) {
         setNameSuccess('');
         setNameError(INCORRECT_NAME);
@@ -83,6 +84,8 @@ export const useValidation = ({ name, email, password }: UseValidationProps): Us
     }
 
     if (nameSuccess && emailSuccess && passwordSuccess) {
+      setFormReady(true);
+    } else if (isLogin && emailSuccess && passwordSuccess) {
       setFormReady(true);
     } else {
       setFormReady(false);

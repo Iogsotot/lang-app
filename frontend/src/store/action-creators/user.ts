@@ -14,18 +14,7 @@ const {
 export const register = (formData: FormData) =>
   (async (dispatch: Dispatch<UserAction>): Promise<void> => {
     dispatch({ type: FETCH_USER });
-
-    const response = await fetch(
-      `${API_BASE_URL}/users`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: formData,
-      },
-    )
+    const response = await fetch(`${API_BASE_URL}/users`, { method: 'POST', body: formData })
       .then((data) => data.json())
       .catch((error) => {
         if (typeof error === 'string') {
@@ -34,7 +23,6 @@ export const register = (formData: FormData) =>
           dispatch({ type: FETCH_USER_ERROR, payload: error?.errors?.message });
         }
       });
-
     dispatch({ type: REGISTER_USER_SUCCESS, payload: response });
   });
 
@@ -42,17 +30,7 @@ export const login = (formData: FormData) =>
   (async (dispatch: Dispatch<UserAction>): Promise<void> => {
     dispatch({ type: FETCH_USER });
 
-    const response = await fetch(
-      `${API_BASE_URL}/signin`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: formData,
-      },
-    )
+    const response = await fetch(`${API_BASE_URL}/signin`, { method: 'POST', body: formData })
       .then((data) => data.json())
       .catch((error) => {
         if (typeof error === 'string') {
