@@ -1,6 +1,7 @@
 export interface Word {
-  group: number;
-  page: number;
+  id?: string;
+  group?: number;
+  page?: number;
   word: string;
   image: string;
   audio: string;
@@ -9,9 +10,9 @@ export interface Word {
   textMeaning: string;
   textExample: string;
   transcription: string;
-  textExampleTranslate: string;
-  textMeaningTranslate: string;
   wordTranslate: string;
+  textMeaningTranslate: string;
+  textExampleTranslate: string;
 }
 
 export interface WordsProps {

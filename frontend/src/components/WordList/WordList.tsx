@@ -78,12 +78,7 @@ const WordList: FC = () => {
           <div className="dropdown-content">
             <div className="dropdown-item">
               show translate:
-              <input
-                type="checkbox"
-                name="translate"
-                checked={translate}
-                onChange={() => showTranslate(!translate)}
-              />
+              <input type="checkbox" name="translate" checked={translate} onChange={() => showTranslate(!translate)} />
             </div>
             <hr className="dropdown-divider" />
             <div className="dropdown-item">

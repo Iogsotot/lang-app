@@ -11,8 +11,11 @@ import PlayAudioButton from './PlayAudioButton';
 import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
 import { animateBorderColor } from '../../../libs/common';
-import { WordsProps, Word } from '../../../models';
+import { Word } from '../../../models';
 import { WordPair } from './Sprint.model';
+
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { useAction } from '../../../hooks/useAction';
 
 import { sprintConsts } from '../../constants';
 
@@ -29,7 +32,9 @@ const {
   timerStrokeWidth,
 } = sprintConsts;
 
-const Sprint: FC<WordsProps> = ({ words }) => {
+const Sprint: FC = () => {
+  const { words, page, group } = useTypedSelector(store => store.wordList);
+  const { fetchWords } = useAction();
   const [sprintWords, setSprintWords] = useState(shuffleArray(words));
   const [streak, setStreak] = useState(0);
   const [IsPlaying, setIsPlaying] = useState(true);
@@ -43,7 +48,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     answer: false,
   });
 
-  const findWordPair = ():WordPair => {
+  const findWordPair = (): WordPair => {
     if (sprintWords.length < 1) {
       // тута запускаем сообщение о конце игры
       return pair;
@@ -71,11 +76,11 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     };
   };
 
-  const handleAnswerBtnClick = (arg:boolean):void => {
+  const handleAnswerBtnClick = (arg: boolean): void => {
     if (!IsPlaying) return;
     if (compareAnswer(arg, pair.answer)) {
       // correct answer
-      setStreak((old) => old + 1);
+      setStreak(old => old + 1);
       animateBorderColor('.sprint__box', colorOnCorrectAnswer);
       setPair(findWordPair());
     } else {
@@ -85,7 +90,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     }
   };
 
-  const handleArrowKeys = (event:KeyboardEvent) => {
+  const handleArrowKeys = (event: KeyboardEvent) => {
     if (event.code === 'keyD' || event.code === 'ArrowRight') {
       handleAnswerBtnClick(true);
     } else if (event.code === 'keyA' || event.code === 'ArrowLeft') {
@@ -96,6 +101,11 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   useEffect(() => {
     setPair(findWordPair());
   }, []);
+
+  useEffect(() => {
+    fetchWords(page, group);
+    setSprintWords(shuffleArray(words));
+  }, [page, group]);
 
   useEffect(() => {
     document.addEventListener('keyup', handleArrowKeys);
@@ -145,8 +155,9 @@ const Sprint: FC<WordsProps> = ({ words }) => {
         handleCancelModal={handleCancelModal}
         handleSubmitClose={handleSubmitClose}
       />
-      {!ready ?
-        <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback}/> :
+      {!ready ? (
+        <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback} />
+      ) : (
         <>
           <div onClick={togglePause} className={`countdown-wrapper ${!IsPlaying ? 'pause' : ''}`}>
             <CountdownCircleTimer
@@ -155,25 +166,26 @@ const Sprint: FC<WordsProps> = ({ words }) => {
               strokeWidth={timerStrokeWidth}
               isPlaying={IsPlaying}
               duration={gameDuration}
-              colors={timerColor}>
+              colors={timerColor}
+            >
               {({ remainingTime }) => (IsPlaying ? remainingTime : null)}
             </CountdownCircleTimer>
           </div>
 
-          <div className='box sprint__box'>
-            <PlayAudioButton audio={audio}/>
-            <Streak streak={streak}/>
+          <div className="box sprint__box">
+            <PlayAudioButton audio={audio} />
+            <Streak streak={streak} />
             <div className="sprint__game-wrapper">
               <div className="title">{word}</div>
               <div className="subtitle">{wordTranslate}</div>
               <div className="buttons">
-                <Button className="is-danger" text={wrongBtnText} onBtnClick={handleAnswerBtnClick} props={false}/>
-                <Button className="is-success" text={correctBtnText} onBtnClick={handleAnswerBtnClick} props={true}/>
+                <Button className="is-danger" text={wrongBtnText} onBtnClick={handleAnswerBtnClick} props={false} />
+                <Button className="is-success" text={correctBtnText} onBtnClick={handleAnswerBtnClick} props={true} />
               </div>
             </div>
           </div>
         </>
-      }
+      )}
     </div>
   );
 };
