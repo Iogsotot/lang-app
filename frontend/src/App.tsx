@@ -5,13 +5,13 @@ import { Provider } from 'react-redux';
 import TextBook from './components/Textbook';
 import PromoPage from './components/PromoPage';
 import Savannah from './components/Games/Savannah';
-import { index } from './store';
+import { store } from './store';
 
 const App: FC = () => (
   <div className="App">
     <header className="App-header"></header>
 
-    <Provider store={index}>
+    <Provider store={store}>
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>

@@ -6,9 +6,13 @@ import { constants } from '../../../constants';
 
 const Savannah: FC<SavannahProps> = () => {
   const { WORD_GROUPS, API_BASE_URL } = constants;
+  // groupData должна приходить при переходе со словаря
+  const [groupData, setGroupData] = useState(true);
+  // setGroupData(true);
   const [group, setGroup] = useState(0);
   const [page, setPage] = useState(0);
   const [currentWords, setCurrentWords] = useState([]);
+  // const [usedWords, setUsedWords] = useState([]);
 
   async function fetchWords(page: number, group: number) {
     const response = await fetch(`${API_BASE_URL}/words?group=${group}&page=${page}`, {
@@ -18,7 +22,7 @@ const Savannah: FC<SavannahProps> = () => {
         'Content-Type': 'application/json',
       },
     })
-      .then(data => data.json().then(words => setCurrentWords(words)))
+      .then(data => data.json())
       .catch(error => {
         console.log(error);
       });
@@ -32,8 +36,25 @@ const Savannah: FC<SavannahProps> = () => {
   const [startCountTimer, setStartCountTimer] = useState<number | null>(maxCount);
 
   useEffect(() => {
-    fetchWords(page, group);
+    async function fetchCurrentPageWords() {
+      // let prevPageWords = [];
+      // if (page !== 0) {
+      //   prevPageWords = await fetchWords(page - 1, group);
+      // }
+      const currentPageWords = await fetchWords(page, group);
+      if (currentPageWords.length > 0) {
+        setCurrentWords(currentWords.concat(currentPageWords));
+        setPage(page + 1);
+      }
+    }
+    fetchCurrentPageWords();
   }, [group, page]);
+
+  // useEffect(() => {
+  //   if (currentWords.length - usedWords.length < 10) {
+  //     setPage(page + 1);
+  //   }
+  // }, [usedWords]);
 
   useEffect(() => {
     console.log(currentWords);
@@ -104,19 +125,27 @@ const Savannah: FC<SavannahProps> = () => {
         <div className="savannah__info box">
           <h2 className="title is-2">Savannah</h2>
           <p>
-            In this game you will be able to repeat the learned words. You must have time to choose the correct
-            translation of the word before it falls.
+            В этой игре на вас обрушится дождь из слов! к счастью слова падают по одной капельке. Ваша задача - успеть
+            выбрать правильно слово до того, как оно упадёт. Удачи!
           </p>
           <div>
-            <p>Groups</p>
+            <p>Сложность:</p>
             {Object.entries(WORD_GROUPS).map(([key, value]) => (
-              <button disabled={value === group} key={key} onClick={() => setGroup(value)}>
+              <button
+                disabled={value === group}
+                key={key}
+                onClick={() => {
+                  setGroup(value);
+                  setCurrentWords([]);
+                  setPage(0);
+                }}
+              >
                 {key}
               </button>
             ))}
           </div>
           <a href="#" className="btn button is-primary is-outlined" onClick={() => setStart(true)}>
-            Start game!
+            Начать игру!
           </a>
         </div>
       )}
