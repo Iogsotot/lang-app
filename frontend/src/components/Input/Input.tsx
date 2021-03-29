@@ -2,15 +2,13 @@ import React, { FC, useState, useEffect } from 'react';
 import { InputProps } from './Input.model';
 
 const Input: FC<InputProps> = ({
-  name,
   icon,
   type = 'text',
   value,
-  success,
   successText = '',
-  error,
   errorText = '',
   onChangeHandler,
+  placeholder,
 }) => {
   const [elementData, setElementData] = useState({
     element: <></>,
@@ -18,7 +16,7 @@ const Input: FC<InputProps> = ({
   });
 
   const checkElementData = () => {
-    if (success) {
+    if (successText) {
       setElementData({
         element:
           <span className="icon is-small is-right">
@@ -26,7 +24,7 @@ const Input: FC<InputProps> = ({
           </span>,
         class: 'is-success',
       });
-    } else if (error) {
+    } else if (errorText) {
       setElementData({
         element:
           <span className="icon is-small is-right">
@@ -44,16 +42,16 @@ const Input: FC<InputProps> = ({
 
   useEffect(() => {
     checkElementData();
-  }, [success, error]);
+  }, [successText, errorText]);
 
   return (
     <div className="field">
-      <label className="label">{name}</label>
+      <label className="label">{placeholder}</label>
       <div className="control has-icons-left has-icons-right">
         <input
           className={`input ${elementData.class}`}
           type={type}
-          placeholder={`${name} input`}
+          placeholder={placeholder}
           value={value}
           onChange={onChangeHandler}
         />

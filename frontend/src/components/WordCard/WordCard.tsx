@@ -34,7 +34,7 @@ const WordCard: FC<WordCardProps> = props => {
 
         <button className="button is-outlined" onClick={() => playHandler(word)}>
           <span className="icon is-small">
-            <i className="fas fa-volume-up">&#0;</i>
+            <i className="fas fa-volume-up" />
           </span>
         </button>
 
@@ -42,14 +42,14 @@ const WordCard: FC<WordCardProps> = props => {
           <>
             <button className="button is-success">
               <span className="icon is-small">
-                <i className="fas fa-check">&#0;</i>
+                <i className="fas fa-check" />
               </span>
               <span>Save</span>
             </button>
             <button className="button is-danger is-outlined">
               <span>Delete</span>
               <span className="icon is-small">
-                <i className="fas fa-times">&#0;</i>
+                <i className="fas fa-times" />
               </span>
             </button>
           </>

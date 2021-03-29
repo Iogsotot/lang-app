@@ -1,16 +1,44 @@
 import './authPage.scss';
 import React, { FC, useState } from 'react';
 import Input from '../Input';
+import { useValidation } from '../../hooks/useValidation';
+import { constants } from '../../constants';
+
+const {
+  NAME,
+  EMAIL,
+  PASSWORD,
+  TYPE,
+  USER_ICON,
+  ENVELOPE_ICON,
+  LOCK_ICON,
+  SIGN_UP,
+} = constants.messages;
 
 const AuthPage: FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const {
+    nameError,
+    emailErorr,
+    passwordError,
+    nameSuccess,
+    emailSuccess,
+    passwordSuccess,
+    formReady,
+  } = useValidation({ name, email, password });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target);
+  const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
   return (
@@ -19,34 +47,36 @@ const AuthPage: FC = () => {
       <div className="form">
 
         <Input
-          name={'Email'}
-          icon={'fa-user'}
-          type={'email'}
-          value={''}
-          success={true}
-          successText={'This username is available'}
-          onChangeHandler={handleChange}
+          placeholder={NAME}
+          icon={USER_ICON}
+          type={TYPE.text}
+          value={name}
+          successText={nameSuccess}
+          errorText={nameError}
+          onChangeHandler={onNameChange}
         />
         <Input
-          name={'Name'}
-          icon={'fa-envelope'}
-          type={'text'}
-          value={''}
-          error={true}
-          errorText={'This email is invalid'}
-          onChangeHandler={handleChange}
+          placeholder={EMAIL}
+          icon={ENVELOPE_ICON}
+          type={TYPE.email}
+          value={email}
+          successText={emailSuccess}
+          errorText={emailErorr}
+          onChangeHandler={onEmailChange}
         />
         <Input
-          name={'Password'}
-          icon={'fa-lock'}
-          type={'password'}
-          value={''}
-          onChangeHandler={handleChange}
+          placeholder={PASSWORD}
+          icon={LOCK_ICON}
+          type={TYPE.password}
+          value={password}
+          successText={passwordSuccess}
+          errorText={passwordError}
+          onChangeHandler={onPasswordChange}
         />
 
         <div className="field is-grouped">
           <div className="control">
-            <button className="button is-link">Sign up</button>
+            <button disabled={!formReady} className="button is-link">{SIGN_UP}</button>
           </div>
         </div>
 
