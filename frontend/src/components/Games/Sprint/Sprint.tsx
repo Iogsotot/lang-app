@@ -7,6 +7,7 @@ import Streak from './Streak';
 import ModalOnClose from './ModalOnClose';
 import CloseButton from '../../CloseButton';
 import GetReady from './GetReady';
+import PlayAudioButton from './PlayAudioButton';
 import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
 import { animateBorderColor } from '../../../libs/common';
@@ -38,6 +39,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
   const [pair, setPair] = useState({
     word: 'null',
     wordTranslate: 'null',
+    audio: 'null',
     answer: false,
   });
 
@@ -55,6 +57,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
       return {
         word: word.word,
         wordTranslate: word.wordTranslate,
+        audio: word.audioExample,
         answer: true,
       };
     }
@@ -63,6 +66,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     return {
       word: word.word,
       wordTranslate: sprintWords[randomWordIndex].wordTranslate,
+      audio: word.audioExample,
       answer: word.word === sprintWords[randomWordIndex].word,
     };
   };
@@ -73,12 +77,12 @@ const Sprint: FC<WordsProps> = ({ words }) => {
       // correct answer
       setStreak((old) => old + 1);
       animateBorderColor('.sprint__box', colorOnCorrectAnswer);
+      setPair(findWordPair());
     } else {
       // wrong answer
       setStreak(0);
       animateBorderColor('.sprint__box', colorOnWrongAnswer);
     }
-    setPair(findWordPair());
   };
 
   const handleArrowKeys = (event:KeyboardEvent) => {
@@ -132,7 +136,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     setIsPlaying(old => !old);
   };
 
-  const { word, wordTranslate } = pair;
+  const { word, wordTranslate, audio } = pair;
   return (
     <div className="sprint">
       <CloseButton callback={onCloseBtnClick} />
@@ -157,6 +161,7 @@ const Sprint: FC<WordsProps> = ({ words }) => {
           </div>
 
           <div className='box sprint__box'>
+            <PlayAudioButton audio={audio}/>
             <Streak streak={streak}/>
             <div className="sprint__game-wrapper">
               <div className="title">{word}</div>
