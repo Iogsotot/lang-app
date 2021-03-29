@@ -51,21 +51,21 @@ const Sprint: FC<WordsProps> = ({ words }) => {
 
     setSprintWords(wordsList);
 
-    return getRandomBooleanAnswer() ?
-      {
+    if (getRandomBooleanAnswer()) {
+      return {
         word: word.word,
         wordTranslate: word.wordTranslate,
-        answer: true }
-      : {
-        word: word.word,
-        wordTranslate: sprintWords[randomInteger(sprintWords.length - 2)].wordTranslate,
-        answer: false,
+        answer: true,
       };
-  };
+    }
 
-  useEffect(() => {
-    setPair(findWordPair());
-  }, []);
+    const randomWordIndex = randomInteger(sprintWords.length - 2);
+    return {
+      word: word.word,
+      wordTranslate: sprintWords[randomWordIndex].wordTranslate,
+      answer: word.word === sprintWords[randomWordIndex].word,
+    };
+  };
 
   const handleAnswerBtnClick = (arg:boolean):void => {
     if (!IsPlaying) return;
@@ -80,6 +80,26 @@ const Sprint: FC<WordsProps> = ({ words }) => {
     }
     setPair(findWordPair());
   };
+
+  const handleArrowKeys = (event:KeyboardEvent) => {
+    if (event.code === 'keyD' || event.code === 'ArrowRight') {
+      handleAnswerBtnClick(true);
+    } else if (event.code === 'keyA' || event.code === 'ArrowLeft') {
+      handleAnswerBtnClick(false);
+    }
+  };
+
+  useEffect(() => {
+    setPair(findWordPair());
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('keyup', handleArrowKeys);
+
+    return () => {
+      document.removeEventListener('keyup', handleArrowKeys);
+    };
+  }, [pair]);
 
   const onCloseBtnClick = () => {
     if (ready) {
