@@ -2,10 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import './Audiocall.scss';
 
 const Audiocall: FC = () => {
-  const [count, setCount] = useState(0);
-  const [start, setStart] = useState(false);
-  const [currentView, setCurrentView] = useState(false);
-
+  const NUMBER_OF_VARIANTS = 5;
   const words = [
     {
       _id: {
@@ -198,12 +195,17 @@ const Audiocall: FC = () => {
       wordTranslate: 'утка',
     },
   ];
+  const [count, setCount] = useState(0);
+  const [start, setStart] = useState(false);
+  const [currentView, setCurrentView] = useState(false);
+
   const [currentWordNumber, setCurrentWordNumber] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[currentWordNumber]);
 
   const stepAnswers = [currentWord?.wordTranslate] || '';
+
   const fillStepAnswers = () => {
-    while (stepAnswers.length < 5) {
+    while (stepAnswers.length < NUMBER_OF_VARIANTS) {
       const randomWordNumber = Math.floor(Math.random() * words.length);
       if (!stepAnswers.includes(words[randomWordNumber].wordTranslate)) {
         stepAnswers.push(words[randomWordNumber].wordTranslate);
@@ -233,14 +235,20 @@ const Audiocall: FC = () => {
     shuffle(stepAnswers);
     setCurrentView(false);
   }, [currentWordNumber]);
+
   const nextStep = () => {
     if (currentWordNumber < words.length) setCurrentWordNumber(currentWordNumber + 1);
   };
 
-  const answerClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const answerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setCurrentView(true);
     const target = e.target as Element;
     if (target.innerHTML === currentWord.wordTranslate) setCount(count + 1);
+  };
+
+  const clickStart = () => {
+    setStart(true);
+    playAudio();
   };
 
   fillStepAnswers();
@@ -266,19 +274,29 @@ const Audiocall: FC = () => {
     </div>
   );
 
+  const VariantsButtons = () => (
+    <div className="audiocall__answers__variants">
+      {Array(NUMBER_OF_VARIANTS)
+        .fill(0)
+        .map((item, index) => (
+          <button className="button is-ghost" onClick={e => answerClick(e)}>
+            {stepAnswers[index]}
+          </button>
+        ))}
+    </div>
+  );
+
   if (currentWordNumber >= words.length) {
-    return <div className="audiocall"><div>{`${count} изучено, ${words.length - count} на изучении`}</div></div>;
+    return (
+      <div className="audiocall">
+        <div>{`${count} изучено, ${words.length - count} на изучении`}</div>
+      </div>
+    );
   }
   return (
     <div className="audiocall">
       {!start && (
-        <button
-          className="button is-warning"
-          onClick={() => {
-            setStart(true);
-            playAudio();
-          }}
-        >
+        <button className="button is-warning" onClick={() => { clickStart(); }}>
           Начать игру
         </button>
       )}
@@ -289,23 +307,8 @@ const Audiocall: FC = () => {
             {!currentView && <CloseCurrentWord />}
           </div>
           <div className="audiocall__answers">
-            <div className="audiocall__answers__variants">
-              <button className="button is-ghost" onClick={e => answerClick(e)}>
-                {stepAnswers[0]}
-              </button>
-              <button className="button is-ghost" onClick={e => answerClick(e)}>
-                {stepAnswers[1]}
-              </button>
-              <button className="button is-ghost" onClick={e => answerClick(e)}>
-                {stepAnswers[2]}
-              </button>
-              <button className="button is-ghost" onClick={e => answerClick(e)}>
-                {stepAnswers[3]}
-              </button>
-              <button className="button is-ghost" onClick={e => answerClick(e)}>
-                {stepAnswers[4]}
-              </button>
-            </div>
+            <VariantsButtons />
+
             {currentView && (
               <button className="button is-danger" onClick={() => nextStep()}>
                 <i className="fas fa-angle-double-right"></i>
