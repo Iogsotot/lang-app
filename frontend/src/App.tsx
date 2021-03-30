@@ -17,7 +17,7 @@ const App: FC = () => (
           <Route path="/" exact>
             <PromoPage />
           </Route>
-          <Route path="/Savannah" exact>
+          <Route path="/Savannah/">
             <Savannah />
           </Route>
 

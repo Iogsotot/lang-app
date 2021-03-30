@@ -6,16 +6,15 @@ import { constants } from '../../../constants';
 
 const Savannah: FC<SavannahProps> = () => {
   const { WORD_GROUPS, API_BASE_URL } = constants;
-  // groupData должна приходить при переходе со словаря
+  // groupData должна приходить при переходе со словаря (это либо параметры Page & Group, либо слова из Store)
   const [groupData, setGroupData] = useState(true);
-  // setGroupData(true);
+
   const [group, setGroup] = useState(0);
   const [page, setPage] = useState(0);
   const [currentWords, setCurrentWords] = useState([]);
-  // const [usedWords, setUsedWords] = useState([]);
 
-  async function fetchWords(page: number, group: number) {
-    const response = await fetch(`${API_BASE_URL}/words?group=${group}&page=${page}`, {
+  async function fetchWords(group: number) {
+    const response = await fetch(`${API_BASE_URL}/words/all?group=${group}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -37,24 +36,11 @@ const Savannah: FC<SavannahProps> = () => {
 
   useEffect(() => {
     async function fetchCurrentPageWords() {
-      // let prevPageWords = [];
-      // if (page !== 0) {
-      //   prevPageWords = await fetchWords(page - 1, group);
-      // }
-      const currentPageWords = await fetchWords(page, group);
-      if (currentPageWords.length > 0) {
-        setCurrentWords(currentWords.concat(currentPageWords));
-        setPage(page + 1);
-      }
+      const currentPageWords = await fetchWords(group);
+      setCurrentWords(currentPageWords);
     }
     fetchCurrentPageWords();
   }, [group, page]);
-
-  // useEffect(() => {
-  //   if (currentWords.length - usedWords.length < 10) {
-  //     setPage(page + 1);
-  //   }
-  // }, [usedWords]);
 
   useEffect(() => {
     console.log(currentWords);
