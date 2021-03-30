@@ -3,6 +3,7 @@ import React, { useState, useEffect, FC } from 'react';
 import { MemoryProps } from './Memory.model';
 import { API_BASE_URL } from '../../../constants/constants';
 import { Word } from '../../../models/word';
+import MemoryCard from './Memory.card';
 
 const Memory: FC<MemoryProps> = () => {
   const [words, setWords] = useState<Word[]>([]);
@@ -23,16 +24,7 @@ const Memory: FC<MemoryProps> = () => {
       <div className="columns is-multiline">
         { wordsLoaded ?
           words.map((el: Word) => (
-            <div className="column card selected is-one-fifth">
-              <div className="card-content">
-                <div className="media">
-                  <div className="media-content">
-                    <p className="title is-4">{el.word}</p>
-                    <p className="subtitle is-6">{el.textMeaning}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <MemoryCard word={el.word} textMeaning={el.textMeaning}/>
           )) : 'loading'}
       </div>
     </section>
