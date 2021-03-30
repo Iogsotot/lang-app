@@ -2,9 +2,10 @@ import './memory.scss';
 import React, { useState, useEffect, FC } from 'react';
 import { MemoryProps } from './Memory.model';
 import { API_BASE_URL } from '../../../constants/constants';
+import { Word } from '../../../models/word';
 
 const Memory: FC<MemoryProps> = () => {
-  const [words, setWords] = useState<any>(null);
+  const [words, setWords] = useState<Word[]>([]);
   const [wordsLoaded, setWordsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
@@ -12,18 +13,36 @@ const Memory: FC<MemoryProps> = () => {
       .then(res => res.json())
       .then(res => {
         setWords(res);
+        console.log(res);
         setWordsLoaded(true);
       });
   }, []);
 
   return (
-    <>
-      {
-        wordsLoaded ? words.map((el:any) => el.word) :
-          <progress className="progress is-small is-primary" max="100">15%</progress>
-      }
-    </>
+    <section>
+      <div className="columns is-multiline">
+        { wordsLoaded ?
+          words.map((el: Word) => (
+            <div className="column card selected is-one-fifth">
+              <div className="card-content">
+                <div className="media">
+                  <div className="media-content">
+                    <p className="title is-4">{el.word}</p>
+                    <p className="subtitle is-6">{el.textMeaning}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )) : 'loading'}
+      </div>
+    </section>
   );
 };
+/*
+{
+        wordsLoaded ? words.map((el: Word) => el.word) :
+          <progress className="progress is-small is-primary" max="100">15%</progress>
+      }
+ */
 
 export default Memory;
