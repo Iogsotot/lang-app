@@ -41,12 +41,18 @@ const Sprint: FC = () => {
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [ready, setReady] = useState(false);
   const [getReadyIsPlaying, setGetReadyIsPlaying] = useState(true);
+  const [points, setPoints] = useState(0);
+  const [modificator, setModificator] = useState(1);
   const [pair, setPair] = useState({
     word: 'null',
     wordTranslate: 'null',
     audio: 'null',
     answer: false,
   });
+  console.log(points, modificator);
+  const addPoints = () => {
+    setPoints(old => old + 10 * modificator);
+  };
 
   const findWordPair = (): WordPair => {
     if (sprintWords.length < 1) {
@@ -76,11 +82,21 @@ const Sprint: FC = () => {
     };
   };
 
+  const handleModificator = () => {
+    if (streak >= 3) {
+      setStreak(0);
+      setModificator(old => old + 1);
+    } else {
+      setStreak(old => old + 1);
+    }
+  };
+
   const handleAnswerBtnClick = (arg: boolean): void => {
     if (!IsPlaying) return;
     if (compareAnswer(arg, pair.answer)) {
       // correct answer
-      setStreak(old => old + 1);
+      addPoints();
+      handleModificator();
       animateBorderColor('.sprint__box', colorOnCorrectAnswer);
       setPair(findWordPair());
     } else {
