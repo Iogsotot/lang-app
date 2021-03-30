@@ -11,18 +11,34 @@ const Savannah: FC<SavannahProps> = () => {
   const { WORD_GROUPS, API_BASE_URL } = constants;
   const [group, setGroup] = useState(0);
   const [currentWords, setCurrentWords] = useState<[Word] | []>([]);
+  const [wordsChunk, setWordsChunk] = useState([0]);
+  const [soughtIndex] = useState(Math.floor(Math.random() * 4));
 
   const WORDS = [0, 1, 2, 3];
   const maxCount = 3;
 
-  const wordsChunk = (() => {
-    let wordsArr = [];
-    while (wordsArr.length < 4) {
-      let randomWordIndex = Math.floor(Math.random() * 600);
-      if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
-    }
-    return wordsArr;
-  })();
+  useEffect(() => {
+    // const soughtIndex = Math.floor(Math.random() * 4);
+    const chunk = (() => {
+      let wordsArr = [];
+      while (wordsArr.length < 4) {
+        let randomWordIndex = Math.floor(Math.random() * 600);
+        if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
+      }
+      return wordsArr;
+    })();
+
+    setWordsChunk(chunk);
+  }, []);
+
+  // const wordsChunk = () => {
+  //   let wordsArr = [];
+  //   while (wordsArr.length < 4) {
+  //     let randomWordIndex = Math.floor(Math.random() * 600);
+  //     if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
+  //   }
+  //   return wordsArr;
+  // };
 
   async function fetchWords(wordsGroup: number) {
     const response = await fetch(`${API_BASE_URL}/words/all?group=${wordsGroup}`, {
@@ -43,7 +59,7 @@ const Savannah: FC<SavannahProps> = () => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
       // console.log('-------------------------------------->');
-      console.log(currentPageWords);
+      // console.log(currentPageWords);
       setCurrentWords(currentPageWords);
     }
     fetchCurrentPageWords();
@@ -52,8 +68,6 @@ const Savannah: FC<SavannahProps> = () => {
   let lives = 5;
   let isGetAnswer: boolean = false;
   let currentWordClassNames = 'current-word';
-
-  const soughtIndex = Math.floor(Math.random() * 4);
 
   const [timer, setTimer] = useState(0);
   const [counter, setCounter] = useState(0);
@@ -153,7 +167,6 @@ const Savannah: FC<SavannahProps> = () => {
                 key={key}
                 onClick={() => {
                   setGroup(value);
-                  setCurrentWords([]);
                 }}
               >
                 {key}
