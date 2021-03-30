@@ -12,13 +12,21 @@ const Savannah: FC<SavannahProps> = () => {
   const [group, setGroup] = useState(0);
   const [currentWords, setCurrentWords] = useState<[Word] | []>([]);
   const [wordsChunk, setWordsChunk] = useState([0]);
-  const [soughtIndex] = useState(Math.floor(Math.random() * 4));
+  const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * 4));
+  const [round, setRound] = useState(1);
+  const [isGetAnswer, setIsGetAnswer] = useState(false);
 
   const WORDS = [0, 1, 2, 3];
-  const maxCount = 3;
+  const maxCount = 6;
+
+  let lives = 5;
+  let currentWordClassNames;
+  const [timer, setTimer] = useState(0);
+  const [counter, setCounter] = useState(0);
+  const [start, setStart] = useState(false);
 
   useEffect(() => {
-    // const soughtIndex = Math.floor(Math.random() * 4);
+    // if (timer === 1) {
     const chunk = (() => {
       let wordsArr = [];
       while (wordsArr.length < 4) {
@@ -29,16 +37,8 @@ const Savannah: FC<SavannahProps> = () => {
     })();
 
     setWordsChunk(chunk);
-  }, []);
-
-  // const wordsChunk = () => {
-  //   let wordsArr = [];
-  //   while (wordsArr.length < 4) {
-  //     let randomWordIndex = Math.floor(Math.random() * 600);
-  //     if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
-  //   }
-  //   return wordsArr;
-  // };
+    // }
+  }, [round]);
 
   async function fetchWords(wordsGroup: number) {
     const response = await fetch(`${API_BASE_URL}/words/all?group=${wordsGroup}`, {
@@ -58,36 +58,28 @@ const Savannah: FC<SavannahProps> = () => {
   useEffect(() => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
-      // console.log('-------------------------------------->');
-      // console.log(currentPageWords);
       setCurrentWords(currentPageWords);
     }
     fetchCurrentPageWords();
   }, [group]);
 
-  let lives = 5;
-  let isGetAnswer: boolean = false;
-  let currentWordClassNames = 'current-word';
-
-  const [timer, setTimer] = useState(0);
-  const [counter, setCounter] = useState(0);
-  const [start, setStart] = useState(false);
+  currentWordClassNames = counter === 0 ? 'current-word' : 'current-word start-anim';
 
   function resolveAsWrongAnswer() {
     if (isGetAnswer) {
       lives -= 1;
     }
-    console.log('дурак что ли?');
+    console.log('нэ маладэц');
   }
 
   function resolveAsCorrectAnswer() {
-    isGetAnswer = true;
+    // setIsGetAnswer(true);
     console.log('маладэц');
   }
 
   const resetGameRound = useCallback(() => {
     setCounter(0);
-    setTimer(5);
+    setTimer(maxCount);
   }, []);
 
   useEffect(() => {
@@ -100,11 +92,10 @@ const Savannah: FC<SavannahProps> = () => {
       setTimer(timer - 1);
       console.log(timer);
       if (timer === 1) {
-        currentWordClassNames += ' start-anim';
+        // currentWordClassNames += ' start-anim';
+        setRound(round + 1);
         resolveAsWrongAnswer();
         resetGameRound();
-        // setCounter(0);
-        // setTimer(0);
         clearInterval(startTimerId);
       }
     }, 1000);
@@ -115,17 +106,13 @@ const Savannah: FC<SavannahProps> = () => {
   }, [counter, timer]);
 
   const handleStart = useCallback(() => {
-    setTimer(5);
+    setTimer(maxCount);
     setStart(true);
   }, []);
 
   function checkPair(word: number) {
+    setRound(round + 1);
     resetGameRound();
-    // setStart(false);
-    // setTime(false);
-    // setTime(true);
-    // setStartCountTimer(maxCount);
-    // counter = 0;
     if (word === soughtIndex) {
       resolveAsCorrectAnswer();
       return;
@@ -135,9 +122,6 @@ const Savannah: FC<SavannahProps> = () => {
 
   function resetGame() {
     setStart(false);
-    // setTime(false);
-    // setStartCountTimer(maxCount);
-    // counter = 0;
   }
 
   return (
@@ -177,7 +161,6 @@ const Savannah: FC<SavannahProps> = () => {
           <button className="btn button is-primary is-outlined" onClick={handleStart}>
             Начать игру!
           </button>
-          {/* <div>counter: {counter}</div> */}
         </div>
       )}
       {start && (
@@ -195,8 +178,9 @@ const Savannah: FC<SavannahProps> = () => {
           </div>
 
           <div className="current-word__container title is-3 has-text-centered">
-            {/* <div className="timer--start">{timer}</div> */}
-            <div className={currentWordClassNames}>{currentWords[wordsChunk[soughtIndex]].wordTranslate}</div>
+            <div className={currentWordClassNames} key={currentWords[wordsChunk[soughtIndex]].word}>
+              {currentWords[wordsChunk[soughtIndex]].wordTranslate}
+            </div>
           </div>
 
           <div className="answer-variants box">
