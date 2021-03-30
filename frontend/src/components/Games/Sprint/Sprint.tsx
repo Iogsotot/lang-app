@@ -17,7 +17,7 @@ import { WordPair } from './Sprint.model';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { useAction } from '../../../hooks/useAction';
 
-import { sprintConsts } from '../../constants';
+import { SPRINT } from '../../../constants';
 
 import './Sprint.scss';
 
@@ -30,7 +30,7 @@ const {
   correctBtnText,
   timerSize,
   timerStrokeWidth,
-} = sprintConsts;
+} = SPRINT;
 
 const Sprint: FC = () => {
   const { words, page, group } = useTypedSelector(store => store.wordList);
@@ -62,7 +62,7 @@ const Sprint: FC = () => {
       return {
         word: word.word,
         wordTranslate: word.wordTranslate,
-        audio: word.audioExample,
+        audio: word.audio,
         answer: true,
       };
     }
@@ -71,7 +71,7 @@ const Sprint: FC = () => {
     return {
       word: word.word,
       wordTranslate: sprintWords[randomWordIndex].wordTranslate,
-      audio: word.audioExample,
+      audio: word.audio,
       answer: word.word === sprintWords[randomWordIndex].word,
     };
   };

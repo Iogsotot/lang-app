@@ -4,19 +4,13 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 import { GetReadyProps } from './GetReady.model';
 
-import { getReadyConsts } from '../../../constants';
+import { SPRINT_GET_READY } from '../../../../constants';
 
 import './GetReady.scss';
 
-const {
-  title,
-  timerColor,
-  timerSize,
-  timerStrokeWidth,
-  timerDuration,
-} = getReadyConsts;
+const { title, timerColor, timerSize, timerStrokeWidth, timerDuration } = SPRINT_GET_READY;
 
-const GetReady:FC <GetReadyProps> = ({ isPlaying, onComplete }) => (
+const GetReady: FC<GetReadyProps> = ({ isPlaying, onComplete }) => (
   <div className="get-ready">
     <h2 className="title">{title}</h2>
     <CountdownCircleTimer
@@ -25,7 +19,8 @@ const GetReady:FC <GetReadyProps> = ({ isPlaying, onComplete }) => (
       strokeWidth={timerStrokeWidth}
       isPlaying={isPlaying}
       duration={timerDuration}
-      colors={timerColor}>
+      colors={timerColor}
+    >
       {({ remainingTime }) => remainingTime}
     </CountdownCircleTimer>
   </div>

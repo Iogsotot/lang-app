@@ -1,6 +1,6 @@
 import './footer.scss';
 import { FC } from 'react';
-import { FOOTER_COPYRIGHT } from '../../constants/constants';
+import { FOOTER_COPYRIGHT } from '../../constants';
 import RSSLogo from '../../assets/images/rs_school_react.png';
 import githubLogo from '../../assets/images/github-logo.svg';
 import youtubeLogo from '../../assets/images/youtube.png';
@@ -32,13 +32,13 @@ const Footer: FC = () => (
           <div className="RSS">
             <img src={RSSLogo} className="icon" alt="RSSchool" />
             <a href="https://rs.school/react/" className="link">
-                2021
+              2021
             </a>
           </div>
           <div className="youtube">
             <img src={youtubeLogo} className="icon" alt="youtube link" />
             <a href="https://www.youtube.com/watch?v=dpw9EHDh2bM&t=1s" className="link">
-                review
+              review
             </a>
           </div>
         </div>

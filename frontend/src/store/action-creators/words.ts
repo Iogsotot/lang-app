@@ -1,8 +1,6 @@
 import { Dispatch } from 'react';
-import { constants } from '../../constants';
+import { API_BASE_URL } from '../../constants';
 import { WordListAction, WordListActionTypes } from '../../models/word';
-
-const { API_BASE_URL } = constants;
 
 const {
   FETCH_WORD_LIST,

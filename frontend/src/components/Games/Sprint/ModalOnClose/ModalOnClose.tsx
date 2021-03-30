@@ -4,16 +4,11 @@ import Button from '../Button';
 
 import { ModalOnCloseProps } from './ModalOnClose.model';
 
-import { modalOnClose } from '../../../constants';
+import { SPRINT_MODAL_ON_CLOSE } from '../../../../constants';
 
-const {
-  modalTitle,
-  modalSubTitle,
-  sumbitCloseBtnText,
-  canselModalBtn,
-} = modalOnClose;
+const { modalTitle, modalSubTitle, sumbitCloseBtnText, canselModalBtn } = SPRINT_MODAL_ON_CLOSE;
 
-const ModalOnClose:FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal, handleSubmitClose }) => (
+const ModalOnClose: FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal, handleSubmitClose }) => (
   <div className={`modal ${modalIsActive ? 'is-active' : null}`}>
     <div onClick={handleCancelModal} className="modal-background"></div>
     <div className="modal-content">
@@ -21,8 +16,8 @@ const ModalOnClose:FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal, 
         <h4 className="title is-4">{modalTitle}</h4>
         <h5 className="subtitle">{modalSubTitle}</h5>
         <div className="buttons modal-buttons">
-          <Button className="is-danger" text={sumbitCloseBtnText} onBtnClick={handleSubmitClose}/>
-          <Button className="is-primary" text={canselModalBtn} onBtnClick={handleCancelModal}/>
+          <Button className="is-danger" text={sumbitCloseBtnText} onBtnClick={handleSubmitClose} />
+          <Button className="is-primary" text={canselModalBtn} onBtnClick={handleCancelModal} />
         </div>
       </div>
     </div>
