@@ -1,0 +1,24 @@
+.frogs {
+  display: flex;
+  justify-content: space-between;
+  width: calc((4rem + 1rem) * 4);
+  margin-top: 1.4rem;
+
+  &__frog-item {
+    width: 4rem;
+    height: 4rem;
+
+    &.green {
+      background-image: url(../../../../assets/icons/frog-green.svg);
+    }
+    &.yellow {
+      background-image: url(../../../../assets/icons/frog-yellow.svg);
+    }
+    &.red {
+      background-image: url(../../../../assets/icons/frog-red.svg);
+    }
+    &.hidden {
+      visibility: hidden;
+    }
+  }
+}

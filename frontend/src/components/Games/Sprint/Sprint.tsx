@@ -7,6 +7,7 @@ import Streak from './Streak';
 import ModalOnClose from './ModalOnClose';
 import CloseButton from '../../CloseButton';
 import GetReady from './GetReady';
+import Frogs from './Frogs';
 import PlayAudioButton from './PlayAudioButton';
 import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
@@ -102,6 +103,7 @@ const Sprint: FC = () => {
     } else {
       // wrong answer
       setStreak(0);
+      setModificator(old => old - 1 || 1);
       animateBorderColor('.sprint__box', colorOnWrongAnswer);
     }
   };
@@ -191,6 +193,7 @@ const Sprint: FC = () => {
           <div className="box sprint__box">
             <PlayAudioButton audio={audio} />
             <Streak streak={streak} />
+            <Frogs modificator={modificator} />
             <div className="sprint__game-wrapper">
               <div className="title">{word}</div>
               <div className="subtitle">{wordTranslate}</div>
