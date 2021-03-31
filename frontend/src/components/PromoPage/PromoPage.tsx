@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import './promoPage.scss';
 import { PromoPageProps } from './PromoPage.model';
 
-import Menu from '../Menu';
-
 const PromoPage: FC<PromoPageProps> = () => (
   <main>
     <section className="promo">
