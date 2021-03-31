@@ -116,3 +116,16 @@
     outline: none;
   }
 }
+
+.finish {
+    width: 60%;
+
+    &__words-list {
+        width: 60%;
+        margin: 0 auto;
+
+        &__row {
+            text-align: left;
+        }
+    }
+}

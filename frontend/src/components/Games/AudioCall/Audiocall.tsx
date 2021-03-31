@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
+import Word from './Audiocall.model';
 import './Audiocall.scss';
 
 const Audiocall: FC = () => {
@@ -195,7 +196,8 @@ const Audiocall: FC = () => {
       wordTranslate: 'утка',
     },
   ];
-  const [count, setCount] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState <Word[]>([]);
+  const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
   const [start, setStart] = useState(false);
   const [currentView, setCurrentView] = useState(false);
 
@@ -243,7 +245,15 @@ const Audiocall: FC = () => {
   const answerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setCurrentView(true);
     const target = e.target as Element;
-    if (target.innerHTML === currentWord.wordTranslate) setCount(count + 1);
+    if (target.innerHTML === currentWord.wordTranslate) {
+      const updatedCorrectAnswers = correctAnswers;
+      updatedCorrectAnswers.push(currentWord);
+      setCorrectAnswers(updatedCorrectAnswers);
+    } else {
+      const updatedWrongAnswers = wrongAnswers;
+      updatedWrongAnswers.push(currentWord);
+      setWrongAnswers(updatedWrongAnswers);
+    }
   };
 
   const clickStart = () => {
@@ -289,7 +299,43 @@ const Audiocall: FC = () => {
   if (currentWordNumber >= words.length) {
     return (
       <div className="audiocall">
-        <div>{`${count} изучено, ${words.length - count} на изучении`}</div>
+        <div className="box finish">
+          <div>Отличный результат!</div>
+          <div>{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
+          <div className="finish__words-list">
+            <div>
+              <div>
+                <span>Знаю</span>
+                <span>{correctAnswers.length}</span>
+              </div>
+              {correctAnswers.map(word => (
+                <div className="finish__words-list__row">
+                  <button onClick={playAudio} className="audiocall__volume ">
+                    <i className="fas fa-volume-up"></i>
+                  </button>
+                  <span>{word.word.toUpperCase()}</span>
+                  <span>{` - ${word.wordTranslate}`}</span>
+                </div>
+              ))}
+            </div>
+
+            <div>
+              <div>
+                <span>Сложно</span>
+                <span>{wrongAnswers.length}</span>
+              </div>
+              {wrongAnswers.map(word => (
+                <div className="finish__words-list__row">
+                  <button onClick={playAudio} className="audiocall__volume ">
+                    <i className="fas fa-volume-up"></i>
+                  </button>
+                  <span>{word.word.toUpperCase()}</span>
+                  <span>{` - ${word.wordTranslate}`}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
