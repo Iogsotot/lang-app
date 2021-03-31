@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './promoPage.scss';
-import { PromoPageProps } from './PromoPage.model';
 
-const PromoPage: FC<PromoPageProps> = () => (
+const PromoPage: FC = () => (
   <main>
     <section className="promo">
       <div className="wrapper">
@@ -73,7 +72,7 @@ const PromoPage: FC<PromoPageProps> = () => (
             <p className="duty">Max - 10+ years of tech recruiting for VC funded startups</p>
             <div className="teammate__info">
               <img src="https://avatars.githubusercontent.com/u/54726292?v=4" alt="Bramov" />
-              <div className="name">Bramov</div>
+              <div className="name">Alexey Abramov</div>
             </div>
           </div>
 
@@ -156,7 +155,7 @@ const PromoPage: FC<PromoPageProps> = () => (
             <li className="info__item">
               <h4>200%</h4>
               <p>
-                Цифра явно получше - тут уже целых два нолика есть, что хорошо гармионирует в кружочками знака процентов
+                Цифра явно получше - тут уже целых два нолика есть, что хорошо гармионирует c кружочками знака процентов
               </p>
             </li>
             <li className="info__item">
@@ -168,8 +167,6 @@ const PromoPage: FC<PromoPageProps> = () => (
         </div>
       </div>
     </section>
-    {/* <Link to="/textbook/0/0">TextBook page</Link>
-    <Link to="/savannah">Savannah</Link> */}
   </main>
 );
 
