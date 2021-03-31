@@ -1,0 +1,25 @@
+main {
+  font-size: 10px;
+  margin-left: 6.25rem;
+
+  .promo {
+    background-image: url("../../assets/images/promo_bg.png");
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: 50% auto;
+
+    padding-bottom: 19rem;
+    .info_block {
+      width: 40rem;
+      padding-top: 12.5rem;
+    }
+
+    .title {
+      margin-bottom: 1.8rem;
+    }
+    .content {
+      max-width: 26.625rem;
+      margin-bottom: 3.375rem;
+    }
+  }
+}
