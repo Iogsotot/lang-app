@@ -189,7 +189,7 @@ const Sprint: FC = () => {
               {({ remainingTime }) => (IsPlaying ? remainingTime : null)}
             </CountdownCircleTimer>
           </div>
-
+          <span className="score subtitle">{points}</span>
           <div className="box sprint__box">
             <PlayAudioButton audio={audio} />
             <Streak streak={streak} isModMax={modificator === 4} />

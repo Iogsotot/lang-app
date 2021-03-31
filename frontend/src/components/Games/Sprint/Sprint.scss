@@ -1,10 +1,13 @@
 .sprint {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: min-content;
   height: 100vh;
   grid-template-areas:
     'timer . . close'
+    '. score score .'
     '. box box .';
+
   &__box {
     grid-area: box;
     width: 30rem;
@@ -15,9 +18,18 @@
     flex-direction: column;
     border: 1px solid transparent;
     justify-self: center;
+
+    & .play-audio-btn {
+      margin-left: auto;
+    }
   }
   &__game-wrapper {
     margin: auto 0;
+  }
+
+  & .score {
+    grid-area: score;
+    height: 2rem;
   }
 
   & .countdown-wrapper {

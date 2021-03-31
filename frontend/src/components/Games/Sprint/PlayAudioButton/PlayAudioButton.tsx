@@ -3,7 +3,7 @@ import useSound from 'use-sound';
 
 import { PlayAudioButtonProps } from './PlayAudioButton.model';
 
-const PlayAudioButton:FC <PlayAudioButtonProps> = ({ audio }) => {
+const PlayAudioButton: FC<PlayAudioButtonProps> = ({ audio }) => {
   const [playAudio] = useSound(audio);
 
   const clickHandler = () => {
@@ -11,7 +11,9 @@ const PlayAudioButton:FC <PlayAudioButtonProps> = ({ audio }) => {
   };
 
   return (
-    <button onClick={clickHandler}><i className="fas fa-volume-up"/></button>
+    <button className="play-audio-btn button is-rounded" onClick={clickHandler}>
+      <i className="fas fa-volume-up" />
+    </button>
   );
 };
 

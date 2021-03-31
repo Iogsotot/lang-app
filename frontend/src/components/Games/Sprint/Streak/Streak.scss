@@ -1,13 +1,18 @@
 .streak {
   display: flex;
   justify-content: space-around;
-  width: 11.8rem;
+  width: calc((2rem + 1rem) * 3);
   transform: background-color 0.2s;
   &__circle {
-    width: 2.6rem;
-    height: 2.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
+    color: transparent;
     &-filled {
+      color: white;
       background-color: hsl(141, 71%, 48%);
     }
     &-empty {
