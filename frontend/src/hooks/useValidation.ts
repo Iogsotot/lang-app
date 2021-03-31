@@ -82,7 +82,9 @@ export const useValidation = ({ name, email, password, isLogin }: UseValidationP
       setPasswordError('');
       setPasswordSuccess('');
     }
+  }, [name, email, password]);
 
+  useEffect(() => {
     if (nameSuccess && emailSuccess && passwordSuccess) {
       setFormReady(true);
     } else if (isLogin && emailSuccess && passwordSuccess) {
@@ -90,7 +92,7 @@ export const useValidation = ({ name, email, password, isLogin }: UseValidationP
     } else {
       setFormReady(false);
     }
-  }, [name, email, password]);
+  }, [nameSuccess, emailSuccess, passwordSuccess]);
 
   return {
     nameError,

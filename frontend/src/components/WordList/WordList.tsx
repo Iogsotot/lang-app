@@ -5,7 +5,9 @@ import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordCard from '../WordCard';
 import { useAudios } from '../../hooks/useAudios';
-import { WORD_GROUPS } from '../../constants';
+import { WORD_GROUPS, storageNames } from '../../constants';
+
+const { SHOW_BUTTONS, SHOW_TRANSLATE } = storageNames;
 
 const WordList: FC = () => {
   const history = useHistory();
@@ -36,12 +38,24 @@ const WordList: FC = () => {
     setOpenSettings(!openSettings);
   };
 
+  const onChangeButtons = () => {
+    localStorage.setItem(SHOW_BUTTONS, `${!displayButtons}`);
+    showButtons(!displayButtons);
+  };
+
+  const onChangeTranslate = () => {
+    localStorage.setItem(SHOW_TRANSLATE, `${!translate}`);
+    showTranslate(!translate);
+  };
+
   useEffect(() => {
     fetchWords(group, page);
     history.push(`/textbook/${group}/${page}`);
   }, [group, page]);
 
   useEffect(() => {
+    showButtons(!!JSON.parse(localStorage.getItem(SHOW_BUTTONS) || 'false'));
+    showTranslate(!!JSON.parse(localStorage.getItem(SHOW_TRANSLATE) || 'false'));
     if (Number.isInteger(+pageFromUrl) && Number.isInteger(+groupFromUrl)) {
       setPage(+pageFromUrl);
       setGroup(+groupFromUrl);
@@ -78,7 +92,7 @@ const WordList: FC = () => {
                 type="checkbox"
                 name="translate"
                 checked={translate}
-                onChange={() => showTranslate(!translate)}
+                onChange={onChangeTranslate}
               />
             </div>
             <hr className="dropdown-divider" />
@@ -88,7 +102,7 @@ const WordList: FC = () => {
                 type="checkbox"
                 name="buttons"
                 checked={displayButtons}
-                onChange={() => showButtons(!displayButtons)}
+                onChange={onChangeButtons}
               />
             </div>
           </div>

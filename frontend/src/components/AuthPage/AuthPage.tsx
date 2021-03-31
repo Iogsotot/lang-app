@@ -44,19 +44,16 @@ const AuthPage: FC = () => {
 
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    localStorage.setItem(NAME_FOR_CODE, value);
     setName(value);
   };
 
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    localStorage.setItem(EMAIL_FOR_CODE, value);
     setEmail(value);
   };
 
   const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    localStorage.setItem(PASSWORD_FOR_CODE, value);
     setPassword(value);
   };
 
@@ -74,17 +71,15 @@ const AuthPage: FC = () => {
     }
   };
 
+  const onChangeForm = () => {
+    setIsLogin(!isLogin);
+  };
+
   useEffect(() => {
     setName('');
     setEmail('');
     setPassword('');
   }, [isLogin]);
-
-  useEffect(() => {
-    setName(localStorage.getItem(NAME_FOR_CODE) || '');
-    setEmail(localStorage.getItem(EMAIL_FOR_CODE) || '');
-    setPassword(localStorage.getItem(PASSWORD_FOR_CODE) || '');
-  }, []);
 
   return (
     <main>
@@ -133,7 +128,7 @@ const AuthPage: FC = () => {
           </div>
         </div>
 
-        <p>Do u have acc?</p> <button onClick={() => setIsLogin(!isLogin)}>{isLogin ? SIGN_UP : SIGN_IN}</button>
+        <p>Do u have acc?</p> <button onClick={onChangeForm}>{isLogin ? SIGN_UP : SIGN_IN}</button>
 
       </div>
 

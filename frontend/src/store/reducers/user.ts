@@ -1,4 +1,9 @@
 import { UserAction, UserActionTypes, UserState } from '../../models/user';
+import { notifications } from '../../constants';
+
+const {
+  USER_CREATED_SUCCESSFULLY,
+} = notifications;
 
 const {
   FETCH_USER,
@@ -28,7 +33,7 @@ export const userReducer = (state = initialState, action: UserAction): UserState
       return { ...state, loading: true };
 
     case REGISTER_USER_SUCCESS:
-      return { ...state, loading: false, notification: 'Пользователь успешно создан!' };
+      return { ...state, loading: false, notification: USER_CREATED_SUCCESSFULLY };
 
     case LOGIN_USER_SUCCESS:
       return { ...state, loading: false, isLoggedIn: true, user: action.payload };

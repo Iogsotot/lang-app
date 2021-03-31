@@ -1,6 +1,11 @@
 import './notification.scss';
 import React, { FC, useState, useEffect } from 'react';
 import { NotificationProps } from './Notification.model';
+import { notifications } from '../../constants';
+
+const {
+  NOTIFICATION_TIMEOUT,
+} = notifications;
 
 const Notification: FC<NotificationProps> = ({ clearFunction, error, notification }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +41,7 @@ const Notification: FC<NotificationProps> = ({ clearFunction, error, notificatio
       if (isOpen) {
         closeAll();
       }
-    }, 8000);
+    }, NOTIFICATION_TIMEOUT);
 
     openError();
     openNotification();
