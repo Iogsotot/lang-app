@@ -86,7 +86,7 @@ const Sprint: FC = () => {
   const handleModificator = () => {
     if (streak >= 3) {
       setStreak(0);
-      setModificator(old => old + 1);
+      setModificator(old => (old < 4 ? old + 1 : old));
     } else {
       setStreak(old => old + 1);
     }
@@ -192,8 +192,8 @@ const Sprint: FC = () => {
 
           <div className="box sprint__box">
             <PlayAudioButton audio={audio} />
-            <Streak streak={streak} />
-            <Frogs modificator={modificator} />
+            <Streak streak={streak} isModMax={modificator === 4} />
+            <Frogs modificator={modificator} maxFrogs={4} />
             <div className="sprint__game-wrapper">
               <div className="title">{word}</div>
               <div className="subtitle">{wordTranslate}</div>

@@ -8,11 +8,11 @@ import { FrogsProps } from './Frogs.model';
 
 import './Frogs.scss';
 
-const Frogs: FC<FrogsProps> = ({ modificator }) => {
-  const [frogsColor] = useState(new Array(4).fill(0).map(() => randomInteger(2)));
+const Frogs: FC<FrogsProps> = ({ modificator, maxFrogs }) => {
+  const [frogsColor] = useState(new Array(maxFrogs).fill(0).map(() => randomInteger(2)));
   return (
     <div className="frogs">
-      {new Array(4).fill(0).map((_, index) => {
+      {new Array(maxFrogs).fill(0).map((_, index) => {
         const frogIsVisible = index < modificator ? '' : 'hidden';
         let color;
 
