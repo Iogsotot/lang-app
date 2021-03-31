@@ -3,4 +3,5 @@ export interface ButtonProps {
   onBtnClick: (...args: any) => void;
   text: string;
   className: string;
+  icon?: string;
 }

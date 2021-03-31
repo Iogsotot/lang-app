@@ -198,8 +198,20 @@ const Sprint: FC = () => {
               <div className="title">{word}</div>
               <div className="subtitle">{wordTranslate}</div>
               <div className="buttons">
-                <Button className="is-danger" text={wrongBtnText} onBtnClick={handleAnswerBtnClick} props={false} />
-                <Button className="is-success" text={correctBtnText} onBtnClick={handleAnswerBtnClick} props={true} />
+                <Button
+                  icon="arrow-left"
+                  className="is-danger"
+                  text={wrongBtnText}
+                  onBtnClick={handleAnswerBtnClick}
+                  props={false}
+                />
+                <Button
+                  icon="arrow-right"
+                  className="is-success"
+                  text={correctBtnText}
+                  onBtnClick={handleAnswerBtnClick}
+                  props={true}
+                />
               </div>
             </div>
           </div>

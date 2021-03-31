@@ -2,13 +2,29 @@ import { FC } from 'react';
 
 import { ButtonProps } from './Button.model';
 
-const Button: FC<ButtonProps> = ({ props, onBtnClick, text, className }) => {
+const Button: FC<ButtonProps> = ({ props, onBtnClick, text, className, icon }) => {
   const handleClick = () => {
     onBtnClick(props);
   };
 
+  const leftIcon = icon === 'arrow-left' && (
+    <span className="icon is-small">
+      <i className="fas fa-arrow-left" />
+    </span>
+  );
+
+  const rightIcon = icon === 'arrow-right' && (
+    <span className="icon is-small">
+      <i className="fas fa-arrow-right" />
+    </span>
+  );
+
   return (
-    <button onClick={handleClick} className={`button ${className}`}>{text}</button>
+    <button onClick={handleClick} className={`button ${className}`}>
+      {leftIcon}
+      <span>{text}</span>
+      {rightIcon}
+    </button>
   );
 };
 

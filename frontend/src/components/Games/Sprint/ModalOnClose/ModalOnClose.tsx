@@ -9,7 +9,7 @@ import { SPRINT_MODAL_ON_CLOSE } from '../../../../constants';
 const { modalTitle, modalSubTitle, sumbitCloseBtnText, canselModalBtn } = SPRINT_MODAL_ON_CLOSE;
 
 const ModalOnClose: FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal, handleSubmitClose }) => (
-  <div className={`modal ${modalIsActive ? 'is-active' : null}`}>
+  <div className={`modal ${modalIsActive ? 'is-active' : ''}`}>
     <div onClick={handleCancelModal} className="modal-background"></div>
     <div className="modal-content">
       <div className="box">
