@@ -5,14 +5,18 @@ import { Provider } from 'react-redux';
 import TextBook from './components/Textbook';
 import PromoPage from './components/PromoPage';
 import Savannah from './components/Games/Savannah';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import { store } from './store';
+// import font from './assets/fonts'
+import Menu from './components/Menu';
 
 const App: FC = () => (
   <div className="App">
-    <header className="App-header"></header>
-
-    <Provider store={store}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Menu />
+      <Header />
+      <Provider store={store}>
         <Switch>
           <Route path="/" exact>
             <PromoPage />
@@ -27,8 +31,9 @@ const App: FC = () => (
 
           <Redirect to="/" />
         </Switch>
-      </BrowserRouter>
-    </Provider>
+      </Provider>
+      <Footer />
+    </BrowserRouter>
   </div>
 );
 

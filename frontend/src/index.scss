@@ -108,4 +108,9 @@ h4 {
   color: $color_white;
   font-size: 18px;
   background-color: $main-bg;
+
+  transition: all 300ms linear;
+  &:hover {
+    transition: all 300ms linear;
+  }
 }
