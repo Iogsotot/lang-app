@@ -1,4 +1,19 @@
+// bg, btn
+$main-bg: #b57ad2;
+
+//text, border
+$color_extra_black: #2b292d;
+$color_black: #3c3c3c;
+$color_white: #ffffff;
+$color_light: #c9ced6;
+$color_middle: #959dbd;
+
+// higlights:
+$color_important: #6f52ed;
+
 main {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto Mono", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 10px;
   margin-left: 6.25rem;
 
@@ -8,6 +23,11 @@ main {
     background-repeat: no-repeat;
     background-size: 50% auto;
 
+    color: $color_black;
+
+    // padding-bottom: 36rem;
+    height: 90vh;
+    padding-left: 2.5rem;
     padding-bottom: 19rem;
     .info_block {
       width: 40rem;
@@ -22,4 +42,96 @@ main {
       margin-bottom: 3.375rem;
     }
   }
+
+  .video {
+    background: linear-gradient(180deg, rgba(255, 244, 229, 0) 0%, rgba(181, 122, 210, 0.776388) 89.77%),
+      linear-gradient(179.61deg, #f9f4fc -73%, rgba(255, 244, 229, 0) 52.76%);
+    height: 80vh;
+    padding: 4.43rem 3rem;
+
+    .video-player {
+      height: 100%;
+      width: 100%;
+      border-radius: 1.25rem;
+    }
+  }
+
+  .features {
+    color: $color_extra_black;
+    background-color: white;
+    h2 {
+      margin-top: 7.75rem;
+      margin-bottom: 0.875rem;
+    }
+    h4 {
+      margin: 1.57rem auto;
+    }
+    .content {
+      text-align: center;
+      line-height: 150%;
+    }
+
+    .features__block {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+
+      margin-top: 7rem;
+      margin-bottom: 8rem;
+    }
+
+    .features__geo,
+    .features__stars,
+    .features__power-field {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 21rem;
+      img {
+        margin: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 1800px) {
+  main {
+    .promo {
+      background-image: url("../../assets/images/promo_bg.png"), url("../../assets/images/bg_book_2.png");
+      background-position: top right, center bottom;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 50% auto, 80vh auto;
+    }
+  }
+}
+
+@media (max-width: 1240px) {
+  main {
+    .promo {
+      background-image: url("../../assets/images/promo_bg.png"), url("../../assets/images/bg_book_2.png");
+      background-position: top right, center bottom;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 40vw auto, contain;
+
+      .info_block {
+        width: 50vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    .promo {
+      padding-bottom: 15rem;
+      .info_block {
+        padding-top: 15rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  //колонки
 }
