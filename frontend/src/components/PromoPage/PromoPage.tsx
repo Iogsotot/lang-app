@@ -145,6 +145,31 @@ const PromoPage: FC<PromoPageProps> = () => (
         </div>
       </div>
     </section>
+    <section className="arrow-block">
+      <div className="wrapper">
+        <h2 className="title">Вот такенных результатов достигните</h2>
+        <h3 className="subtitle">Если будете с нами заниматься и ещё с 5ю репетиторами</h3>
+        <div className="content_group">
+          <ul className="info">
+            <li className="info__item">
+              <h4>160%</h4>
+              <p>Эта цифра - это результат умножения 80 на 2, она сама маленькая из всех представленных здесь цифр</p>
+            </li>
+            <li className="info__item">
+              <h4>200%</h4>
+              <p>
+                Цифра явно получше - тут уже целых два нолика есть, что хорошо гармионирует в кружочками знака процентов
+              </p>
+            </li>
+            <li className="info__item">
+              <h4>230%</h4>
+              <p>Самая огромная наша цифра, мы тут тоже придумаем (может быть ) что она будет значить.</p>
+            </li>
+          </ul>
+          <img src="./images/arrow_img.png" alt="arrows & girl" />
+        </div>
+      </div>
+    </section>
     {/* <Link to="/textbook/0/0">TextBook page</Link>
     <Link to="/savannah">Savannah</Link> */}
   </main>
