@@ -36,6 +36,7 @@ main {
 
     .title {
       margin-bottom: 1.8rem;
+      text-align: left;
     }
     .content {
       max-width: 26.625rem;
@@ -189,13 +190,14 @@ main {
           ". bramov bramov center ainuAnna ainuAnna ."
           ". . . center . . . "
           "svetlana svetlana . center . gregory gregory"
-          ". johnneon johnneon . iogsotot iogsotot .";
+          ". johnneon johnneon center iogsotot iogsotot .";
 
         .center {
           grid-area: center;
           width: 221px;
           height: 221px;
           margin: auto;
+          border-radius: unset;
         }
 
         .bramov {
@@ -216,6 +218,46 @@ main {
         .iogsotot {
           grid-area: iogsotot;
         }
+      }
+    }
+  }
+
+  .game {
+    color: $color_black;
+    background: white;
+    padding: 5.2rem 0 6.25rem;
+    h2 {
+      margin-bottom: 4.5rem;
+    }
+    .game__grid {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+    .game__block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      // flex: 1 1 35vw;
+      // width: 25vw;
+      margin: 1rem;
+      padding: 1.5rem;
+      img {
+        margin: auto;
+        // height: 23rem;
+        width: 35vmin;
+      }
+      .game__title {
+        text-align: center;
+        font-size: 1.5rem;
+        padding-bottom: 2rem;
+      }
+      transition: all 250ms linear;
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(111, 82, 237, 0.2);
+        transition: all 250ms linear;
       }
     }
   }

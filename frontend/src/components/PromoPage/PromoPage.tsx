@@ -122,6 +122,29 @@ const PromoPage: FC<PromoPageProps> = () => (
         </div>
       </div>
     </section>
+    <section className="game">
+      <div className="wrapper">
+        <h2>Мини-игры</h2>
+        <div className="game__grid">
+          <Link to="savannah" className="game__block card">
+            <img src="./images/savannah_logo.png" alt="savannah" />
+            <p className="game__title game__savannah">Саванна</p>
+          </Link>
+          <Link to="sprint" className="game__block card">
+            <img src="./images/sprint_logo.png" alt="sprint" />
+            <p className="game__title game__sprint">Спринт</p>
+          </Link>
+          <Link to="find-pair" className="game__block card">
+            <img src="./images/find-pair_logo_3.png" alt="find-pair" />
+            <p className="game__title game__find-pair">Найди пару</p>
+          </Link>
+          <Link to="audiocall" className="game__block card">
+            <img src="./images/audiocall_logo_2.png" alt="audiocall" />
+            <p className="game__title game__audiocall">Аудиовызов</p>
+          </Link>
+        </div>
+      </div>
+    </section>
     {/* <Link to="/textbook/0/0">TextBook page</Link>
     <Link to="/savannah">Savannah</Link> */}
   </main>
