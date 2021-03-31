@@ -15,11 +15,12 @@ export const messages = {
   USER_ICON: 'fa-user',
   ENVELOPE_ICON: 'fa-envelope',
   LOCK_ICON: 'fa-lock',
-  SIGN_IN: 'Войти',
-  SIGN_UP: 'Зарегистрироваться',
   NAME: 'Имя',
   EMAIL: 'Электронная почта',
   PASSWORD: 'Пароль',
+  NAME_FOR_CODE: 'name',
+  EMAIL_FOR_CODE: 'email',
+  PASSWORD_FOR_CODE: 'password',
   TYPE: { ...TYPES },
   NAME_AVALIABLE: 'Это имя пользователя доступно',
   EMAIL_AVALIABLE: 'Этот адрес доступен',
@@ -28,6 +29,4 @@ export const messages = {
   INCORRECT_EMAIL: 'Некоректный адрес электронной почты',
   INCORRECT_PASSWORD:
     'Пароль должен содержать по одной заглавной и строчной букве и цифру. Минимальное количество символов - 8.',
-  USER_NOT_FOUND: 'Пользователь не найден',
-  USER_HAS_BEEN_REGISTERED: 'Пользователь с таким электронным адресом уже зарегистрирован',
 };

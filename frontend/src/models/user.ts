@@ -25,6 +25,7 @@ export interface RegisterResponse {
 export interface UsersDispatchProps {
   register: (formData: FormData) => (dispatch: Dispatch<UserAction>) => void;
   login: (formData: FormData) => (dispatch: Dispatch<UserAction>) => void;
+  clearUserNotifications: () => (dispatch: Dispatch<UserAction>) => void;
 }
 
 interface FetchUserAction {
@@ -46,15 +47,21 @@ interface FetchUserErrorAction {
   payload: string;
 }
 
+interface ClearUserNotificationsAction {
+  type: UserActionTypes.CLEAR_USER_NOTIFICATIONS;
+}
+
 export enum UserActionTypes {
   FETCH_USER = 'FETCH_USER',
   REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS',
   LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS',
   FETCH_USER_ERROR = 'FETCH_USER_ERROR',
+  CLEAR_USER_NOTIFICATIONS = 'CLEAR_USER_NOTIFICATIONS',
 }
 
 export type UserAction =
   FetchUserAction
   | RegisterUserSuccessAction
   | LoginUserSuccessAction
-  | FetchUserErrorAction;
+  | FetchUserErrorAction
+  | ClearUserNotificationsAction;

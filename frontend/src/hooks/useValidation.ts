@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { constants } from '../constants';
+import { messages } from '../constants';
 
 const {
   NAME_TEST_REGEX,
@@ -11,7 +11,7 @@ const {
   NAME_AVALIABLE,
   EMAIL_AVALIABLE,
   PASSWORD_AVALIABLE,
-} = constants.messages;
+} = messages;
 
 interface UseValidationProps {
   name: string;
@@ -44,7 +44,7 @@ export const useValidation = ({ name, email, password, isLogin }: UseValidationP
   const passwordCheck = !PASSWORD_TEST_REGEX.test(password);
 
   useEffect(() => {
-    if (name && isLogin) {
+    if (name && !isLogin) {
       if (nameCheck) {
         setNameSuccess('');
         setNameError(INCORRECT_NAME);

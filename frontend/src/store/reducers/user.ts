@@ -5,6 +5,7 @@ const {
   REGISTER_USER_SUCCESS,
   LOGIN_USER_SUCCESS,
   FETCH_USER_ERROR,
+  CLEAR_USER_NOTIFICATIONS,
 } = UserActionTypes;
 
 const initialState: UserState = {
@@ -27,13 +28,16 @@ export const userReducer = (state = initialState, action: UserAction): UserState
       return { ...state, loading: true };
 
     case REGISTER_USER_SUCCESS:
-      return { ...state, loading: false, notification: action.payload };
+      return { ...state, loading: false, notification: 'Пользователь успешно создан!' };
 
     case LOGIN_USER_SUCCESS:
-      return { ...state, loading: false, user: action.payload };
+      return { ...state, loading: false, isLoggedIn: true, user: action.payload };
 
     case FETCH_USER_ERROR:
       return { ...state, loading: false, error: action.payload };
+
+    case CLEAR_USER_NOTIFICATIONS:
+      return { ...state, notification: '', error: null };
 
     default:
       return state;

@@ -1,9 +1,11 @@
 import './authPage.scss';
 import React, { FC, useState, useEffect } from 'react';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useAction } from '../../hooks/useAction';
 import Input from '../Input';
 import { useValidation } from '../../hooks/useValidation';
-import { constants } from '../../constants';
-import { useAction } from '../../hooks/useAction';
+import { messages, auth } from '../../constants';
+import Notification from '../Notification';
 
 const {
   NAME,
@@ -13,12 +15,19 @@ const {
   USER_ICON,
   ENVELOPE_ICON,
   LOCK_ICON,
+  NAME_FOR_CODE,
+  EMAIL_FOR_CODE,
+  PASSWORD_FOR_CODE,
+} = messages;
+
+const {
   SIGN_UP,
   SIGN_IN,
-} = constants.messages;
+} = auth;
 
 const AuthPage: FC = () => {
-  const { register, login } = useAction();
+  const { register, login, clearUserNotifications } = useAction();
+  const { error, notification } = useTypedSelector((store) => store.user);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,28 +43,33 @@ const AuthPage: FC = () => {
   } = useValidation({ name, email, password, isLogin });
 
   const onNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
+    const { value } = event.target;
+    localStorage.setItem(NAME_FOR_CODE, value);
+    setName(value);
   };
 
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    const { value } = event.target;
+    localStorage.setItem(EMAIL_FOR_CODE, value);
+    setEmail(value);
   };
 
   const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+    const { value } = event.target;
+    localStorage.setItem(PASSWORD_FOR_CODE, value);
+    setPassword(value);
   };
 
   const onSubmit = () => {
     const formData = new FormData();
+
+    formData.append(NAME_FOR_CODE, name);
+    formData.append(EMAIL_FOR_CODE, email);
+    formData.append(PASSWORD_FOR_CODE, password);
+
     if (isLogin) {
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('password', password);
       login(formData);
     } else {
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('password', password);
       register(formData);
     }
   };
@@ -66,9 +80,14 @@ const AuthPage: FC = () => {
     setPassword('');
   }, [isLogin]);
 
+  useEffect(() => {
+    setName(localStorage.getItem(NAME_FOR_CODE) || '');
+    setEmail(localStorage.getItem(EMAIL_FOR_CODE) || '');
+    setPassword(localStorage.getItem(PASSWORD_FOR_CODE) || '');
+  }, []);
+
   return (
     <main>
-
       <div className="form">
 
         {!isLogin
@@ -117,6 +136,12 @@ const AuthPage: FC = () => {
         <p>Do u have acc?</p> <button onClick={() => setIsLogin(!isLogin)}>{isLogin ? SIGN_UP : SIGN_IN}</button>
 
       </div>
+
+      <Notification
+        error={error}
+        notification={notification}
+        clearFunction={clearUserNotifications}
+      />
 
     </main>
   );
