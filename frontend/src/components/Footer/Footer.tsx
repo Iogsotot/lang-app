@@ -1,5 +1,6 @@
 import './footer.scss';
 import { FC } from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 import { FOOTER_COPYRIGHT } from '../../constants/constants';
 import RSSLogo from '../../assets/images/rs_school_react.png';
 import githubLogo from '../../assets/images/github-logo.svg';
@@ -14,16 +15,16 @@ const Footer: FC = () => (
               <h4>RS Lang</h4>
             </li>
             <li>
-              <a href="#features">Возможности</a>
+              <Link to="/#features">Возможности</Link>
             </li>
             <li>
-              <a href="#video">Видеообзор</a>
+              <Link to="/#video">Видеообзор</Link>
             </li>
             <li>
-              <a href="#team">Команда</a>
+              <Link to="/#team">Команда</Link>
             </li>
             <li>
-              <a href="#games">Игры</a>
+              <Link to="/#games">Игры</Link>
             </li>
           </ul>
         </nav>

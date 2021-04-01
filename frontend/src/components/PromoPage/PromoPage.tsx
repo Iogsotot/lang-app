@@ -15,7 +15,7 @@ const PromoPage: FC = () => (
         </div>
       </div>
     </section>
-    <section className="video">
+    <section className="video" id="video">
       <iframe
         title="rs lang video review"
         src="https://www.youtube.com/embed/qtsNbxgPngA"
@@ -61,7 +61,7 @@ const PromoPage: FC = () => (
       </div>
     </section>
 
-    <section className="team">
+    <section className="team" id="team">
       <h3 className="title">Наша команда</h3>
       <h3 className="subtitle">
         У нас огромная команда из высоквалифицированных лоу-перформеров. Вот тут ниже наши рожицы и кто что делал
@@ -119,7 +119,7 @@ const PromoPage: FC = () => (
         </div>
       </div>
     </section>
-    <section className="game">
+    <section className="game" id="game">
       <div className="wrapper">
         <h2>Мини-игры</h2>
         <div className="game__grid">
