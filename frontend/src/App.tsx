@@ -1,17 +1,24 @@
 import './App.scss';
-import React from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './store';
-import { Router } from './routes';
 import Header from './components/Header';
+import Footer from './components/Footer';
+import { store } from './store';
+import Menu from './components/Menu';
+import { Router } from './routes';
 
-const App: React.FC = () => (
+const App: FC = () => (
   <div className="App">
     <Provider store={store}>
       <BrowserRouter>
+        <Menu />
+
         <Header />
+
         <Router />
+
+        <Footer />
       </BrowserRouter>
     </Provider>
   </div>

@@ -18,7 +18,6 @@ const WordCard: FC<WordCardProps> = props => {
 
   return (
     <div className="word columns is-1 is-vcentered">
-
       <figure className="image">
         <img src={image} alt="Word" />
       </figure>

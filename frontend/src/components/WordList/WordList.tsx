@@ -133,7 +133,7 @@ const WordList: FC = () => {
           ) : (
             <div className="spinner">
               <div className="spinner__inner">
-                <div>&#0;</div>
+                <div />
               </div>
             </div>
           )}

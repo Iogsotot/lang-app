@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import TextBook from './components/Textbook';
 import PromoPage from './components/PromoPage';
 import AuthPage from './components/AuthPage';
+import Savannah from './components/Games/Savannah';
 import { useTypedSelector } from './hooks/useTypedSelector';
 
 export const Router: FC = () => {
@@ -19,6 +20,10 @@ export const Router: FC = () => {
           <TextBook />
         </Route>
 
+        <Route path="/Savannah/">
+          <Savannah />
+        </Route>
+
         <Redirect to="/" />
       </Switch>
     );
@@ -32,6 +37,10 @@ export const Router: FC = () => {
 
       <Route path="/auth" exact>
         <AuthPage />
+      </Route>
+
+      <Route path="/Savannah/">
+        <Savannah />
       </Route>
 
       <Route path="/textbook/:group/:page" exact>
