@@ -7,21 +7,20 @@ import PromoPage from './components/PromoPage';
 import Savannah from './components/Games/Savannah';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { store } from './store';
-// import font from './assets/fonts'
+import { store } from './store/store';
 import Menu from './components/Menu';
 
 const App: FC = () => (
   <div className="App">
     <BrowserRouter>
-      <Menu />
-      <Header />
       <Provider store={store}>
+        <Menu />
+        <Header />
         <Switch>
           <Route path="/" exact>
             <PromoPage />
           </Route>
-          <Route path="/Savannah/">
+          <Route path="/Savannah" exact>
             <Savannah />
           </Route>
 
@@ -31,8 +30,8 @@ const App: FC = () => (
 
           <Redirect to="/" />
         </Switch>
+        <Footer />
       </Provider>
-      <Footer />
     </BrowserRouter>
   </div>
 );

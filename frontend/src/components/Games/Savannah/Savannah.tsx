@@ -57,6 +57,7 @@ const Savannah: FC = () => {
   useEffect(() => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
+      console.log({ currentPageWords });
       setCurrentWords(currentPageWords);
     }
     fetchCurrentPageWords();
