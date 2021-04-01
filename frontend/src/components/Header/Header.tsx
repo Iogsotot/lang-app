@@ -20,10 +20,10 @@ const Header: FC = () => {
     <header>
       <div className="header__inner">
         <nav className="nav">
-          <a href="#features" className="nav__link">Возможности</a>
-          <a href="#video" className="nav__link">Видеообзор</a>
-          <a href="#team" className="nav__link">Команда</a>
-          <a href="#games" className="nav__link">Игры</a>
+          <a href="/#features" className="nav__link">Возможности</a>
+          <a href="/#video" className="nav__link">Видеообзор</a>
+          <a href="/#team" className="nav__link">Команда</a>
+          <a href="/#games" className="nav__link">Игры</a>
         </nav>
 
         <div className="user__menu">
