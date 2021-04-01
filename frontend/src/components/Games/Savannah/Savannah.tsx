@@ -1,13 +1,9 @@
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
 import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
 import './savannah.scss';
-import { SavannahProps } from './Savannah.model';
 import { constants } from '../../../constants';
 import { Word } from '../../../models/word';
 
-const Savannah: FC<SavannahProps> = () => {
+const Savannah: FC = () => {
   const { WORD_GROUPS, API_BASE_URL } = constants;
   const [group, setGroup] = useState(0);
   const [currentWords, setCurrentWords] = useState<[Word] | []>([]);
@@ -17,27 +13,25 @@ const Savannah: FC<SavannahProps> = () => {
   const [isGetAnswer, setIsGetAnswer] = useState(false);
 
   const WORDS = [0, 1, 2, 3];
-  const maxCount = 6;
 
-  let lives = 5;
-  let currentWordClassNames;
   const [timer, setTimer] = useState(0);
   const [counter, setCounter] = useState(0);
   const [start, setStart] = useState(false);
+  const currentWordClassNames = counter === 0 ? 'current-word' : 'current-word start-anim';
+  const maxCount = 6;
+  let lives = 5;
 
   useEffect(() => {
-    // if (timer === 1) {
     const chunk = (() => {
-      let wordsArr = [];
+      const wordsArr = [];
       while (wordsArr.length < 4) {
-        let randomWordIndex = Math.floor(Math.random() * 600);
+        const randomWordIndex = Math.floor(Math.random() * 600);
         if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
       }
       return wordsArr;
     })();
 
     setWordsChunk(chunk);
-    // }
   }, [round]);
 
   async function fetchWords(wordsGroup: number) {
@@ -63,8 +57,6 @@ const Savannah: FC<SavannahProps> = () => {
     fetchCurrentPageWords();
   }, [group]);
 
-  currentWordClassNames = counter === 0 ? 'current-word' : 'current-word start-anim';
-
   function resolveAsWrongAnswer() {
     if (isGetAnswer) {
       lives -= 1;
@@ -73,7 +65,6 @@ const Savannah: FC<SavannahProps> = () => {
   }
 
   function resolveAsCorrectAnswer() {
-    // setIsGetAnswer(true);
     console.log('маладэц');
   }
 
@@ -92,7 +83,6 @@ const Savannah: FC<SavannahProps> = () => {
       setTimer(timer - 1);
       console.log(timer);
       if (timer === 1) {
-        // currentWordClassNames += ' start-anim';
         setRound(round + 1);
         resolveAsWrongAnswer();
         resetGameRound();
@@ -157,7 +147,6 @@ const Savannah: FC<SavannahProps> = () => {
               </button>
             ))}
           </div>
-          {/* <button className="btn button is-primary is-outlined" onClick={handleStart} disabled={!!timer}> */}
           <button className="btn button is-primary is-outlined" onClick={handleStart}>
             Начать игру!
           </button>
@@ -166,8 +155,7 @@ const Savannah: FC<SavannahProps> = () => {
       {start && (
         <div className="savannah-body">
           <div className="status-bar box">
-            <div>counter: {counter}</div>
-            {/* <button onClick={resetGameRound}>Перезапуск игры</button> */}
+            {/* <div>counter: {counter}</div> */}
             <div className="lives">
               <i className="fas fa-heart"></i>
               <i className="fas fa-heart"></i>
