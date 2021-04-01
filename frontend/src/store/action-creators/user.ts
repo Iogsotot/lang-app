@@ -13,6 +13,7 @@ const {
   LOGIN_USER_SUCCESS,
   FETCH_USER_ERROR,
   CLEAR_USER_NOTIFICATIONS,
+  LOG_OUT,
 } = UserActionTypes;
 
 const { USER_STORAGE } = storageNames;
@@ -56,6 +57,12 @@ export const login = (formData: FormData) =>
     } catch (error) {
       dispatch({ type: FETCH_USER_ERROR, payload: error.message });
     }
+  });
+
+export const logout = () =>
+  ((dispatch: Dispatch<UserAction>): void => {
+    localStorage.removeItem(USER_STORAGE);
+    dispatch({ type: LOG_OUT });
   });
 
 export const clearUserNotifications = () =>

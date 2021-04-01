@@ -13,19 +13,20 @@ const {
   LOGIN_USER_SUCCESS,
   FETCH_USER_ERROR,
   CLEAR_USER_NOTIFICATIONS,
+  LOG_OUT,
 } = UserActionTypes;
 
-const storageState = JSON.parse(
-  localStorage.getItem(USER_STORAGE) || '',
-) || { user: {
-  message: '',
-  token: '',
-  refreshToken: '',
-  userId: '',
-  name: '',
-},
-isLoggedIn: false,
-};
+const storageState =
+  JSON.parse(localStorage.getItem(USER_STORAGE)
+  || JSON.stringify({ user: {
+    message: '',
+    token: '',
+    refreshToken: '',
+    userId: '',
+    name: '',
+  },
+  isLoggedIn: false,
+  }));
 
 const initialState: UserState = {
   ...storageState,
@@ -47,6 +48,9 @@ export const userReducer = (state = initialState, action: UserAction): UserState
 
     case FETCH_USER_ERROR:
       return { ...state, loading: false, error: action.payload };
+
+    case LOG_OUT:
+      return { ...initialState };
 
     case CLEAR_USER_NOTIFICATIONS:
       return { ...state, notification: '', error: null };
