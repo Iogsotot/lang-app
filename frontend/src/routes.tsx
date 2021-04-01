@@ -20,7 +20,7 @@ export const Router: FC = () => {
           <TextBook />
         </Route>
 
-        <Route path="/Savannah/">
+        <Route path="/savannah/" exact>
           <Savannah />
         </Route>
 
@@ -39,7 +39,7 @@ export const Router: FC = () => {
         <AuthPage />
       </Route>
 
-      <Route path="/Savannah/">
+      <Route path="/savannah/" exact>
         <Savannah />
       </Route>
 

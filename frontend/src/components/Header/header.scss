@@ -1,6 +1,40 @@
+// bg, btn
+$main-bg: #b57ad2;
+
+//text, border
+$color_extra_black: #2b292d;
+$color_black: #3c3c3c;
+$color_white: #ffffff;
+$color_light: #c9ced6;
+$color_middle: #959dbd;
+
+// higlights:
+$color_important: #6f52ed;
+
 header {
-  height: 78px;
   border-color: white;
-  box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.1);
   margin-left: 6.25rem;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__link {
+    color: $color_black;
+    margin: 0 5px;
+    transition: all .2s linear;
+    &:hover {
+      transition: all .2s linear;
+      text-shadow: 0 0 3px rgba(0, 0, 0, .5);
+      text-decoration: underline;
+    }
+  }
 }
