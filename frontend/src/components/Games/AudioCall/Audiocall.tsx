@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import Word from './Audiocall.model';
+import Finish from './Finish';
 import './Audiocall.scss';
 
 const Audiocall: FC = () => {
@@ -200,7 +201,6 @@ const Audiocall: FC = () => {
   const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
   const [start, setStart] = useState(false);
   const [currentView, setCurrentView] = useState(false);
-
   const [currentWordNumber, setCurrentWordNumber] = useState(0);
   const [currentWord, setCurrentWord] = useState(words[currentWordNumber]);
 
@@ -289,7 +289,7 @@ const Audiocall: FC = () => {
       {Array(NUMBER_OF_VARIANTS)
         .fill(0)
         .map((item, index) => (
-          <button className="button is-ghost" onClick={e => answerClick(e)}>
+          <button className="button is-ghost" onClick={e => answerClick(e)} key={stepAnswers[index]}>
             {stepAnswers[index]}
           </button>
         ))}
@@ -297,47 +297,7 @@ const Audiocall: FC = () => {
   );
 
   if (currentWordNumber >= words.length) {
-    return (
-      <div className="audiocall">
-        <div className="box finish">
-          <div>Отличный результат!</div>
-          <div>{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
-          <div className="finish__words-list">
-            <div>
-              <div>
-                <span>Знаю</span>
-                <span>{correctAnswers.length}</span>
-              </div>
-              {correctAnswers.map(word => (
-                <div className="finish__words-list__row">
-                  <button onClick={() => playAudio(word)} className="audiocall__volume ">
-                    <i className="fas fa-volume-up"></i>
-                  </button>
-                  <span>{word.word.toUpperCase()}</span>
-                  <span>{` - ${word.wordTranslate}`}</span>
-                </div>
-              ))}
-            </div>
-
-            <div>
-              <div>
-                <span>Сложно</span>
-                <span>{wrongAnswers.length}</span>
-              </div>
-              {wrongAnswers.map(word => (
-                <div className="finish__words-list__row">
-                  <button onClick={() => playAudio(word)} className="audiocall__volume ">
-                    <i className="fas fa-volume-up"></i>
-                  </button>
-                  <span>{word.word.toUpperCase()}</span>
-                  <span>{` - ${word.wordTranslate}`}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    return <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} playAudio={playAudio} />;
   }
   return (
     <div className="audiocall">
