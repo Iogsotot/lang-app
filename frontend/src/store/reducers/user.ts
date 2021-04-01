@@ -1,9 +1,11 @@
 import { UserAction, UserActionTypes, UserState } from '../../models/user';
-import { notifications } from '../../constants';
+import { notifications, storageNames } from '../../constants';
 
 const {
   USER_CREATED_SUCCESSFULLY,
 } = notifications;
+
+const { USER_STORAGE } = storageNames;
 
 const {
   FETCH_USER,
@@ -13,15 +15,20 @@ const {
   CLEAR_USER_NOTIFICATIONS,
 } = UserActionTypes;
 
+const storageState = JSON.parse(
+  localStorage.getItem(USER_STORAGE) || '',
+) || { user: {
+  message: '',
+  token: '',
+  refreshToken: '',
+  userId: '',
+  name: '',
+},
+isLoggedIn: false,
+};
+
 const initialState: UserState = {
-  user: {
-    message: '',
-    token: '',
-    refreshToken: '',
-    userId: '',
-    name: '',
-  },
-  isLoggedIn: false,
+  ...storageState,
   loading: false,
   error: null,
   notification: '',

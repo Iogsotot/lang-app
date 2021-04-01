@@ -1,10 +1,11 @@
 import { Dispatch } from 'react';
-import { API_BASE_URL, auth } from '../../constants';
+import { API_BASE_URL, notifications, storageNames } from '../../constants';
 import { UserAction, UserActionTypes } from '../../models/user';
 
 const {
   USER_HAS_BEEN_REGISTERED,
-} = auth;
+  INCORECT_EMAIL_OR_PASSWORD,
+} = notifications;
 
 const {
   FETCH_USER,
@@ -14,12 +15,14 @@ const {
   CLEAR_USER_NOTIFICATIONS,
 } = UserActionTypes;
 
+const { USER_STORAGE } = storageNames;
+
 export const register = (formData: FormData) =>
   (async (dispatch: Dispatch<UserAction>): Promise<void> => {
     dispatch({ type: FETCH_USER });
     try {
-      const response = await fetch('http://localhost:8080/users', { method: 'POST', body: formData });
-      const data = await response.json(); // `${API_BASE_URL}/users`
+      const response = await fetch(`${API_BASE_URL}/users`, { method: 'POST', body: formData });
+      const data = await response.json();
 
       if (response.status === 417) {
         throw new Error(USER_HAS_BEEN_REGISTERED);
@@ -39,13 +42,17 @@ export const login = (formData: FormData) =>
     dispatch({ type: FETCH_USER });
     try {
       const response = await fetch(`${API_BASE_URL}/signin`, { method: 'POST', body: formData });
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error.errors[0].message || 'Something wrong');
+      if (response.status === 403) {
+        throw new Error(INCORECT_EMAIL_OR_PASSWORD);
       }
-
-      dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem(USER_STORAGE, JSON.stringify({
+          user: { ...data },
+          isLoggedIn: true,
+        }));
+        dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
+      }
     } catch (error) {
       dispatch({ type: FETCH_USER_ERROR, payload: error.message });
     }

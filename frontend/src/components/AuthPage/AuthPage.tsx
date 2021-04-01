@@ -4,7 +4,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useAction } from '../../hooks/useAction';
 import Input from '../Input';
 import { useValidation } from '../../hooks/useValidation';
-import { messages, auth } from '../../constants';
+import { messages, auth, notifications } from '../../constants';
 import Notification from '../Notification';
 
 const {
@@ -24,6 +24,10 @@ const {
   SIGN_UP,
   SIGN_IN,
 } = auth;
+
+const {
+  USER_CREATED_SUCCESSFULLY,
+} = notifications;
 
 const AuthPage: FC = () => {
   const { register, login, clearUserNotifications } = useAction();
@@ -80,6 +84,12 @@ const AuthPage: FC = () => {
     setEmail('');
     setPassword('');
   }, [isLogin]);
+
+  useEffect(() => {
+    if (notification === USER_CREATED_SUCCESSFULLY) {
+      setIsLogin(true);
+    }
+  }, [notification]);
 
   return (
     <main>
