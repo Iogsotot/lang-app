@@ -4,6 +4,8 @@ export const FOOTER_COPYRIGHT = {
     { link: 'https://github.com/GregoryMoskalev', name: '@GregoryMoskalev' },
     { link: 'https://github.com/johnneon', name: '@Johnneon' },
     { link: 'https://github.com/Iogsotot', name: '@IogSotot' },
+    { link: 'https://github.com/svetlana-tyshkevich', name: '@Svetlana-tyshkevich' },
+    { link: 'https://github.com/AinuAnna', name: '@AinuAnna' },
   ],
 };
 
