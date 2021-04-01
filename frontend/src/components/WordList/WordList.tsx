@@ -65,12 +65,10 @@ const WordList: FC = () => {
         <div className="dropdown-trigger">
           <button className="button" aria-haspopup="true" aria-controls="dropdown-menu2" onClick={handleSettings}>
             <span>
-              <i className="fas fa-cog">&#0;</i>
+              <i className="fas fa-cog" />
             </span>
             <span className="icon is-small">
-              <i className="fas fa-angle-down" aria-hidden="true">
-                &#0;
-              </i>
+              <i className="fas fa-angle-down" aria-hidden="true" />
             </span>
           </button>
         </div>
@@ -78,12 +76,7 @@ const WordList: FC = () => {
           <div className="dropdown-content">
             <div className="dropdown-item">
               show translate:
-              <input
-                type="checkbox"
-                name="translate"
-                checked={translate}
-                onChange={() => showTranslate(!translate)}
-              />
+              <input type="checkbox" name="translate" checked={translate} onChange={() => showTranslate(!translate)} />
             </div>
             <hr className="dropdown-divider" />
             <div className="dropdown-item">
@@ -103,7 +96,7 @@ const WordList: FC = () => {
         <div className="audio__controller">
           <button onClick={toggleAudio} className="button is-danger is-outlined">
             <span className="icon is-small">
-              {isPlaying ? <i className="fas fa-pause">&#0;</i> : <i className="fas fa-play">&#0;</i>}
+              {isPlaying ? <i className="fas fa-pause" /> : <i className="fas fa-play" />}
             </span>
           </button>
           {`${currentWord}`}
@@ -123,7 +116,7 @@ const WordList: FC = () => {
           ) : (
             <div className="spinner">
               <div className="spinner__inner">
-                <div>&#0;</div>
+                <div />
               </div>
             </div>
           )}

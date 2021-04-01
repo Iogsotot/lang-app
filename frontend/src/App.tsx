@@ -1,18 +1,24 @@
 import './App.scss';
-import React from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import TextBook from './components/Textbook';
 import PromoPage from './components/PromoPage';
-import { index } from './store';
+import Savannah from './components/Games/Savannah';
+import { store } from './store';
 
-const App: React.FC = () => (
+const App: FC = () => (
   <div className="App">
-    <Provider store={index}>
+    <header className="App-header"></header>
+
+    <Provider store={store}>
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>
             <PromoPage />
+          </Route>
+          <Route path="/Savannah/">
+            <Savannah />
           </Route>
 
           <Route path="/textbook/:group/:page" exact>

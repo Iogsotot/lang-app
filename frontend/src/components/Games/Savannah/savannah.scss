@@ -1,0 +1,104 @@
+.savannah {
+  position: relative;
+  height: 100vh;
+  background: url("../../../assets/images/savannah-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .btn--close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    aspect-ratio: 1/1;
+    width: 48px;
+
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    transition: all 250ms;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 250ms;
+    }
+  }
+
+  .savannah__info {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 450px;
+    margin: auto;
+
+    background-color: rgba(255, 255, 255, 0.5);
+
+    .btn {
+      display: block;
+      width: fit-content;
+      margin: 1rem auto 0.5rem;
+    }
+  }
+
+  .current-word__container {
+    position: relative;
+    height: 30rem;
+    .current-word {
+      height: inherit;
+      &.start-anim {
+        animation: fall 5000ms ease-in both;
+      }
+    }
+
+    .timer--start {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%);
+    }
+  }
+  .status-bar {
+    text-align: right;
+    & > * {
+      display: inline-block;
+      height: 2rem;
+      line-height: 2rem;
+    }
+    .lives {
+      text-align: right;
+      color: lightcoral;
+      margin-right: 2.5rem;
+      .fa-heart {
+        margin: 0.1rem;
+      }
+    }
+  }
+  .answer-variants {
+    & > .wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      max-width: 50rem;
+      margin: auto;
+    }
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
