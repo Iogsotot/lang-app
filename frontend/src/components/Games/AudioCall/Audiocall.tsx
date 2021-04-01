@@ -222,13 +222,13 @@ const Audiocall: FC = () => {
     }
   };
 
-  const playAudio = () => {
-    const wordAudio = new Audio(`https://rslang-2020q3.herokuapp.com/${currentWord.audio}`);
+  const playAudio = (word: Word) => {
+    const wordAudio = new Audio(`https://rslang-2020q3.herokuapp.com/${word.audio}`);
     wordAudio.play();
   };
 
   useEffect(() => {
-    if (currentWordNumber < words.length) playAudio();
+    if (currentWordNumber < words.length) playAudio(currentWord);
   }, [currentWord]);
 
   useEffect(() => {
@@ -258,7 +258,7 @@ const Audiocall: FC = () => {
 
   const clickStart = () => {
     setStart(true);
-    playAudio();
+    playAudio(currentWord);
   };
 
   fillStepAnswers();
@@ -269,7 +269,7 @@ const Audiocall: FC = () => {
       <div className="audiocall__current-word__img">
         <img src={`https://rslang-2020q3.herokuapp.com/${currentWord.image}`} />
       </div>
-      <button onClick={playAudio} className="audiocall__volume volume-button">
+      <button onClick={() => playAudio(currentWord)} className="audiocall__volume volume-button">
         <i className="fas fa-volume-up"></i>
       </button>
       <div className="audiocall__current-word__text">{currentWord.word}</div>
@@ -278,7 +278,7 @@ const Audiocall: FC = () => {
 
   const CloseCurrentWord = () => (
     <div className="audiocall__current-word">
-      <button onClick={playAudio} className="audiocall__volume_main volume-button">
+      <button onClick={() => playAudio(currentWord)} className="audiocall__volume_main volume-button">
         <i className="fas fa-volume-up"></i>
       </button>
     </div>
@@ -310,7 +310,7 @@ const Audiocall: FC = () => {
               </div>
               {correctAnswers.map(word => (
                 <div className="finish__words-list__row">
-                  <button onClick={playAudio} className="audiocall__volume ">
+                  <button onClick={() => playAudio(word)} className="audiocall__volume ">
                     <i className="fas fa-volume-up"></i>
                   </button>
                   <span>{word.word.toUpperCase()}</span>
@@ -326,7 +326,7 @@ const Audiocall: FC = () => {
               </div>
               {wrongAnswers.map(word => (
                 <div className="finish__words-list__row">
-                  <button onClick={playAudio} className="audiocall__volume ">
+                  <button onClick={() => playAudio(word)} className="audiocall__volume ">
                     <i className="fas fa-volume-up"></i>
                   </button>
                   <span>{word.word.toUpperCase()}</span>
