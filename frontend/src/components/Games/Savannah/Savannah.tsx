@@ -5,18 +5,21 @@ import { Word } from '../../../models/word';
 
 const Savannah: FC = () => {
   const WORDS = [0, 1, 2, 3];
-  const aswerVariantsCount = 4;
+  const answerVariantsCount = 4;
   const maxCount = 6;
-  let lives = 5;
+  const maxLives = 5;
   const allWordsInGroupCount = 600;
 
+  const [lives, setLives] = useState(maxLives);
   const { WORD_GROUPS, API_BASE_URL } = constants;
   const [group, setGroup] = useState(0);
   const [currentWords, setCurrentWords] = useState<[Word] | []>([]);
   const [wordsChunk, setWordsChunk] = useState([0]);
-  const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * aswerVariantsCount));
+  const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * answerVariantsCount));
   const [round, setRound] = useState(1);
   const [isGetAnswer, setIsGetAnswer] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [wrongAswers, setWrongAswers] = useState(0);
 
   const [timer, setTimer] = useState(0);
   const [counter, setCounter] = useState(0);
@@ -26,13 +29,13 @@ const Savannah: FC = () => {
   useEffect(() => {
     const chunk = (() => {
       const wordsArr = [];
-      while (wordsArr.length < aswerVariantsCount) {
+      while (wordsArr.length < answerVariantsCount) {
         const randomWordIndex = Math.floor(Math.random() * allWordsInGroupCount);
         if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
       }
       return wordsArr;
     })();
-
+    setSoughtIndex(Math.floor(Math.random() * answerVariantsCount));
     setWordsChunk(chunk);
   }, [round]);
 
@@ -59,14 +62,25 @@ const Savannah: FC = () => {
     fetchCurrentPageWords();
   }, [group]);
 
+  function gameOver() {
+    console.log('game over');
+    console.log({ wrongAswers });
+    console.log({ correctAnswers });
+    console.log({ lives });
+  }
+
   function resolveAsWrongAnswer() {
-    if (isGetAnswer) {
-      lives -= 1;
-    }
+    setLives(lives - 1);
+
+    setWrongAswers(wrongAswers + 1);
     console.log('нэ маладэц');
+    if (lives === 1) {
+      gameOver();
+    }
   }
 
   function resolveAsCorrectAnswer() {
+    setCorrectAnswers(correctAnswers + 1);
     console.log('маладэц');
   }
 
@@ -83,12 +97,15 @@ const Savannah: FC = () => {
     const startTimerId = setInterval(() => {
       setCounter(counter + 1);
       setTimer(timer - 1);
-      console.log(timer);
+      // console.log(timer);
       if (timer === 1) {
         setRound(round + 1);
         resolveAsWrongAnswer();
         resetGameRound();
         clearInterval(startTimerId);
+        if (round === 30) {
+          gameOver();
+        }
       }
     }, 1000);
 
@@ -149,7 +166,7 @@ const Savannah: FC = () => {
               </button>
             ))}
           </div>
-          <button className="btn button is-primary is-outlined" onClick={handleStart}>
+          <button className="btn--start button is-primary is-outlined" onClick={handleStart}>
             Начать игру!
           </button>
         </div>
@@ -157,7 +174,7 @@ const Savannah: FC = () => {
       {start && (
         <div className="savannah-body">
           <div className="status-bar box">
-            {/* <div>counter: {counter}</div> */}
+            <div>lives: {lives}</div>
             <div className="lives">
               <i className="fas fa-heart"></i>
               <i className="fas fa-heart"></i>
