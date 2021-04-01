@@ -4,28 +4,30 @@ import { constants } from '../../../constants';
 import { Word } from '../../../models/word';
 
 const Savannah: FC = () => {
+  const WORDS = [0, 1, 2, 3];
+  const aswerVariantsCount = 4;
+  const maxCount = 6;
+  let lives = 5;
+  const allWordsInGroupCount = 600;
+
   const { WORD_GROUPS, API_BASE_URL } = constants;
   const [group, setGroup] = useState(0);
   const [currentWords, setCurrentWords] = useState<[Word] | []>([]);
   const [wordsChunk, setWordsChunk] = useState([0]);
-  const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * 4));
+  const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * aswerVariantsCount));
   const [round, setRound] = useState(1);
   const [isGetAnswer, setIsGetAnswer] = useState(false);
-
-  const WORDS = [0, 1, 2, 3];
 
   const [timer, setTimer] = useState(0);
   const [counter, setCounter] = useState(0);
   const [start, setStart] = useState(false);
   const currentWordClassNames = counter === 0 ? 'current-word' : 'current-word start-anim';
-  const maxCount = 6;
-  let lives = 5;
 
   useEffect(() => {
     const chunk = (() => {
       const wordsArr = [];
-      while (wordsArr.length < 4) {
-        const randomWordIndex = Math.floor(Math.random() * 600);
+      while (wordsArr.length < aswerVariantsCount) {
+        const randomWordIndex = Math.floor(Math.random() * allWordsInGroupCount);
         if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
       }
       return wordsArr;
