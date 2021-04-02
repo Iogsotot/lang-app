@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import TextBook from './components/Textbook';
 import PromoPage from './components/PromoPage';
 import { index } from './store';
+import Memory from './components/Games/Memory';
 
 const App: React.FC = () => (
   <div className="App">
@@ -17,6 +18,10 @@ const App: React.FC = () => (
 
           <Route path="/textbook/:group/:page" exact>
             <TextBook />
+          </Route>
+
+          <Route path="/memorygame" exact>
+            <Memory />
           </Route>
 
           <Redirect to="/" />

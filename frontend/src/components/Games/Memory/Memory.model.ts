@@ -1,8 +1,13 @@
+import { Word } from '../../../models/word';
+
 export interface MemoryProps {
   smt?: any,
 }
 export interface MemoryCardProps {
-  smt?: any,
-  word: string,
+  id: string,
   textMeaning: string,
+  selected: boolean,
+  word: string,
+  won: boolean,
+  onSelection: (el: any) => void,
 }
