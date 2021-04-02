@@ -8,6 +8,7 @@ import ModalOnClose from './ModalOnClose';
 import CloseButton from '../../CloseButton';
 import GetReady from './GetReady';
 import Frogs from './Frogs';
+import ToggleButton from './ToggleButton';
 import PlayAudioButton from './PlayAudioButton';
 import { getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
@@ -48,6 +49,7 @@ const Sprint: FC = () => {
   const [getReadyIsPlaying, setGetReadyIsPlaying] = useState(true);
   const [points, setPoints] = useState(0);
   const [modificator, setModificator] = useState(1);
+  const [isSoundOn, setIsSoundOn] = useState(false);
   const [pair, setPair] = useState({
     word: 'null',
     wordTranslate: 'null',
@@ -179,6 +181,10 @@ const Sprint: FC = () => {
     setIsPlaying(old => !old);
   };
 
+  const toggleSound = () => {
+    setIsSoundOn(old => !old);
+  };
+
   const { word, wordTranslate, audio } = pair;
   return (
     <div className="sprint">
@@ -206,6 +212,7 @@ const Sprint: FC = () => {
           </div>
           <span className="score subtitle">{points}</span>
           <div className="box sprint__box">
+            <ToggleButton className={'toggle-sound'} property={isSoundOn} callback={toggleSound} />
             <PlayAudioButton audio={audio} />
             <Streak streak={streak} isModMax={modificator === maxModificator} maxStreak={maxStreak} />
             {modificator > 1 && <span className="mod-note">{`+${mod} points per word`}</span>}

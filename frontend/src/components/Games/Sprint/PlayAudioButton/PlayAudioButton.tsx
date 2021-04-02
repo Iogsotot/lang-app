@@ -12,7 +12,7 @@ const PlayAudioButton: FC<PlayAudioButtonProps> = ({ audio }) => {
 
   return (
     <button className="play-audio-btn button is-rounded" onClick={clickHandler}>
-      <i className="fas fa-volume-up" />
+      <i className="fas fa-play" />
     </button>
   );
 };
