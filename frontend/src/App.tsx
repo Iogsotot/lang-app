@@ -7,7 +7,7 @@ import PromoPage from './components/PromoPage';
 import Savannah from './components/Games/Savannah';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { store } from './store/store';
+import store from './store/store';
 import Menu from './components/Menu';
 
 const App: FC = () => (
