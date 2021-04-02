@@ -6,9 +6,9 @@ import { MenuProps } from './Menu.model';
 const Menu: FC<MenuProps> = () => (
   <aside className="menu">
     <div className="top-group">
-      <div className="logo-field">
+      <a href="/" className="logo-field">
         <img src="./images/logo_white.png" alt="RS Lang" />
-      </div>
+      </a>
       <nav>
         <ul className="menu__list">
           <li className="menu__item">

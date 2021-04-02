@@ -2,11 +2,13 @@
 $main-bg: #b57ad2;
 
 //text, border
+$black: #000000;
 $color_extra_black: #2b292d;
 $color_black: #3c3c3c;
 $color_white: #ffffff;
 $color_light: #c9ced6;
 $color_middle: #959dbd;
+$gray: #A6ACBE;
 
 // higlights:
 $color_important: #6f52ed;
@@ -62,6 +64,61 @@ $color_important: #6f52ed;
     &:hover {
       opacity: 1;
       transition: all .3s linear;
+    }
+  }
+}
+
+.user__menu {
+  display: flex;
+  align-items: center;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  margin-right: 20px;
+  border-right: 1px solid #EFF4F7;
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      display: block;
+      max-width: 100%;
+    }
+  }
+  &__info {
+    margin-right: 20px;
+    text-align: right;
+    p {
+      font-family: 'Abel', sans-serif;
+      font-size: 14px;
+      line-height: 18px;
+      color: $black;
+      &:last-child {
+        font-size: 12px;
+        color: $gray;
+      }
+    }
+  }
+  &__logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all .2s linear;
+    &:hover {
+      opacity: 1;
+      transition: all .2s linear;
     }
   }
 }

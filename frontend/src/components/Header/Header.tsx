@@ -3,14 +3,40 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useAction } from '../../hooks/useAction';
+import avatarHolder from '../../assets/icons/avatar-holder.png';
+import logoutIcon from '../../assets/icons/logout.png';
 
 const Header: FC = () => {
-  const { isLoggedIn } = useTypedSelector((store) => store.user);
+  const { isLoggedIn, user } = useTypedSelector((store) => store.user);
+  const {
+    avatar,
+    email,
+    name,
+  } = user;
   const { logout } = useAction();
 
   const userMenu = () => {
+    let userIconSrc = avatarHolder;
+    if (avatar) {
+      userIconSrc = avatar;
+    }
     if (isLoggedIn) {
-      return (<button onClick={logout}>LogOut</button>);
+      return (
+        <>
+          <div className="user">
+            <div className="user__info">
+              <p>{name}</p>
+              <p>{email}</p>
+            </div>
+            <div className="user__icon">
+              <img src={userIconSrc} alt=""/>
+            </div>
+          </div>
+          <button className="user__logout" onClick={logout}>
+            <img src={logoutIcon} alt=""/>
+          </button>
+        </>
+      );
     }
 
     return <Link className="btn" to="/auth">Вход / Регистрация</Link>;

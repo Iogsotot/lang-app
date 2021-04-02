@@ -6,6 +6,8 @@ export interface User {
   refreshToken: string;
   userId: string;
   name: string;
+  avatar: string;
+  email: string;
 }
 
 export interface UserState {

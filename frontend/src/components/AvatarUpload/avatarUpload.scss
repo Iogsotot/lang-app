@@ -24,6 +24,7 @@
 
 .user-avatar {
   // if we want to give the opportunity to change the avatar => next line del
-  background-image: url("../../assets/icons/set-foto.png");
+  background-image: url("../../assets/icons/set-foto.png") center no-repeat;
+  background-size: cover;
   border-radius: 50%;
 }
