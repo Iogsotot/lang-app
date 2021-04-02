@@ -111,7 +111,7 @@ const Sprint: FC = () => {
     } else {
       // wrong answer
       setStreak(0);
-      setModificator(old => old - 1 || 1);
+      setModificator(1);
       animateBorderColor('.sprint__box', colorOnWrongAnswer);
     }
     setPair(findWordPair());
