@@ -245,6 +245,13 @@ const Audiocall: FC = () => {
     setWordsVariants([]);
   };
 
+  const clickStart = () => {
+    setStart(true);
+    setCurrentWordNumber(0);
+    const newWordsVariants: string[] = fillStepAnswers();
+    setWordsVariants(newWordsVariants);
+  };
+
   const answerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setCurrentView(true);
     const target = e.target as Element;
@@ -259,11 +266,11 @@ const Audiocall: FC = () => {
     }
   };
 
-  const clickStart = () => {
-    setStart(true);
-    setCurrentWordNumber(0);
-    const newWordsVariants: string[] = fillStepAnswers();
-    setWordsVariants(newWordsVariants);
+  const dontKnowClick = () => {
+    setCurrentView(true);
+    const updatedWrongAnswers = wrongAnswers;
+    updatedWrongAnswers.push(currentWord);
+    setWrongAnswers(updatedWrongAnswers);
   };
 
   const OpenCurrentWord = () => (
@@ -286,12 +293,14 @@ const Audiocall: FC = () => {
     </div>
   );
 
+  // const [variantsButtonsDisable, setVariantsButtonsDisable] = useState(false);
+
   const VariantsButtons = () => (
     <div className="audiocall__answers__variants">
       {Array(NUMBER_OF_VARIANTS)
         .fill(0)
         .map((item, index) => (
-          <button className="button is-ghost" onClick={e => answerClick(e)} key={wordsVariants[index]}>
+          <button className="button is-ghost" disabled={currentView} onClick={e => answerClick(e)} key={wordsVariants[index]}>
             {wordsVariants[index]}
           </button>
         ))}
@@ -304,7 +313,7 @@ const Audiocall: FC = () => {
   return (
     <div className="audiocall">
       {!start && (
-        <button className="button is-warning" onClick={() => { clickStart(); }}>
+        <button className="button is-warning" onClick={clickStart}>
           Начать игру
         </button>
       )}
@@ -318,12 +327,12 @@ const Audiocall: FC = () => {
             <VariantsButtons />
 
             {currentView && (
-              <button className="button is-danger" onClick={() => nextWord()}>
+              <button className="button is-danger" onClick={nextWord}>
                 <i className="fas fa-angle-double-right"></i>
               </button>
             )}
             {!currentView && (
-              <button className="button is-danger" onClick={() => setCurrentView(true)}>
+              <button className="button is-danger" onClick={dontKnowClick}>
                 Я не знаю
               </button>
             )}

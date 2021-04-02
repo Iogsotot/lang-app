@@ -75,6 +75,13 @@
       text-decoration: none;
       color: #ffeb7d;
     }
+
+    &:disabled {
+      color: #fff;
+      background-color: transparent;
+      border: none;
+      opacity: 1;
+    }
   }
 
   & .button.is-danger {
