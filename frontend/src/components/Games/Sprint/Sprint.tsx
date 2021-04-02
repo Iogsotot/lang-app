@@ -56,7 +56,7 @@ const Sprint: FC = () => {
   });
 
   const addPoints = () => {
-    setPoints(old => old + basicPoints * modificator);
+    setPoints(old => old + basicPoints * 2 ** (modificator - 1));
   };
 
   const findWordPair = (): WordPair => {
