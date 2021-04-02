@@ -21,6 +21,7 @@ export const messages = {
   NAME_FOR_CODE: 'name',
   EMAIL_FOR_CODE: 'email',
   PASSWORD_FOR_CODE: 'password',
+  AVATAR: 'avatar',
   TYPE: { ...TYPES },
   NAME_AVALIABLE: 'Это имя пользователя доступно',
   EMAIL_AVALIABLE: 'Этот адрес доступен',

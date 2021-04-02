@@ -6,9 +6,10 @@
   right: 50%;
   transform: translate(50%, calc(-100% - 15px));
   transition: transform .1s linear;
+  font-size: 18px;
 
   &.active {
-    transform: translate(50%, 0%);
+    transform: translate(50%, 10%);
     transition: transform .1s linear;
   }
 }

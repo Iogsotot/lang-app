@@ -1,4 +1,67 @@
+// bg, btn
+$main-bg: #b57ad2;
+
+//text, border
+$color_extra_black: #2b292d;
+$color_black: #3c3c3c;
+$color_white: #ffffff;
+$color_light: #c9ced6;
+$color_middle: #959dbd;
+
+// higlights:
+$color_important: #6f52ed;
+
+.auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 429px);
+  background: linear-gradient(179.61deg, #F9F4FC 0.33%, rgba(255, 244, 229, 0.0001) 99.67%);
+}
+
 .form {
+  width: 100%;
   max-width: 500px;
+  min-height: 520px;
   margin: 0 auto;
+}
+
+.btn-submit {
+  width: 100%;
+  text-align: center;
+  &:hover {
+    color: $color_black;
+  }
+}
+
+.form__tabs{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+  &__link {
+    display: block;
+    font-size: 24px;
+    margin: 0 10px;
+    border: 0;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: normal;
+    opacity: .6;
+    transition: all .3s linear;
+    &:first-child {
+      margin-left: 0;
+    }
+    &.active {
+      opacity: 1;
+      text-decoration: underline;
+      transition: all .3s linear;
+    }
+    &:hover {
+      opacity: 1;
+      transition: all .3s linear;
+    }
+  }
 }

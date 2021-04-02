@@ -6,6 +6,7 @@ import Input from '../Input';
 import { useValidation } from '../../hooks/useValidation';
 import { messages, auth, notifications } from '../../constants';
 import Notification from '../Notification';
+import AvatarUpload from '../AvatarUpload';
 
 const {
   NAME,
@@ -18,6 +19,7 @@ const {
   NAME_FOR_CODE,
   EMAIL_FOR_CODE,
   PASSWORD_FOR_CODE,
+  AVATAR,
 } = messages;
 
 const {
@@ -32,6 +34,7 @@ const {
 const AuthPage: FC = () => {
   const { register, login, clearUserNotifications } = useAction();
   const { error, notification } = useTypedSelector((store) => store.user);
+  const [image, setImage] = useState<string | Blob>('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -61,12 +64,17 @@ const AuthPage: FC = () => {
     setPassword(value);
   };
 
+  const onImageReady = (target: string) => {
+    setImage(target);
+  };
+
   const onSubmit = () => {
     const formData = new FormData();
 
     formData.append(NAME_FOR_CODE, name);
     formData.append(EMAIL_FOR_CODE, email);
     formData.append(PASSWORD_FOR_CODE, password);
+    formData.append(AVATAR, image);
 
     if (isLogin) {
       login(formData);
@@ -75,8 +83,12 @@ const AuthPage: FC = () => {
     }
   };
 
-  const onChangeForm = () => {
-    setIsLogin(!isLogin);
+  const toLoginForm = () => {
+    setIsLogin(false);
+  };
+
+  const toRegisterForm = () => {
+    setIsLogin(true);
   };
 
   useEffect(() => {
@@ -92,19 +104,27 @@ const AuthPage: FC = () => {
   }, [notification]);
 
   return (
-    <main>
+    <main className="auth">
       <div className="form">
 
+        <div className="form__tabs">
+          <button onClick={toLoginForm} className={`form__tabs__link ${!isLogin ? 'active' : ''}`}>{SIGN_UP}</button>
+          <button onClick={toRegisterForm} className={`form__tabs__link ${isLogin ? 'active' : ''}`}>{SIGN_IN}</button>
+        </div>
+
         {!isLogin
-          ? <Input
-            placeholder={NAME}
-            icon={USER_ICON}
-            type={TYPE.text}
-            value={name}
-            successText={nameSuccess}
-            errorText={nameError}
-            onChangeHandler={onNameChange}
-          />
+          ? <>
+            <AvatarUpload onImageReady={target => onImageReady(target)} />
+            <Input
+              placeholder={NAME}
+              icon={USER_ICON}
+              type={TYPE.text}
+              value={name}
+              successText={nameSuccess}
+              errorText={nameError}
+              onChangeHandler={onNameChange}
+            />
+          </>
           : <></>
         }
         <Input
@@ -127,19 +147,14 @@ const AuthPage: FC = () => {
         />
 
         <div className="field is-grouped">
-          <div className="control">
-            <button
-              disabled={!formReady}
-              className="button is-link"
-              onClick={onSubmit}
-            >
-              {!isLogin ? SIGN_UP : SIGN_IN}
-            </button>
-          </div>
+          <button
+            disabled={!formReady}
+            className="btn btn-submit"
+            onClick={onSubmit}
+          >
+            {!isLogin ? SIGN_UP : SIGN_IN}
+          </button>
         </div>
-
-        <p>Do u have acc?</p> <button onClick={onChangeForm}>{isLogin ? SIGN_UP : SIGN_IN}</button>
-
       </div>
 
       <Notification

@@ -1,0 +1,17 @@
+.form__input {
+  label {
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  input {
+    height: 54px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.06);
+    border: 0;
+    border-radius: 10px;
+  }
+  .control.has-icons-left .icon,
+  .control.has-icons-right .icon {
+    top: calc(50% - 20px);
+  }
+}

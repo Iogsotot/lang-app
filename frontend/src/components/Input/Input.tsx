@@ -1,3 +1,4 @@
+import './input.scss';
 import React, { FC, useState, useEffect } from 'react';
 import { InputProps } from './Input.model';
 
@@ -45,13 +46,12 @@ const Input: FC<InputProps> = ({
   }, [successText, errorText]);
 
   return (
-    <div className="field">
+    <div className="field form__input">
       <label className="label">{placeholder}</label>
       <div className="control has-icons-left has-icons-right">
         <input
           className={`input ${elementData.class}`}
           type={type}
-          placeholder={placeholder}
           value={value}
           onChange={onChangeHandler}
         />
