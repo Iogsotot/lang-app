@@ -1,19 +1,28 @@
 import './App.scss';
-import React from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import TextBook from './components/Textbook';
 import PromoPage from './components/PromoPage';
-import { index } from './store';
-import Memory from './components/Games/Memory';
+import Savannah from './components/Games/Savannah';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { store } from './store';
+// import font from './assets/fonts'
+import Menu from './components/Menu';
 
-const App: React.FC = () => (
+const App: FC = () => (
   <div className="App">
-    <Provider store={index}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Menu />
+      <Header />
+      <Provider store={store}>
         <Switch>
           <Route path="/" exact>
             <PromoPage />
+          </Route>
+          <Route path="/Savannah/">
+            <Savannah />
           </Route>
 
           <Route path="/textbook/:group/:page" exact>
@@ -26,8 +35,9 @@ const App: React.FC = () => (
 
           <Redirect to="/" />
         </Switch>
-      </BrowserRouter>
-    </Provider>
+      </Provider>
+      <Footer />
+    </BrowserRouter>
   </div>
 );
 
