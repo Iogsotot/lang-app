@@ -7,19 +7,35 @@ import './savannah.scss';
 import { SavannahProps } from './Savannah.model';
 import { constants } from '../../../constants';
 import { Word } from '../../../models/word';
+import gameDataActions from '../../../store/action-creators/gameDataActions';
 
-// type DispatchProps = typeof settingActions;
 type StateProps = {
   page: number;
   group: number;
   words: Word[];
   test: string;
 };
+type DispatchProps = typeof gameDataActions;
 
-const Savannah: FC<SavannahProps & StateProps> = props => {
+const mapDispatchToProps = gameDataActions;
+
+const mapStateToProps = ({ gameData }: any) => {
+  const { page, group, words, test } = gameData;
+  const props: SavannahProps = {
+    page,
+    group,
+    words,
+    test,
+  };
+  return props;
+};
+
+const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   // @ts-ignore
-  const dispatch: (any) => void = props.dispatch;
-  console.log(props);
+  // console.log(props);
+  const { setPage, addToActiveWords, delFromActiveWords } = props;
+  // console.log({ addToActiveWords });
+  // setPage(15);
   const WORDS = [0, 1, 2, 3];
   const answerVariantsCount = 4;
   const maxCount = 6;
@@ -214,6 +230,19 @@ const Savannah: FC<SavannahProps & StateProps> = props => {
                   {currentWords[wordsChunk[word]].word}
                 </div>
               ))}
+              <div
+                className="button is-info is-light"
+                onClick={() => {
+                  console.log('==============================>');
+                  console.log(currentWords[wordsChunk[soughtIndex]]);
+                  addToActiveWords(currentWords[wordsChunk[soughtIndex]]);
+                }}
+              >
+                add word
+              </div>
+              <div className="button is-info is-light" onClick={() => delFromActiveWords()}>
+                del word
+              </div>
             </div>
           </div>
         </div>
@@ -222,16 +251,6 @@ const Savannah: FC<SavannahProps & StateProps> = props => {
   );
 };
 
-const mapStateToProps = ({ gameData }: any) => {
-  const { page, group, words, test } = gameData;
-  const props: SavannahProps = {
-    page,
-    group,
-    words,
-    test,
-  };
-  return props;
-};
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export default connect(mapStateToProps)(Savannah);
+export default connect(mapStateToProps, mapDispatchToProps)(Savannah);

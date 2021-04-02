@@ -1,8 +1,8 @@
 import { GameDataAction, GameDataActionTypes, GameDataState } from '../../models/gameData';
 
 const {
-  GET_GROUP,
-  GET_PAGE,
+  SET_GROUP,
+  SET_PAGE,
   DEL_FROM_ACTIVE_WORDS_ACTION,
   ADD_TO_ACTIVE_WORDS_ACTION,
   DEL_FROM_DELETED_WORDS_ACTION,
@@ -23,22 +23,22 @@ const initialState: GameDataState = {
 
 export const gameDataReducer = (state = initialState, action: GameDataAction): GameDataState => {
   switch (action.type) {
-    case GET_GROUP:
-      return state;
-    case GET_PAGE:
-      return state;
+    case SET_GROUP:
+      return { ...state, group: action.payload };
+    case SET_PAGE:
+      return { ...state, page: action.payload };
     case DEL_FROM_ACTIVE_WORDS_ACTION:
-      return state;
+      return { ...state, activeWords: action.payload };
     case ADD_TO_ACTIVE_WORDS_ACTION:
-      return state;
+      return { ...state, activeWords: action.payload };
     case DEL_FROM_DELETED_WORDS_ACTION:
-      return state;
+      return { ...state, deletedWords: action.payload };
     case ADD_TO_DELETED_WORDS_ACTION:
-      return state;
+      return { ...state, deletedWords: action.payload };
     case DEL_FROM_HARD_WORDS_ACTION:
-      return state;
+      return { ...state, hardWords: action.payload };
     case ADD_TO_HARD_WORDS_ACTION:
-      return state;
+      return { ...state, hardWords: action.payload };
 
     default:
       return state;
