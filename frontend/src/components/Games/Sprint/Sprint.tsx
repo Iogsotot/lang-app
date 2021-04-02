@@ -55,8 +55,10 @@ const Sprint: FC = () => {
     answer: false,
   });
 
+  const mod = basicPoints * 2 ** (modificator - 1);
+
   const addPoints = () => {
-    setPoints(old => old + basicPoints * 2 ** (modificator - 1));
+    setPoints(old => old + mod);
   };
 
   const findWordPair = (): WordPair => {
@@ -206,6 +208,7 @@ const Sprint: FC = () => {
           <div className="box sprint__box">
             <PlayAudioButton audio={audio} />
             <Streak streak={streak} isModMax={modificator === maxModificator} maxStreak={maxStreak} />
+            {modificator > 1 && <span className="mod-note">{`+${mod} points per word`}</span>}
             <Frogs modificator={modificator} maxFrogs={maxModificator} />
             <div className="sprint__game-wrapper">
               <div className="title">{word}</div>
