@@ -1,9 +1,25 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
+import { connect } from 'react-redux';
 import './savannah.scss';
+import { SavannahProps } from './Savannah.model';
 import { constants } from '../../../constants';
 import { Word } from '../../../models/word';
 
-const Savannah: FC = () => {
+// type DispatchProps = typeof settingActions;
+type StateProps = {
+  page: number;
+  group: number;
+  words: Word[];
+  test: string;
+};
+
+const Savannah: FC<SavannahProps & StateProps> = props => {
+  // @ts-ignore
+  const dispatch: (any) => void = props.dispatch;
+  console.log(props);
   const WORDS = [0, 1, 2, 3];
   const answerVariantsCount = 4;
   const maxCount = 6;
@@ -40,7 +56,7 @@ const Savannah: FC = () => {
   }, [round]);
 
   async function fetchWords(wordsGroup: number) {
-    const response = await fetch(`${API_BASE_URL}/words/all?group=${wordsGroup}`, {
+    const response = await fetch(`${API_BASE_URL}/words/all?group=${wordsGroup}&amount=600`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -206,4 +222,16 @@ const Savannah: FC = () => {
   );
 };
 
-export default Savannah;
+const mapStateToProps = ({ gameData }: any) => {
+  const { page, group, words, test } = gameData;
+  const props: SavannahProps = {
+    page,
+    group,
+    words,
+    test,
+  };
+  return props;
+};
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export default connect(mapStateToProps)(Savannah);
