@@ -108,13 +108,13 @@ const Sprint: FC = () => {
       addPoints();
       handleModificator();
       animateBorderColor('.sprint__box', colorOnCorrectAnswer);
-      setPair(findWordPair());
     } else {
       // wrong answer
       setStreak(0);
       setModificator(old => old - 1 || 1);
       animateBorderColor('.sprint__box', colorOnWrongAnswer);
     }
+    setPair(findWordPair());
   };
 
   const handleArrowKeys = (event: KeyboardEvent) => {
@@ -133,6 +133,7 @@ const Sprint: FC = () => {
     if (words.length === 0) {
       return;
     }
+
     setSprintWords(words);
     setPair(findWordPair());
   }, [words, ready]);
