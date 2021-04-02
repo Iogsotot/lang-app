@@ -201,45 +201,48 @@ const Audiocall: FC = () => {
   const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
   const [start, setStart] = useState(false);
   const [currentView, setCurrentView] = useState(false);
-  const [currentWordNumber, setCurrentWordNumber] = useState(0);
-  const [currentWord, setCurrentWord] = useState(words[currentWordNumber]);
+  const [currentWordNumber, setCurrentWordNumber] = useState(-1);
+  const [currentWord, setCurrentWord] = useState(words[currentWordNumber] || undefined);
+  const [wordsVariants, setWordsVariants] = useState<string[]>([]);
 
-  const stepAnswers = [currentWord?.wordTranslate] || '';
+  const shuffle = (array: string[]): string[] => {
+    for (let i = array.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
 
-  const fillStepAnswers = () => {
+  const fillStepAnswers = (): string[] => {
+    const stepAnswers = [currentWord?.wordTranslate];
     while (stepAnswers.length < NUMBER_OF_VARIANTS) {
       const randomWordNumber = Math.floor(Math.random() * words.length);
       if (!stepAnswers.includes(words[randomWordNumber].wordTranslate)) {
         stepAnswers.push(words[randomWordNumber].wordTranslate);
       }
     }
-  };
-
-  const shuffle = (array: string[]) => {
-    for (let i = array.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
+    return shuffle(stepAnswers);
   };
 
   const playAudio = (word: Word) => {
-    const wordAudio = new Audio(`https://rslang-2020q3.herokuapp.com/${word.audio}`);
+    const wordAudio = new Audio(`https://rslang-2020q3.herokuapp.com/${word?.audio}`);
     wordAudio.play();
   };
 
   useEffect(() => {
     if (currentWordNumber < words.length) playAudio(currentWord);
+    const newWordsVariants: string[] = fillStepAnswers();
+    setWordsVariants(newWordsVariants);
+    setCurrentView(false);
   }, [currentWord]);
 
   useEffect(() => {
     setCurrentWord(words[currentWordNumber]);
-    fillStepAnswers();
-    shuffle(stepAnswers);
-    setCurrentView(false);
   }, [currentWordNumber]);
 
-  const nextStep = () => {
+  const nextWord = () => {
     if (currentWordNumber < words.length) setCurrentWordNumber(currentWordNumber + 1);
+    setWordsVariants([]);
   };
 
   const answerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -258,11 +261,10 @@ const Audiocall: FC = () => {
 
   const clickStart = () => {
     setStart(true);
-    playAudio(currentWord);
+    setCurrentWordNumber(0);
+    const newWordsVariants: string[] = fillStepAnswers();
+    setWordsVariants(newWordsVariants);
   };
-
-  fillStepAnswers();
-  shuffle(stepAnswers);
 
   const OpenCurrentWord = () => (
     <div className="audiocall__current-word">
@@ -289,8 +291,8 @@ const Audiocall: FC = () => {
       {Array(NUMBER_OF_VARIANTS)
         .fill(0)
         .map((item, index) => (
-          <button className="button is-ghost" onClick={e => answerClick(e)} key={stepAnswers[index]}>
-            {stepAnswers[index]}
+          <button className="button is-ghost" onClick={e => answerClick(e)} key={wordsVariants[index]}>
+            {wordsVariants[index]}
           </button>
         ))}
     </div>
@@ -306,7 +308,7 @@ const Audiocall: FC = () => {
           Начать игру
         </button>
       )}
-      {start && (
+      {start && currentWordNumber >= 0 && (
         <div className="audiocall_inner">
           <div>
             {currentView && <OpenCurrentWord />}
@@ -316,7 +318,7 @@ const Audiocall: FC = () => {
             <VariantsButtons />
 
             {currentView && (
-              <button className="button is-danger" onClick={() => nextStep()}>
+              <button className="button is-danger" onClick={() => nextWord()}>
                 <i className="fas fa-angle-double-right"></i>
               </button>
             )}

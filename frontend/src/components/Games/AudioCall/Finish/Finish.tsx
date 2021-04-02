@@ -27,7 +27,7 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, playAudio }) =>
         <div>Отличный результат!</div>
         <div>{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
 
-        <Scrollbars >
+        <Scrollbars hideTracksWhenNotNeeded >
           <div className="finish__words-list">
             <div>
               <div>

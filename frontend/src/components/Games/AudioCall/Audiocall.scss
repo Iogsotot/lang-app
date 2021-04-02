@@ -121,11 +121,11 @@
 
 .finish {
     width: 60%;
+    min-width: 480px;
     height: 70%;
-    padding: 40px 20px 80px;
+    padding: 40px 20px 140px;
 
     &__words-list {
-        // position: absolute;
     text-align: left;
         width: 60%;
         height: 80%;
