@@ -6,8 +6,8 @@ import { StreakProps } from './Streak.model';
 
 import './Streak.scss';
 
-const Streak: FC<StreakProps> = ({ streak, isModMax }) => {
-  const streaks = new Array(!isModMax ? 3 : 1).fill(0).map((_, index) => (
+const Streak: FC<StreakProps> = ({ streak, isModMax, maxStreak }) => {
+  const streaks = new Array(!isModMax ? maxStreak : 1).fill(0).map((_, index) => (
     <div
       key={uuidv4()}
       className={`streak__circle ${index < streak || isModMax ? 'streak__circle-filled' : 'streak__circle-empty'}`}

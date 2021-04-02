@@ -27,6 +27,10 @@ export const SPRINT = {
   colorOnWrongAnswer: '348, 100%, 61%', // hsl(348, 100%, 61%)
   wrongBtnText: 'Wrong',
   correctBtnText: 'Correct',
+  wordsAmount: 10,
+  basicPoints: 10,
+  maxModificator: 4,
+  maxStreak: 3,
 };
 
 export const SPRINT_MODAL_ON_CLOSE = {

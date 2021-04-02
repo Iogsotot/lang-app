@@ -1,4 +1,4 @@
 export interface FrogsProps {
   modificator: number;
-  maxFrogs: 4;
+  maxFrogs: number;
 }

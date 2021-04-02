@@ -9,7 +9,7 @@ import CloseButton from '../../CloseButton';
 import GetReady from './GetReady';
 import Frogs from './Frogs';
 import PlayAudioButton from './PlayAudioButton';
-import { shuffleArray, getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
+import { getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
 import { animateBorderColor } from '../../../libs/common';
 import { Word } from '../../../models';
@@ -31,12 +31,16 @@ const {
   correctBtnText,
   timerSize,
   timerStrokeWidth,
+  wordsAmount,
+  basicPoints,
+  maxModificator,
+  maxStreak,
 } = SPRINT;
 
 const Sprint: FC = () => {
-  const { words, page, group } = useTypedSelector(store => store.wordList);
-  const { fetchWords } = useAction();
-  const [sprintWords, setSprintWords] = useState(shuffleArray(words));
+  const { words, group } = useTypedSelector(store => store.wordList);
+  const { fetchRandomWords } = useAction();
+  const [sprintWords, setSprintWords] = useState(words);
   const [streak, setStreak] = useState(0);
   const [IsPlaying, setIsPlaying] = useState(true);
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
@@ -50,15 +54,20 @@ const Sprint: FC = () => {
     audio: 'null',
     answer: false,
   });
-  console.log(points, modificator);
+
   const addPoints = () => {
-    setPoints(old => old + 10 * modificator);
+    setPoints(old => old + basicPoints * modificator);
   };
 
   const findWordPair = (): WordPair => {
     if (sprintWords.length < 1) {
       // тута запускаем сообщение о конце игры
-      return pair;
+      return {
+        word: 'null',
+        wordTranslate: 'null',
+        audio: 'null',
+        answer: false,
+      };
     }
     const wordsList = sprintWords.slice(0);
     const word = wordsList.pop() as Word;
@@ -84,7 +93,7 @@ const Sprint: FC = () => {
   };
 
   const handleModificator = () => {
-    if (streak >= 3) {
+    if (streak >= maxStreak) {
       setStreak(0);
       setModificator(old => (old < 4 ? old + 1 : old));
     } else {
@@ -117,13 +126,16 @@ const Sprint: FC = () => {
   };
 
   useEffect(() => {
-    setPair(findWordPair());
-  }, []);
+    fetchRandomWords(group, wordsAmount);
+  }, [group]);
 
   useEffect(() => {
-    fetchWords(page, group);
-    setSprintWords(shuffleArray(words));
-  }, [page, group]);
+    if (words.length === 0) {
+      return;
+    }
+    setSprintWords(words);
+    setPair(findWordPair());
+  }, [words, ready]);
 
   useEffect(() => {
     document.addEventListener('keyup', handleArrowKeys);
@@ -192,8 +204,8 @@ const Sprint: FC = () => {
           <span className="score subtitle">{points}</span>
           <div className="box sprint__box">
             <PlayAudioButton audio={audio} />
-            <Streak streak={streak} isModMax={modificator === 4} />
-            <Frogs modificator={modificator} maxFrogs={4} />
+            <Streak streak={streak} isModMax={modificator === maxModificator} maxStreak={maxStreak} />
+            <Frogs modificator={modificator} maxFrogs={maxModificator} />
             <div className="sprint__game-wrapper">
               <div className="title">{word}</div>
               <div className="subtitle">{wordTranslate}</div>
