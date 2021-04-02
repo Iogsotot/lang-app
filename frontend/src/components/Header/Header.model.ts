@@ -1,3 +1,3 @@
 export interface HeaderProps {
-  smt: any,
+  smt?: any,
 }

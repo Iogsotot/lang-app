@@ -1,15 +1,119 @@
-@import "../node_modules/bulma/bulma.sass";
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+// bg, btn
+$main-bg: #b57ad2;
+
+//text, border
+$color_extra_black: #2b292d;
+$color_black: #3c3c3c;
+$color_white: #ffffff;
+$color_light: #c9ced6;
+$color_middle: #959dbd;
+
+// higlights:
+$color_important: #6f52ed;
+
+@font-face {
+  font-family: "Rubik";
+  src: url("../src/assets/fonts/Rubik-VariableFont_wght.ttf") format("ttf");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: "Roboto";
+  src: url("../src/assets/fonts/Roboto-Black.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Roboto Thin";
+  src: url("../src/assets/fonts/Roboto-Thin.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("../src/assets/fonts/RobotoMono-VariableFont_wght.ttf") format("ttf");
+}
+
+* {
+
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-image: white;
+}
+
+body {
+  font-family: "Roboto Thin", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-left: 6.25rem;
+}
+
+// Basic styles
+
+.wrapper {
+  max-width: 1344px;
+  margin: auto;
+}
+
+h1,
+.title--bigest {
+  font-size: 40px;
+  line-height: 44px;
+}
+
+h2 {
+  font-size: 32px;
+  text-align: center;
+  line-height: 175%;
+}
+
+h3 {
+  font-size: 16px;
+  text-align: center;
+  line-height: 212%;
+}
+
+h4 {
+  font-size: 24px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.title {
+  font-size: 36px;
+  line-height: 125%;
+  text-align: center;
+}
+
+.subtitle {
+}
+
+.content {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.btn {
+  cursor: pointer;
+  display: block;
+  width: fit-content;
+  padding: 18px 72px;
+  border: 1px solid $main-bg;
+  border-radius: 40px;
+
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto Mono", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $color_white;
+  font-size: 18px;
+  background-color: $main-bg;
+
+  transition: all 300ms linear;
+  &:hover {
+    transition: all 300ms linear;
+  }
 }
