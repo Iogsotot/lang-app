@@ -15,33 +15,6 @@ const Header: FC = () => {
   } = user;
   const { logout } = useAction();
 
-  const userMenu = () => {
-    let userIconSrc = avatarHolder;
-    if (avatar) {
-      userIconSrc = avatar;
-    }
-    if (isLoggedIn) {
-      return (
-        <>
-          <div className="user">
-            <div className="user__info">
-              <p>{name}</p>
-              <p>{email}</p>
-            </div>
-            <div className="user__icon">
-              <img src={userIconSrc} alt=""/>
-            </div>
-          </div>
-          <button className="user__logout" onClick={logout}>
-            <img src={logoutIcon} alt=""/>
-          </button>
-        </>
-      );
-    }
-
-    return <Link className="btn" to="/auth">Вход / Регистрация</Link>;
-  };
-
   return (
     <header>
       <div className="header__inner">
@@ -53,7 +26,24 @@ const Header: FC = () => {
         </nav>
 
         <div className="user__menu">
-          {userMenu()}
+          {
+            isLoggedIn
+              ? <>
+                <div className="user">
+                  <div className="user__info">
+                    <p>{name}</p>
+                    <p>{email}</p>
+                  </div>
+                  <div className="user__icon">
+                    <img src={avatar || avatarHolder} alt=""/>
+                  </div>
+                </div>
+                <button className="user__logout" onClick={logout}>
+                  <img src={logoutIcon} alt=""/>
+                </button>
+              </>
+              : <Link className="btn" to="/auth">Вход / Регистрация</Link>
+          }
         </div>
       </div>
     </header>

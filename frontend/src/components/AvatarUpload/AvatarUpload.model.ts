@@ -1,3 +1,3 @@
 export interface AvatarUploadProps {
-  onImageReady: (param: any) => void,
+  onImageReady: (param: File) => void,
 }

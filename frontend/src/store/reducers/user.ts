@@ -50,7 +50,7 @@ export const userReducer = (state = initialState, action: UserAction): UserState
       return { ...state, loading: false, error: action.payload };
 
     case LOG_OUT:
-      return { ...state, ...initialState };
+      return { ...state, ...initialState, isLoggedIn: false };
 
     case CLEAR_USER_NOTIFICATIONS:
       return { ...state, notification: '', error: null };

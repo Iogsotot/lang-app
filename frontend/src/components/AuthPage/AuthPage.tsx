@@ -33,7 +33,7 @@ const {
 
 const AuthPage: FC = () => {
   const { register, login, clearUserNotifications } = useAction();
-  const { error, notification } = useTypedSelector((store) => store.user);
+  const { error, notification, loading } = useTypedSelector((store) => store.user);
   const [image, setImage] = useState<string | Blob>('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -64,7 +64,7 @@ const AuthPage: FC = () => {
     setPassword(value);
   };
 
-  const onImageReady = (target: string) => {
+  const onImageReady = (target: File) => {
     setImage(target);
   };
 
@@ -148,7 +148,7 @@ const AuthPage: FC = () => {
 
         <div className="field is-grouped">
           <button
-            disabled={!formReady}
+            disabled={!formReady || loading}
             className="btn btn-submit"
             onClick={onSubmit}
           >
