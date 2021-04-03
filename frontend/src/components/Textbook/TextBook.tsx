@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import WordList from '../WordList';
+import './textbook.scss';
 
 const TextBook: FC = () => (
-  <div className="textbook">
+  <section className="textbook">
     <WordList />
-  </div>
+  </section>
 );
 
 export default TextBook;
