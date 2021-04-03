@@ -127,7 +127,7 @@
 
   &:hover {
     background-color: #fff3;
-    transform: scale(1.05);
+    opacity: 0.8;
   }
 
   &:active {
@@ -157,6 +157,26 @@
       align-items: center;
     }
   }
+
+  &__tab-inner {
+    position: relative;
+    height: 50vh;
+  }
+
+  & .react-tabs{
+    &__tab {
+    color: #c9c9c9;
+
+    &-list {
+      border: none;
+    }
+
+    &--selected {
+      color: #b57ad2;
+      border: none;
+    }
+  }
+}
 
   &__akcent-number {
     display: inline-block;
