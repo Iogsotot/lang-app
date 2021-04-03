@@ -1,6 +1,6 @@
 footer {
-  height: 344px;
-  padding-top: 3.375rem;
+  height: 11rem;
+  padding-top: 0.8rem;
   background: #b57ad2;
 
   color: white;
@@ -26,6 +26,7 @@ footer {
   }
   .RSS {
     margin-top: 2rem;
+    margin-right: 2rem;
     text-align: center;
     a {
       border: none;
@@ -46,6 +47,10 @@ footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .links-group {
+    display: flex;
   }
 
   .dev-list {

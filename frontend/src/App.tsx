@@ -8,7 +8,9 @@ import Savannah from './components/Games/Savannah';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { store } from './store';
-// import font from './assets/fonts'
+import 'typeface-roboto';
+import 'typeface-roboto-mono';
+import 'typeface-rubik';
 import Menu from './components/Menu';
 
 const App: FC = () => (
