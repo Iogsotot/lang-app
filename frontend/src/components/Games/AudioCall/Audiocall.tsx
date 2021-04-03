@@ -197,13 +197,15 @@ const Audiocall: FC = () => {
       wordTranslate: 'утка',
     },
   ];
-  const [correctAnswers, setCorrectAnswers] = useState <Word[]>([]);
+  const [correctAnswers, setCorrectAnswers] = useState<Word[]>([]);
   const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
   const [start, setStart] = useState(false);
   const [currentView, setCurrentView] = useState(false);
   const [currentWordNumber, setCurrentWordNumber] = useState(-1);
   const [currentWord, setCurrentWord] = useState(words[currentWordNumber] || undefined);
   const [wordsVariants, setWordsVariants] = useState<string[]>([]);
+
+  const wordSoundUrl = (word: Word) => `https://rslang-2020q3.herokuapp.com/${word?.audio}`;
 
   const shuffle = (array: string[]): string[] => {
     for (let i = array.length - 1; i > 0; i -= 1) {
@@ -224,13 +226,13 @@ const Audiocall: FC = () => {
     return shuffle(stepAnswers);
   };
 
-  const playAudio = (word: Word) => {
-    const wordAudio = new Audio(`https://rslang-2020q3.herokuapp.com/${word?.audio}`);
+  const playSound = (soundUrl: string) => {
+    const wordAudio = new Audio(soundUrl);
     wordAudio.play();
   };
 
   useEffect(() => {
-    if (currentWordNumber < words.length) playAudio(currentWord);
+    if (currentWordNumber < words.length) playSound(wordSoundUrl(currentWord));
     const newWordsVariants: string[] = fillStepAnswers();
     setWordsVariants(newWordsVariants);
     setCurrentView(false);
@@ -255,14 +257,17 @@ const Audiocall: FC = () => {
   const answerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setCurrentView(true);
     const target = e.target as Element;
+
     if (target.innerHTML === currentWord.wordTranslate) {
       const updatedCorrectAnswers = correctAnswers;
       updatedCorrectAnswers.push(currentWord);
       setCorrectAnswers(updatedCorrectAnswers);
+      // target.className += ' correct';
     } else {
       const updatedWrongAnswers = wrongAnswers;
       updatedWrongAnswers.push(currentWord);
       setWrongAnswers(updatedWrongAnswers);
+      // target.className += ' wrong';
     }
   };
 
@@ -278,7 +283,7 @@ const Audiocall: FC = () => {
       <div className="audiocall__current-word__img">
         <img src={`https://rslang-2020q3.herokuapp.com/${currentWord.image}`} />
       </div>
-      <button onClick={() => playAudio(currentWord)} className="audiocall__volume volume-button">
+      <button onClick={() => playSound(wordSoundUrl(currentWord))} className="audiocall__volume volume-button">
         <i className="fas fa-volume-up"></i>
       </button>
       <div className="audiocall__current-word__text">{currentWord.word}</div>
@@ -287,20 +292,23 @@ const Audiocall: FC = () => {
 
   const CloseCurrentWord = () => (
     <div className="audiocall__current-word">
-      <button onClick={() => playAudio(currentWord)} className="audiocall__volume_main volume-button">
+      <button onClick={() => playSound(wordSoundUrl(currentWord))} className="audiocall__volume_main volume-button">
         <i className="fas fa-volume-up"></i>
       </button>
     </div>
   );
-
-  // const [variantsButtonsDisable, setVariantsButtonsDisable] = useState(false);
 
   const VariantsButtons = () => (
     <div className="audiocall__answers__variants">
       {Array(NUMBER_OF_VARIANTS)
         .fill(0)
         .map((item, index) => (
-          <button className="button is-ghost" disabled={currentView} onClick={e => answerClick(e)} key={wordsVariants[index]}>
+          <button
+            className="button is-ghost"
+            disabled={currentView}
+            onClick={e => answerClick(e)}
+            key={wordsVariants[index]}
+          >
             {wordsVariants[index]}
           </button>
         ))}
@@ -308,7 +316,9 @@ const Audiocall: FC = () => {
   );
 
   if (currentWordNumber >= words.length) {
-    return <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} playAudio={playAudio} />;
+    return (
+      <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} />
+    );
   }
   return (
     <div className="audiocall">

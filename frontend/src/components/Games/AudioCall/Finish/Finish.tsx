@@ -3,12 +3,18 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import Word from '../Audiocall.model';
 import { FinishProps } from './Finish.model';
 
-const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, playAudio }) => {
+const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers }) => {
+  const wordSoundUrl = (word: Word) => `https://rslang-2020q3.herokuapp.com/${word?.audio}`;
+  const playSound = (soundUrl: string) => {
+    const wordAudio = new Audio(soundUrl);
+    wordAudio.play();
+  };
+
   const finishList = (list: Word[]) => (
     <div>
       {list.map((word: Word) => (
         <div className="finish__words-list__row">
-          <button onClick={() => playAudio(word)} key={word.word} className="audiocall__volume volume-button">
+          <button onClick={() => playSound(wordSoundUrl(word))} key={word.word} className="audiocall__volume volume-button">
             <i className="fas fa-volume-up"></i>
           </button>
           <span>{`${word.word.toUpperCase()} - ${word.wordTranslate}`}</span>
@@ -27,7 +33,7 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, playAudio }) =>
         <div>Отличный результат!</div>
         <div>{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
 
-        <Scrollbars hideTracksWhenNotNeeded >
+        <Scrollbars hideTracksWhenNotNeeded>
           <div className="finish__words-list">
             <div>
               <div>
