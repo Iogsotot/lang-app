@@ -21,11 +21,8 @@
     "eslint-plugin-import": "^2.22.1",
     "history": "^5.0.0",
     "jest": "26.6.0",
-<<<<<<< HEAD
     "jest-fetch-mock": "^3.0.3",
-=======
     "node-sass": "^5.0.0",
->>>>>>> origin/sprint-game
     "prettier": "^2.2.1",
     "prettier-eslint": "^12.0.0",
     "react": "^17.0.1",
