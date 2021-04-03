@@ -1,0 +1,49 @@
+@import '../../index.scss';
+
+.word {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 80px;
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 480px;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+  .word__info {
+    width: 100%;
+    max-width: 445px;
+    p {
+      margin-bottom: 10px;
+      color: $color_purple_blue;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 26px;
+    }
+  }
+  &__name {
+    margin-bottom: 15px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1;
+    color: $another_black;
+    text-align: left;
+  }
+  &__buttons {
+    button {
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+

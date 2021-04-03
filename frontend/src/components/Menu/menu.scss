@@ -1,3 +1,5 @@
+@import 'bulma';
+@import 'bulma-switch';
 // bg, btn
 $main-bg: #b57ad2;
 
@@ -62,7 +64,49 @@ aside.menu {
     flex-direction: column;
     justify-content: center;
     height: 100px;
+    position: relative;
 
     border-top: 1px solid #494e67;
+  }
+
+  .btn-menu__settings {
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    background-color: #373b53;
+  }
+
+  .hidden__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    transform: translateX(-100%);
+    transition: all .3s linear;
+    background-color: #373b53;
+    border-radius: 0px 22px 22px 0px;
+    color: $color_white;
+    &.active {
+      transform: translateX(100%);
+      transition: all .3s linear;
+    }
+
+    &-item {
+      span {
+        display: inline-block;
+        width: 160px;
+        margin-right: 10px;
+      }
+    }
   }
 }

@@ -11,11 +11,15 @@ export const FOOTER_COPYRIGHT = {
 
 export const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
 
+export const locations = {
+  TEXTBOOK: 'textbook',
+};
+
 export const WORD_GROUPS = {
-  weak: 0,
-  easy: 1,
-  middle: 2,
-  hard: 3,
-  impossible: 4,
-  legendary: 5,
+  Weak: 0,
+  Easy: 1,
+  Middle: 2,
+  Hard: 3,
+  Impossible: 4,
+  Legendary: 5,
 };

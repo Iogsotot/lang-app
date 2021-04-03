@@ -2,34 +2,18 @@
 $main-bg: #b57ad2;
 
 //text, border
+$black: #000000;
+$another_black: #091133;
 $color_extra_black: #2b292d;
 $color_black: #3c3c3c;
 $color_white: #ffffff;
 $color_light: #c9ced6;
 $color_middle: #959dbd;
+$color_purple_blue: #6F7CB2;
+$gray: #A6ACBE;
 
 // higlights:
 $color_important: #6f52ed;
-
-@font-face {
-  font-family: "Rubik";
-  src: url("../src/assets/fonts/Rubik-VariableFont_wght.ttf") format("ttf");
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../src/assets/fonts/Roboto-Black.ttf") format("ttf");
-}
-
-@font-face {
-  font-family: "Roboto Thin";
-  src: url("../src/assets/fonts/Roboto-Thin.ttf") format("ttf");
-}
-
-@font-face {
-  font-family: "Roboto Mono";
-  src: url("../src/assets/fonts/RobotoMono-VariableFont_wght.ttf") format("ttf");
-}
 
 * {
   margin: 0;
@@ -42,7 +26,7 @@ html {
 }
 
 body {
-  font-family: "Roboto Thin", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -109,6 +93,13 @@ h4 {
 
   transition: all 300ms linear;
   &:hover {
+    color: $black;
     transition: all 300ms linear;
+  }
+
+  &-sm {
+    padding: 5px 10px;
+    border-radius: 10px;
+    outline: none;
   }
 }

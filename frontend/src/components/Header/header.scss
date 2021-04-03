@@ -1,15 +1,4 @@
-// bg, btn
-$main-bg: #b57ad2;
-
-//text, border
-$color_extra_black: #2b292d;
-$color_black: #3c3c3c;
-$color_white: #ffffff;
-$color_light: #c9ced6;
-$color_middle: #959dbd;
-
-// higlights:
-$color_important: #6f52ed;
+@import '../../index.scss';
 
 header {
   border-color: white;
@@ -31,6 +20,7 @@ header {
     margin: 0 5px;
     transition: all .2s linear;
     &:hover {
+      color: $color_important;
       transition: all .2s linear;
       text-shadow: 0 0 3px rgba(0, 0, 0, .5);
       text-decoration: underline;
