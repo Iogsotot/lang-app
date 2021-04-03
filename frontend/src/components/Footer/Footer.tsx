@@ -28,24 +28,27 @@ const Footer: FC = () => (
           </ul>
         </nav>
 
-        <div className="developers">
-          <div className="dev-list">
-            <h4>Кто всё это понаделал</h4>
-            {FOOTER_COPYRIGHT.developers.map(item => (
-              <div className="author" key={item.name}>
-                <a href={item.link} className="link">
-                  <img src={githubLogo} className="icon" alt="Github" />
-                </a>
-              </div>
-            ))}
+        <div className="links-group">
+          <div className="RSS">
+            <a href="https://rs.school/react/" className="link">
+              <img src={RSSLogo} className="icon icon--rss" alt="RSSchool" />
+              <div>2021</div>
+            </a>
+          </div>
+
+          <div className="developers">
+            <div className="dev-list">
+              <h4>Кто всё это понаделал</h4>
+              {FOOTER_COPYRIGHT.developers.map(item => (
+                <div className="author" key={item.name}>
+                  <a href={item.link} className="link">
+                    <img src={githubLogo} className="icon" alt="Github" />
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="RSS">
-        <a href="https://rs.school/react/" className="link">
-          <img src={RSSLogo} className="icon icon--rss" alt="RSSchool" />
-          <div>2021</div>
-        </a>
       </div>
     </div>
   </footer>
