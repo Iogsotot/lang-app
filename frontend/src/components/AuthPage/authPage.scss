@@ -1,14 +1,22 @@
-@import '../../index.scss';
+@import "../../index.scss";
 
 .auth {
+  color: $color_black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  left: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 429px);
-  background: linear-gradient(179.61deg, #F9F4FC 0.33%, rgba(255, 244, 229, 0.0001) 99.67%);
+  min-height: calc(100vh);
+  background: linear-gradient(179.61deg, #f9f4fc 0.33%, rgba(255, 244, 229, 1) 99.67%);
 }
 
 .form {
+  position: relative;
   width: 100%;
   max-width: 500px;
   min-height: 520px;
@@ -24,12 +32,13 @@
   }
 }
 
-.form__tabs{
+.form__tabs {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 7rem;
+  border-bottom: 2px solid transparent;
   &__link {
     display: block;
     font-size: 24px;
@@ -39,19 +48,19 @@
     background: transparent;
     cursor: pointer;
     font-weight: normal;
-    opacity: .6;
-    transition: all .3s linear;
+    opacity: 0.6;
+    transition: all 0.3s linear;
     &:first-child {
       margin-left: 0;
     }
     &.active {
       opacity: 1;
-      text-decoration: underline;
-      transition: all .3s linear;
+      border-bottom: 2px solid $color_black;
+      transition: all 0.3s linear;
     }
     &:hover {
       opacity: 1;
-      transition: all .3s linear;
+      transition: all 0.3s linear;
     }
   }
 }
@@ -66,7 +75,7 @@
   align-items: center;
   padding-right: 20px;
   margin-right: 20px;
-  border-right: 1px solid #EFF4F7;
+  border-right: 1px solid #eff4f7;
   &__icon {
     display: flex;
     align-items: center;
@@ -103,10 +112,10 @@
     outline: none;
     cursor: pointer;
     opacity: 0.5;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
     &:hover {
       opacity: 1;
-      transition: all .2s linear;
+      transition: all 0.2s linear;
     }
   }
 }

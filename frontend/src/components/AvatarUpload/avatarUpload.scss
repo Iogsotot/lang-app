@@ -1,5 +1,9 @@
 .set-avatar,
 .user-avatar {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: block;
   height: 7rem;
   width: 7rem;
