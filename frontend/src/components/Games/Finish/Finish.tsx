@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Word from '../Audiocall.model';
+import { Word } from '../../../models/word';
 import { FinishProps } from './Finish.model';
 import 'react-tabs/style/react-tabs.css';
+import './finish.scss';
 
-const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers }) => {
+const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
   const wordSoundUrl = (word: Word) => `https://rslang-2020q3.herokuapp.com/${word?.audio}`;
   const playSound = (soundUrl: string) => {
     const wordAudio = new Audio(soundUrl);
@@ -47,8 +48,9 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers }) => {
           </TabList>
 
           <TabPanel>
-            <div>Отличный результат!</div>
+            <div className='finish__title'>Отличный результат!</div>
             <div>{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
+            <div className='finish__score'>{`+${score}`}</div>
           </TabPanel>
           <TabPanel>
             <div className="finish__tab-inner">
@@ -57,15 +59,17 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers }) => {
                   <div>
                     <div>
                       <span>Знаю</span>
-                      <span className="finish__akcent-number">{correctAnswers.length}</span>
+                      <span className="finish__akcent-number good">{correctAnswers.length}</span>
                     </div>
                     <CorrectList />
                   </div>
 
+                  <div className='divider'></div>
+
                   <div>
                     <div>
                       <span>Сложно</span>
-                      <span className="finish__akcent-number">{wrongAnswers.length}</span>
+                      <span className="finish__akcent-number bad">{wrongAnswers.length}</span>
                     </div>
                     <WrongList />
                   </div>

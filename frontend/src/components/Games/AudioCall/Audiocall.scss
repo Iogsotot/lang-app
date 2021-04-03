@@ -9,7 +9,6 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: rgb(141, 219, 224);
   background: linear-gradient(0deg, rgba(141, 219, 224, 1) 0%, rgba(70, 92, 255, 1) 100%);
 
   &_inner {
@@ -78,7 +77,6 @@
 
     &:hover {
       background-color: #fff3;
-      // transform: scale(1.05);
       text-decoration: none;
     }
 
@@ -99,14 +97,13 @@
       cursor: default;
     }
 
-    &.correct{
+    &.correct {
       background-color: #279b8f40;
     }
 
-    &.wrong:disabled{
+    &.wrong:disabled {
       background-color: #9b352740;
     }
-
   }
 
   & .button.is-danger {
@@ -140,54 +137,4 @@
   }
 }
 
-.finish {
-  width: 60%;
-  min-width: 480px;
-  height: 70%;
-  padding: 40px 20px 140px;
 
-  &__words-list {
-    text-align: left;
-    width: 60%;
-    height: 80%;
-    margin: 20px auto;
-
-    &__row {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  &__tab-inner {
-    position: relative;
-    height: 50vh;
-  }
-
-  & .react-tabs{
-    &__tab {
-    color: #c9c9c9;
-
-    &-list {
-      border: none;
-    }
-
-    &--selected {
-      color: #b57ad2;
-      border: none;
-    }
-  }
-}
-
-  &__akcent-number {
-    display: inline-block;
-    text-align: center;
-    margin: 5px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #279b8f;
-    color: #fff;
-    font-size: 0.9rem;
-    line-height: 20px;
-  }
-}

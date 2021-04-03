@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
-import Word from './Audiocall.model';
-import Finish from './Finish';
+import { Word } from '../../../models/word';
+import Finish from '../Finish';
 import './Audiocall.scss';
 
 const Audiocall: FC = () => {
@@ -316,9 +316,7 @@ const Audiocall: FC = () => {
   );
 
   if (currentWordNumber >= words.length) {
-    return (
-      <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} />
-    );
+    return <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length} />;
   }
   return (
     <div className="audiocall">
