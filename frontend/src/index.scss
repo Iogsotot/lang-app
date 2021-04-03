@@ -1,37 +1,6 @@
-// bg, btn
-$main-bg: #b57ad2;
+@import "../node_modules/bulma/bulma.sass";
 
-//text, border
-$color_extra_black: #2b292d;
-$color_black: #3c3c3c;
-$color_white: #ffffff;
-$color_light: #c9ced6;
-$color_middle: #959dbd;
-
-// higlights:
-$color_important: #6f52ed;
-
-@font-face {
-  font-family: "Rubik";
-  src: url("../src/assets/fonts/Rubik-VariableFont_wght.ttf") format("ttf");
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../src/assets/fonts/Roboto-Black.ttf") format("ttf");
-}
-
-@font-face {
-  font-family: "Roboto Thin";
-  src: url("../src/assets/fonts/Roboto-Thin.ttf") format("ttf");
-}
-
-@font-face {
-  font-family: "Roboto Mono";
-  src: url("../src/assets/fonts/RobotoMono-VariableFont_wght.ttf") format("ttf");
-}
-
-* {
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

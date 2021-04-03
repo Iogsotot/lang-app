@@ -5,9 +5,7 @@ import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordCard from '../WordCard';
 import { useAudios } from '../../hooks/useAudios';
-import { constants } from '../../constants';
-
-const { WORD_GROUPS } = constants;
+import { WORD_GROUPS } from '../../constants';
 
 const WordList: FC = () => {
   const history = useHistory();

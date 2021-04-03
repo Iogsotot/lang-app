@@ -1,0 +1,14 @@
+.toggle-button {
+  display: none;
+  &__wrapper {
+    width: min-content;
+    height: min-content;
+
+    .btn {
+      width: 2rem;
+      height: 2rem;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+  }
+}
