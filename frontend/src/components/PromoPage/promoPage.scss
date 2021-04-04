@@ -1,0 +1,360 @@
+// bg, btn
+$main-bg: #b57ad2;
+
+//text, border
+$color_extra_black: #2b292d;
+$color_black: #3c3c3c;
+$color_white: #ffffff;
+$color_light: #c9ced6;
+$color_middle: #959dbd;
+
+// higlights:
+$color_important: #6f52ed;
+
+main {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto Mono", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 10px;
+
+  .promo {
+    background-image: url("../../assets/images/promo_bg.png");
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: 50% auto;
+
+    color: $color_black;
+
+    // padding-bottom: 36rem;
+    height: 90vh;
+    padding-left: 2.5rem;
+    padding-bottom: 19rem;
+    .info_block {
+      width: 40rem;
+      padding-top: 12.5rem;
+    }
+
+    .title {
+      margin-bottom: 1.8rem;
+      text-align: left;
+    }
+    .content {
+      max-width: 26.625rem;
+      margin-bottom: 3.375rem;
+    }
+  }
+
+  .video {
+    background: linear-gradient(180deg, rgba(255, 244, 229, 0) 0%, rgba(181, 122, 210, 0.776388) 89.77%),
+      linear-gradient(179.61deg, #f9f4fc -73%, rgba(255, 244, 229, 0) 52.76%);
+    height: 80vh;
+    padding: 4.43rem 3rem;
+
+    .video-player {
+      height: 100%;
+      width: 100%;
+      border-radius: 1.25rem;
+    }
+  }
+
+  .features {
+    color: $color_extra_black;
+    background-color: white;
+    h2 {
+      margin-top: 7.75rem;
+      margin-bottom: 0.875rem;
+    }
+    h4 {
+      margin: 1.57rem auto;
+    }
+    .content {
+      text-align: center;
+      line-height: 150%;
+    }
+
+    .features__block {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+
+      margin-top: 7rem;
+      margin-bottom: 8rem;
+    }
+
+    .features__geo,
+    .features__stars,
+    .features__power-field {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 21rem;
+      img {
+        margin: auto;
+      }
+    }
+  }
+
+  .team {
+    clip-path: url(#clip4);
+    height: 63rem;
+    background-color: white;
+    background-image: url("../../assets/images/team_bg.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top center;
+    .title {
+      padding-top: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      margin: 0 auto 1.2rem !important;
+      width: 43rem;
+      text-align: center;
+    }
+    .team__group {
+      display: flex;
+      img {
+        height: 6.125rem;
+        width: 6.125rem;
+        border-radius: 50%;
+      }
+      .name {
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+      .teammate__info {
+        width: 6.2rem;
+        text-align: center;
+      }
+      .duty {
+        position: relative;
+        font-size: 0.875rem;
+        height: 3.75rem;
+        width: fit-content;
+        padding: 0.625rem 1.75rem;
+        margin: 1rem 2rem;
+
+        background: white;
+        box-shadow: 0px 2px 15px rgba(23, 58, 86, 0.1);
+        border-radius: 1.7rem;
+
+        &::after {
+          position: absolute;
+          content: " ";
+          height: 1.2rem;
+          width: 1.2rem;
+          bottom: -8px;
+          left: 10px;
+          background: white;
+          z-index: 2;
+          border-radius: 50%;
+        }
+
+        &::before {
+          position: absolute;
+          content: " ";
+          height: 0.5rem;
+          width: 0.5rem;
+          bottom: -17px;
+          left: 5px;
+          background: white;
+          z-index: 2;
+          border-radius: 50%;
+        }
+      }
+
+      .gregoryMoskalev,
+      .iogsotot,
+      .ainuAnna {
+        .teammate__info {
+          margin: auto 0 auto auto;
+        }
+        .duty {
+          &::after {
+            left: unset;
+            right: 10px;
+          }
+          &::before {
+            left: unset;
+            right: 5px;
+          }
+        }
+      }
+
+      .teammates {
+        display: grid;
+        margin: auto;
+        grid-template-columns: 100px 270px 100px 221px 100px 270px 100px;
+        grid-template-areas:
+          ". bramov bramov center ainuAnna ainuAnna ."
+          ". . . center . . . "
+          "svetlana svetlana . center . gregory gregory"
+          ". johnneon johnneon center iogsotot iogsotot .";
+
+        .center {
+          grid-area: center;
+          width: 221px;
+          height: 221px;
+          margin: auto;
+          border-radius: unset;
+        }
+
+        .bramov {
+          grid-area: bramov;
+        }
+        .ainuAnna {
+          grid-area: ainuAnna;
+        }
+        .svetlana-tyshkevich {
+          grid-area: svetlana;
+        }
+        .gregoryMoskalev {
+          grid-area: gregory;
+        }
+        .johnneon {
+          grid-area: johnneon;
+        }
+        .iogsotot {
+          grid-area: iogsotot;
+        }
+      }
+    }
+  }
+
+  .game {
+    color: $color_black;
+    background: white;
+    padding: 5.2rem 0 6.25rem;
+    h2 {
+      margin-bottom: 4.5rem;
+    }
+    .game__grid {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+    .game__block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      // flex: 1 1 35vw;
+      // width: 25vw;
+      margin: 1rem;
+      padding: 1.5rem;
+      img {
+        margin: auto;
+        // height: 23rem;
+        width: 35vmin;
+      }
+      .game__title {
+        text-align: center;
+        font-size: 1.5rem;
+        padding-bottom: 2rem;
+      }
+      transition: all 250ms linear;
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(111, 82, 237, 0.2);
+        transition: all 250ms linear;
+      }
+    }
+  }
+
+  .arrow-block {
+    color: $color_black;
+    background: linear-gradient(179.68deg, #f9f4fc 7.55%, rgba(255, 244, 229, 0.0001) 91.16%);
+    padding-top: 5.7rem;
+    padding-bottom: 4.1rem;
+    .subtitle {
+      margin: 0.875rem auto 1.57rem !important;
+    }
+    .content_group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-left: 4rem;
+
+      .info {
+        list-style: none;
+        margin: auto;
+        .info__item {
+          position: relative;
+          margin-bottom: 3.75rem;
+        }
+
+        .info__item::before {
+          position: absolute;
+          display: inline-block;
+          content: "\2022";
+          margin-left: -2rem;
+          top: 12px;
+          left: 0;
+          width: 1em;
+
+          font-weight: bold;
+          font-size: 3rem;
+          color: #b57ad2;
+          line-height: 0;
+        }
+        h4 {
+          text-align: left;
+          margin-bottom: 1.125rem;
+        }
+        p {
+          font-size: 1rem;
+          line-height: 137%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 2300px) {
+  main {
+    .team {
+      background-size: cover;
+    }
+  }
+}
+
+@media (max-width: 1800px) {
+  main {
+    .promo {
+      background-image: url("../../assets/images/promo_bg.png"), url("../../assets/images/bg_book_2.png");
+      background-position: top right, center bottom;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 50% auto, 80vh auto;
+    }
+  }
+}
+
+@media (max-width: 1240px) {
+  main {
+    .promo {
+      background-image: url("../../assets/images/promo_bg.png"), url("../../assets/images/bg_book_2.png");
+      background-position: top right, center bottom;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 40vw auto, contain;
+
+      .info_block {
+        width: 50vw;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    .promo {
+      padding-bottom: 15rem;
+      .info_block {
+        padding-top: 15rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  //колонки
+}

@@ -19,13 +19,17 @@
   ],
   "rules": {
     "object-curly-newline": "off",
-    "implicit-arrow-linebreak":"off",
-    "operator-linebreak" : "off",
-    "arrow-parens":"off",
+    "implicit-arrow-linebreak": "off",
+    "operator-linebreak": "off",
+    "arrow-parens": "off",
     "no-plusplus": "off",
     "no-nested-ternary": "warn",
     "no-console": "warn",
-    "linebreak-style": ["warn", "unix"],
+    "consistent-return": "off",
+    "linebreak-style": [
+      "warn",
+      "unix"
+    ],
     "@typescript-eslint/no-empty-interface": [
       "warn",
       {

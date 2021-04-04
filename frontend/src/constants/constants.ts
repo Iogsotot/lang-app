@@ -4,18 +4,24 @@ export const FOOTER_COPYRIGHT = {
     { link: 'https://github.com/GregoryMoskalev', name: '@GregoryMoskalev' },
     { link: 'https://github.com/johnneon', name: '@Johnneon' },
     { link: 'https://github.com/Iogsotot', name: '@IogSotot' },
+    { link: 'https://github.com/svetlana-tyshkevich', name: '@Svetlana-tyshkevich' },
+    { link: 'https://github.com/AinuAnna', name: '@AinuAnna' },
   ],
 };
 
 export const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
 
+export const locations = {
+  TEXTBOOK: 'textbook',
+};
+
 export const WORD_GROUPS = {
-  weak: 0,
-  easy: 1,
-  middle: 2,
-  hard: 3,
-  impossible: 4,
-  legendary: 5,
+  Novice: 0,
+  Easy: 1,
+  Middle: 2,
+  Hard: 3,
+  Impossible: 4,
+  Legendary: 5,
 };
 
 export const SPRINT = {

@@ -1,0 +1,112 @@
+@import 'bulma';
+@import 'bulma-switch';
+// bg, btn
+$main-bg: #b57ad2;
+
+//text, border
+$color_extra_black: #2b292d;
+$color_black: #3c3c3c;
+$color_white: #ffffff;
+$color_light: #c9ced6;
+$color_middle: #959dbd;
+
+// higlights:
+$color_important: #6f52ed;
+
+aside.menu {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  background-color: #373b53;
+  .logo-field {
+    display: block;
+    background-color: #3490cf;
+    height: 100px;
+    padding-top: 1.375rem;
+    img {
+      display: block;
+      margin-left: 1.375rem;
+    }
+  }
+
+  .menu__list {
+    list-style: none;
+
+    .menu__item {
+      margin: 1.75rem auto;
+    }
+  }
+  .icon {
+    display: block;
+    margin: auto;
+    width: 2.75rem;
+    height: auto;
+
+    cursor: pointer;
+    transition: all 150ms linear;
+    &:hover {
+      opacity: 0.5;
+      transition: all 150ms linear;
+    }
+  }
+
+  .down-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100px;
+    position: relative;
+
+    border-top: 1px solid #494e67;
+  }
+
+  .btn-menu__settings {
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    background-color: #373b53;
+  }
+
+  .hidden__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    transform: translateX(-100%);
+    transition: all .3s linear;
+    background-color: #373b53;
+    border-radius: 0px 22px 22px 0px;
+    color: $color_white;
+    &.active {
+      transform: translateX(100%);
+      transition: all .3s linear;
+    }
+
+    &-item {
+      span {
+        display: inline-block;
+        width: 160px;
+        margin-right: 10px;
+      }
+    }
+  }
+}

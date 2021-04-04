@@ -1,4 +1,7 @@
-import 'bulma/css/bulma.css';
+import 'typeface-roboto';
+import 'typeface-roboto-mono';
+import 'typeface-rubik';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
