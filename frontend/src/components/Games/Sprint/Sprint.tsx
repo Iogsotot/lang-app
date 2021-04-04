@@ -1,6 +1,10 @@
 import React, { useState, useEffect, FC } from 'react';
 
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import useSound from 'use-sound';
+
+import onWrong from '../../../assets/audio/wilhelm_scream.mp3';
+import onRight from '../../../assets/audio/cratepop.mp3';
 
 import Button from './Button';
 import Streak from './Streak';
@@ -39,6 +43,8 @@ const {
 } = SPRINT;
 
 const Sprint: FC = () => {
+  const [correctAnswerAudio] = useSound(onRight);
+  const [wrongAnswerAudio] = useSound(onWrong);
   const { words, group } = useTypedSelector(store => store.wordList);
   const { fetchRandomWords } = useAction();
   const [sprintWords, setSprintWords] = useState(words);
@@ -56,7 +62,6 @@ const Sprint: FC = () => {
     audio: 'null',
     answer: false,
   });
-
   const mod = basicPoints * 2 ** (modificator - 1);
 
   const addPoints = () => {
@@ -109,11 +114,17 @@ const Sprint: FC = () => {
     if (!IsPlaying) return;
     if (compareAnswer(arg, pair.answer)) {
       // correct answer
+      if (isSoundOn) {
+        correctAnswerAudio();
+      }
       addPoints();
       handleModificator();
       animateBorderColor('.sprint__box', colorOnCorrectAnswer);
     } else {
       // wrong answer
+      if (isSoundOn) {
+        wrongAnswerAudio();
+      }
       setStreak(0);
       setModificator(1);
       animateBorderColor('.sprint__box', colorOnWrongAnswer);
