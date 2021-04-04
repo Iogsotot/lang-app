@@ -1,4 +1,4 @@
-export const FOOTER_COPYRIGHT = {
+const FOOTER_COPYRIGHT = {
   developers: [
     { link: 'https://github.com/bramov', name: '@Bramov' },
     { link: 'https://github.com/GregoryMoskalev', name: '@GregoryMoskalev' },
@@ -9,9 +9,9 @@ export const FOOTER_COPYRIGHT = {
   ],
 };
 
-export const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
+const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
 
-export const WORD_GROUPS = {
+const WORD_GROUPS = {
   weak: 0,
   easy: 1,
   middle: 2,
@@ -19,3 +19,5 @@ export const WORD_GROUPS = {
   impossible: 4,
   legendary: 5,
 };
+
+export { WORD_GROUPS, API_BASE_URL, FOOTER_COPYRIGHT };

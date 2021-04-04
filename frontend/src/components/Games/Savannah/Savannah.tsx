@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
 import { connect } from 'react-redux';
 import './savannah.scss';
 import { SavannahProps } from './Savannah.model';
-import { constants } from '../../../constants';
+import { WORD_GROUPS, API_BASE_URL } from '../../../constants';
 import { Word } from '../../../models/word';
 import gameDataActions from '../../../store/action-creators/gameDataActions';
 
@@ -32,11 +32,7 @@ const mapStateToProps = ({ gameData }: any) => {
 };
 
 const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
-  // @ts-ignore
-  // console.log(props);
   const { setPage, addToActiveWords } = props;
-  // console.log({ addToActiveWords });
-  // setPage(15);
   const answerVariantsCount = 4;
   const WORDS = [0, 1, 2, 3];
   const maxCount = 6;
@@ -44,16 +40,24 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const allWordsInGroupCount = 600;
 
   const [isFromTextbook, setIsFromTextbook] = useState(false);
-  const [lives, setLives] = useState(maxLives);
-  const { WORD_GROUPS, API_BASE_URL } = constants;
   const [group, setGroup] = useState(0);
   const [currentWords, setCurrentWords] = useState<[Word] | []>([]);
   const [wordsChunk, setWordsChunk] = useState([0]);
   const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * answerVariantsCount));
   const [round, setRound] = useState(1);
-  const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [wrongAswers, setWrongAswers] = useState(0);
-  const [points, setPoints] = useState(0);
+
+  const initialGameState = {
+    lives: maxLives,
+    correctAnswersCount: 0,
+    wrongAswersCount: 0,
+    point: 0,
+  };
+  const statsData = useRef(initialGameState);
+
+  // const [lives, setLives] = useState(maxLives);
+  // const [correctAnswers, setCorrectAnswers] = useState(0);
+  // const [wrongAswers, setWrongAswers] = useState(0);
+  // const [points, setPoints] = useState(0);
 
   // welcome, game, stats
   const [gameScreen, setGameScreen] = useState('welcome');
@@ -92,7 +96,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   useEffect(() => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
-      console.log({ currentPageWords });
+      // console.log({ currentPageWords });
       setCurrentWords(currentPageWords);
     }
     fetchCurrentPageWords();
@@ -101,9 +105,10 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   function resetGame() {
     // setGameScreen('welcome');
     setTimer(0);
-    setLives(5);
-    setCorrectAnswers(0);
-    setWrongAswers(0);
+    statsData.current = initialGameState;
+    // setLives(5);
+    // setCorrectAnswers(0);
+    // setWrongAswers(0);
   }
 
   function gameOver() {
@@ -111,26 +116,37 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     // openStatsPopup();
     setGameScreen('stats');
     console.log('game over');
-    console.log({ wrongAswers });
-    console.log({ correctAnswers });
-    console.log({ lives });
+    console.log(statsData.current.wrongAswersCount);
+    console.log(statsData.current.correctAnswersCount);
+    console.log(statsData.current.lives);
+    console.log(statsData.current.point);
+
     resetGame();
   }
 
   function resolveAsWrongAnswer() {
-    const currentLives = lives - 1;
-    setLives(currentLives);
-    console.log(currentLives);
+    let lives = statsData.current.lives;
+    let wrongAnswersCount = statsData.current.wrongAswersCount;
+    wrongAnswersCount += 1;
+    lives -= 1;
+    statsData.current.lives = lives;
+    statsData.current.wrongAswersCount = wrongAnswersCount;
+    // setLives(currentLives);
+    console.log(lives);
 
-    setWrongAswers(wrongAswers + 1);
+    // setWrongAswers(wrongAswers + 1);
     console.log('нэ маладэц');
-    if (currentLives === 0) {
+    if (lives === 0) {
       gameOver();
+      // resetGame();
     }
   }
 
   function resolveAsCorrectAnswer() {
-    setCorrectAnswers(correctAnswers + 1);
+    // setCorrectAnswers(correctAnswers + 1);
+    let correctAnswersCount = statsData.current.correctAnswersCount;
+    correctAnswersCount += 1;
+    statsData.current.correctAnswersCount = correctAnswersCount;
     console.log('маладэц');
   }
 
@@ -143,24 +159,26 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     if (!timer) {
       return;
     }
-    const startTimerId = setInterval(() => {
-      setCounter(counter + 1);
-      setTimer(timer - 1);
-      // console.log(timer);
-      if (timer === 1) {
-        setRound(round + 1);
-        resolveAsWrongAnswer();
-        resetGameRound();
-        clearInterval(startTimerId);
-        if (round === 30) {
-          gameOver();
+    if (gameScreen === 'game') {
+      const startTimerId = setInterval(() => {
+        setCounter(counter + 1);
+        setTimer(timer - 1);
+        // console.log(timer);
+        if (timer === 1) {
+          setRound(round + 1);
+          addToActiveWords(currentWords[wordsChunk[soughtIndex]]);
+          resolveAsWrongAnswer();
+          resetGameRound();
+          clearInterval(startTimerId);
+          if (round === 30) {
+            gameOver();
+          }
         }
-      }
-    }, 1000);
-
-    return () => {
-      clearTimeout(startTimerId);
-    };
+      }, 1000);
+      return () => {
+        clearTimeout(startTimerId);
+      };
+    }
   }, [counter, timer]);
 
   const handleStart = useCallback(() => {
@@ -223,7 +241,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
       {gameScreen === 'game' && (
         <div className="savannah-body">
           <div className="status-bar box">
-            <div>lives: {lives}</div>
+            <div>lives: {statsData.current.lives}</div>
             <div className="lives">
               <i className="fas fa-heart"></i>
               <i className="fas fa-heart"></i>
@@ -246,20 +264,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
                   {currentWords[wordsChunk[word]].word}
                 </div>
               ))}
-              {/* <div
-                className="button is-info is-light is-outlined"
-                onClick={() => {
-                  addToActiveWords(currentWords[wordsChunk[soughtIndex]]);
-                }}
-              >
-                add word
-              </div>
-              <div
-                className="button is-info is-light is-outlined"
-                onClick={() => delFromActiveWords(currentWords[wordsChunk[soughtIndex]])}
-              >
-                del word
-              </div> */}
             </div>
           </div>
         </div>
