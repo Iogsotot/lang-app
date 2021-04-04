@@ -1,0 +1,121 @@
+@import "../../index.scss";
+
+.auth {
+  color: $color_black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh);
+  background: linear-gradient(179.61deg, #f9f4fc 0.33%, rgba(255, 244, 229, 1) 99.67%);
+}
+
+.form {
+  position: relative;
+  width: 100%;
+  max-width: 31.25rem;
+  min-height: 32.5rem;
+  margin: 0 auto;
+}
+
+.btn-submit {
+  width: 100%;
+  text-align: center;
+  margin-top: 1.25rem;
+  &:hover {
+    color: $color_black;
+  }
+}
+
+.form__tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 7rem;
+  border-bottom: .125rem solid transparent;
+  &__link {
+    display: block;
+    font-size: 1.5rem;
+    margin: 0 .625rem;
+    border: 0;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: normal;
+    opacity: 0.6;
+    transition: all 0.3s linear;
+    &:first-child {
+      margin-left: 0;
+    }
+    &.active {
+      opacity: 1;
+      border-bottom: .125rem solid $color_black;
+      transition: all 0.3s linear;
+    }
+    &:hover {
+      opacity: 1;
+      transition: all 0.3s linear;
+    }
+  }
+}
+
+.user__menu {
+  display: flex;
+  align-items: center;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  padding-right: 1.25rem;
+  margin-right: 1.25rem;
+  border-right: .0625rem solid #eff4f7;
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      display: block;
+      max-width: 100%;
+    }
+  }
+  &__info {
+    margin-right: 1.25rem;
+    text-align: right;
+    p {
+      font-family: "Rubik";
+      font-size: .875rem;
+      line-height: 1.125rem;
+      color: $text_color_black;
+      &:last-child {
+        font-size: .75rem;
+        color: $color_gray;
+      }
+    }
+  }
+  &__logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.2s linear;
+    &:hover {
+      opacity: 1;
+      transition: all 0.2s linear;
+    }
+  }
+}
