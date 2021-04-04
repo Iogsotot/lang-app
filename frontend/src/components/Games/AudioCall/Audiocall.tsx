@@ -1,10 +1,12 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, KeyboardEvent } from 'react';
 import { Word } from '../../../models/word';
 import Finish from '../Finish';
+import { constants } from '../../../constants';
 import './Audiocall.scss';
 
 const Audiocall: FC = () => {
   const NUMBER_OF_VARIANTS = 5;
+  const { WORD_GROUPS, API_BASE_URL } = constants;
   const words = [
     {
       _id: {
@@ -204,8 +206,10 @@ const Audiocall: FC = () => {
   const [currentWordNumber, setCurrentWordNumber] = useState(-1);
   const [currentWord, setCurrentWord] = useState(words[currentWordNumber] || undefined);
   const [wordsVariants, setWordsVariants] = useState<string[]>([]);
+  const [pressedButtonIdx, setPressedButtonIdx] = useState(-1);
+  const [correctButtonIdx, setCorrectButtonIdx] = useState(-1);
 
-  const wordSoundUrl = (word: Word) => `https://rslang-2020q3.herokuapp.com/${word?.audio}`;
+  const wordSoundUrl = (word: Word) => `${API_BASE_URL}/${word?.audio}`;
 
   const shuffle = (array: string[]): string[] => {
     for (let i = array.length - 1; i > 0; i -= 1) {
@@ -223,12 +227,15 @@ const Audiocall: FC = () => {
         stepAnswers.push(words[randomWordNumber].wordTranslate);
       }
     }
+    setCorrectButtonIdx(stepAnswers.indexOf(currentWord?.wordTranslate));
     return shuffle(stepAnswers);
   };
 
   const playSound = (soundUrl: string) => {
-    const wordAudio = new Audio(soundUrl);
-    wordAudio.play();
+    if (currentWordNumber >= 0) {
+      const wordAudio = new Audio(soundUrl);
+      wordAudio.play();
+    }
   };
 
   useEffect(() => {
@@ -245,6 +252,8 @@ const Audiocall: FC = () => {
   const nextWord = () => {
     if (currentWordNumber < words.length) setCurrentWordNumber(currentWordNumber + 1);
     setWordsVariants([]);
+    setPressedButtonIdx(-1);
+    setCorrectButtonIdx(-1);
   };
 
   const clickStart = () => {
@@ -254,11 +263,11 @@ const Audiocall: FC = () => {
     setWordsVariants(newWordsVariants);
   };
 
-  const answerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const checkAnswer = (answer: string) => {
     setCurrentView(true);
-    const target = e.target as Element;
+    console.log(answer, currentWord.wordTranslate);
 
-    if (target.innerHTML === currentWord.wordTranslate) {
+    if (answer === currentWord.wordTranslate) {
       const updatedCorrectAnswers = correctAnswers;
       updatedCorrectAnswers.push(currentWord);
       setCorrectAnswers(updatedCorrectAnswers);
@@ -269,6 +278,11 @@ const Audiocall: FC = () => {
       setWrongAnswers(updatedWrongAnswers);
       // target.className += ' wrong';
     }
+  };
+
+  const answerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLElement;
+    checkAnswer(target.innerText);
   };
 
   const dontKnowClick = () => {
@@ -309,14 +323,61 @@ const Audiocall: FC = () => {
             onClick={e => answerClick(e)}
             key={wordsVariants[index]}
           >
+            <span className="audiocall__hotKey">{`${index + 1}`}</span>
             {wordsVariants[index]}
           </button>
         ))}
     </div>
   );
 
+  const keyControls = (e: any) => {
+    switch (e.code) {
+      case 'Digit1':
+      case 'Numpad1':
+        checkAnswer(wordsVariants[0]);
+        break;
+      case 'Digit2':
+      case 'Numpad2':
+        checkAnswer(wordsVariants[1]);
+        break;
+      case 'Digit3':
+      case 'Numpad3':
+        checkAnswer(wordsVariants[2]);
+        break;
+      case 'Digit4':
+      case 'Numpad4':
+        checkAnswer(wordsVariants[3]);
+        break;
+      case 'Digit5':
+      case 'Numpad5':
+        checkAnswer(wordsVariants[4]);
+        break;
+      default:
+    }
+  };
+
+  const enterKey = (e: any) => {
+    if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+      if (currentView) nextWord();
+      else dontKnowClick();
+    }
+  };
+
+  useEffect(() => {
+    const setKeyContols = () => {
+      window.addEventListener('keydown', keyControls);
+    };
+    setKeyContols();
+    return () => window.removeEventListener('keydown', keyControls);
+  }, [wordsVariants]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', enterKey);
+    return () => window.removeEventListener('keydown', enterKey);
+  }, [currentView]);
+
   if (currentWordNumber >= words.length) {
-    return <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length} />;
+    return <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 2} />;
   }
   return (
     <div className="audiocall">

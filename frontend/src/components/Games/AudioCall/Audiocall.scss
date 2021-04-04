@@ -40,6 +40,11 @@
       color: #3b51f7;
     }
   }
+  
+    &__hotKey {
+      color: #407bd3;
+      margin-right: 7px;
+    }
 
   &__answers {
     height: 40vh;
@@ -58,6 +63,7 @@
         font-size: 1.5rem;
       }
     }
+
   }
 
   &__volume {
