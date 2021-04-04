@@ -4,7 +4,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import useSound from 'use-sound';
 
 import onWrong from '../../../assets/audio/wilhelm_scream.mp3';
-import onRight from '../../../assets/audio/cratepop.mp3';
+import onCorrect from '../../../assets/audio/cratepop.mp3';
 
 import Button from './Button';
 import Streak from './Streak';
@@ -43,7 +43,7 @@ const {
 } = SPRINT;
 
 const Sprint: FC = () => {
-  const [correctAnswerAudio] = useSound(onRight);
+  const [correctAnswerAudio] = useSound(onCorrect);
   const [wrongAnswerAudio] = useSound(onWrong);
   const { words, group } = useTypedSelector(store => store.wordList);
   const { fetchRandomWords } = useAction();
@@ -56,6 +56,24 @@ const Sprint: FC = () => {
   const [points, setPoints] = useState(0);
   const [modificator, setModificator] = useState(1);
   const [isSoundOn, setIsSoundOn] = useState(false);
+  const [currentWord, setCurrentWord] = useState<Word>({
+    group: 0,
+    page: 0,
+    word: 'alcohol',
+    image: 'files/01_0002.jpg',
+    audio: 'files/01_0002.mp3',
+    audioMeaning: 'files/01_0002_meaning.mp3',
+    audioExample: 'files/01_0002_example.mp3',
+    textMeaning: '<i>Alcohol</i> is a type of drink that can make people drunk.',
+    textExample: 'A person should not drive a car after he or she has been drinking <b>alcohol</b>.',
+    transcription: '[ǽlkəhɔ̀ːl]',
+
+    textExampleTranslate: 'Человек не должен водить машину после того, как он выпил алкоголь',
+    textMeaningTranslate: 'Алкоголь - это тип напитка, который может сделать людей пьяными',
+    wordTranslate: 'алкоголь',
+  });
+  const [mistakesStat, setMistakesStat] = useState<Word[]>([]);
+  const [correctAnswersStat, setCorrectAnswersStat] = useState<Word[]>([]);
   const [pair, setPair] = useState({
     word: 'null',
     wordTranslate: 'null',
@@ -79,25 +97,25 @@ const Sprint: FC = () => {
       };
     }
     const wordsList = sprintWords.slice(0);
-    const word = wordsList.pop() as Word;
+    setCurrentWord(wordsList.pop() as Word);
 
     setSprintWords(wordsList);
 
     if (getRandomBooleanAnswer()) {
       return {
-        word: word.word,
-        wordTranslate: word.wordTranslate,
-        audio: word.audio,
+        word: currentWord.word,
+        wordTranslate: currentWord.wordTranslate,
+        audio: currentWord.audio,
         answer: true,
       };
     }
 
     const randomWordIndex = randomInteger(sprintWords.length - 2);
     return {
-      word: word.word,
+      word: currentWord.word,
       wordTranslate: sprintWords[randomWordIndex].wordTranslate,
-      audio: word.audio,
-      answer: word.word === sprintWords[randomWordIndex].word,
+      audio: currentWord.audio,
+      answer: currentWord.word === sprintWords[randomWordIndex].word,
     };
   };
 
@@ -117,6 +135,7 @@ const Sprint: FC = () => {
       if (isSoundOn) {
         correctAnswerAudio();
       }
+      setCorrectAnswersStat(prevState => [...prevState, currentWord]);
       addPoints();
       handleModificator();
       animateBorderColor('.sprint__box', colorOnCorrectAnswer);
@@ -125,6 +144,7 @@ const Sprint: FC = () => {
       if (isSoundOn) {
         wrongAnswerAudio();
       }
+      setMistakesStat(prevState => [...prevState, currentWord]);
       setStreak(0);
       setModificator(1);
       animateBorderColor('.sprint__box', colorOnWrongAnswer);
