@@ -11,3 +11,6 @@ export interface PhraseProps {
   phrase: string | null,
   word: string | null,
 }
+export interface GameScreenProps {
+  group: number,
+}

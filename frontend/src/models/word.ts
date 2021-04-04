@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 
 export interface Word {
-  id?: string;
+  id: string;
   group?: number;
   page?: number;
   word: string;

@@ -12,6 +12,7 @@ import 'typeface-roboto';
 import 'typeface-roboto-mono';
 import 'typeface-rubik';
 import Menu from './components/Menu';
+import Puzzle from './components/Games/Puzzle';
 
 const App: FC = () => (
   <div className="App">
@@ -25,6 +26,10 @@ const App: FC = () => (
           </Route>
           <Route path="/Savannah/">
             <Savannah />
+          </Route>
+
+          <Route path="/Puzzle/">
+            <Puzzle />
           </Route>
 
           <Route path="/textbook/:group/:page" exact>

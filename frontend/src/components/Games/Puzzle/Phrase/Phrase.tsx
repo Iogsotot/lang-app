@@ -24,11 +24,11 @@ const Phrase = ({ phrase, word, item }: PhraseProps) => {
   const splicePhrase = () => (word && phrase ? phrase.toLowerCase().split(word) : []);
   const [firstPart, secondPart] = splicePhrase();
   return (
-    <div className="phrase">
+    <div className="puzzle__phrase">
       <div>{firstPart}</div>
       <Droppable droppableId="phrase" direction="horizontal">
         {(provided, snapshot) => (
-          <div ref={provided.innerRef} className="space">
+          <div ref={provided.innerRef} className="puzzle__space">
             {item && (
               <Draggable key={item.id} draggableId={item.id} index={0}>
                 {(provided2, snapshot2) => (

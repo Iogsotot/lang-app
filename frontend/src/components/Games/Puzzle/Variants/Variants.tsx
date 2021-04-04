@@ -25,31 +25,33 @@ const getListStyle = (isDraggingOver: boolean) => ({
 const Variants = (props: VariantsProps) => {
   const { items } = props;
   return (
-    <Droppable droppableId="variants" direction="horizontal">
-      {(provided, snapshot) => (
-        <div ref={provided.innerRef} className="cards-wrapper" style={getListStyle(snapshot.isDraggingOver)}>
-          {items && items.map((item: Word, index: number) => (
-            <Draggable key={item.id} draggableId={item.id} index={index}>
-              {(provided2, snapshot2) => (
-                <div
-                  ref={provided2.innerRef}
-                  {...provided2.draggableProps}
-                  {...provided2.dragHandleProps}
-                  className="card"
-                  style={getItemStyle(
-                    snapshot2.isDragging,
-                    provided2.draggableProps.style,
-                  )}
-                >
-                  {item.word}
-                </div>
-              )}
-            </Draggable>
-          ))}
-          {provided.placeholder}
-        </div>
-      )}
-    </Droppable>
+    <div className="puzzle__variants">
+      <Droppable droppableId="variants" direction="horizontal">
+        {(provided, snapshot) => (
+          <div ref={provided.innerRef} className="cards-wrapper" style={getListStyle(snapshot.isDraggingOver)}>
+            {items && items.map((item: Word, index: number) => (
+              <Draggable key={item.id} draggableId={item.id} index={index}>
+                {(provided2, snapshot2) => (
+                  <div
+                    ref={provided2.innerRef}
+                    {...provided2.draggableProps}
+                    {...provided2.dragHandleProps}
+                    className="card"
+                    style={getItemStyle(
+                      snapshot2.isDragging,
+                      provided2.draggableProps.style,
+                    )}
+                  >
+                    {item.word}
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </div>
   );
 };
 
