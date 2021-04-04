@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 80px;
+  margin-bottom: 5rem;
 
   > * {
     flex: 1 1 25rem;
@@ -29,25 +29,25 @@
     margin-left: 2rem;
     p {
       margin-bottom: 0.6rem;
-      color: $color_purple_blue;
+      color: $text_color_puprle;
       font-style: normal;
       font-weight: normal;
-      font-size: 16px;
-      line-height: 26px;
+      font-size: 1rem;
+      line-height: 1.625rem;
     }
   }
   &__name {
     margin-bottom: 1rem;
     font-style: normal;
     font-weight: 500;
-    font-size: 36px;
+    font-size: 2.25rem;
     line-height: 1;
     color: $another_black;
     text-align: left;
   }
   &__buttons {
     button {
-      margin-right: 10px;
+      margin-right: 0.625rem;
       &:last-child {
         margin-right: 0;
       }

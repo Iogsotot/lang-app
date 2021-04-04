@@ -16,7 +16,7 @@ export const locations = {
 };
 
 export const WORD_GROUPS = {
-  Weak: 0,
+  Novice: 0,
   Easy: 1,
   Middle: 2,
   Hard: 3,

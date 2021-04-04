@@ -4,14 +4,14 @@
     font-weight: 400;
   }
   input {
-    height: 54px;
+    height: 3.375rem;
     background: #ffffff;
-    box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 .125rem 1.875rem rgba(0, 0, 0, 0.06);
     border: 0;
-    border-radius: 10px;
+    border-radius: .625rem;
   }
   .control.has-icons-left .icon,
   .control.has-icons-right .icon {
-    top: calc(50% - 20px);
+    top: calc(50% - 1.25rem);
   }
 }

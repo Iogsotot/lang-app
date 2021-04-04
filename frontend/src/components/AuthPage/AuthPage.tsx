@@ -160,7 +160,7 @@ const AuthPage: FC = () => {
       <Notification
         error={error}
         notification={notification}
-        clearFunction={clearUserNotifications}
+        clearNotification={clearUserNotifications}
       />
 
     </main>

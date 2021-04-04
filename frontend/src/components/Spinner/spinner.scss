@@ -11,9 +11,9 @@
 
 .spinner__inner div {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  border: 10px solid rgba($color_important, .7);
+  width: 3.75rem;
+  height: 3.75rem;
+  border: .625rem solid rgba($color_important, .7);
   border-top-color: transparent;
   border-radius: 50%;
 }

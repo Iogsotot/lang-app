@@ -7,7 +7,7 @@ const {
   NOTIFICATION_TIMEOUT,
 } = notifications;
 
-const Notification: FC<NotificationProps> = ({ clearFunction, error, notification }) => {
+const Notification: FC<NotificationProps> = ({ clearNotification, error, notification }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [text, setText] = useState('');
   const [isError, setIsError] = useState(false);
@@ -18,7 +18,7 @@ const Notification: FC<NotificationProps> = ({ clearFunction, error, notificatio
       setIsError(false);
       setText(notification);
       setIsOpen(true);
-      clearFunction();
+      clearNotification();
     }
   };
 
@@ -27,7 +27,7 @@ const Notification: FC<NotificationProps> = ({ clearFunction, error, notificatio
       setIsError(true);
       setText(error);
       setIsOpen(true);
-      clearFunction();
+      clearNotification();
     }
   };
 
