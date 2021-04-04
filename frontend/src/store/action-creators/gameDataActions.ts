@@ -1,6 +1,7 @@
 import { Dispatch } from 'react';
 import { GameDataAction, GameDataActionTypes } from '../../models/gameData';
 import { Word } from '../../models/word';
+import { API_BASE_URL } from '../../constants';
 
 const {
   SET_GROUP,
@@ -46,6 +47,27 @@ export default {
       const { gameData } = getState();
       const { activeWords } = gameData;
       if (!activeWords.find((item: Word) => word.id === item.id)) {
+      // const response = await fetch(
+      //   `${API_BASE_URL}/${userId}/words/${word.id}`,
+      //   {
+      //     method: 'POST',
+      //     headers: {
+      //       Accept: 'application/json',
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: {
+      //       'isLearning': true,
+      //       'learningStartDate': Date.now()
+      //     }
+      //   },
+      // )
+      //   .then((data) => data.json());
+        // .catch((error) => {
+        //   dispatch({
+        //     type: FETCH_WORD_LIST_ERROR,
+        //     payload: error,
+        //   });
+        // });
         dispatch({
           type: ADD_TO_ACTIVE_WORDS_ACTION,
           payload: [...activeWords, word],
