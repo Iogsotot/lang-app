@@ -2,6 +2,10 @@
 $main-bg: #b57ad2;
 
 //text, border
+$text_color_black: #000000;
+$text_color_puprle: #6f7cb2;
+$color_gray: #a6acbe;
+$another_black: #091133;
 $color_extra_black: #2b292d;
 $color_black: #3c3c3c;
 $color_white: #ffffff;
@@ -22,11 +26,25 @@ html {
 }
 
 body {
+  margin-left: 6.25rem;
   font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin-left: 6.25rem;
+  &::-webkit-scrollbar {
+    width: 10px;
+    background: rgba($color_important, 0.2);
+    border-radius: 10px;
+    &:hover {
+      background: rgba($color_important, 0.3);
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba($color_important, 0.3);
+    background: rgba($color_important, 0.5);
+    &:hover {
+      background: $color_important;
+    }
+  }
 }
 
 // Basic styles
@@ -66,9 +84,6 @@ h4 {
   text-align: center;
 }
 
-.subtitle {
-}
-
 .content {
   font-size: 20px;
   line-height: 28px;
@@ -92,6 +107,20 @@ h4 {
 
   transition: all 300ms linear;
   &:hover {
+    color: $text_color_black;
     transition: all 300ms linear;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    &:hover {
+      color: $color_white;
+    }
+  }
+
+  &-sm {
+    padding: 5px 10px;
+    border-radius: 10px;
+    outline: none;
   }
 }
