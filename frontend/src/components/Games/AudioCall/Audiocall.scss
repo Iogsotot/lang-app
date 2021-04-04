@@ -43,7 +43,10 @@
   
     &__hotKey {
       color: #407bd3;
-      margin-right: 7px;
+      font-size: 1.1rem;
+      position: absolute;
+      top: 5px;
+      right: 5px;
     }
 
   &__answers {
@@ -54,10 +57,15 @@
     align-items: center;
     row-gap: 15%;
 
+    &__button {
+      position: relative;
+    }
+
     &__variants {
       width: 80%;
       display: flex;
       justify-content: space-around;
+      flex-wrap: wrap;
 
       & button {
         font-size: 1.5rem;

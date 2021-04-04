@@ -317,15 +317,17 @@ const Audiocall: FC = () => {
       {Array(NUMBER_OF_VARIANTS)
         .fill(0)
         .map((item, index) => (
-          <button
-            className="button is-ghost"
-            disabled={currentView}
-            onClick={e => answerClick(e)}
-            key={wordsVariants[index]}
-          >
+          <div className="audiocall__answers__button">
+            <button
+              className="button is-ghost"
+              disabled={currentView}
+              onClick={e => answerClick(e)}
+              key={wordsVariants[index]}
+            >
+              {wordsVariants[index]}
+            </button>
             <span className="audiocall__hotKey">{`${index + 1}`}</span>
-            {wordsVariants[index]}
-          </button>
+          </div>
         ))}
     </div>
   );
