@@ -133,7 +133,7 @@
     position: absolute;
     top: 30px;
     right: 40px;
-    z-index: 30;
+    z-index: inherit;
 
     &::before,
     &::after {
@@ -153,6 +153,17 @@
 
 .buttons {
   justify-content: center;
+}
+.difficulty-btn-block {
+
+  & .button.is-warning{
+    margin: 5px;
+  font-size: 1.2rem;
+   
+  &:disabled {
+    cursor: default;
+  }
+  }
 }
 
 .volume-button {

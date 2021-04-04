@@ -200,11 +200,14 @@ const Audiocall: FC = () => {
       wordTranslate: 'утка',
     },
   ];
-  const [correctAnswers, setCorrectAnswers] = useState<Word[]>([]);
-  const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
-  const [start, setStart] = useState(false);
+  const [isFromTextbook, setIsFromTextbook] = useState(false);
+  const [group, setGroup] = useState(0);
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [currentView, setCurrentView] = useState(false);
+  const [start, setStart] = useState(false);
+
+  const [correctAnswers, setCorrectAnswers] = useState<Word[]>([]);
+  const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
   const [currentWordNumber, setCurrentWordNumber] = useState(-1);
   const [currentWord, setCurrentWord] = useState(words[currentWordNumber] || undefined);
   const [wordsVariants, setWordsVariants] = useState<string[]>([]);
@@ -392,9 +395,6 @@ const Audiocall: FC = () => {
     setModalOnCloseIsActive(false);
   };
 
-  // if (currentWordNumber >= words.length) {
-  //   return <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 2} />;
-  // }
   return (
     <div className="audiocall">
       <CloseButton callback={() => setModalOnCloseIsActive(true)} />
@@ -403,10 +403,24 @@ const Audiocall: FC = () => {
         handleCancelModal={handleCancelModal}
         handleSubmitClose={handleSubmitClose}
       />
-      {!start && (
-        <button className="button is-warning" onClick={clickStart}>
-          Начать игру
-        </button>
+      {!start && !isFromTextbook && (
+        (
+          <div className="difficulty-btn-block">
+            <h2>Сложность:</h2>
+            {Object.entries(WORD_GROUPS).map(([key, value]) => (
+              <button
+                disabled={value === group}
+                key={key}
+                onClick={() => {
+                  setGroup(value);
+                }}
+                className="button is-warning is-small"
+              >
+                {key}
+              </button>
+            ))}
+          </div>
+        )
       )}
       {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
         <div className="audiocall_inner">
