@@ -19,7 +19,7 @@ const ToggleButton: FC<ToggleButtonProps> = ({ property, callback, className }) 
         id="sound-toggle"
         type="checkbox"
       ></input>
-      <label className="btn" htmlFor="sound-toggle">
+      <label className="toggle-button__label" htmlFor="sound-toggle">
         <i className={`fas fa-volume-${property ? 'up' : 'mute'}`} />
       </label>
     </div>
