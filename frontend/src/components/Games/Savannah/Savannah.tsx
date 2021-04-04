@@ -1,7 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
 import { connect } from 'react-redux';
 import './savannah.scss';
@@ -54,11 +50,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   };
   const statsData = useRef(initialGameState);
 
-  // const [lives, setLives] = useState(maxLives);
-  // const [correctAnswers, setCorrectAnswers] = useState(0);
-  // const [wrongAswers, setWrongAswers] = useState(0);
-  // const [points, setPoints] = useState(0);
-
   // welcome, game, stats
   const [gameScreen, setGameScreen] = useState('welcome');
   const [timer, setTimer] = useState(0);
@@ -104,17 +95,11 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }, [group]);
 
   function resetGame() {
-    // setGameScreen('welcome');
     setTimer(0);
     statsData.current = initialGameState;
-    // setLives(5);
-    // setCorrectAnswers(0);
-    // setWrongAswers(0);
   }
 
   function gameOver() {
-    // setTimer(0);
-    // openStatsPopup();
     setGameScreen('stats');
     console.log('game over');
     console.log(statsData.current.wrongAswersCount);
@@ -126,26 +111,22 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   function resolveAsWrongAnswer() {
-    let lives = statsData.current.lives;
+    let { lives } = statsData.current;
     let wrongAnswersCount = statsData.current.wrongAswersCount;
     wrongAnswersCount += 1;
     lives -= 1;
     statsData.current.lives = lives;
     statsData.current.wrongAswersCount = wrongAnswersCount;
-    // setLives(currentLives);
     console.log(lives);
 
-    // setWrongAswers(wrongAswers + 1);
     console.log('нэ маладэц');
     if (lives === 0) {
       gameOver();
-      // resetGame();
     }
   }
 
   function resolveAsCorrectAnswer() {
-    // setCorrectAnswers(correctAnswers + 1);
-    let correctAnswersCount = statsData.current.correctAnswersCount;
+    let { correctAnswersCount } = statsData.current;
     correctAnswersCount += 1;
     statsData.current.correctAnswersCount = correctAnswersCount;
     console.log('маладэц');
@@ -165,7 +146,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
         setCounter(counter + 1);
         setTimer(timer - 1);
         addToActiveWords(currentWords[wordsChunk[soughtIndex]]);
-        // console.log(timer);
         if (timer === 1) {
           setRound(round + 1);
           resolveAsWrongAnswer();
