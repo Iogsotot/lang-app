@@ -7,6 +7,7 @@ export interface VariantsProps {
   items: Word[],
 }
 export interface PhraseProps {
+  outline: string,
   item: Word | undefined,
   phrase: string | null,
   word: string | null,

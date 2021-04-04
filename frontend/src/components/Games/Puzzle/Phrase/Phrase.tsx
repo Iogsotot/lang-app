@@ -20,11 +20,12 @@ const getListStyle = (isDraggingOver: boolean) => ({
   width: '250px',
 });
 
-const Phrase = ({ phrase, word, item }: PhraseProps) => {
+const Phrase = ({ phrase, word, item, outline }: PhraseProps) => {
   const splicePhrase = () => (word && phrase ? phrase.toLowerCase().split(word) : []);
   const [firstPart, secondPart] = splicePhrase();
+
   return (
-    <div className="puzzle__phrase">
+    <div className="puzzle__phrase" style={{ border: `4px solid ${outline}` }}>
       <div>{firstPart}</div>
       <Droppable droppableId="phrase" direction="horizontal">
         {(provided, snapshot) => (

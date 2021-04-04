@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import useSound from 'use-sound';
 import { Word } from '../../../models/word';
 import Phrase from './Phrase/Phrase';
 import Variants from './Variants/Variants';
 import './puzzle.scss';
 import { API_BASE_URL } from '../../../constants/constants';
 import { GameScreenProps } from './Puzzle.model';
+import successSound from '../../../assets/audio/victory.mp3';
+import failureSound from '../../../assets/audio/failure.mp3';
 
 const reorder = (list: Word[], startIndex: number, endIndex: number) => {
   const [removed] = list.splice(startIndex, 1);
@@ -34,6 +37,9 @@ const GameScreen = (props : GameScreenProps) => {
   const [word, setWord] = useState<string>('');
   const [guess, setGuess] = useState<Word | undefined>(undefined);
   const [counter, setCounter] = useState(0);
+  const [outline, setOutline] = useState('');
+  const [playSuccess] = useSound(successSound);
+  const [playFailure] = useSound(failureSound);
 
   const startNewGame = () => {
     fetch(`${API_BASE_URL}/words/all?amount=5?group=${group}`)
@@ -57,9 +63,17 @@ const GameScreen = (props : GameScreenProps) => {
       if (counter === 5) {
         alert('5th finished');
       }
-      startNewGame();
+      setOutline('rgb(127,255,0)');
+      setTimeout(() => {
+        playSuccess();
+        setOutline('');
+        startNewGame();
+      }, 1000);
     } else {
       //
+      playFailure();
+      setOutline('rgb(255,0,0)');
+      setTimeout(() => { setOutline(''); }, 1000);
     }
   };
 
@@ -112,7 +126,7 @@ const GameScreen = (props : GameScreenProps) => {
     <div className="puzzle__screen box">
       <DragDropContext onDragEnd={onDragEnd}>
         <h2>Добавьте слово в фразу:</h2>
-        <Phrase phrase={phrase} word={word} item={guess} />
+        <Phrase outline={outline} phrase={phrase} word={word} item={guess} />
         <h2>Перетащите подходящий вариант</h2>
         <Variants items={collection} />
       </DragDropContext>

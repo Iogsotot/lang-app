@@ -1,0 +1,58 @@
+import React, { FC } from 'react';
+import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
+import TextBook from './components/Textbook';
+import PromoPage from './components/PromoPage';
+import AuthPage from './components/AuthPage';
+import Savannah from './components/Games/Savannah';
+import { useTypedSelector } from './hooks/useTypedSelector';
+import Puzzle from './components/Games/Puzzle';
+
+export const Router: FC = () => {
+  const { isLoggedIn } = useTypedSelector((store) => store.user);
+
+  if (isLoggedIn) {
+    return (
+      <Switch>
+        <Route path="/" exact>
+          <PromoPage />
+        </Route>
+
+        <Route path="/textbook/:group/:page" exact>
+          <TextBook />
+        </Route>
+
+        <Route path="/Puzzle/">
+          <Puzzle />
+        </Route>
+
+        <Route path="/savannah/" exact>
+          <Savannah />
+        </Route>
+
+        <Redirect to="/" />
+      </Switch>
+    );
+  }
+
+  return (
+    <Switch>
+      <Route path="/" exact>
+        <PromoPage />
+      </Route>
+
+      <Route path="/auth" exact>
+        <AuthPage />
+      </Route>
+
+      <Route path="/savannah/" exact>
+        <Savannah />
+      </Route>
+
+      <Route path="/textbook/:group/:page" exact>
+        <TextBook />
+      </Route>
+
+      <Redirect to="/" />
+    </Switch>
+  );
+};
