@@ -1,6 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Word } from '../../../models/word';
 import Finish from '../Finish';
+import CloseButton from '../../CloseButton';
+import ModalOnClose from './ModalOnClose';
 import { constants } from '../../../constants';
 import './Audiocall.scss';
 
@@ -202,6 +204,7 @@ const Audiocall: FC = () => {
   const [correctAnswers, setCorrectAnswers] = useState<Word[]>([]);
   const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
   const [start, setStart] = useState(false);
+  const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [currentView, setCurrentView] = useState(false);
   const [currentWordNumber, setCurrentWordNumber] = useState(-1);
   const [currentWord, setCurrentWord] = useState(words[currentWordNumber] || undefined);
@@ -382,11 +385,25 @@ const Audiocall: FC = () => {
     return () => window.removeEventListener('keydown', enterKey);
   }, [currentView]);
 
+  const handleSubmitClose = () => {
+    window.location.href = '../';
+  };
+
+  const handleCancelModal = () => {
+    setModalOnCloseIsActive(false);
+  };
+
   if (currentWordNumber >= words.length) {
     return <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 2} />;
   }
   return (
     <div className="audiocall">
+      <CloseButton callback={() => setModalOnCloseIsActive(true)} />
+      <ModalOnClose
+        modalIsActive={modalOnCloseIsActive}
+        handleCancelModal={handleCancelModal}
+        handleSubmitClose={handleSubmitClose}
+      />
       {!start && (
         <button className="button is-warning" onClick={clickStart}>
           Начать игру

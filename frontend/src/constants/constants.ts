@@ -19,3 +19,10 @@ export const WORD_GROUPS = {
   impossible: 4,
   legendary: 5,
 };
+
+export const SPRINT_MODAL_ON_CLOSE = {
+  modalTitle: "You haven't finished this training!",
+  modalSubTitle: "If you close the training, you'll lose your results",
+  sumbitCloseBtnText: 'Close training',
+  canselModalBtn: 'Cancel',
+};
