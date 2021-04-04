@@ -5,6 +5,7 @@ import PromoPage from './components/PromoPage';
 import AuthPage from './components/AuthPage';
 import Savannah from './components/Games/Savannah';
 import { useTypedSelector } from './hooks/useTypedSelector';
+import Dictionary from './components/Dictionary';
 
 export const Router: FC = () => {
   const { isLoggedIn } = useTypedSelector((store) => store.user);
@@ -18,6 +19,10 @@ export const Router: FC = () => {
 
         <Route path="/textbook/:group/:page" exact>
           <TextBook />
+        </Route>
+
+        <Route path="/dictionary/:section/:group/:page" exact>
+          <Dictionary />
         </Route>
 
         <Route path="/savannah/" exact>

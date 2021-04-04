@@ -13,6 +13,7 @@ export const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
 
 export const locations = {
   TEXTBOOK: 'textbook',
+  DICTIONARY: 'dictionary',
 };
 
 export const WORD_GROUPS = {
