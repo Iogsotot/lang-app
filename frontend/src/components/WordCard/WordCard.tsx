@@ -1,6 +1,7 @@
 import './wordCard.scss';
 import React, { FC } from 'react';
 import { WordCardProps } from './WordCard.model';
+// import { API_BASE_URL } from '../../constants';
 
 const WordCard: FC<WordCardProps> = props => {
   const {
@@ -16,6 +17,23 @@ const WordCard: FC<WordCardProps> = props => {
     translate,
     displayButtons,
   } = props;
+
+  // const deleteWord = () => {
+  //   const response = await fetch(
+  //     `${API_BASE_URL}/words?group=${group}&page=${page}`,
+  //     {
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //     },
+  //   );
+  // };
+
+  // const addWordToHard = () => [
+
+  // ];
 
   return (
     <div className="word">
