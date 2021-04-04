@@ -1,90 +1,15 @@
-import { fetchWords, setPage, showButtons, showTranslate } from "./words";
 import { WordListActionTypes } from '../../models/word';
 import { wordListReducer, initialState } from "../reducers/words";
 import configureMockStore from 'redux-mock-store'
 import thunk from "redux-thunk";
-import * as actions from '../action-creators/words'
-require('jest-fetch-mock').enableMocks();
+import fetchMock from 'fetch-mock';
+import * as actions from '../action-creators/words';
+import expect from 'expect';
 
+fetchMock.config.fallbackToNetwork = true;
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
-  describe('testing api', () => {
-    
-    beforeEach(() => {
-      fetch.resetMocks()
-    })
-   
-    it('creates NEWS_GET_SUCCESS when fetching words has been done', () => {
-      fetchMock.fetchWords('/words', {
-         body: { todos: ['do something'] },
-         headers: { 'content-type': 'application/json' } 
-        })
-        const expectedActions = [
-          { type: WordListActionTypes.FETCH_WORD_LIST_ERROR },
-          { type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS, body: { todos: ['do something'] } }
-        ]
-        const store = mockStore({ todos: [] })
-    
-        return store.dispatch(actions.fetchTodos()).then(() => {
-          // return of async actions
-          expect(store.getActions()).toEqual(expectedActions)
-        })
-      // fetch.mockResponseOnce(JSON.stringify({ data: 'ball' }));
-
-      // await fetchWords('1','2').then(res => {
-      //       expect(res.data).toEqual('ball')
-      // })
-
-      // expect(fetch.mock.calls[0][0]).toEqual(`https://rslang-2020q3.herokuapp.com/words`, {
-      //   headers: { 'content-type': 'application/json' }, 
-      //   body: { data: [1, 2, 3], status: 'ok' }, 
-      // });
-    })
-  })
-
-  describe('testing showTranslate', () => {
-
-    it('showTranslate test', () => {
-      const expectedAction = {
-      type: WordListActionTypes.SHOW_WORD_TRANSLATE,
-      payload: { 
-        show: true,
-      },
-    }
-      const actual = showTranslate({ show: true});
-      expect(actual).toEqual(expectedAction);
-    })
-  })
-
-  describe('testing setPage', () => {
-
-    it('setPage test', () => {
-      const expectedAction = {
-      type: WordListActionTypes.GET_WORD_LIST_PAGE,
-      payload: { 
-        number: '1',
-      },
-    }
-      const actual = setPage({ number: '1'});
-      expect(actual).toEqual(expectedAction);
-    })
-  })
-
-  describe('testing showButtons', () => {
-
-    it('showButtons test', () => {
-      const expectedAction = {
-      type: WordListActionTypes.SHOW_WORD_BUTTONS,
-      payload: { 
-        show: 'true',
-      },
-    }
-      const actual = showButtons();
-      expect(actual).toEqual(expectedAction);
-    })
-  })
-  
   describe('testing FETCH_WORD_LIST', () => {
     it('FETCH_WORD_LIST test', ()=>{
       const action = {
@@ -97,3 +22,112 @@ const mockStore = configureMockStore(middlewares)
       })
     })
   })
+  describe('testing setPage', () => {
+
+    it('setPage test', () => {
+      const expectedAction = {
+      type: WordListActionTypes.GET_WORD_LIST_PAGE,
+      payload: { 
+        number: '1',
+      },
+    }
+      const store = mockStore({ payload: {} })
+      expect(store.dispatch(actions.setPage('1'))).toEqual(expectedAction);
+    })
+  })
+
+
+
+describe('async actions', () => {
+  afterEach(() => {
+    fetchMock.restore()
+  })
+
+  it('creates FETCH_WORDS_SUCCESS when fetching words has been done', () => {
+    fetchMock.getOnce(`/words`, {
+      payload: {},
+      headers: { 'content-type': 'application/json' }
+    })
+
+    const expectedActions = [
+      { type: WordListActionTypes.FETCH_WORD_LIST },
+      { type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS,  payload: {}}
+    ]
+    const store = mockStore({ payload: {} })
+
+    return store.dispatch(actions.fetchWords('0', '0')).then(() => {
+      // return of async actions
+      expect(store.getActions()).toMatchObject(expectedActions);
+    })
+  })
+  it('creates FETCH_WORDS_SUCCESS when fetching words has been done', () => {
+    fetchMock.getOnce(`/words/all`, {
+      payload: {},
+      headers: { 'content-type': 'application/json' }
+    })
+
+    const expectedActions = [
+      { type: WordListActionTypes.FETCH_WORD_LIST },
+      { type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS,  payload: {}}
+    ]
+    const store = mockStore({ payload: {} })
+
+    return store.dispatch(actions.fetchRandomWords('0', '0')).then(() => {
+      // return of async actions
+      expect(store.getActions()).toMatchObject(expectedActions);
+    })
+  })
+})
+
+
+describe("words reducer", () => {
+  it("should return the initial state", () => {
+    expect(wordListReducer(undefined, {})).toEqual({
+      displayButtons: true, error: null,
+         group: 0,
+         loading: false,
+         page: 0,
+         translate: true,
+         words: [],
+    });
+  })});
+
+
+  describe("test functions", () => {
+    const create = () => {
+      const store = {
+        getState: jest.fn(() => ({})),
+        dispatch: jest.fn()
+      }
+      const next = jest.fn()
+    
+      const invoke = action => thunk(store)(next)(action)
+    
+      return { store, next, invoke }
+    }
+    it('passes through non-function action', () => {
+      const { next, invoke } = create()
+      const action = { type: 'TEST' }
+      invoke(action)
+      expect(next).toHaveBeenCalledWith(action)
+    })
+    
+    it('calls the function', () => {
+      const { invoke } = create()
+      const fn = jest.fn()
+      invoke(fn)
+      expect(fn).toHaveBeenCalled()
+    })
+    
+    it('passes dispatch and getState', () => {
+      const { store, invoke } = create()
+      invoke((dispatch, getState) => {
+        dispatch('TEST DISPATCH')
+        getState()
+      })
+      expect(store.dispatch).toHaveBeenCalledWith('TEST DISPATCH')
+      expect(store.getState).toHaveBeenCalled()
+    })
+  });
+
+  
