@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -33,15 +34,16 @@ const mapStateToProps = ({ gameData }: any) => {
 const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   // @ts-ignore
   // console.log(props);
-  const { setPage, addToActiveWords, delFromActiveWords } = props;
+  const { setPage, addToActiveWords } = props;
   // console.log({ addToActiveWords });
   // setPage(15);
-  const WORDS = [0, 1, 2, 3];
   const answerVariantsCount = 4;
+  const WORDS = [0, 1, 2, 3];
   const maxCount = 6;
   const maxLives = 5;
   const allWordsInGroupCount = 600;
 
+  const [isFromTextbook, setIsFromTextbook] = useState(false);
   const [lives, setLives] = useState(maxLives);
   const { WORD_GROUPS, API_BASE_URL } = constants;
   const [group, setGroup] = useState(0);
@@ -49,13 +51,14 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [wordsChunk, setWordsChunk] = useState([0]);
   const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * answerVariantsCount));
   const [round, setRound] = useState(1);
-  const [isGetAnswer, setIsGetAnswer] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAswers, setWrongAswers] = useState(0);
+  const [points, setPoints] = useState(0);
 
+  // welcome, game, stats
+  const [gameScreen, setGameScreen] = useState('welcome');
   const [timer, setTimer] = useState(0);
   const [counter, setCounter] = useState(0);
-  const [start, setStart] = useState(false);
   const currentWordClassNames = counter === 0 ? 'current-word' : 'current-word start-anim';
 
   useEffect(() => {
@@ -95,19 +98,33 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     fetchCurrentPageWords();
   }, [group]);
 
+  function resetGame() {
+    // setGameScreen('welcome');
+    setTimer(0);
+    setLives(5);
+    setCorrectAnswers(0);
+    setWrongAswers(0);
+  }
+
   function gameOver() {
+    // setTimer(0);
+    // openStatsPopup();
+    setGameScreen('stats');
     console.log('game over');
     console.log({ wrongAswers });
     console.log({ correctAnswers });
     console.log({ lives });
+    resetGame();
   }
 
   function resolveAsWrongAnswer() {
-    setLives(lives - 1);
+    const currentLives = lives - 1;
+    setLives(currentLives);
+    console.log(currentLives);
 
     setWrongAswers(wrongAswers + 1);
     console.log('нэ маладэц');
-    if (lives === 1) {
+    if (currentLives === 0) {
       gameOver();
     }
   }
@@ -126,7 +143,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     if (!timer) {
       return;
     }
-
     const startTimerId = setInterval(() => {
       setCounter(counter + 1);
       setTimer(timer - 1);
@@ -149,7 +165,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
 
   const handleStart = useCallback(() => {
     setTimer(maxCount);
-    setStart(true);
+    setGameScreen('game');
   }, []);
 
   function checkPair(word: number) {
@@ -162,10 +178,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     resolveAsWrongAnswer();
   }
 
-  function resetGame() {
-    setStart(false);
-  }
-
   return (
     <section className="savannah">
       <div className="overlay"></div>
@@ -173,38 +185,42 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
         className="btn--close"
         onClick={() => {
           resetGame();
+          setGameScreen('welcome');
         }}
       >
         <i className="far fa-times" />
       </div>
 
-      {!start && (
+      {gameScreen === 'welcome' && (
         <div className="savannah__info box">
           <h2 className="title is-2">Savannah</h2>
           <p>
             В этой игре на вас обрушится дождь из слов! к счастью слова падают по одной капельке. Ваша задача - успеть
             выбрать правильно слово до того, как оно упадёт. Удачи!
           </p>
-          <div>
-            <p>Сложность:</p>
-            {Object.entries(WORD_GROUPS).map(([key, value]) => (
-              <button
-                disabled={value === group}
-                key={key}
-                onClick={() => {
-                  setGroup(value);
-                }}
-              >
-                {key}
-              </button>
-            ))}
-          </div>
+          {!isFromTextbook && (
+            <div className="difficulty-btn-block">
+              <p>Сложность:</p>
+              {Object.entries(WORD_GROUPS).map(([key, value]) => (
+                <button
+                  disabled={value === group}
+                  key={key}
+                  onClick={() => {
+                    setGroup(value);
+                  }}
+                  className="button is-warning is-small"
+                >
+                  {key}
+                </button>
+              ))}
+            </div>
+          )}
           <button className="btn--start button is-primary is-outlined" onClick={handleStart}>
             Начать игру!
           </button>
         </div>
       )}
-      {start && (
+      {gameScreen === 'game' && (
         <div className="savannah-body">
           <div className="status-bar box">
             <div>lives: {lives}</div>
@@ -223,28 +239,51 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
             </div>
           </div>
 
-          <div className="answer-variants box">
+          <div className="answer-variants">
             <div className="wrapper">
               {WORDS.map(word => (
-                <div className="button is-info is-light" onClick={() => checkPair(word)} key={word}>
+                <div className="button  is-primary is-outlined" onClick={() => checkPair(word)} key={word}>
                   {currentWords[wordsChunk[word]].word}
                 </div>
               ))}
-              <div
-                className="button is-info is-light"
+              {/* <div
+                className="button is-info is-light is-outlined"
                 onClick={() => {
-                  console.log('==============================>');
-                  console.log(currentWords[wordsChunk[soughtIndex]]);
                   addToActiveWords(currentWords[wordsChunk[soughtIndex]]);
                 }}
               >
                 add word
               </div>
-              <div className="button is-info is-light" onClick={() => delFromActiveWords()}>
+              <div
+                className="button is-info is-light is-outlined"
+                onClick={() => delFromActiveWords(currentWords[wordsChunk[soughtIndex]])}
+              >
                 del word
-              </div>
+              </div> */}
             </div>
           </div>
+        </div>
+      )}
+      {gameScreen === 'stats' && (
+        <div className="stats">
+          <div className="stats__message">Конец игры</div>
+          <button
+            className="button  is-primary is-outlined"
+            onClick={() => {
+              setGameScreen('welcome');
+              resetGame();
+            }}
+          >
+            начать новую игру
+          </button>
+          <button
+            className="button  is-primary is-outlined"
+            onClick={() => {
+              alert('sorry, not implemented');
+            }}
+          >
+            вернуться на главный экран
+          </button>
         </div>
       )}
     </section>
