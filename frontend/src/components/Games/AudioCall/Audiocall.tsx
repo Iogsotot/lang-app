@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, KeyboardEvent } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Word } from '../../../models/word';
 import Finish from '../Finish';
 import { constants } from '../../../constants';
@@ -227,7 +227,6 @@ const Audiocall: FC = () => {
         stepAnswers.push(words[randomWordNumber].wordTranslate);
       }
     }
-    setCorrectButtonIdx(stepAnswers.indexOf(currentWord?.wordTranslate));
     return shuffle(stepAnswers);
   };
 
@@ -239,6 +238,10 @@ const Audiocall: FC = () => {
   };
 
   useEffect(() => {
+    setCurrentWord(words[currentWordNumber]);
+  }, [currentWordNumber]);
+
+  useEffect(() => {
     if (currentWordNumber < words.length) playSound(wordSoundUrl(currentWord));
     const newWordsVariants: string[] = fillStepAnswers();
     setWordsVariants(newWordsVariants);
@@ -246,8 +249,8 @@ const Audiocall: FC = () => {
   }, [currentWord]);
 
   useEffect(() => {
-    setCurrentWord(words[currentWordNumber]);
-  }, [currentWordNumber]);
+    setCorrectButtonIdx(wordsVariants.indexOf(currentWord?.wordTranslate));
+  }, [wordsVariants]);
 
   const nextWord = () => {
     if (currentWordNumber < words.length) setCurrentWordNumber(currentWordNumber + 1);
@@ -265,24 +268,21 @@ const Audiocall: FC = () => {
 
   const checkAnswer = (answer: string) => {
     setCurrentView(true);
-    console.log(answer, currentWord.wordTranslate);
 
     if (answer === currentWord.wordTranslate) {
       const updatedCorrectAnswers = correctAnswers;
       updatedCorrectAnswers.push(currentWord);
       setCorrectAnswers(updatedCorrectAnswers);
-      // target.className += ' correct';
-    } else {
-      const updatedWrongAnswers = wrongAnswers;
-      updatedWrongAnswers.push(currentWord);
-      setWrongAnswers(updatedWrongAnswers);
-      // target.className += ' wrong';
     }
+    const updatedWrongAnswers = wrongAnswers;
+    updatedWrongAnswers.push(currentWord);
+    setWrongAnswers(updatedWrongAnswers);
   };
 
   const answerClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLElement;
     checkAnswer(target.innerText);
+    setPressedButtonIdx(wordsVariants.indexOf(target.innerText));
   };
 
   const dontKnowClick = () => {
@@ -312,25 +312,29 @@ const Audiocall: FC = () => {
     </div>
   );
 
-  const VariantsButtons = () => (
-    <div className="audiocall__answers__variants">
-      {Array(NUMBER_OF_VARIANTS)
-        .fill(0)
-        .map((item, index) => (
-          <div className="audiocall__answers__button">
-            <button
-              className="button is-ghost"
-              disabled={currentView}
-              onClick={e => answerClick(e)}
-              key={wordsVariants[index]}
-            >
+  const VariantsButtons = () => {
+    const buttonClass = (inx: number) => {
+      if (currentView) {
+        if (inx === pressedButtonIdx && pressedButtonIdx !== correctButtonIdx) return 'button is-ghost wrong';
+        if (inx === correctButtonIdx) return 'button is-ghost correct';
+        return 'button is-ghost';
+      }
+      return 'button is-ghost';
+    };
+
+    return (
+      <ul className="audiocall__answers__variants">
+        {wordsVariants.map((item, index) => (
+          <li key={wordsVariants[index]} className="audiocall__answers__button">
+            <button className={buttonClass(index)} disabled={currentView} onClick={e => answerClick(e)}>
               {wordsVariants[index]}
             </button>
             <span className="audiocall__hotKey">{`${index + 1}`}</span>
-          </div>
+          </li>
         ))}
-    </div>
-  );
+      </ul>
+    );
+  };
 
   const keyControls = (e: any) => {
     switch (e.code) {

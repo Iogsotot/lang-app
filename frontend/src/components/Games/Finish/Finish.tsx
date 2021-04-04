@@ -16,10 +16,10 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
   const finishList = (list: Word[]) => (
     <div>
       {list.map((word: Word) => (
-        <div className="finish__words-list__row">
+        <div className="finish__words-list__row" key={word.word}>
+
           <button
             onClick={() => playSound(wordSoundUrl(word))}
-            key={word.word}
             className="audiocall__volume volume-button"
           >
             <i className="fas fa-volume-up"></i>

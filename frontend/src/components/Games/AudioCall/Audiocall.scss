@@ -88,6 +88,7 @@
 
   & .button.is-ghost {
     color: #fff;
+    margin: 3px;
 
     &:hover {
       background-color: #fff3;
@@ -111,13 +112,14 @@
       cursor: default;
     }
 
-    &.correct {
-      background-color: #279b8f40;
+    &.wrong:disabled {
+      background-color: #9b352795;
     }
 
-    &.wrong:disabled {
-      background-color: #9b352740;
+    &.correct:disabled {
+      background-color: #279b8f95;
     }
+
   }
 
   & .button.is-danger {
