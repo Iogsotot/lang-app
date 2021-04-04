@@ -22,7 +22,7 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
             onClick={() => playSound(wordSoundUrl(word))}
             className="audiocall__volume volume-button"
           >
-            <i className="fas fa-volume-up"></i>
+            <i className="fas fa-volume-up" />
           </button>
           <span>{`${word.word.toUpperCase()} - ${word.wordTranslate}`}</span>
         </div>
@@ -40,10 +40,10 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
         <Tabs>
           <TabList>
             <Tab>
-              <i className="fas fa-circle"></i>
+              <i className="fas fa-circle" />
             </Tab>
             <Tab>
-              <i className="fas fa-circle"></i>
+              <i className="fas fa-circle" />
             </Tab>
           </TabList>
 

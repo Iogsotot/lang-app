@@ -395,32 +395,41 @@ const Audiocall: FC = () => {
     setModalOnCloseIsActive(false);
   };
 
+  const closeButtonClick = () => (currentWordNumber < words.length ? setModalOnCloseIsActive(true) : handleSubmitClose());
+
   return (
     <div className="audiocall">
-      <CloseButton callback={() => setModalOnCloseIsActive(true)} />
+      <CloseButton
+        callback={() => {
+          closeButtonClick();
+        }}
+      />
       <ModalOnClose
         modalIsActive={modalOnCloseIsActive}
         handleCancelModal={handleCancelModal}
         handleSubmitClose={handleSubmitClose}
       />
       {!start && !isFromTextbook && (
-        (
-          <div className="difficulty-btn-block">
-            <h2>Сложность:</h2>
-            {Object.entries(WORD_GROUPS).map(([key, value]) => (
-              <button
-                disabled={value === group}
-                key={key}
-                onClick={() => {
-                  setGroup(value);
-                }}
-                className="button is-warning is-small"
-              >
-                {key}
-              </button>
-            ))}
+        <div className="difficulty-btn-block">
+          <h2>Сложность:</h2>
+          {Object.entries(WORD_GROUPS).map(([key, value]) => (
+            <button
+              disabled={value === group}
+              key={key}
+              onClick={() => {
+                setGroup(value);
+              }}
+              className="button is-warning is-small"
+            >
+              {key}
+            </button>
+          ))}
+          <div className="audiocall__start-button">
+            <button className="button is-danger" onClick={clickStart}>
+              Начать игру
+            </button>
           </div>
-        )
+        </div>
       )}
       {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
         <div className="audiocall_inner">
