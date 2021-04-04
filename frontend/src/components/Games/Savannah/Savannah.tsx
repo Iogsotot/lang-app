@@ -163,10 +163,10 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
       const startTimerId = setInterval(() => {
         setCounter(counter + 1);
         setTimer(timer - 1);
+        addToActiveWords(currentWords[wordsChunk[soughtIndex]]);
         // console.log(timer);
         if (timer === 1) {
           setRound(round + 1);
-          addToActiveWords(currentWords[wordsChunk[soughtIndex]]);
           resolveAsWrongAnswer();
           resetGameRound();
           clearInterval(startTimerId);
