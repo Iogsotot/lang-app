@@ -30,14 +30,14 @@ export default {
       });
     }),
 
-  delFromActiveWords: () =>
+  delFromActiveWords: (word: Word) =>
     ((dispatch: Dispatch<GameDataAction>, getState: () => any): void => {
-      // const { activeWords } = getState();
-      // const newActiveWords: Word[] = activeWords.slice(0, -1);
-
+      const { gameData } = getState();
+      const { activeWords } = gameData;
+      const result = activeWords.filter((item: Word) => item.id !== word.id);
       dispatch({
         type: DEL_FROM_ACTIVE_WORDS_ACTION,
-        payload: [],
+        payload: result,
       });
     }),
 
@@ -45,19 +45,22 @@ export default {
     ((dispatch: Dispatch<GameDataAction>, getState: () => any): void => {
       const { gameData } = getState();
       const { activeWords } = gameData;
-      dispatch({
-        type: ADD_TO_ACTIVE_WORDS_ACTION,
-        payload: [...activeWords, word],
-      });
+      if (!activeWords.find((item: Word) => word.id === item.id)) {
+        dispatch({
+          type: ADD_TO_ACTIVE_WORDS_ACTION,
+          payload: [...activeWords, word],
+        });
+      }
     }),
 
-  delFromDeletedWords: () =>
+  delFromDeletedWords: (word: Word) =>
     ((dispatch: Dispatch<GameDataAction>, getState: () => any): void => {
-      // const { gameData } = getState();
-      // const { activeWords } = gameData;
+      const { gameData } = getState();
+      const { deletedWords } = gameData;
+      const result = deletedWords.filter((item: Word) => item.id !== word.id);
       dispatch({
         type: DEL_FROM_DELETED_WORDS_ACTION,
-        payload: [],
+        payload: result,
       });
     }),
 
@@ -65,19 +68,22 @@ export default {
     ((dispatch: Dispatch<GameDataAction>, getState: () => any): void => {
       const { gameData } = getState();
       const { deletedWords } = gameData;
-      dispatch({
-        type: ADD_TO_DELETED_WORDS_ACTION,
-        payload: [...deletedWords, word],
-      });
+      if (!deletedWords.find((item: Word) => word.id === item.id)) {
+        dispatch({
+          type: ADD_TO_DELETED_WORDS_ACTION,
+          payload: [...deletedWords, word],
+        });
+      }
     }),
 
-  delFromHarddWords: () =>
+  delFromHarddWords: (word: Word) =>
     ((dispatch: Dispatch<GameDataAction>, getState: () => any): void => {
-    // const { gameData } = getState();
-    // const { deletedWords } = gameData;
+      const { gameData } = getState();
+      const { hardWords } = gameData;
+      const result = hardWords.filter((item: Word) => item.id !== word.id);
       dispatch({
         type: DEL_FROM_HARD_WORDS_ACTION,
-        payload: [],
+        payload: result,
       });
     }),
 
@@ -85,9 +91,11 @@ export default {
     ((dispatch: Dispatch<GameDataAction>, getState: () => any): void => {
       const { gameData } = getState();
       const { hardWords } = gameData;
-      dispatch({
-        type: ADD_TO_HARD_WORDS_ACTION,
-        payload: [...hardWords, word],
-      });
+      if (!hardWords.find((item: Word) => word.id === item.id)) {
+        dispatch({
+          type: ADD_TO_HARD_WORDS_ACTION,
+          payload: [...hardWords, word],
+        });
+      }
     }),
 };
