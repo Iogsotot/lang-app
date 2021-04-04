@@ -18,7 +18,6 @@ const App: FC = () => (
 
         <Header />
 
-
         <Router />
 
         <Footer />

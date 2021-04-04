@@ -3,12 +3,11 @@ import { Word } from '../../../models/word';
 import Finish from '../Finish';
 import CloseButton from '../../CloseButton';
 import ModalOnClose from './ModalOnClose';
-import { constants } from '../../../constants';
+import { WORD_GROUPS, API_BASE_URL } from '../../../constants/constants';
 import './Audiocall.scss';
 
 const Audiocall: FC = () => {
   const NUMBER_OF_VARIANTS = 5;
-  const { WORD_GROUPS, API_BASE_URL } = constants;
   const words = [
     {
       _id: {
@@ -393,9 +392,9 @@ const Audiocall: FC = () => {
     setModalOnCloseIsActive(false);
   };
 
-  if (currentWordNumber >= words.length) {
-    return <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 2} />;
-  }
+  // if (currentWordNumber >= words.length) {
+  //   return <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 2} />;
+  // }
   return (
     <div className="audiocall">
       <CloseButton callback={() => setModalOnCloseIsActive(true)} />
@@ -409,7 +408,7 @@ const Audiocall: FC = () => {
           Начать игру
         </button>
       )}
-      {start && currentWordNumber >= 0 && (
+      {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
         <div className="audiocall_inner">
           <div>
             {currentView && <OpenCurrentWord />}
@@ -430,6 +429,9 @@ const Audiocall: FC = () => {
             )}
           </div>
         </div>
+      )}
+      {start && currentWordNumber >= words.length && (
+        <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 10} />
       )}
     </div>
   );

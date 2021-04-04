@@ -2,9 +2,8 @@ import { FC } from 'react';
 
 import { ModalOnCloseProps } from './ModalOnClose.model';
 
-import { constants } from '../../../../constants';
+import { SPRINT_MODAL_ON_CLOSE } from '../../../../constants/constants';
 
-const { SPRINT_MODAL_ON_CLOSE } = constants;
 const { modalTitle, modalSubTitle, sumbitCloseBtnText, canselModalBtn } = SPRINT_MODAL_ON_CLOSE;
 
 const ModalOnClose: FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal, handleSubmitClose }) => (
