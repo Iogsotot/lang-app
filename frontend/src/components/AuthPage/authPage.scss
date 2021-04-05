@@ -7,7 +7,7 @@
   right: 0;
   border: 0;
   left: 0;
-  z-index: 100;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,11 +38,11 @@
   justify-content: center;
   width: 100%;
   margin-bottom: 7rem;
-  border-bottom: .125rem solid transparent;
+  border-bottom: 0.125rem solid transparent;
   &__link {
     display: block;
     font-size: 1.5rem;
-    margin: 0 .625rem;
+    margin: 0 0.625rem;
     border: 0;
     outline: none;
     background: transparent;
@@ -55,7 +55,7 @@
     }
     &.active {
       opacity: 1;
-      border-bottom: .125rem solid $color_black;
+      border-bottom: 0.125rem solid $color_black;
       transition: all 0.3s linear;
     }
     &:hover {
@@ -75,7 +75,7 @@
   align-items: center;
   padding-right: 1.25rem;
   margin-right: 1.25rem;
-  border-right: .0625rem solid #eff4f7;
+  border-right: 0.0625rem solid #eff4f7;
   &__icon {
     display: flex;
     align-items: center;
@@ -94,11 +94,11 @@
     text-align: right;
     p {
       font-family: "Rubik";
-      font-size: .875rem;
+      font-size: 0.875rem;
       line-height: 1.125rem;
       color: $text_color_black;
       &:last-child {
-        font-size: .75rem;
+        font-size: 0.75rem;
         color: $color_gray;
       }
     }
