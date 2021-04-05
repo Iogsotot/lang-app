@@ -1,0 +1,29 @@
+.close-btn {
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &::before,
+  &::after {
+    height: 2px;
+    width: 1.6rem;
+    background-color: hsl(0, 0%, 48%);
+    content: '';
+    display: block;
+    position: absolute;
+    transform-origin: center center;
+  }
+  &:hover::before,
+  &:hover::after {
+    background-color: hsl(0, 0%, 21%);
+  }
+  &::before {
+    transform: rotate(135deg);
+  }
+  &::after {
+    transform: rotate(45deg);
+  }
+}

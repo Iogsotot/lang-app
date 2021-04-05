@@ -1,0 +1,26 @@
+$frog-size: 4rem;
+
+.frogs {
+  display: flex;
+  justify-content: space-between;
+  width: calc(($frog-size + 1rem) * 4);
+  margin-top: 1.4rem;
+
+  &__frog-item {
+    width: $frog-size;
+    height: $frog-size;
+
+    &.green {
+      background-image: url(../../../../assets/icons/frog-green.svg);
+    }
+    &.yellow {
+      background-image: url(../../../../assets/icons/frog-yellow.svg);
+    }
+    &.red {
+      background-image: url(../../../../assets/icons/frog-red.svg);
+    }
+    &.hidden {
+      visibility: hidden;
+    }
+  }
+}

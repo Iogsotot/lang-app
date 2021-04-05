@@ -4,7 +4,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import './promoPage.scss';
 
 const PromoPage: FC = () => {
-  const { isLoggedIn } = useTypedSelector((store) => store.user);
+  const { isLoggedIn } = useTypedSelector(store => store.user);
   return (
     <main>
       <section className="promo">
@@ -12,13 +12,13 @@ const PromoPage: FC = () => {
           <div className="info_block">
             <h1 className="title title--bigest">Вдохновляющий и продающий текст! мы такие классные!</h1>
             <p className="content">Тут тоже о том, как классно в нашей аппе учить англ</p>
-            {
-              !isLoggedIn
-                ? <Link to="/auth" className="btn">
-                    Войти
-                </Link>
-                : <></>
-            }
+            {!isLoggedIn ? (
+              <Link to="/auth" className="btn">
+                Войти
+              </Link>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </section>
@@ -35,34 +35,34 @@ const PromoPage: FC = () => {
 
       <section className="features" id="features">
         <h2>
-        Что можно делать в <b>RS lang</b>
+          Что можно делать в <b>RS lang</b>
         </h2>
         <h3 className="subtitle">
-        Тут опять врём, что у нас тут так классно и вот смотрите что можно делать в нашей аппе{' '}
+          Тут опять врём, что у нас тут так классно и вот смотрите что можно делать в нашей аппе{' '}
         </h3>
         <div className="features__block">
           <div className="features__geo">
             <img src="./images/feat_1.png" alt="geo" />
             <h4>Lorem ipsum</h4>
             <p className="content">
-            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
+              Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
             </p>
           </div>
           <div className="features__stars">
             <img src="./images/feat_2.png" alt="geo" />
             <h4>Lorem ipsum</h4>
             <p className="content">
-            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
+              Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
             </p>
           </div>
           <div className="features__power-field">
             <img src="./images/feat_3.png" alt="geo" />
             <h4>Lorem ipsum</h4>
             <p className="content">
-            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
+              Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+              rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
             </p>
           </div>
         </div>
@@ -71,7 +71,7 @@ const PromoPage: FC = () => {
       <section className="team" id="team">
         <h3 className="title">Наша команда</h3>
         <h3 className="subtitle">
-        У нас огромная команда из высоквалифицированных лоу-перформеров. Вот тут ниже наши рожицы и кто что делал
+          У нас огромная команда из высоквалифицированных лоу-перформеров. Вот тут ниже наши рожицы и кто что делал
         </h3>
         <div className="team__group">
           <div className="teammates">
@@ -162,7 +162,8 @@ const PromoPage: FC = () => {
               <li className="info__item">
                 <h4>200%</h4>
                 <p>
-                Цифра явно получше - тут уже целых два нолика есть, что хорошо гармионирует c кружочками знака процентов
+                  Цифра явно получше - тут уже целых два нолика есть, что хорошо гармионирует c кружочками знака
+                  процентов
                 </p>
               </li>
               <li className="info__item">

@@ -1,7 +1,8 @@
 import './footer.scss';
+
 import { FC, useState } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-import { FOOTER_COPYRIGHT } from '../../constants/constants';
+import { FOOTER_COPYRIGHT } from '../../constants';
 import RSSLogo from '../../assets/images/rs_school_react.png';
 import githubLogo from '../../assets/images/github-logo.svg';
 
