@@ -11,13 +11,47 @@ export const FOOTER_COPYRIGHT = {
 
 export const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
 
+export const locations = {
+  TEXTBOOK: 'textbook',
+};
+
 export const WORD_GROUPS = {
-  weak: 0,
-  easy: 1,
-  middle: 2,
-  hard: 3,
-  impossible: 4,
-  legendary: 5,
+  Novice: 0,
+  Easy: 1,
+  Middle: 2,
+  Hard: 3,
+  Impossible: 4,
+  Legendary: 5,
+};
+
+export const SPRINT = {
+  gameDuration: 60,
+  timerColor: '#00d1b2',
+  timerSize: 80,
+  timerStrokeWidth: 3,
+  colorOnCorrectAnswer: '141, 71%, 48%', // hsl(141, 71%, 48%)
+  colorOnWrongAnswer: '348, 100%, 61%', // hsl(348, 100%, 61%)
+  wrongBtnText: 'Wrong',
+  correctBtnText: 'Correct',
+  wordsAmount: 10,
+  basicPoints: 10,
+  maxModificator: 4,
+  maxStreak: 3,
+};
+
+export const SPRINT_MODAL_ON_CLOSE = {
+  modalTitle: "You haven't finished this training!",
+  modalSubTitle: "If you close the training, you'll lose your results",
+  sumbitCloseBtnText: 'Close training',
+  canselModalBtn: 'Cancel',
+};
+
+export const SPRINT_GET_READY = {
+  title: 'Get Ready',
+  timerColor: '#00d1b2',
+  timerDuration: 5,
+  timerStrokeWidth: 3,
+  timerSize: 80,
 };
 
 export const SPRINT = {

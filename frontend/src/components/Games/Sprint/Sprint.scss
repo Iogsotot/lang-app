@@ -8,6 +8,10 @@
     '. score score .'
     '. box box .';
 
+  .subtitle {
+    text-align: center;
+  }
+
   &__box {
     position: relative;
     grid-area: box;
@@ -31,6 +35,7 @@
   & .score {
     grid-area: score;
     height: 2rem;
+    text-align: center;
   }
 
   & .countdown-wrapper {
@@ -98,7 +103,6 @@
     top: -3rem;
     .button {
       font-size: 1.6rem;
-      // border: none;
     }
   }
 }

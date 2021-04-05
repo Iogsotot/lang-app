@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
 import './savannah.scss';
-import { constants } from '../../../constants';
+import { WORD_GROUPS, API_BASE_URL } from '../../../constants';
 import { Word } from '../../../models/word';
 
 const Savannah: FC = () => {
@@ -10,7 +10,6 @@ const Savannah: FC = () => {
   let lives = 5;
   const allWordsInGroupCount = 600;
 
-  const { WORD_GROUPS, API_BASE_URL } = constants;
   const [group, setGroup] = useState(0);
   const [currentWords, setCurrentWords] = useState<[Word] | []>([]);
   const [wordsChunk, setWordsChunk] = useState([0]);

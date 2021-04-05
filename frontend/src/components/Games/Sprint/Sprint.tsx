@@ -1,6 +1,13 @@
 import React, { useState, useEffect, FC } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import useSound from 'use-sound';
+
+import onWrong from '../../../assets/audio/wilhelm_scream.mp3';
+import onCorrect from '../../../assets/audio/cratepop.mp3';
+import onGameOver from '../../../assets/audio/952782968e924cf.mp3';
+import onGameReady from '../../../assets/audio/622c286eab59510.mp3';
 
 import Button from './Button';
 import Streak from './Streak';
@@ -39,6 +46,11 @@ const {
 } = SPRINT;
 
 const Sprint: FC = () => {
+  const history = useHistory();
+  const [correctAnswerAudio] = useSound(onCorrect);
+  const [wrongAnswerAudio] = useSound(onWrong);
+  const [onGameOverAudio] = useSound(onGameOver);
+  const [onGameReadyAudio] = useSound(onGameReady);
   const { words, group } = useTypedSelector(store => store.wordList);
   const { fetchRandomWords } = useAction();
   const [sprintWords, setSprintWords] = useState(words);
@@ -50,13 +62,30 @@ const Sprint: FC = () => {
   const [points, setPoints] = useState(0);
   const [modificator, setModificator] = useState(1);
   const [isSoundOn, setIsSoundOn] = useState(false);
+  const [currentWord, setCurrentWord] = useState<Word>({
+    group: 0,
+    page: 0,
+    word: 'alcohol',
+    image: 'files/01_0002.jpg',
+    audio: 'files/01_0002.mp3',
+    audioMeaning: 'files/01_0002_meaning.mp3',
+    audioExample: 'files/01_0002_example.mp3',
+    textMeaning: '<i>Alcohol</i> is a type of drink that can make people drunk.',
+    textExample: 'A person should not drive a car after he or she has been drinking <b>alcohol</b>.',
+    transcription: '[ǽlkəhɔ̀ːl]',
+
+    textExampleTranslate: 'Человек не должен водить машину после того, как он выпил алкоголь',
+    textMeaningTranslate: 'Алкоголь - это тип напитка, который может сделать людей пьяными',
+    wordTranslate: 'алкоголь',
+  });
+  const [mistakesStat, setMistakesStat] = useState<Word[]>([]);
+  const [correctAnswersStat, setCorrectAnswersStat] = useState<Word[]>([]);
   const [pair, setPair] = useState({
     word: 'null',
     wordTranslate: 'null',
     audio: 'null',
     answer: false,
   });
-
   const mod = basicPoints * 2 ** (modificator - 1);
 
   const addPoints = () => {
@@ -66,6 +95,9 @@ const Sprint: FC = () => {
   const findWordPair = (): WordPair => {
     if (sprintWords.length < 1) {
       // тута запускаем сообщение о конце игры
+      if (isSoundOn && ready) {
+        onGameOverAudio();
+      }
       return {
         word: 'null',
         wordTranslate: 'null',
@@ -74,25 +106,25 @@ const Sprint: FC = () => {
       };
     }
     const wordsList = sprintWords.slice(0);
-    const word = wordsList.pop() as Word;
+    setCurrentWord(wordsList.pop() as Word);
 
     setSprintWords(wordsList);
 
     if (getRandomBooleanAnswer()) {
       return {
-        word: word.word,
-        wordTranslate: word.wordTranslate,
-        audio: word.audio,
+        word: currentWord.word,
+        wordTranslate: currentWord.wordTranslate,
+        audio: currentWord.audio,
         answer: true,
       };
     }
 
     const randomWordIndex = randomInteger(sprintWords.length - 2);
     return {
-      word: word.word,
+      word: currentWord.word,
       wordTranslate: sprintWords[randomWordIndex].wordTranslate,
-      audio: word.audio,
-      answer: word.word === sprintWords[randomWordIndex].word,
+      audio: currentWord.audio,
+      answer: currentWord.word === sprintWords[randomWordIndex].word,
     };
   };
 
@@ -109,11 +141,19 @@ const Sprint: FC = () => {
     if (!IsPlaying) return;
     if (compareAnswer(arg, pair.answer)) {
       // correct answer
+      if (isSoundOn) {
+        correctAnswerAudio();
+      }
+      setCorrectAnswersStat(prevState => [...prevState, currentWord]);
       addPoints();
       handleModificator();
       animateBorderColor('.sprint__box', colorOnCorrectAnswer);
     } else {
       // wrong answer
+      if (isSoundOn) {
+        wrongAnswerAudio();
+      }
+      setMistakesStat(prevState => [...prevState, currentWord]);
       setStreak(0);
       setModificator(1);
       animateBorderColor('.sprint__box', colorOnWrongAnswer);
@@ -161,7 +201,7 @@ const Sprint: FC = () => {
   };
 
   const handleSubmitClose = () => {
-    window.location.href = '../';
+    history.push('/');
   };
 
   const handleCancelModal = () => {

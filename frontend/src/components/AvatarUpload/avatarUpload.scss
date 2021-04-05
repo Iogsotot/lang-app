@@ -1,0 +1,33 @@
+.set-avatar,
+.user-avatar {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  height: 7rem;
+  width: 7rem;
+  margin: 0.9rem auto 0.7rem;
+
+  background-image: url("../../assets/icons/set-foto.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transition: all 200ms linear;
+  cursor: pointer;
+
+  &:hover {
+    transition: all 200ms linear;
+    opacity: 0.7;
+  }
+
+  #avatar {
+    display: none;
+  }
+}
+
+.user-avatar {
+  background-image: url("../../assets/icons/set-foto.png") center no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}
