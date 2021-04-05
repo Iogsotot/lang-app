@@ -5,6 +5,7 @@ import PromoPage from './components/PromoPage';
 import AuthPage from './components/AuthPage';
 import Savannah from './components/Games/Savannah';
 import Audiocall from './components/Games/AudioCall';
+import Sprint from './components/Games/Sprint';
 import { useTypedSelector } from './hooks/useTypedSelector';
 
 export const Router: FC = () => {
@@ -23,6 +24,10 @@ export const Router: FC = () => {
 
         <Route path="/savannah/" exact>
           <Savannah />
+        </Route>
+
+        <Route path="/sprint/" exact>
+          <Sprint />
         </Route>
 
         <Route path="/audiocall/">
@@ -46,6 +51,10 @@ export const Router: FC = () => {
 
       <Route path="/savannah/" exact>
         <Savannah />
+      </Route>
+
+      <Route path="/sprint/" exact>
+        <Sprint />
       </Route>
 
       <Route path="/audiocall/">
