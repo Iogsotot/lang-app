@@ -1,10 +1,13 @@
 import React, { useState, useEffect, FC } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import useSound from 'use-sound';
 
 import onWrong from '../../../assets/audio/wilhelm_scream.mp3';
 import onCorrect from '../../../assets/audio/cratepop.mp3';
+import onGameOver from '../../../assets/audio/952782968e924cf.mp3';
+import onGameReady from '../../../assets/audio/622c286eab59510.mp3';
 
 import Button from './Button';
 import Streak from './Streak';
@@ -43,8 +46,11 @@ const {
 } = SPRINT;
 
 const Sprint: FC = () => {
+  const history = useHistory();
   const [correctAnswerAudio] = useSound(onCorrect);
   const [wrongAnswerAudio] = useSound(onWrong);
+  const [onGameOverAudio] = useSound(onGameOver);
+  const [onGameReadyAudio] = useSound(onGameReady);
   const { words, group } = useTypedSelector(store => store.wordList);
   const { fetchRandomWords } = useAction();
   const [sprintWords, setSprintWords] = useState(words);
@@ -89,6 +95,9 @@ const Sprint: FC = () => {
   const findWordPair = (): WordPair => {
     if (sprintWords.length < 1) {
       // тута запускаем сообщение о конце игры
+      if (isSoundOn && ready) {
+        onGameOverAudio();
+      }
       return {
         word: 'null',
         wordTranslate: 'null',
@@ -192,7 +201,7 @@ const Sprint: FC = () => {
   };
 
   const handleSubmitClose = () => {
-    window.location.href = '../';
+    history.push('/');
   };
 
   const handleCancelModal = () => {
