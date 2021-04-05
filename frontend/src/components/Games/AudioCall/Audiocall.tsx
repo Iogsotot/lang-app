@@ -54,17 +54,6 @@ const Audiocall: FC = () => {
       });
   };
 
-  const fillStepAnswers = (): string[] => {
-    const stepAnswers = [currentWord?.wordTranslate];
-    while (stepAnswers.length < NUMBER_OF_VARIANTS) {
-      const randomWordNumber = Math.floor(Math.random() * words.length);
-      if (!stepAnswers.includes(words[randomWordNumber].wordTranslate)) {
-        stepAnswers.push(words[randomWordNumber].wordTranslate);
-      }
-    }
-    return shuffle(stepAnswers);
-  };
-
   const playSound = (soundUrl: string) => {
     if (currentWordNumber >= 0) {
       const wordAudio = new Audio(soundUrl);
@@ -96,8 +85,7 @@ const Audiocall: FC = () => {
   const clickStart = () => {
     setStart(true);
     setCurrentWordNumber(0);
-    const newWordsVariants: string[] = fillStepAnswers();
-    setWordsVariants(newWordsVariants);
+    fetchVariants();
   };
 
   const checkAnswer = (answer: string) => {
