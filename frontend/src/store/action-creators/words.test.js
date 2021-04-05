@@ -10,33 +10,49 @@ fetchMock.config.fallbackToNetwork = true;
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
-  describe('testing FETCH_WORD_LIST', () => {
-    it('FETCH_WORD_LIST test', ()=>{
-      const action = {
-        type: WordListActionTypes.FETCH_WORD_LIST,
-      }
+describe('testing thunk functions', () => {
 
-      expect(wordListReducer(initialState, action)).toEqual({
-        ...initialState,
-        loading: true,
-      })
-    })
-  })
-  describe('testing setPage', () => {
+  it('setPage test', () => {
 
-    it('setPage test', () => {
-      const expectedAction = {
+    const expectedAction = [{
       type: WordListActionTypes.GET_WORD_LIST_PAGE,
-      payload: { 
-        number: '1',
-      },
-    }
-      const store = mockStore({ payload: {} })
-      expect(store.dispatch(actions.setPage('1'))).toEqual(expectedAction);
-    })
-  })
+      payload: '1',
+    }]
+    const store = mockStore({ initialState })
+    store.dispatch(actions.setPage('1'));
+    expect(store.getActions()).toEqual(expectedAction)
+  });
+  it('setGroup test', () => {
 
+    const expectedAction = [{
+      type: WordListActionTypes.GET_WORD_LIST_GROUP,
+      payload: '2',
+    }]
+    const store = mockStore({ initialState })
+    store.dispatch(actions.setGroup('2'));
+    expect(store.getActions()).toEqual(expectedAction)
+  });
+  it('showTranslate test', () => {
 
+    const expectedAction = [{
+      type: WordListActionTypes.SHOW_WORD_TRANSLATE,
+      payload: 'true',
+    }]
+    const store = mockStore({ initialState })
+    store.dispatch(actions.showTranslate('true'));
+    expect(store.getActions()).toEqual(expectedAction)
+  });
+  it('showButtons test', () => {
+
+    const expectedAction = [{
+      type: WordListActionTypes.SHOW_WORD_BUTTONS,
+      payload: 'true',
+    }]
+    const store = mockStore({ initialState })
+    store.dispatch(actions.showButtons('true'));
+    expect(store.getActions()).toEqual(expectedAction)
+  });
+})
 
 describe('async actions', () => {
   afterEach(() => {
@@ -51,7 +67,7 @@ describe('async actions', () => {
 
     const expectedActions = [
       { type: WordListActionTypes.FETCH_WORD_LIST },
-      { type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS,  payload: {}}
+      { type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS, payload: {} }
     ]
     const store = mockStore({ payload: {} })
 
@@ -68,7 +84,7 @@ describe('async actions', () => {
 
     const expectedActions = [
       { type: WordListActionTypes.FETCH_WORD_LIST },
-      { type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS,  payload: {}}
+      { type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS, payload: {} }
     ]
     const store = mockStore({ payload: {} })
 
@@ -77,57 +93,27 @@ describe('async actions', () => {
       expect(store.getActions()).toMatchObject(expectedActions);
     })
   })
-})
+});
 
-
-describe("words reducer", () => {
+describe(">>>R E D U C E R --- Test wordListReducer", () => {
   it("should return the initial state", () => {
     expect(wordListReducer(undefined, {})).toEqual({
       displayButtons: true, error: null,
-         group: 0,
-         loading: false,
-         page: 0,
-         translate: true,
-         words: [],
+      group: 0,
+      loading: false,
+      page: 0,
+      translate: true,
+      words: [],
     });
-  })});
-
-
-  describe("test functions", () => {
-    const create = () => {
-      const store = {
-        getState: jest.fn(() => ({})),
-        dispatch: jest.fn()
-      }
-      const next = jest.fn()
-    
-      const invoke = action => thunk(store)(next)(action)
-    
-      return { store, next, invoke }
-    }
-    it('passes through non-function action', () => {
-      const { next, invoke } = create()
-      const action = { type: 'TEST' }
-      invoke(action)
-      expect(next).toHaveBeenCalledWith(action)
-    })
-    
-    it('calls the function', () => {
-      const { invoke } = create()
-      const fn = jest.fn()
-      invoke(fn)
-      expect(fn).toHaveBeenCalled()
-    })
-    
-    it('passes dispatch and getState', () => {
-      const { store, invoke } = create()
-      invoke((dispatch, getState) => {
-        dispatch('TEST DISPATCH')
-        getState()
-      })
-      expect(store.dispatch).toHaveBeenCalledWith('TEST DISPATCH')
-      expect(store.getState).toHaveBeenCalled()
-    })
-  });
-
-  
+  })
+});
+it('+++ reducer for GET_WORD_LIST_PAGE', () => {
+  let state = { payload: 1 }
+  state = wordListReducer(state, { type: "GET_WORD_LIST_PAGE", payload: 1 })
+  expect(state).toMatchObject({ payload: 1 })
+});
+it('+++ reducer for GET_WORD_LIST_GROUP', () => {
+  let state = { payload: 2 }
+  state = wordListReducer(state, { type: "GET_WORD_LIST_GROUP", payload: 2 })
+  expect(state).toMatchObject({ payload: 2 })
+});
