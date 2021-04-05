@@ -8,7 +8,7 @@ const { modalTitle, modalSubTitle, sumbitCloseBtnText, canselModalBtn } = SPRINT
 
 const ModalOnClose: FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal, handleSubmitClose }) => (
   <div className={`modal ${modalIsActive ? 'is-active' : ''}`}>
-    <div onClick={handleCancelModal} className="modal-background"></div>
+    <div onClick={handleCancelModal} className="modal-background"/>
     <div className="modal-content">
       <div className="box">
         <h4 className="title is-4">{modalTitle}</h4>
@@ -23,7 +23,7 @@ const ModalOnClose: FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal,
         </div>
       </div>
     </div>
-    <button onClick={handleCancelModal} className="modal-close is-large" aria-label="close"></button>
+    <button onClick={handleCancelModal} className="modal-close is-large" aria-label="close" />
   </div>
 );
 

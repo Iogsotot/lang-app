@@ -7,7 +7,6 @@ import { WORD_GROUPS, API_BASE_URL } from '../../../constants/constants';
 import './Audiocall.scss';
 
 const Audiocall: FC = () => {
-  const NUMBER_OF_VARIANTS = 5;
   const [isFromTextbook, setIsFromTextbook] = useState(false);
   const [group, setGroup] = useState(0);
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
@@ -121,7 +120,7 @@ const Audiocall: FC = () => {
         <img src={currentWord.image} />
       </div>
       <button onClick={() => playSound(currentWord.audio)} className="audiocall__volume volume-button">
-        <i className="fas fa-volume-up"></i>
+        <i className="fas fa-volume-up"/>
       </button>
       <div className="audiocall__current-word__text">{currentWord.word}</div>
     </div>
@@ -130,7 +129,7 @@ const Audiocall: FC = () => {
   const CloseCurrentWord = () => (
     <div className="audiocall__current-word">
       <button onClick={() => playSound(currentWord.audio)} className="audiocall__volume_main volume-button">
-        <i className="fas fa-volume-up"></i>
+        <i className="fas fa-volume-up" />
       </button>
     </div>
   );
@@ -213,7 +212,8 @@ const Audiocall: FC = () => {
     setModalOnCloseIsActive(false);
   };
 
-  const closeButtonClick = () => (currentWordNumber < words.length ? setModalOnCloseIsActive(true) : handleSubmitClose());
+  const closeButtonClick = () =>
+    (currentWordNumber < words.length ? setModalOnCloseIsActive(true) : handleSubmitClose());
 
   return (
     <div className="audiocall">
@@ -260,7 +260,7 @@ const Audiocall: FC = () => {
 
             {currentView && (
               <button className="button is-danger" onClick={nextWord}>
-                <i className="fas fa-angle-double-right"></i>
+                <i className="fas fa-angle-double-right" />
               </button>
             )}
             {!currentView && (
