@@ -30,7 +30,7 @@ const Variants = (props: VariantsProps) => {
         {(provided, snapshot) => (
           <div ref={provided.innerRef} className="cards-wrapper" style={getListStyle(snapshot.isDraggingOver)}>
             {items && items.map((item: Word, index: number) => (
-              <Draggable key={item.id} draggableId={item.id} index={index}>
+              <Draggable key={item.id} draggableId={item.id || '0'} index={index}>
                 {(provided2, snapshot2) => (
                   <div
                     ref={provided2.innerRef}

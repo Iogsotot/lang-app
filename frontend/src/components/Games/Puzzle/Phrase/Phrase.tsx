@@ -31,7 +31,7 @@ const Phrase = ({ phrase, word, item, outline }: PhraseProps) => {
         {(provided, snapshot) => (
           <div ref={provided.innerRef} className="puzzle__space">
             {item && (
-              <Draggable key={item.id} draggableId={item.id} index={0}>
+              <Draggable key={item.id} draggableId={item.id || '0'} index={0}>
                 {(provided2, snapshot2) => (
                   <div
                     ref={provided2.innerRef}
