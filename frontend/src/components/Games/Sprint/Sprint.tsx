@@ -9,6 +9,7 @@ import onCorrect from '../../../assets/audio/cratepop.mp3';
 import onGameOver from '../../../assets/audio/952782968e924cf.mp3';
 import onGameReady from '../../../assets/audio/622c286eab59510.mp3';
 
+import Finish from '../Finish';
 import Button from './Button';
 import Streak from './Streak';
 import ModalOnClose from './ModalOnClose';
@@ -55,7 +56,7 @@ const Sprint: FC = () => {
   const { fetchRandomWords } = useAction();
   const [sprintWords, setSprintWords] = useState(words);
   const [streak, setStreak] = useState(0);
-  const [IsPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [ready, setReady] = useState(false);
   const [getReadyIsPlaying, setGetReadyIsPlaying] = useState(true);
@@ -80,6 +81,7 @@ const Sprint: FC = () => {
   });
   const [mistakesStat, setMistakesStat] = useState<Word[]>([]);
   const [correctAnswersStat, setCorrectAnswersStat] = useState<Word[]>([]);
+  const [gameEnd, setGameEnd] = useState(false);
   const [pair, setPair] = useState({
     word: 'null',
     wordTranslate: 'null',
@@ -92,10 +94,18 @@ const Sprint: FC = () => {
     setPoints(old => old + mod);
   };
 
+  const handleGameOver = () => {
+    if (!ready) {
+      return;
+    }
+    setGameEnd(true);
+    setIsPlaying(false);
+  };
+
   const findWordPair = (): WordPair => {
     if (sprintWords.length < 1) {
-      // тута запускаем сообщение о конце игры
-      if (isSoundOn && ready) {
+      handleGameOver();
+      if (isSoundOn) {
         onGameOverAudio();
       }
       return {
@@ -138,7 +148,7 @@ const Sprint: FC = () => {
   };
 
   const handleAnswerBtnClick = (arg: boolean): void => {
-    if (!IsPlaying) return;
+    if (!isPlaying) return;
     if (compareAnswer(arg, pair.answer)) {
       // correct answer
       if (isSoundOn) {
@@ -226,60 +236,72 @@ const Sprint: FC = () => {
   };
 
   const { word, wordTranslate, audio } = pair;
+  const showFinishScreen = () => {
+    if (!gameEnd) {
+      return;
+    }
+    return <Finish correctAnswers={correctAnswersStat} wrongAnswers={mistakesStat} score={points} />;
+  };
+  const renderGameIfReady = () => {
+    if (!ready) {
+      return <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback} />;
+    }
+    return (
+      <>
+        <div onClick={togglePause} className={`countdown-wrapper ${!isPlaying ? 'pause' : ''}`}>
+          <CountdownCircleTimer
+            onComplete={handleGameOver}
+            size={timerSize}
+            strokeWidth={timerStrokeWidth}
+            isPlaying={isPlaying && !gameEnd}
+            duration={gameDuration}
+            colors={timerColor}
+          >
+            {({ remainingTime }) => (isPlaying ? remainingTime : null)}
+          </CountdownCircleTimer>
+        </div>
+        <span className="score subtitle">{points}</span>
+        <div className="box sprint__box">
+          <ToggleButton className={'toggle-sound'} property={isSoundOn} callback={toggleSound} />
+          <PlayAudioButton audio={audio} />
+          <Streak streak={streak} isModMax={modificator === maxModificator} maxStreak={maxStreak} />
+          {modificator > 1 && <span className="mod-note">{`+${mod} points per word`}</span>}
+          <Frogs modificator={modificator} maxFrogs={maxModificator} />
+          <div className="sprint__game-wrapper">
+            <div className="title">{word}</div>
+            <div className="subtitle">{wordTranslate}</div>
+            <div className="buttons">
+              <Button
+                icon="arrow-left"
+                className="is-danger"
+                text={wrongBtnText}
+                onBtnClick={handleAnswerBtnClick}
+                props={false}
+              />
+              <Button
+                icon="arrow-right"
+                className="is-success"
+                text={correctBtnText}
+                onBtnClick={handleAnswerBtnClick}
+                props={true}
+              />
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   return (
     <div className="sprint">
       <CloseButton callback={onCloseBtnClick} />
+      {showFinishScreen()}
       <ModalOnClose
         modalIsActive={modalOnCloseIsActive}
         handleCancelModal={handleCancelModal}
         handleSubmitClose={handleSubmitClose}
       />
-      {!ready ? (
-        <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback} />
-      ) : (
-        <>
-          <div onClick={togglePause} className={`countdown-wrapper ${!IsPlaying ? 'pause' : ''}`}>
-            <CountdownCircleTimer
-              onComplete={() => console.log('помогите, я застрял в коллбеке')}
-              size={timerSize}
-              strokeWidth={timerStrokeWidth}
-              isPlaying={IsPlaying}
-              duration={gameDuration}
-              colors={timerColor}
-            >
-              {({ remainingTime }) => (IsPlaying ? remainingTime : null)}
-            </CountdownCircleTimer>
-          </div>
-          <span className="score subtitle">{points}</span>
-          <div className="box sprint__box">
-            <ToggleButton className={'toggle-sound'} property={isSoundOn} callback={toggleSound} />
-            <PlayAudioButton audio={audio} />
-            <Streak streak={streak} isModMax={modificator === maxModificator} maxStreak={maxStreak} />
-            {modificator > 1 && <span className="mod-note">{`+${mod} points per word`}</span>}
-            <Frogs modificator={modificator} maxFrogs={maxModificator} />
-            <div className="sprint__game-wrapper">
-              <div className="title">{word}</div>
-              <div className="subtitle">{wordTranslate}</div>
-              <div className="buttons">
-                <Button
-                  icon="arrow-left"
-                  className="is-danger"
-                  text={wrongBtnText}
-                  onBtnClick={handleAnswerBtnClick}
-                  props={false}
-                />
-                <Button
-                  icon="arrow-right"
-                  className="is-success"
-                  text={correctBtnText}
-                  onBtnClick={handleAnswerBtnClick}
-                  props={true}
-                />
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+      {renderGameIfReady()}
     </div>
   );
 };
