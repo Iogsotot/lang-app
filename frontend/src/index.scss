@@ -1,5 +1,3 @@
-@import '../node_modules/bulma/bulma.sass';
-
 // bg, btn
 $main-bg: #b57ad2;
 
@@ -29,8 +27,8 @@ html {
 
 body {
   margin-left: 6.25rem;
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   &::-webkit-scrollbar {
     width: 10px;
     background: rgba($color_important, 0.2);
@@ -99,8 +97,8 @@ h4 {
   border: 1px solid $main-bg;
   border-radius: 40px;
 
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto Mono', 'Oxygen', 'Ubuntu', 'Cantarell',
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto Mono", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $color_white;
