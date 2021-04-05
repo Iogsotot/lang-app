@@ -1,0 +1,118 @@
+.finish {
+  position: relative;
+  width: 90%;
+  max-width: 784px;
+  min-width: 480px;
+  height: 600px;
+  padding: 40px 20px 140px;
+  font-size: 1.5rem;
+
+  &__title {
+    font-weight: 700;
+    font-size: 2rem;
+    color: #2d345c;
+  }
+
+  &__words-list {
+    text-align: left;
+    width: 60%;
+    height: 80%;
+    margin: 20px auto;
+    font-size: 1.2rem;
+
+    &__row {
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+  }
+
+  &__tab-inner {
+    position: relative;
+    height: 450px;
+  }
+
+  & .react-tabs {
+    &__tab {
+      color: #c9c9c9;
+
+      &-list {
+        border: none;
+        position: absolute;
+        margin: 20px auto;
+        left: 0;
+        right: 0;
+        text-align: center;
+        bottom: 0;
+      }
+
+      &--selected {
+        color: #b57ad2;
+        border: none;
+      }
+
+      &:focus {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__akcent-number {
+    display: inline-block;
+    text-align: center;
+    margin: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 20px;
+
+    &.good {
+      background-color: #279b8f;
+    }
+
+    &.bad {
+      background-color: #b64536;
+    }
+  }
+
+  &__score {
+    margin: 100px auto 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 243, 197, 1) 0%, rgba(255, 221, 87, 1) 100%);
+    color: #584535;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    animation: pulsing 2s infinite;
+  }
+}
+
+.divider {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+@keyframes pulsing {
+  0% {
+    -webkit-transform: scale(0.5, 0.5);
+    transform: scale(0.7, 0.7);
+  }
+  50% {
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+  }
+  100% {
+    -webkit-transform: scale(0.5, 0.5);
+    transform: scale(0.7, 0.7);
+  }
+}
