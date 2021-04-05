@@ -109,8 +109,7 @@ const Audiocall: FC = () => {
 
   const dontKnowClick = () => {
     setCurrentView(true);
-    const updatedWrongAnswers = wrongAnswers;
-    updatedWrongAnswers.push(currentWord);
+    const updatedWrongAnswers = [...wrongAnswers, currentWord];
     setWrongAnswers(updatedWrongAnswers);
   };
 
@@ -147,7 +146,7 @@ const Audiocall: FC = () => {
     return (
       <ul className="audiocall__answers__variants">
         {wordsVariants.map((item, index) => (
-          <li key={wordsVariants[index]} className="audiocall__answers__button">
+          <li key={wordsVariants[index] + 500} className="audiocall__answers__button">
             <button className={buttonClass(index)} disabled={currentView} onClick={e => answerClick(e)}>
               {wordsVariants[index]}
             </button>
