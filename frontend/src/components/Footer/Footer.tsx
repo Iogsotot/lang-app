@@ -54,18 +54,6 @@ const Footer: FC = () => {
               </div>
             </div>
           </div>
-          <div className="RSS">
-            <img src={RSSLogo} className="icon" alt="RSSchool" />
-            <a href="https://rs.school/react/" className="link">
-              2021
-            </a>
-          </div>
-          <div className="youtube">
-            <img src={youtubeLogo} className="icon" alt="youtube link" />
-            <a href="https://www.youtube.com/watch?v=dpw9EHDh2bM&t=1s" className="link">
-              review
-            </a>
-          </div>
         </div>
       </div>
     </footer>
