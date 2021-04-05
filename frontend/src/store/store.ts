@@ -1,36 +1,16 @@
-/* eslint-disable */
 import { applyMiddleware, createStore, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { rootReducer } from './reducers';
+
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
 }
 
-const initialState = {
-  WordListState: {
-    words: [],
-    page: 0,
-    group: 0,
-    loading: false,
-    error: null,
-    translate: true,
-    displayButtons: true,
-  },
-  GameDataState: {
-    words: [],
-    page: 0,
-    group: 0,
-    activeWords: [],
-    deletedWords: [],
-    hardWords: [],
-    test: 'hi!',
-  }
-}
+const preloadedState = localStorage.reduxState ? JSON.parse(localStorage.reduxState) : undefined;
 
-const preloadedState = localStorage.reduxState ? JSON.parse(localStorage.reduxState) : initialState;
-
+// eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
@@ -39,6 +19,6 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk)),
 );
 
-store.subscribe(() => localStorage.reduxState = JSON.stringify(store.getState()));
+store.subscribe(() => { localStorage.reduxState = JSON.stringify(store.getState()); });
 
 export default store;
