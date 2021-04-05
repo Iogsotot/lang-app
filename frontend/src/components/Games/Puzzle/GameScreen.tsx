@@ -77,6 +77,18 @@ const GameScreen = (props : GameScreenProps) => {
     }
   };
 
+  const handleDoubleClick = (event: React.MouseEvent) => {
+    const target = event.target as Element;
+    const guessElem = collection.find((el) => el.id === target.id);
+    const newState = deleteGuessElem(guessElem, collection);
+    if (guess) {
+      newState.push(guess);
+    }
+    setCollection(newState);
+    setGuess(guessElem);
+    triggerValidation(guessElem);
+  };
+
   const onDragEnd = useCallback(
     (result) => {
       const { source, destination } = result;
@@ -128,7 +140,7 @@ const GameScreen = (props : GameScreenProps) => {
         <h2>Добавьте слово в фразу:</h2>
         <Phrase outline={outline} phrase={phrase} word={word} item={guess} />
         <h2>Перетащите подходящий вариант</h2>
-        <Variants items={collection} />
+        <Variants handleDoubleClick={handleDoubleClick} items={collection} />
       </DragDropContext>
     </div>
   );

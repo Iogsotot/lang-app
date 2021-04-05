@@ -23,7 +23,7 @@ const getListStyle = (isDraggingOver: boolean) => ({
 });
 
 const Variants = (props: VariantsProps) => {
-  const { items } = props;
+  const { items, handleDoubleClick } = props;
   return (
     <div className="puzzle__variants">
       <Droppable droppableId="variants" direction="horizontal">
@@ -37,6 +37,8 @@ const Variants = (props: VariantsProps) => {
                     {...provided2.draggableProps}
                     {...provided2.dragHandleProps}
                     className="card"
+                    id={item.id}
+                    onDoubleClick={handleDoubleClick}
                     style={getItemStyle(
                       snapshot2.isDragging,
                       provided2.draggableProps.style,

@@ -1,10 +1,9 @@
+import React from 'react';
 import { Word } from '../../../models/word';
 
-export interface PuzzleProps {
-  smth?: any;
-}
 export interface VariantsProps {
   items: Word[],
+  handleDoubleClick: (event: React.MouseEvent) => void,
 }
 export interface PhraseProps {
   outline: string,
