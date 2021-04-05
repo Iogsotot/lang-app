@@ -33,7 +33,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const WORDS = [0, 1, 2, 3];
   const maxCount = 6;
   const maxLives = 5;
-  const allWordsInGroupCount = 420;
+  const allWordsInGroupCount = 600;
 
   const [isFromTextbook, setIsFromTextbook] = useState(false);
   const [group, setGroup] = useState(0);
@@ -87,8 +87,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   useEffect(() => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
-      console.log('sdfsfsfsfsdfs');
-      console.log({ currentPageWords });
+      // console.log({ currentPageWords });
       setCurrentWords(currentPageWords);
     }
     fetchCurrentPageWords();
