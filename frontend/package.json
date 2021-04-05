@@ -76,9 +76,8 @@
   },
   "devDependencies": {
     "@types/react-beautiful-dnd": "^13.0.0",
-    "@types/react-router-hash-link": "^1.2.1"
-    "@types/react-custom-scrollbars": "^4.0.7",
     "@types/react-router-hash-link": "^1.2.1",
+    "@types/react-custom-scrollbars": "^4.0.7",
     "@types/react-tabs": "^2.3.2"
   }
 }
