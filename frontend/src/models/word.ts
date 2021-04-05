@@ -28,6 +28,7 @@ export interface WordListState {
 }
 
 export interface WordsDispatchProps {
+  fetchRandomWords: (group: number, amount: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showButtons: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setGroup: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
   fetchWords: (group: number, page: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
@@ -80,7 +81,7 @@ export enum WordListActionTypes {
 }
 
 export type WordListAction =
-  FetchWordListAction
+  | FetchWordListAction
   | FetchWordListSuccessAction
   | FetchWordListErrorAction
   | GetWordListPage

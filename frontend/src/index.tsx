@@ -1,10 +1,12 @@
-import 'bulma/css/bulma.css';
-import './index.scss';
 import 'typeface-roboto';
 import 'typeface-roboto-mono';
 import 'typeface-rubik';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import './index.scss';
+
 import App from './App';
 
 ReactDOM.render(
