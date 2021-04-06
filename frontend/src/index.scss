@@ -124,3 +124,8 @@ h4 {
     outline: none;
   }
 }
+@media (max-width: 640px) {
+  body{
+    margin: 0;
+  }
+}
