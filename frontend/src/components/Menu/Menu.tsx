@@ -8,9 +8,9 @@ import TextBookIcon from '../../assets/images/textbook_icon.png';
 import StatsIcon from '../../assets/images/stats_icon.png';
 import GameIcon from '../../assets/images/game_icon.png';
 import SettingsIcon from '../../assets/images/settings_icon.png';
-import { storageNames, locations } from '../../constants';
+import { storageNames, LOCATIONS } from '../../constants';
 
-const { TEXTBOOK } = locations;
+const { textbook } = LOCATIONS;
 
 const { SHOW_BUTTONS, SHOW_TRANSLATE } = storageNames;
 
@@ -38,7 +38,7 @@ const Menu: FC = () => {
   useEffect(() => {
     showButtons(!!JSON.parse(localStorage.getItem(SHOW_BUTTONS) || 'false'));
     showTranslate(!!JSON.parse(localStorage.getItem(SHOW_TRANSLATE) || 'false'));
-    if (location !== TEXTBOOK) {
+    if (location !== textbook) {
       setDisabled(true);
     } else {
       setDisabled(false);

@@ -1,6 +1,11 @@
 import { Dispatch } from 'react';
-import { API_BASE_URL } from '../../constants';
-import { WordListAction, WordListActionTypes } from '../../models/word';
+import { API_BASE_URL, USER_WORDS_FILTERS } from '../../constants';
+import {
+  WordListAction,
+  WordListActionTypes,
+  FetchUserWordsProps,
+  DictionarySections,
+} from '../../models';
 
 const {
   FETCH_WORD_LIST,
@@ -11,6 +16,16 @@ const {
   SHOW_WORD_TRANSLATE,
   SHOW_WORD_BUTTONS,
 } = WordListActionTypes;
+
+const {
+  deletedWords,
+} = USER_WORDS_FILTERS;
+
+const {
+  LEARNING,
+  HARD,
+  DELETED,
+} = DictionarySections;
 
 export const fetchRandomWords = (group: number, amount: number) => async (
   dispatch: Dispatch<WordListAction>,
@@ -30,6 +45,55 @@ export const fetchRandomWords = (group: number, amount: number) => async (
     });
 
   dispatch({ type: FETCH_WORD_LIST_SUCCESS, payload: response });
+};
+
+export const fetchUserWords = ({
+  group, page, section, token, userId,
+}: FetchUserWordsProps) => async (
+  dispatch: Dispatch<WordListAction>,
+): Promise<void> => {
+  dispatch({
+    type: FETCH_WORD_LIST,
+  });
+
+  let filter: string;
+
+  switch (section) {
+    case LEARNING: filter = LEARNING;
+      break;
+    case HARD: filter = HARD;
+      break;
+    case DELETED: filter = deletedWords;
+      break;
+    default: filter = '';
+      break;
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/users/${userId}/aggregatedWords?group=${group}&page=${page}${filter ? `&filter=${filter}` : ''}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    },
+  )
+    .then(data => data.json())
+    .catch(error => {
+      dispatch({
+        type: FETCH_WORD_LIST_ERROR,
+        payload: error,
+      });
+    });
+
+  console.log(response[0].paginatedResults);
+
+  dispatch({
+    type: FETCH_WORD_LIST_SUCCESS,
+    payload: response[0].paginatedResults,
+  });
 };
 
 export const fetchWords = (group: number, page: number) => async (

@@ -19,7 +19,8 @@ const WordCard: FC<WordCardProps> = props => {
     translate,
     displayButtons,
   } = props;
-  const { userId, token } = useTypedSelector((store) => store.user.user);
+  const { user, isLoggedIn } = useTypedSelector((store) => store.user);
+  const { userId, token } = user;
   const [loading, setLoading] = useState(false);
 
   const deleteWord = async () => {
@@ -28,7 +29,7 @@ const WordCard: FC<WordCardProps> = props => {
       difficulty: 'string',
       isDeleted: true,
     });
-    const response = await fetch(
+    await fetch(
       `${API_BASE_URL}/users/${userId}/words/${id}`,
       {
         method: 'POST',
@@ -40,8 +41,6 @@ const WordCard: FC<WordCardProps> = props => {
         body,
       },
     );
-    const data = await response.json();
-    console.log(data);
     setLoading(false);
   };
 
@@ -51,7 +50,7 @@ const WordCard: FC<WordCardProps> = props => {
       difficulty: 'string',
       isDeleted: true,
     });
-    const response = await fetch(
+    await fetch(
       `${API_BASE_URL}/users/${userId}/words/${id}`,
       {
         method: 'POST',
@@ -63,8 +62,6 @@ const WordCard: FC<WordCardProps> = props => {
         body,
       },
     );
-    const data = await response.json();
-    console.log(data);
     setLoading(false);
   };
 
@@ -96,13 +93,13 @@ const WordCard: FC<WordCardProps> = props => {
 
           {displayButtons ? (
             <>
-              <button disabled={loading} onClick={addWordToHard} className="button is-warning">
+              <button disabled={!isLoggedIn || loading} onClick={addWordToHard} className="button is-warning">
                 <span className="icon is-small">
                   <i className="fas fa-bookmark" />
                 </span>
                 <span>В сложные</span>
               </button>
-              <button disabled={loading} onClick={deleteWord} className="button is-danger is-outlined">
+              <button disabled={!isLoggedIn || loading} onClick={deleteWord} className="button is-danger is-outlined">
                 <span className="icon is-small">
                   <i className="fas fa-trash" />
                 </span>

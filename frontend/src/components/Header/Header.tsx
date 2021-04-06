@@ -6,9 +6,9 @@ import { useAction } from '../../hooks/useAction';
 import avatarHolder from '../../assets/icons/avatar-holder.png';
 import logoutIcon from '../../assets/icons/logout.png';
 import dictionaryIcon from '../../assets/images/dictionary_icon.png';
-import { locations } from '../../constants';
+import { LOCATIONS } from '../../constants';
 
-const { DICTIONARY } = locations;
+const { dictionary } = LOCATIONS;
 
 const Header: FC = () => {
   const history = useHistory();
@@ -18,7 +18,7 @@ const Header: FC = () => {
   const [isDictionaryPage, setIsDictionaryPage] = useState(false);
 
   useEffect(() => history.listen(() => {
-    if (history?.location?.pathname?.split('/')[1] === DICTIONARY) {
+    if (history?.location?.pathname?.split('/')[1] === dictionary) {
       setIsDictionaryPage(true);
     } else {
       setIsDictionaryPage(false);

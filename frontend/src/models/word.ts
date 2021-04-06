@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 
 export interface Word {
-  id: string;
+  id?: string;
   group?: number;
   page?: number;
   word: string;
@@ -27,11 +27,20 @@ export interface WordListState {
   displayButtons: boolean;
 }
 
+export interface FetchUserWordsProps {
+  group: number;
+  page: number;
+  section: string;
+  userId: string;
+  token: string;
+}
+
 export interface WordsDispatchProps {
   fetchRandomWords: (group: number, amount: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showButtons: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setGroup: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
   fetchWords: (group: number, page: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
+  fetchUserWords: (props: FetchUserWordsProps) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showTranslate: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setPage: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
 }
@@ -68,6 +77,12 @@ interface ShowWordButtons {
 interface GetWordListGroup {
   type: WordListActionTypes.GET_WORD_LIST_GROUP;
   payload: number;
+}
+
+export enum DictionarySections {
+  LEARNING = 'learning',
+  HARD = 'hard',
+  DELETED = 'deleted',
 }
 
 export enum WordListActionTypes {

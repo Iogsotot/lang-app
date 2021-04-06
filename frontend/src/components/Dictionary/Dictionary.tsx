@@ -5,12 +5,18 @@ import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordList from '../WordList';
 import { WORD_GROUPS } from '../../constants';
+import { DictionarySections } from '../../models';
 
 type Sections = 'learning' | 'hard' | 'deleted';
+const {
+  LEARNING,
+  HARD,
+  DELETED,
+} = DictionarySections;
 
 const Dictionary: FC = () => {
   const history = useHistory();
-  const { fetchWords, setGroup, setPage } = useAction();
+  const { fetchUserWords, setGroup, setPage } = useAction();
   const {
     section,
     group: groupFromUrl,
@@ -20,8 +26,10 @@ const Dictionary: FC = () => {
     group: string;
     page: string;
   } = useParams();
-  const { page, group } = useTypedSelector(store => store.wordList);
-  const [activeSection, setActiveSection] = useState<Sections>('learning');
+  const store = useTypedSelector((storeObj) => storeObj);
+  const { page, group } = store.wordList;
+  const { userId, token } = store.user.user;
+  const [activeSection, setActiveSection] = useState<Sections>(LEARNING);
   const nextPage = () => {
     setPage(page + 1);
   };
@@ -40,7 +48,13 @@ const Dictionary: FC = () => {
   };
 
   useEffect(() => {
-    fetchWords(group, page);
+    fetchUserWords({
+      section: DELETED,
+      group,
+      page,
+      userId,
+      token,
+    });
     history.push(`/dictionary/${activeSection}/${group}/${page}`);
   }, [activeSection, group, page]);
 
@@ -55,20 +69,20 @@ const Dictionary: FC = () => {
     <main className="dictionary">
       <div className="tabs is-centered is-boxed section-tabs">
         <ul>
-          <li className={`${activeSection === 'learning' ? 'is-active' : ''}`}>
-            <a onClick={() => setSection('learning')}>
+          <li className={`${activeSection === LEARNING ? 'is-active' : ''}`}>
+            <a onClick={() => setSection(LEARNING)}>
               <span className="icon is-small"><i className="fas fa-book" aria-hidden="true"></i></span>
               <span>Изучаемые слова</span>
             </a>
           </li>
-          <li className={`${activeSection === 'hard' ? 'is-active' : ''}`}>
-            <a onClick={() => setSection('hard')}>
+          <li className={`${activeSection === HARD ? 'is-active' : ''}`}>
+            <a onClick={() => setSection(HARD)}>
               <span className="icon is-small"><i className="fas fa-biohazard" aria-hidden="true"></i></span>
               <span>Сложные слова</span>
             </a>
           </li>
-          <li className={`${activeSection === 'deleted' ? 'is-active' : ''}`}>
-            <a onClick={() => setSection('deleted')}>
+          <li className={`${activeSection === DELETED ? 'is-active' : ''}`}>
+            <a onClick={() => setSection(DELETED)}>
               <span className="icon is-small"><i className="fas fa-trash" aria-hidden="true"></i></span>
               <span>Удалённые слова</span>
             </a>
