@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import { ButtonProps } from './Button.model';
 
-const Button: FC<ButtonProps> = ({ props, onBtnClick, text, className, icon }) => {
+const Button: FC<ButtonProps> = ({ onBtnClick, text, className, icon }) => {
   const handleClick = () => {
-    onBtnClick(props);
+    onBtnClick();
   };
 
   const leftIcon = icon === 'arrow-left' && (

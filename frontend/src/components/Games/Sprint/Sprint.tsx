@@ -90,9 +90,7 @@ const Sprint: FC = () => {
   });
   const mod = basicPoints * 2 ** (modificator - 1);
 
-  const addPoints = () => {
-    setPoints(old => old + mod);
-  };
+  const addPoints = () => setPoints(old => old + mod);
 
   const handleGameOver = () => {
     if (!ready) {
@@ -210,9 +208,7 @@ const Sprint: FC = () => {
     setModalOnCloseIsActive(true);
   };
 
-  const handleSubmitClose = () => {
-    history.push('/');
-  };
+  const handleSubmitClose = () => history.push('/');
 
   const handleCancelModal = () => {
     if (ready) {
@@ -223,17 +219,14 @@ const Sprint: FC = () => {
     setModalOnCloseIsActive(false);
   };
 
-  const setReadyCallback = () => {
-    setReady(true);
-  };
+  const setReadyCallback = () => setReady(true);
 
-  const togglePause = () => {
-    setIsPlaying(old => !old);
-  };
+  const togglePause = () => setIsPlaying(old => !old);
 
-  const toggleSound = () => {
-    setIsSoundOn(old => !old);
-  };
+  const toggleSound = () => setIsSoundOn(old => !old);
+
+  const handleAnswerBtnClickTrue = () => handleAnswerBtnClick(true);
+  const handleAnswerBtnClickFalse = () => handleAnswerBtnClick(false);
 
   const { word, wordTranslate, audio } = pair;
   const showFinishScreen = () => {
@@ -275,15 +268,13 @@ const Sprint: FC = () => {
                 icon="arrow-left"
                 className="is-danger"
                 text={wrongBtnText}
-                onBtnClick={handleAnswerBtnClick}
-                props={false}
+                onBtnClick={handleAnswerBtnClickFalse}
               />
               <Button
                 icon="arrow-right"
                 className="is-success"
                 text={correctBtnText}
-                onBtnClick={handleAnswerBtnClick}
-                props={true}
+                onBtnClick={handleAnswerBtnClickTrue}
               />
             </div>
           </div>

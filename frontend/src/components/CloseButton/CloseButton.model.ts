@@ -1,4 +1,4 @@
 export interface CloseButtonProps {
   flag?: boolean;
-  callback: (...args: any) => void;
+  callback: (arg?: boolean) => void;
 }
