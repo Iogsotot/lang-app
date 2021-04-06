@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { ModalOnCloseProps } from './ModalOnClose.model';
 
-import { SPRINT_MODAL_ON_CLOSE } from '../../../../constants/constants';
+import { SPRINT_MODAL_ON_CLOSE } from '../../../constants/constants';
 
 const { modalTitle, modalSubTitle, sumbitCloseBtnText, canselModalBtn } = SPRINT_MODAL_ON_CLOSE;
 

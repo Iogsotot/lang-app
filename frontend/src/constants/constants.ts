@@ -1,4 +1,4 @@
-export const FOOTER_COPYRIGHT = {
+const FOOTER_COPYRIGHT = {
   developers: [
     { link: 'https://github.com/bramov', name: '@Bramov' },
     { link: 'https://github.com/GregoryMoskalev', name: '@GregoryMoskalev' },
@@ -9,13 +9,13 @@ export const FOOTER_COPYRIGHT = {
   ],
 };
 
-export const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
+const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
 
-export const locations = {
+const locations = {
   TEXTBOOK: 'textbook',
 };
 
-export const WORD_GROUPS = {
+const WORD_GROUPS = {
   Novice: 0,
   Easy: 1,
   Middle: 2,
@@ -24,7 +24,7 @@ export const WORD_GROUPS = {
   Legendary: 5,
 };
 
-export const SPRINT = {
+const SPRINT = {
   gameDuration: 60,
   timerColor: '#00d1b2',
   timerSize: 80,
@@ -39,17 +39,19 @@ export const SPRINT = {
   maxStreak: 3,
 };
 
-export const SPRINT_MODAL_ON_CLOSE = {
+const SPRINT_MODAL_ON_CLOSE = {
   modalTitle: 'Тренировка не закончена!',
   modalSubTitle: 'Если вы закроете тренировку, ваши результаты обнулятся',
   sumbitCloseBtnText: 'Закрыть тренировку',
   canselModalBtn: 'Отмена',
 };
 
-export const SPRINT_GET_READY = {
+const SPRINT_GET_READY = {
   title: 'Приготовьтесь',
   timerColor: '#00d1b2',
   timerDuration: 5,
   timerStrokeWidth: 3,
   timerSize: 80,
 };
+
+export { WORD_GROUPS, API_BASE_URL, FOOTER_COPYRIGHT, locations, SPRINT, SPRINT_MODAL_ON_CLOSE, SPRINT_GET_READY };

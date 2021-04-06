@@ -1,42 +1,79 @@
 import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
+import { connect } from 'react-redux';
 import './savannah.scss';
+import { SavannahProps } from './Savannah.model';
 import { WORD_GROUPS, API_BASE_URL } from '../../../constants';
+import Finish from '../Finish';
 import { Word } from '../../../models/word';
+import gameDataActions from '../../../store/action-creators/gameDataActions';
 
-const Savannah: FC = () => {
+type StateProps = {
+  page: number;
+  group: number;
+  words: Word[];
+  test: string;
+};
+type DispatchProps = typeof gameDataActions;
+
+const mapDispatchToProps = gameDataActions;
+
+const mapStateToProps = ({ gameData }: any) => {
+  const { page, group, words, test } = gameData;
+  const props: SavannahProps = {
+    page,
+    group,
+    words,
+    test,
+  };
+  return props;
+};
+
+const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
+  const { setPage, addToActiveWords } = props;
+  const answerVariantsCount = 4;
   const WORDS = [0, 1, 2, 3];
-  const aswerVariantsCount = 4;
   const maxCount = 6;
-  let lives = 5;
+  const maxLives = 5;
   const allWordsInGroupCount = 600;
 
+  const [isFromTextbook, setIsFromTextbook] = useState(false);
   const [group, setGroup] = useState(0);
-  const [currentWords, setCurrentWords] = useState<[Word] | []>([]);
+  const [currentWords, setCurrentWords] = useState<Word[]>([]);
   const [wordsChunk, setWordsChunk] = useState([0]);
-  const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * aswerVariantsCount));
+  const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * answerVariantsCount));
   const [round, setRound] = useState(1);
-  const [isGetAnswer, setIsGetAnswer] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState<Word[]>([]);
+  const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
 
+  const initialGameState = {
+    lives: maxLives,
+    correctAnswersCount: 0,
+    wrongAswersCount: 0,
+    point: 0,
+  };
+  const statsData = useRef(initialGameState);
+
+  // welcome, game, stats
+  const [gameScreen, setGameScreen] = useState('welcome');
   const [timer, setTimer] = useState(0);
   const [counter, setCounter] = useState(0);
-  const [start, setStart] = useState(false);
   const currentWordClassNames = counter === 0 ? 'current-word' : 'current-word start-anim';
 
   useEffect(() => {
     const chunk = (() => {
       const wordsArr = [];
-      while (wordsArr.length < aswerVariantsCount) {
+      while (wordsArr.length < answerVariantsCount) {
         const randomWordIndex = Math.floor(Math.random() * allWordsInGroupCount);
         if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
       }
       return wordsArr;
     })();
-
+    setSoughtIndex(Math.floor(Math.random() * answerVariantsCount));
     setWordsChunk(chunk);
   }, [round]);
 
   async function fetchWords(wordsGroup: number) {
-    const response = await fetch(`${API_BASE_URL}/words/all?group=${wordsGroup}`, {
+    const response = await fetch(`${API_BASE_URL}/words/all?group=${wordsGroup}&amount=600`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,19 +90,51 @@ const Savannah: FC = () => {
   useEffect(() => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
+      // console.log({ currentPageWords });
       setCurrentWords(currentPageWords);
     }
     fetchCurrentPageWords();
   }, [group]);
 
+  function resetGame() {
+    setTimer(0);
+    statsData.current = initialGameState;
+  }
+
+  function gameOver() {
+    setGameScreen('stats');
+    console.log('game over');
+    console.log(statsData.current.wrongAswersCount);
+    console.log(statsData.current.correctAnswersCount);
+    console.log(statsData.current.lives);
+    console.log(statsData.current.point);
+
+    resetGame();
+  }
+
   function resolveAsWrongAnswer() {
-    if (isGetAnswer) {
-      lives -= 1;
-    }
+    const updatedWrongAnswers = [...wrongAnswers, currentWords[wordsChunk[soughtIndex]]];
+    setWrongAnswers(updatedWrongAnswers);
+    let { lives } = statsData.current;
+    let wrongAnswersCount = statsData.current.wrongAswersCount;
+    wrongAnswersCount += 1;
+    lives -= 1;
+    statsData.current.lives = lives;
+    statsData.current.wrongAswersCount = wrongAnswersCount;
+    console.log(lives);
+
     console.log('нэ маладэц');
+    if (lives === 0) {
+      gameOver();
+    }
   }
 
   function resolveAsCorrectAnswer() {
+    const updatedCorrectAnswers = [...correctAnswers, currentWords[wordsChunk[soughtIndex]]];
+    setCorrectAnswers(updatedCorrectAnswers);
+    let { correctAnswersCount } = statsData.current;
+    correctAnswersCount += 1;
+    statsData.current.correctAnswersCount = correctAnswersCount;
     console.log('маладэц');
   }
 
@@ -78,27 +147,30 @@ const Savannah: FC = () => {
     if (!timer) {
       return;
     }
-
-    const startTimerId = setInterval(() => {
-      setCounter(counter + 1);
-      setTimer(timer - 1);
-      console.log(timer);
-      if (timer === 1) {
-        setRound(round + 1);
-        resolveAsWrongAnswer();
-        resetGameRound();
-        clearInterval(startTimerId);
-      }
-    }, 1000);
-
-    return () => {
-      clearTimeout(startTimerId);
-    };
+    if (gameScreen === 'game') {
+      const startTimerId = setInterval(() => {
+        setCounter(counter + 1);
+        setTimer(timer - 1);
+        addToActiveWords(currentWords[wordsChunk[soughtIndex]]);
+        if (timer === 1) {
+          setRound(round + 1);
+          resolveAsWrongAnswer();
+          resetGameRound();
+          clearInterval(startTimerId);
+          if (round === 30) {
+            gameOver();
+          }
+        }
+      }, 1000);
+      return () => {
+        clearTimeout(startTimerId);
+      };
+    }
   }, [counter, timer]);
 
   const handleStart = useCallback(() => {
     setTimer(maxCount);
-    setStart(true);
+    setGameScreen('game');
   }, []);
 
   function checkPair(word: number) {
@@ -111,8 +183,13 @@ const Savannah: FC = () => {
     resolveAsWrongAnswer();
   }
 
-  function resetGame() {
-    setStart(false);
+  function handleClose() {
+    if (gameScreen === 'welcome') {
+      window.location.href = '../';
+    }
+    // открыть попап с предупреждением
+    resetGame();
+    setGameScreen('welcome');
   }
 
   return (
@@ -121,42 +198,45 @@ const Savannah: FC = () => {
       <div
         className="btn--close"
         onClick={() => {
-          resetGame();
+          handleClose();
         }}
       >
-        <i className="far fa-times" />
+        <i className="fal fa-times" />
       </div>
 
-      {!start && (
+      {gameScreen === 'welcome' && (
         <div className="savannah__info box">
           <h2 className="title is-2">Savannah</h2>
           <p>
             В этой игре на вас обрушится дождь из слов! к счастью слова падают по одной капельке. Ваша задача - успеть
             выбрать правильно слово до того, как оно упадёт. Удачи!
           </p>
-          <div>
-            <p>Сложность:</p>
-            {Object.entries(WORD_GROUPS).map(([key, value]) => (
-              <button
-                disabled={value === group}
-                key={key}
-                onClick={() => {
-                  setGroup(value);
-                }}
-              >
-                {key}
-              </button>
-            ))}
-          </div>
-          <button className="btn button is-primary is-outlined" onClick={handleStart}>
+          {!isFromTextbook && (
+            <div className="difficulty-btn-block">
+              <p>Сложность:</p>
+              {Object.entries(WORD_GROUPS).map(([key, value]) => (
+                <button
+                  disabled={value === group}
+                  key={key}
+                  onClick={() => {
+                    setGroup(value);
+                  }}
+                  className="button is-warning is-small"
+                >
+                  {key}
+                </button>
+              ))}
+            </div>
+          )}
+          <button className="btn--start button is-primary is-outlined" onClick={handleStart}>
             Начать игру!
           </button>
         </div>
       )}
-      {start && (
+      {gameScreen === 'game' && (
         <div className="savannah-body">
           <div className="status-bar box">
-            {/* <div>counter: {counter}</div> */}
+            <div>lives: {statsData.current.lives}</div>
             <div className="lives">
               <i className="fas fa-heart"></i>
               <i className="fas fa-heart"></i>
@@ -172,10 +252,10 @@ const Savannah: FC = () => {
             </div>
           </div>
 
-          <div className="answer-variants box">
+          <div className="answer-variants">
             <div className="wrapper">
               {WORDS.map(word => (
-                <div className="button is-info is-light" onClick={() => checkPair(word)} key={word}>
+                <div className="button  is-primary is-outlined" onClick={() => checkPair(word)} key={word}>
                   {currentWords[wordsChunk[word]].word}
                 </div>
               ))}
@@ -183,8 +263,33 @@ const Savannah: FC = () => {
           </div>
         </div>
       )}
+      {gameScreen === 'stats' && (
+        <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={statsData.current.point} />
+        // <div className="stats">
+        //   <div className="stats__message">Конец игры</div>
+        //   <button
+        //     className="button  is-primary is-outlined"
+        //     onClick={() => {
+        //       setGameScreen('welcome');
+        //       resetGame();
+        //     }}
+        //   >
+        //     начать новую игру
+        //   </button>
+        //   <button
+        //     className="button  is-primary is-outlined"
+        //     onClick={() => {
+        //       alert('sorry, not implemented');
+        //     }}
+        //   >
+        //     вернуться на главный экран
+        //   </button>
+        // </div>
+      )}
     </section>
   );
 };
 
-export default Savannah;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export default connect(mapStateToProps, mapDispatchToProps)(Savannah);

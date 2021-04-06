@@ -1,3 +1,5 @@
+@import "../../../index.scss";
+
 .savannah {
   position: relative;
   height: calc(100vh - 78px);
@@ -5,6 +7,11 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
+
+  .savannah-body {
+    width: inherit;
+    height: inherit;
+  }
 
   .overlay {
     position: absolute;
@@ -18,7 +25,7 @@
   .btn--close {
     position: absolute;
     top: 0.5rem;
-    right: 0.5rem;
+    right: 1rem;
     aspect-ratio: 1/1;
     width: 48px;
 
@@ -31,6 +38,11 @@
       opacity: 0.7;
       transition: all 250ms;
     }
+
+    .fal,
+    .far {
+      font-family: "Font Awesome 5 Pro";
+    }
   }
 
   .savannah__info {
@@ -40,10 +52,11 @@
     transform: translate(-50%);
     width: 450px;
     margin: auto;
+    text-align: justify;
 
     background-color: rgba(255, 255, 255, 0.5);
 
-    .btn {
+    .btn--start {
       display: block;
       width: fit-content;
       margin: 1rem auto 0.5rem;
@@ -84,12 +97,37 @@
     }
   }
   .answer-variants {
+    display: block;
     & > .wrapper {
       display: flex;
       justify-content: space-between;
       flex-direction: row;
       max-width: 50rem;
       margin: auto;
+    }
+    .button {
+      color: $color_white;
+    }
+  }
+
+  .difficulty-btn-block {
+    text-align: center;
+    max-width: 19rem;
+    margin: auto;
+    button {
+      margin: 0.5rem 0.8rem;
+      &:nth-of-type(4) {
+        margin-right: 0;
+      }
+      &:nth-of-type(5) {
+        margin-left: 0;
+      }
+      &:first-of-type {
+        margin-left: 0;
+      }
+      &:last-of-type {
+        margin-right: 0;
+      }
     }
   }
 }

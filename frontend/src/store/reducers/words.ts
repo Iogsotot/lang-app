@@ -10,7 +10,7 @@ const {
   SHOW_WORD_BUTTONS,
 } = WordListActionTypes;
 
-const initialState: WordListState = {
+export const initialState: WordListState = {
   words: [],
   page: 0,
   group: 0,

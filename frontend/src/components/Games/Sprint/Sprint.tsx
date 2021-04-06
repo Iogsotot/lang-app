@@ -63,7 +63,7 @@ const Sprint: FC = () => {
   const [points, setPoints] = useState(0);
   const [modificator, setModificator] = useState(1);
   const [isSoundOn, setIsSoundOn] = useState(false);
-  const [currentWord, setCurrentWord] = useState<Word>({
+  const [currentWord, setCurrentWord] = useState<Word | any>({
     group: 0,
     page: 0,
     word: 'alcohol',
