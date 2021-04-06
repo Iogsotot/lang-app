@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import { Word } from '../../../models/word';
 import Finish from '../Finish';
 import CloseButton from '../../CloseButton';
-import ModalOnClose from './ModalOnClose';
+import ModalOnClose from '../ModalOnClose';
 import { WORD_GROUPS, API_BASE_URL } from '../../../constants/constants';
 import './Audiocall.scss';
 
@@ -91,12 +91,10 @@ const Audiocall: FC = () => {
     setCurrentView(true);
 
     if (answer === currentWord.wordTranslate) {
-      const updatedCorrectAnswers = correctAnswers;
-      updatedCorrectAnswers.push(currentWord);
+      const updatedCorrectAnswers = [...correctAnswers, currentWord];
       setCorrectAnswers(updatedCorrectAnswers);
     } else {
-      const updatedWrongAnswers = wrongAnswers;
-      updatedWrongAnswers.push(currentWord);
+      const updatedWrongAnswers = [...wrongAnswers, currentWord];
       setWrongAnswers(updatedWrongAnswers);
     }
   };

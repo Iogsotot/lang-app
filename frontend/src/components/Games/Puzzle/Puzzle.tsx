@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react';
-import SettingsScreen from './SettingsScreen';
+// import SettingsScreen from './SettingsScreen';
 import GameScreen from './GameScreen';
 import { WORD_GROUPS } from '../../../constants/constants';
 
@@ -13,13 +13,14 @@ const Puzzle: FC = () => {
 
   return (
     <section className="puzzle">
-      <div className="overlay"></div>
+      <div className="overlay"/>
       {
         gameActive ? <GameScreen group={group}/> :
           <div className="puzzle__info box">
             <h2 className="title is-2">Puzzle</h2>
             <p>
-            В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может, вам так легче учить язык.
+              В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может,
+              вам так легче учить язык.
             </p>
             {!isFromTextbook && (
               <div className="difficulty-btn-block">
