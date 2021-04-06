@@ -23,7 +23,7 @@ export const Router: FC = () => {
           <TextBook />
         </Route>
 
-        <Route path="/Puzzle/">
+        <Route path="/Puzzle/" exact>
           <Puzzle />
         </Route>
 
@@ -64,6 +64,10 @@ export const Router: FC = () => {
 
       <Route path="/audiocall/">
         <Audiocall />
+      </Route>
+
+      <Route path="/Puzzle/" exact>
+        <Puzzle />
       </Route>
 
       <Route path="/textbook/:group/:page" exact>

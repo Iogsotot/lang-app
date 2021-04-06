@@ -74,8 +74,8 @@ const Menu: FC = () => {
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/find-pair">
-                <img src={GameIcon} alt="find-pair" className="icon" />
+              <Link to="/puzzle">
+                <img src={GameIcon} alt="puzzle" className="icon" />
               </Link>
             </li>
             <li className="menu__item">
