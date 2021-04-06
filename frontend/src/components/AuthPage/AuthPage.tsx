@@ -84,8 +84,10 @@ const AuthPage: FC = () => {
   };
 
   const keyPressHandler = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' && (!formReady || loading)) {
-      onSubmit();
+    if (event.key === 'Enter') {
+      if (formReady && !loading) {
+        onSubmit();
+      }
     }
   };
 

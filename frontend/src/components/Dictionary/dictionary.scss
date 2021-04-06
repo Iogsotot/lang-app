@@ -1,0 +1,17 @@
+@import '../../index.scss';
+
+.section-tabs {
+  margin-top: 20px;
+  ul {
+    justify-content: center;
+    border-bottom-color: $color_important !important;
+    li {
+      &.is-active {
+        a {
+          color: $color_important !important;
+          border-color: $color_important !important;
+        }
+      }
+    }
+  }
+}
