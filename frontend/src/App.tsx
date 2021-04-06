@@ -18,6 +18,7 @@ const App: FC = () => (
 
         <Menu />
 
+<<<<<<< HEAD
         <Header />
 
         <Router />
@@ -25,6 +26,17 @@ const App: FC = () => (
         <Footer />
       </BrowserRouter>
     </Provider>
+=======
+          <Route path="/memorygame" exact>
+            <Memory />
+          </Route>
+
+          <Redirect to="/" />
+        </Switch>
+      </Provider>
+      <Footer />
+    </BrowserRouter>
+>>>>>>> 4e436a6f2cf112250f79ed6570ad5302b21b4604
   </div>
 );
 
