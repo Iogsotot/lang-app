@@ -1,7 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './menu.scss';
-import { MenuProps } from './Menu.model';
 import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import LogoWhite from '../../assets/images/Logo_white.png';
@@ -15,7 +14,7 @@ const { TEXTBOOK } = locations;
 
 const { SHOW_BUTTONS, SHOW_TRANSLATE } = storageNames;
 
-const Menu: FC<MenuProps> = () => {
+const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
   const { showButtons, showTranslate } = useAction();
   const { displayButtons, translate } = useTypedSelector(store => store.wordList);
@@ -75,8 +74,8 @@ const Menu: FC<MenuProps> = () => {
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/find-pair">
-                <img src={GameIcon} alt="find-pair" className="icon" />
+              <Link to="/puzzle">
+                <img src={GameIcon} alt="puzzle" className="icon" />
               </Link>
             </li>
             <li className="menu__item">
@@ -98,7 +97,8 @@ const Menu: FC<MenuProps> = () => {
                 onChange={onChangeTranslate}
                 checked={translate}
                 disabled={disabled}
-                id="switchTranslate" type="checkbox"
+                id="switchTranslate"
+                type="checkbox"
                 name="switchTranslate"
                 className="switch is-info"
               />
@@ -110,7 +110,8 @@ const Menu: FC<MenuProps> = () => {
                   onChange={onChangeButtons}
                   checked={displayButtons}
                   disabled={disabled}
-                  id="switchButtons" type="checkbox"
+                  id="switchButtons"
+                  type="checkbox"
                   name="switchButtons"
                   className="switch is-info"
                 />
@@ -123,5 +124,4 @@ const Menu: FC<MenuProps> = () => {
     </aside>
   );
 };
-
 export default Menu;
