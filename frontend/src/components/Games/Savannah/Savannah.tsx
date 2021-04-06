@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './savannah.scss';
 import { SavannahProps } from './Savannah.model';
 import { WORD_GROUPS, API_BASE_URL } from '../../../constants';
+import Finish from '../Finish';
 import { Word } from '../../../models/word';
 import gameDataActions from '../../../store/action-creators/gameDataActions';
 
@@ -37,10 +38,12 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
 
   const [isFromTextbook, setIsFromTextbook] = useState(false);
   const [group, setGroup] = useState(0);
-  const [currentWords, setCurrentWords] = useState<[Word] | []>([]);
+  const [currentWords, setCurrentWords] = useState<Word[]>([]);
   const [wordsChunk, setWordsChunk] = useState([0]);
   const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * answerVariantsCount));
   const [round, setRound] = useState(1);
+  const [correctAnswers, setCorrectAnswers] = useState<Word[]>([]);
+  const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
 
   const initialGameState = {
     lives: maxLives,
@@ -110,6 +113,8 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   function resolveAsWrongAnswer() {
+    const updatedWrongAnswers = [...wrongAnswers, currentWords[wordsChunk[soughtIndex]]];
+    setWrongAnswers(updatedWrongAnswers);
     let { lives } = statsData.current;
     let wrongAnswersCount = statsData.current.wrongAswersCount;
     wrongAnswersCount += 1;
@@ -125,6 +130,8 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   function resolveAsCorrectAnswer() {
+    const updatedCorrectAnswers = [...correctAnswers, currentWords[wordsChunk[soughtIndex]]];
+    setCorrectAnswers(updatedCorrectAnswers);
     let { correctAnswersCount } = statsData.current;
     correctAnswersCount += 1;
     statsData.current.correctAnswersCount = correctAnswersCount;
@@ -176,17 +183,25 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     resolveAsWrongAnswer();
   }
 
+  function handleClose() {
+    if (gameScreen === 'welcome') {
+      window.location.href = '../';
+    }
+    // открыть попап с предупреждением
+    resetGame();
+    setGameScreen('welcome');
+  }
+
   return (
     <section className="savannah">
       <div className="overlay"></div>
       <div
         className="btn--close"
         onClick={() => {
-          resetGame();
-          setGameScreen('welcome');
+          handleClose();
         }}
       >
-        <i className="far fa-times" />
+        <i className="fal fa-times" />
       </div>
 
       {gameScreen === 'welcome' && (
@@ -249,26 +264,27 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
         </div>
       )}
       {gameScreen === 'stats' && (
-        <div className="stats">
-          <div className="stats__message">Конец игры</div>
-          <button
-            className="button  is-primary is-outlined"
-            onClick={() => {
-              setGameScreen('welcome');
-              resetGame();
-            }}
-          >
-            начать новую игру
-          </button>
-          <button
-            className="button  is-primary is-outlined"
-            onClick={() => {
-              alert('sorry, not implemented');
-            }}
-          >
-            вернуться на главный экран
-          </button>
-        </div>
+        <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={statsData.current.point} />
+        // <div className="stats">
+        //   <div className="stats__message">Конец игры</div>
+        //   <button
+        //     className="button  is-primary is-outlined"
+        //     onClick={() => {
+        //       setGameScreen('welcome');
+        //       resetGame();
+        //     }}
+        //   >
+        //     начать новую игру
+        //   </button>
+        //   <button
+        //     className="button  is-primary is-outlined"
+        //     onClick={() => {
+        //       alert('sorry, not implemented');
+        //     }}
+        //   >
+        //     вернуться на главный экран
+        //   </button>
+        // </div>
       )}
     </section>
   );

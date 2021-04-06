@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { GameDataAction, GameDataActionTypes } from '../../models/gameData';
+import { GameDataAction, GameDataActionTypes } from '../../models';
 import { Word } from '../../models/word';
 import { API_BASE_URL } from '../../constants';
 

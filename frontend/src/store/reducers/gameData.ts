@@ -1,4 +1,4 @@
-import { GameDataAction, GameDataActionTypes, GameDataState } from '../../models/gameData';
+import { GameDataAction, GameDataActionTypes, GameDataState } from '../../models';
 
 const {
   SET_GROUP,

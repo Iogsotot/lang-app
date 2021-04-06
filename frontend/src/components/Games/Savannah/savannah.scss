@@ -8,6 +8,11 @@
   background-size: cover;
   background-position: center top;
 
+  .savannah-body {
+    width: inherit;
+    height: inherit;
+  }
+
   .overlay {
     position: absolute;
     top: 0;
@@ -20,7 +25,7 @@
   .btn--close {
     position: absolute;
     top: 0.5rem;
-    right: 0.5rem;
+    right: 1rem;
     aspect-ratio: 1/1;
     width: 48px;
 
@@ -33,6 +38,11 @@
       opacity: 0.7;
       transition: all 250ms;
     }
+
+    .fal,
+    .far {
+      font-family: "Font Awesome 5 Pro";
+    }
   }
 
   .savannah__info {
@@ -42,6 +52,7 @@
     transform: translate(-50%);
     width: 450px;
     margin: auto;
+    text-align: justify;
 
     background-color: rgba(255, 255, 255, 0.5);
 

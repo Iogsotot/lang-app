@@ -79,7 +79,6 @@
     & .button {
       font-size: 1.3rem;
     }
-    
   }
 
   &__volume {
@@ -134,9 +133,9 @@
     font-size: 1.5rem;
   }
 
-  & .button.is-warning {
-    font-size: 1.5rem;
-  }
+  // & .button.is-warning {
+  //   font-size: 1.5rem;
+  // }
 
   & .close-btn {
     position: absolute;
@@ -150,48 +149,47 @@
     }
 
     &:hover::before,
-  &:hover::after {
-    background-color: #7a7a7a;
-  }
+    &:hover::after {
+      background-color: #7a7a7a;
+    }
 
     &:focus {
       outline: none;
     }
   }
-}
 
-.buttons {
-  justify-content: center;
-}
-.difficulty-btn-block {
-
-  & .button.is-warning{
-    margin: 5px;
-  font-size: 1.2rem;
-   
-  &:disabled {
-    cursor: default;
+  .buttons {
+    justify-content: center;
   }
-  }
-}
+  .difficulty-btn-block {
+    & .button {
+      margin: 5px;
+      font-size: 1.2rem;
 
-.volume-button {
-  background-color: transparent;
-  border-radius: 50%;
-  color: #373b53;
-  border: none;
-
-  &:hover {
-    background-color: #fff3;
-    opacity: 0.8;
+      &:disabled {
+        cursor: default;
+      }
+    }
   }
 
-  &:active {
-    outline: none;
-    background-color: #fff5;
-  }
+  .volume-button {
+    background-color: transparent;
+    border-radius: 50%;
+    color: #373b53;
+    border: none;
 
-  &:focus {
-    outline: none;
+    &:hover {
+      background-color: #fff3;
+      opacity: 0.8;
+    }
+
+    &:active {
+      outline: none;
+      background-color: #fff5;
+    }
+
+    &:focus {
+      outline: none;
+    }
   }
 }
