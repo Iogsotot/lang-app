@@ -16,6 +16,7 @@ const { SHOW_BUTTONS, SHOW_TRANSLATE } = storageNames;
 
 const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
+  const currentLocation = useLocation();
   const { showButtons, showTranslate } = useAction();
   const { displayButtons, translate } = useTypedSelector(store => store.wordList);
   const [openSettings, setOpenSettings] = useState(false);
@@ -54,7 +55,7 @@ const Menu: FC = () => {
         <nav>
           <ul className="menu__list">
             <li className="menu__item">
-              <Link to="/textbook/0/0">
+              <Link to='/textbook/0/0'>
                 <img src={TextBookIcon} alt="textbook" className="icon" />
               </Link>
             </li>
@@ -69,7 +70,7 @@ const Menu: FC = () => {
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/savannah">
+              <Link to={{ pathname: '/savannah', state: { from: currentLocation.pathname } }}>
                 <img src={GameIcon} alt="savannah" className="icon" />
               </Link>
             </li>

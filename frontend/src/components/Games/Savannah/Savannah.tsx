@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
 import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import './savannah.scss';
 import { SavannahProps } from './Savannah.model';
 import { WORD_GROUPS, API_BASE_URL } from '../../../constants';
@@ -36,7 +37,13 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const maxLives = 5;
   const allWordsInGroupCount = 600;
 
-  const [isFromTextbook, setIsFromTextbook] = useState(false);
+  const currentLocation = useLocation();
+  let previousLocation = '';
+  if (currentLocation.state) {
+    // eslint-disable-next-line prefer-destructuring
+    previousLocation = currentLocation.state.from.split('/')[1];
+  }
+
   const [group, setGroup] = useState(0);
   const [currentWords, setCurrentWords] = useState<Word[]>([]);
   const [wordsChunk, setWordsChunk] = useState([0]);
@@ -211,7 +218,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
             В этой игре на вас обрушится дождь из слов! к счастью слова падают по одной капельке. Ваша задача - успеть
             выбрать правильно слово до того, как оно упадёт. Удачи!
           </p>
-          {!isFromTextbook && (
+          {previousLocation !== 'textbook' && (
             <div className="difficulty-btn-block">
               <p>Сложность:</p>
               {Object.entries(WORD_GROUPS).map(([key, value]) => (
@@ -265,26 +272,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
       )}
       {gameScreen === 'stats' && (
         <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={statsData.current.point} />
-        // <div className="stats">
-        //   <div className="stats__message">Конец игры</div>
-        //   <button
-        //     className="button  is-primary is-outlined"
-        //     onClick={() => {
-        //       setGameScreen('welcome');
-        //       resetGame();
-        //     }}
-        //   >
-        //     начать новую игру
-        //   </button>
-        //   <button
-        //     className="button  is-primary is-outlined"
-        //     onClick={() => {
-        //       alert('sorry, not implemented');
-        //     }}
-        //   >
-        //     вернуться на главный экран
-        //   </button>
-        // </div>
       )}
     </section>
   );
