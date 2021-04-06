@@ -8,6 +8,7 @@ import Audiocall from './components/Games/AudioCall';
 import Sprint from './components/Games/Sprint';
 import { useTypedSelector } from './hooks/useTypedSelector';
 import Dictionary from './components/Dictionary';
+import Puzzle from './components/Games/Puzzle';
 
 export const Router: FC = () => {
   const { isLoggedIn } = useTypedSelector(store => store.user);
@@ -25,6 +26,10 @@ export const Router: FC = () => {
 
         <Route path="/dictionary/:section/:group/:page" exact>
           <Dictionary />
+        </Route>
+
+        <Route path="/Puzzle/" exact>
+          <Puzzle />
         </Route>
 
         <Route path="/savannah/" exact>
@@ -64,6 +69,10 @@ export const Router: FC = () => {
 
       <Route path="/audiocall/">
         <Audiocall />
+      </Route>
+
+      <Route path="/Puzzle/" exact>
+        <Puzzle />
       </Route>
 
       <Route path="/textbook/:group/:page" exact>
