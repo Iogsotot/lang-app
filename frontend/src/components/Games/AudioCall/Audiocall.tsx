@@ -213,65 +213,71 @@ const Audiocall: FC = () => {
     (currentWordNumber < words.length ? setModalOnCloseIsActive(true) : handleSubmitClose());
 
   return (
-    <div className="audiocall">
-      <CloseButton
-        callback={() => {
-          closeButtonClick();
-        }}
-      />
-      <ModalOnClose
-        modalIsActive={modalOnCloseIsActive}
-        handleCancelModal={handleCancelModal}
-        handleSubmitClose={handleSubmitClose}
-      />
-      {!start && !isFromTextbook && (
-        <div className="difficulty-btn-block">
-          <h2>Сложность:</h2>
-          {Object.entries(WORD_GROUPS).map(([key, value]) => (
-            <button
-              disabled={value === group}
-              key={key}
-              onClick={() => {
-                setGroup(value);
-              }}
-              className="button is-warning is-small"
-            >
-              {key}
-            </button>
-          ))}
-          <div className="audiocall__start-button">
-            <button className="button is-danger" onClick={clickStart}>
-              Начать игру
-            </button>
+    <section className="audiocall">
+      <div className="overlay">
+        <CloseButton
+          callback={() => {
+            closeButtonClick();
+          }}
+        />
+        <ModalOnClose
+          modalIsActive={modalOnCloseIsActive}
+          handleCancelModal={handleCancelModal}
+          handleSubmitClose={handleSubmitClose}
+        />
+        {!start && !isFromTextbook && (
+          <div className="audiocall__info box">
+            <h2 className="title is-2">Audiocall</h2>
+            <p>
+            В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может,
+            вам так легче учить язык.
+            </p>
+            <div className="difficulty-btn-block">
+              <h2>Сложность:</h2>
+              {Object.entries(WORD_GROUPS).map(([key, value]) => (
+                <button
+                  disabled={value === group}
+                  key={key}
+                  onClick={() => {
+                    setGroup(value);
+                  }}
+                  className="button is-warning is-small"
+                >
+                  {key}
+                </button>
+              ))}
+            </div>
+            <button className="btn button is-primary is-outlined" onClick={clickStart}>Начать игру</button>
           </div>
-        </div>
-      )}
-      {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
-        <div className="audiocall_inner">
-          <div>
-            {currentView && <OpenCurrentWord />}
-            {!currentView && <CloseCurrentWord />}
-          </div>
-          <div className="audiocall__answers">
-            <VariantsButtons />
+        )}
+        {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
+          <div className="audiocall_inner">
+            <div>
+              {currentView && <OpenCurrentWord />}
+              {!currentView && <CloseCurrentWord />}
+            </div>
+            <div className="audiocall__answers">
+              <VariantsButtons />
 
-            {currentView && (
-              <button className="button is-danger" onClick={nextWord}>
-                <i className="fas fa-angle-double-right" />
-              </button>
-            )}
-            {!currentView && (
-              <button className="button is-danger" onClick={dontKnowClick}>
-                Я не знаю
-              </button>
-            )}
+              {currentView && (
+                <button className="button is-danger" onClick={nextWord}>
+                  <i className="fas fa-angle-double-right" />
+                </button>
+              )}
+              {!currentView && (
+                <button className="button is-danger" onClick={dontKnowClick}>
+                  Я не знаю
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-      {start && currentWordNumber >= words.length && (
-        <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 10} />
-      )}
-    </div>
+        )}
+        {start && currentWordNumber >= words.length && (
+          <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 10} />
+        )}
+
+      </div>
+    </section>
   );
 };
 export default Audiocall;
