@@ -38,6 +38,7 @@ export interface FetchUserWordsProps {
   page?: number;
   section?: string;
   amount?: number;
+  hideDeleted?: boolean;
   userId: string;
   token: string;
 }

@@ -4,8 +4,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordList from '../WordList';
-import { WORD_GROUPS } from '../../constants';
+import { MIN_PAGE, WORD_GROUPS, ALL_WORDS_IN_GROUP } from '../../constants';
 import { DictionarySections } from '../../models';
+import Pagination from '../Pagination';
 
 type Sections = 'learning' | 'hard' | 'deleted';
 const {
@@ -16,7 +17,7 @@ const {
 
 const Dictionary: FC = () => {
   const history = useHistory();
-  const { fetchUserWords, setGroup, setPage } = useAction();
+  const { setLocalPage, fetchUserWords, setGroup, setPage } = useAction();
   const {
     section,
     group: groupFromUrl,
@@ -26,10 +27,11 @@ const Dictionary: FC = () => {
     group: string;
     page: string;
   } = useParams();
-  const store = useTypedSelector((storeObj) => storeObj);
-  const { page, group } = store.wordList;
+  const store = useTypedSelector(commonStore => commonStore);
+  const { page, group, loading, groupOfWords } = store.wordList;
   const { userId, token } = store.user.user;
   const [activeSection, setActiveSection] = useState<Sections>(LEARNING);
+
   const nextPage = () => {
     setPage(page + 1);
   };
@@ -38,9 +40,13 @@ const Dictionary: FC = () => {
     setPage(page - 1);
   };
 
+  const choosePage = (numOfPage: number) => {
+    setPage(numOfPage);
+  };
+
   const chooseGroup = (groupNumber: number) => {
     setGroup(groupNumber);
-    setPage(0);
+    setPage(1);
   };
 
   const setSection = (clickedSection: Sections) => {
@@ -49,12 +55,22 @@ const Dictionary: FC = () => {
 
   useEffect(() => {
     fetchUserWords({
-      section: DELETED,
-      group,
-      page,
+      section: activeSection,
+      group: group - 1,
+      amount: ALL_WORDS_IN_GROUP,
       userId,
       token,
     });
+    if (groupOfWords) {
+      setLocalPage(groupOfWords[page - 1]);
+    }
+    history.push(`/dictionary/${activeSection}/${group}/${page}`);
+  }, [activeSection, group]);
+
+  useEffect(() => {
+    if (groupOfWords) {
+      setLocalPage(groupOfWords[page - 1]);
+    }
     history.push(`/dictionary/${activeSection}/${group}/${page}`);
   }, [activeSection, group, page]);
 
@@ -92,8 +108,8 @@ const Dictionary: FC = () => {
       <div className="tabs is-toggle is-toggle-rounded group-tabs">
         <ul>
           {Object.entries(WORD_GROUPS).map(([key, value]) => (
-            <li key={key} className={value === group ? 'is-active' : ''}>
-              <a onClick={() => chooseGroup(value)}>
+            <li key={key} className={value === group - 1 ? 'is-active' : ''}>
+              <a onClick={() => chooseGroup(value + 1)}>
                 <span>{key}</span>
               </a>
             </li>
@@ -101,15 +117,15 @@ const Dictionary: FC = () => {
         </ul>
       </div>
       <WordList />
-      <div className="words__pagination">
-        <button className="btn btn-sm" disabled={page === 0} onClick={prevPage}>
-          Назад
-        </button>
-        <span>{page + 1}</span>
-        <button className="btn btn-sm" disabled={page === 29} onClick={nextPage}>
-          Вперед
-        </button>
-      </div>
+      <Pagination
+        minPage={MIN_PAGE}
+        maxPage={groupOfWords?.length || 1}
+        loading={loading}
+        nextPage={nextPage}
+        prevPage={prevPage}
+        choosePage={choosePage}
+        page={page}
+      />
     </main>
   );
 };

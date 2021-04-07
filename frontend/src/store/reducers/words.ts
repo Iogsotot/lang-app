@@ -13,8 +13,8 @@ const {
 
 export const initialState: WordListState = {
   words: [],
-  page: 0,
-  group: 0,
+  page: 1,
+  group: 1,
   loading: false,
   error: null,
   translate: true,

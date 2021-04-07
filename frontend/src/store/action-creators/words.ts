@@ -21,6 +21,8 @@ const {
 
 const {
   deletedWords,
+  hardWords,
+  learningWords,
 } = USER_WORDS_FILTERS;
 
 const {
@@ -50,7 +52,7 @@ export const fetchRandomWords = (group: number, amount: number) => async (
 };
 
 export const fetchUserWords = ({
-  group, page, section, token, userId, amount,
+  group, page, section, token, userId, amount, hideDeleted,
 }: FetchUserWordsProps) => async (
   dispatch: Dispatch<WordListAction>,
 ): Promise<void> => {
@@ -61,21 +63,23 @@ export const fetchUserWords = ({
   let filter: string;
 
   switch (section) {
-    case LEARNING: filter = LEARNING;
+    case LEARNING: filter = learningWords;
       break;
-    case HARD: filter = HARD;
+    case HARD: filter = hardWords;
       break;
     case DELETED: filter = deletedWords;
       break;
     default: filter = '';
       break;
   }
-  const pageFilter = page === 0 && page ? `&page=${page}` : '';
+  const groupFilter = group === 0 || group ? `group=${group}` : '';
+  const pageFilter = page === 0 || page ? `&page=${page}` : '';
   const aggregationFilter = filter ? `&filter=${filter}` : '';
-  const queries = `?group=${group}${pageFilter}${aggregationFilter}&wordsPerPage=${amount}`;
+  const wordsPerPage = amount ? `&wordsPerPage=${amount}` : '';
+  const queries = `${groupFilter}${pageFilter}${aggregationFilter}${wordsPerPage}`;
 
   const response = await fetch(
-    `${API_BASE_URL}/users/${userId}/aggregatedWords${queries}`,
+    `${API_BASE_URL}/users/${userId}/aggregatedWords?${queries}`,
     {
       method: 'GET',
       headers: {
@@ -94,13 +98,20 @@ export const fetchUserWords = ({
     });
 
   const groupedWords = (): Word[][] => {
-    const words: Word[] = response[0].paginatedResults;
-    if (amount && words.length > 20) {
+    let words: Word[] = [];
+    if (response && response[0]?.paginatedResults) {
+      words = response[0].paginatedResults;
       const newWords = [];
       let wordsPage = [];
 
       for (let i = 0; i < words.length; i++) {
-        wordsPage.push(words[i]);
+        if (hideDeleted) {
+          if (words[i]?.userWord?.isDeleted !== true) {
+            wordsPage.push(words[i]);
+          }
+        } else {
+          wordsPage.push(words[i]);
+        }
         if (wordsPage.length === 20 || i === words.length - 1) {
           newWords.push(wordsPage);
           wordsPage = [];
@@ -108,13 +119,21 @@ export const fetchUserWords = ({
       }
       return newWords;
     }
-    return [words];
+    return [];
   };
+  const result = groupedWords();
 
   dispatch({
     type: FETCH_USER_WORD_LIST_SUCCESS,
-    payload: groupedWords(),
+    payload: result,
   });
+
+  if (result.length) {
+    dispatch({
+      type: FETCH_WORD_LIST_SUCCESS,
+      payload: result[0],
+    });
+  }
 };
 
 export const fetchWords = (group: number, page: number) => async (

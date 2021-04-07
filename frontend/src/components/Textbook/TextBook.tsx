@@ -40,12 +40,6 @@ const TextBook: FC = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      fetchUserWords({
-        group: group - 1,
-        token: user.token,
-        userId: user.userId,
-        amount: ALL_WORDS_IN_GROUP,
-      });
       if (groupOfWords) {
         setLocalPage(groupOfWords[page - 1]);
       }
@@ -54,6 +48,18 @@ const TextBook: FC = () => {
     }
     history.push(`/textbook/${group}/${page}`);
   }, [group, page]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchUserWords({
+        group: group - 1,
+        token: user.token,
+        userId: user.userId,
+        amount: ALL_WORDS_IN_GROUP,
+        hideDeleted: true,
+      });
+    }
+  }, [group]);
 
   useEffect(() => {
     if (Number.isInteger(+pageFromUrl) && Number.isInteger(+groupFromUrl)) {

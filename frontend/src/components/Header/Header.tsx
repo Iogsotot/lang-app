@@ -48,7 +48,7 @@ const Header: FC = () => {
             <>
               <Link
                 className={`dictionary__btn ${isDictionaryPage ? 'active' : ''}`}
-                to="/dictionary/learning/0/0"
+                to="/dictionary/learning/1/1"
               >
                 <img src={dictionaryIcon} alt=""/>
               </Link>
