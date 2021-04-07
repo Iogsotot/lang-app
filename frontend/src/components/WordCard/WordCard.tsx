@@ -47,8 +47,7 @@ const WordCard: FC<WordCardProps> = props => {
   const addWordToHard = async () => {
     setLoading(true);
     const body = JSON.stringify({
-      difficulty: 'string',
-      isDeleted: true,
+      difficulty: 'hard',
     });
     await fetch(
       `${API_BASE_URL}/users/${userId}/words/${id}`,

@@ -4,13 +4,14 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordList from '../WordList';
-import { WORD_GROUPS } from '../../constants';
+import { WORD_GROUPS, MAX_PAGE, MIN_PAGE } from '../../constants';
+import Pagination from '../Pagination';
 
 const TextBook: FC = () => {
   const history = useHistory();
   const { fetchWords, setGroup, setPage } = useAction();
   const { group: groupFromUrl, page: pageFromUrl }: { group: string; page: string } = useParams();
-  const { page, group } = useTypedSelector(store => store.wordList);
+  const { page, group, loading } = useTypedSelector(store => store.wordList);
 
   const nextPage = () => {
     setPage(page + 1);
@@ -20,13 +21,17 @@ const TextBook: FC = () => {
     setPage(page - 1);
   };
 
+  const choosePage = (numOfPage: number) => {
+    setPage(numOfPage);
+  };
+
   const chooseGroup = (groupNumber: number) => {
     setGroup(groupNumber);
-    setPage(0);
+    setPage(1);
   };
 
   useEffect(() => {
-    fetchWords(group, page);
+    fetchWords(group - 1, page - 1);
     history.push(`/textbook/${group}/${page}`);
   }, [group, page]);
 
@@ -42,8 +47,8 @@ const TextBook: FC = () => {
         <div className="tabs is-toggle is-toggle-rounded">
           <ul>
             {Object.entries(WORD_GROUPS).map(([key, value]) => (
-              <li key={key} className={value === group ? 'is-active' : ''}>
-                <a onClick={() => chooseGroup(value)}>
+              <li key={key} className={value === group - 1 ? 'is-active' : ''}>
+                <a onClick={() => chooseGroup(value + 1)}>
                   <span>{key}</span>
                 </a>
               </li>
@@ -51,15 +56,15 @@ const TextBook: FC = () => {
           </ul>
         </div>
         <WordList />
-        <div className="words__pagination">
-          <button className="btn btn-sm" disabled={page === 0} onClick={prevPage}>
-            Назад
-          </button>
-          <span>{page + 1}</span>
-          <button className="btn btn-sm" disabled={page === 29} onClick={nextPage}>
-            Вперед
-          </button>
-        </div>
+        <Pagination
+          minPage={MIN_PAGE}
+          maxPage={MAX_PAGE}
+          loading={loading}
+          nextPage={nextPage}
+          prevPage={prevPage}
+          choosePage={choosePage}
+          page={page}
+        />
       </div>
     </main>
   );

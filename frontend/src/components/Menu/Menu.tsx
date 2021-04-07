@@ -54,7 +54,7 @@ const Menu: FC = () => {
         <nav>
           <ul className="menu__list">
             <li className="menu__item">
-              <Link to="/textbook/0/0">
+              <Link to="/textbook/1/1">
                 <img src={TextBookIcon} alt="textbook" className="icon" />
               </Link>
             </li>

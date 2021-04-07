@@ -69,8 +69,12 @@ export const fetchUserWords = ({
       break;
   }
 
+  const amount = 600;
+  const aggregationFilter = filter ? `&filter=${filter}` : '';
+  const queries = `?group=${group}&page=${page}${aggregationFilter}&wordsPerPage=${amount}`;
+
   const response = await fetch(
-    `${API_BASE_URL}/users/${userId}/aggregatedWords?group=${group}&page=${page}${filter ? `&filter=${filter}` : ''}`,
+    `${API_BASE_URL}/users/${userId}/aggregatedWords${queries}`,
     {
       method: 'GET',
       headers: {
@@ -87,8 +91,6 @@ export const fetchUserWords = ({
         payload: error,
       });
     });
-
-  console.log(response[0].paginatedResults);
 
   dispatch({
     type: FETCH_WORD_LIST_SUCCESS,
