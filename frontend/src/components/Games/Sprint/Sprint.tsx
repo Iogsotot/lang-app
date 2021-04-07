@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import useSound from 'use-sound';
 
-import onWrong from '../../../assets/audio/wilhelm_scream.mp3';
+import onWrong from '../../../assets/audio/f18a8f85f945b33.mp3';
 import onCorrect from '../../../assets/audio/cratepop.mp3';
 import onGameOver from '../../../assets/audio/952782968e924cf.mp3';
 import onGameReady from '../../../assets/audio/622c286eab59510.mp3';
@@ -16,6 +16,7 @@ import ModalOnClose from './ModalOnClose';
 import CloseButton from '../../CloseButton';
 import GetReady from './GetReady';
 import Frogs from './Frogs';
+import Checkbox from './Checkbox';
 import ToggleButton from './ToggleButton';
 import PlayAudioButton from './PlayAudioButton';
 import { getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
@@ -44,6 +45,7 @@ const {
   basicPoints,
   maxModificator,
   maxStreak,
+  checkboxAuto,
 } = SPRINT;
 
 const Sprint: FC = () => {
@@ -62,7 +64,8 @@ const Sprint: FC = () => {
   const [getReadyIsPlaying, setGetReadyIsPlaying] = useState(true);
   const [points, setPoints] = useState(0);
   const [modificator, setModificator] = useState(1);
-  const [isSoundOn, setIsSoundOn] = useState(false);
+  const [isSoundOn, setIsSoundOn] = useState(true);
+  const [autoPlay, setAutoPlay] = useState(true);
   const [currentWord, setCurrentWord] = useState<Word>({
     id: '',
     group: 0,
@@ -88,6 +91,7 @@ const Sprint: FC = () => {
     audio: 'null',
     answer: false,
   });
+
   const mod = basicPoints * 2 ** (modificator - 1);
 
   const addPoints = () => setPoints(old => old + mod);
@@ -197,6 +201,10 @@ const Sprint: FC = () => {
   useEffect(() => {
     document.addEventListener('keyup', handleArrowKeys);
 
+    if (autoPlay && ready) {
+      new Audio(pair.audio).play();
+    }
+
     return () => {
       document.removeEventListener('keyup', handleArrowKeys);
     };
@@ -228,6 +236,8 @@ const Sprint: FC = () => {
   const togglePause = () => setIsPlaying(old => !old);
 
   const toggleSound = () => setIsSoundOn(old => !old);
+
+  const toggleAutoPlay = () => setAutoPlay(old => !old);
 
   const handleAnswerBtnClickTrue = () => handleAnswerBtnClick(true);
   const handleAnswerBtnClickFalse = () => handleAnswerBtnClick(false);
@@ -282,6 +292,7 @@ const Sprint: FC = () => {
               />
             </div>
           </div>
+          <Checkbox labelText={checkboxAuto} callback={toggleAutoPlay} checked={autoPlay} />
         </div>
       </>
     );

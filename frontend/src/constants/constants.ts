@@ -37,6 +37,7 @@ const SPRINT = {
   basicPoints: 10,
   maxModificator: 4,
   maxStreak: 3,
+  checkboxAuto: ' Автопроизношение',
 };
 
 const SPRINT_MODAL_ON_CLOSE = {
