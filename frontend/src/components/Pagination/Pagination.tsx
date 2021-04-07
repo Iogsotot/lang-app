@@ -1,3 +1,4 @@
+import './pagination.scss';
 import React, { FC } from 'react';
 import { PaginationProps } from './Pagination.model';
 
@@ -10,20 +11,20 @@ const Pagination: FC<PaginationProps> = ({
   prevPage,
   choosePage,
 }) => (
-  <nav className="pagination is-centered" role="navigation" aria-label="pagination">
+  <nav className="pagination is-centered custom__pagination" role="navigation" aria-label="pagination">
     <button
       className="pagination-previous"
       disabled={page === minPage || loading}
       onClick={prevPage}
     >
-            Previous
+      Назад
     </button>
     <button
       className="pagination-next"
       disabled={page === maxPage || loading}
       onClick={nextPage}
     >
-      Next page
+      Вперед
     </button>
     <ul className="pagination-list">
       {

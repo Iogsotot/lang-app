@@ -1,17 +1,25 @@
 import './textbook.scss';
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordList from '../WordList';
-import { WORD_GROUPS, MAX_PAGE, MIN_PAGE } from '../../constants';
+import { WORD_GROUPS, MAX_PAGE, MIN_PAGE, ALL_WORDS_IN_GROUP } from '../../constants';
 import Pagination from '../Pagination';
 
 const TextBook: FC = () => {
   const history = useHistory();
-  const { fetchWords, setGroup, setPage } = useAction();
+  const {
+    fetchUserWords,
+    fetchWords,
+    setGroup,
+    setPage,
+    setLocalPage,
+  } = useAction();
   const { group: groupFromUrl, page: pageFromUrl }: { group: string; page: string } = useParams();
-  const { page, group, loading } = useTypedSelector(store => store.wordList);
+  const store = useTypedSelector(commonStore => commonStore);
+  const { page, group, loading, groupOfWords } = store.wordList;
+  const { isLoggedIn, user } = store.user;
 
   const nextPage = () => {
     setPage(page + 1);
@@ -31,7 +39,19 @@ const TextBook: FC = () => {
   };
 
   useEffect(() => {
-    fetchWords(group - 1, page - 1);
+    if (isLoggedIn) {
+      fetchUserWords({
+        group: group - 1,
+        token: user.token,
+        userId: user.userId,
+        amount: ALL_WORDS_IN_GROUP,
+      });
+      if (groupOfWords) {
+        setLocalPage(groupOfWords[page - 1]);
+      }
+    } else {
+      fetchWords(group - 1, page - 1);
+    }
     history.push(`/textbook/${group}/${page}`);
   }, [group, page]);
 

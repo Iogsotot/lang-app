@@ -6,11 +6,43 @@ import { useAudios } from '../../hooks/useAudios';
 import Spinner from '../Spinner/Spinner';
 
 const WordList: FC = () => {
-  const { words, loading, displayButtons, translate } = useTypedSelector(store => store.wordList);
+  const store = useTypedSelector(commonStore => commonStore);
+  const { words, loading, displayButtons, translate } = store.wordList;
+  const { isLoggedIn } = store.user;
   const { setAudio, toggleAudio, isPlaying } = useAudios(words);
 
   const playHandler = (word: string) => {
     setAudio(word);
+  };
+
+  const makeWords = () => {
+    if (isLoggedIn) {
+      return (words
+        .filter(word => {
+          if (word.userWord?.isDeleted) {
+            return !word.userWord?.isDeleted;
+          }
+          return true;
+        })
+        .map(word => (
+          <WordCard
+            key={word.id}
+            playHandler={playHandler}
+            translate={translate}
+            displayButtons={displayButtons}
+            {...word}
+          />
+        )));
+    }
+    return (words.map(word => (
+      <WordCard
+        key={word.id}
+        playHandler={playHandler}
+        translate={translate}
+        displayButtons={displayButtons}
+        {...word}
+      />
+    )));
   };
 
   return (
@@ -18,15 +50,7 @@ const WordList: FC = () => {
       <div className="words">
         <div className="words__inner">
           {!loading ? (
-            words.map(word => (
-              <WordCard
-                key={word.id}
-                playHandler={playHandler}
-                translate={translate}
-                displayButtons={displayButtons}
-                {...word}
-              />
-            ))
+            makeWords()
           ) : (
             <Spinner />
           )}

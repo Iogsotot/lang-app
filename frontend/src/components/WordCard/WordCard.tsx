@@ -7,6 +7,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 const WordCard: FC<WordCardProps> = props => {
   const {
     id,
+    _id: dashedId,
     word,
     transcription,
     wordTranslate,
@@ -22,15 +23,14 @@ const WordCard: FC<WordCardProps> = props => {
   const { user, isLoggedIn } = useTypedSelector((store) => store.user);
   const { userId, token } = user;
   const [loading, setLoading] = useState(false);
-
   const deleteWord = async () => {
     setLoading(true);
     const body = JSON.stringify({
-      difficulty: 'string',
       isDeleted: true,
     });
+    const newId = isLoggedIn ? dashedId : id;
     await fetch(
-      `${API_BASE_URL}/users/${userId}/words/${id}`,
+      `${API_BASE_URL}/users/${userId}/words/${newId}`,
       {
         method: 'POST',
         headers: {
@@ -49,8 +49,9 @@ const WordCard: FC<WordCardProps> = props => {
     const body = JSON.stringify({
       difficulty: 'hard',
     });
+    const newId = isLoggedIn ? dashedId : id;
     await fetch(
-      `${API_BASE_URL}/users/${userId}/words/${id}`,
+      `${API_BASE_URL}/users/${userId}/words/${newId}`,
       {
         method: 'POST',
         headers: {

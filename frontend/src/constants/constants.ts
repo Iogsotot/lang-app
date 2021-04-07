@@ -13,6 +13,7 @@ const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
 
 const MAX_PAGE = 30;
 const MIN_PAGE = 1;
+const ALL_WORDS_IN_GROUP = 600;
 
 const LOCATIONS = {
   textbook: 'textbook',
@@ -75,4 +76,5 @@ export {
   SPRINT_GET_READY,
   MAX_PAGE,
   MIN_PAGE,
+  ALL_WORDS_IN_GROUP,
 };

@@ -5,12 +5,14 @@ import {
   WordListActionTypes,
   FetchUserWordsProps,
   DictionarySections,
+  Word,
 } from '../../models';
 
 const {
   FETCH_WORD_LIST,
   FETCH_WORD_LIST_ERROR,
   FETCH_WORD_LIST_SUCCESS,
+  FETCH_USER_WORD_LIST_SUCCESS,
   GET_WORD_LIST_PAGE,
   GET_WORD_LIST_GROUP,
   SHOW_WORD_TRANSLATE,
@@ -48,7 +50,7 @@ export const fetchRandomWords = (group: number, amount: number) => async (
 };
 
 export const fetchUserWords = ({
-  group, page, section, token, userId,
+  group, page, section, token, userId, amount,
 }: FetchUserWordsProps) => async (
   dispatch: Dispatch<WordListAction>,
 ): Promise<void> => {
@@ -68,10 +70,9 @@ export const fetchUserWords = ({
     default: filter = '';
       break;
   }
-
-  const amount = 600;
+  const pageFilter = page === 0 && page ? `&page=${page}` : '';
   const aggregationFilter = filter ? `&filter=${filter}` : '';
-  const queries = `?group=${group}&page=${page}${aggregationFilter}&wordsPerPage=${amount}`;
+  const queries = `?group=${group}${pageFilter}${aggregationFilter}&wordsPerPage=${amount}`;
 
   const response = await fetch(
     `${API_BASE_URL}/users/${userId}/aggregatedWords${queries}`,
@@ -92,9 +93,27 @@ export const fetchUserWords = ({
       });
     });
 
+  const groupedWords = (): Word[][] => {
+    const words: Word[] = response[0].paginatedResults;
+    if (amount && words.length > 20) {
+      const newWords = [];
+      let wordsPage = [];
+
+      for (let i = 0; i < words.length; i++) {
+        wordsPage.push(words[i]);
+        if (wordsPage.length === 20 || i === words.length - 1) {
+          newWords.push(wordsPage);
+          wordsPage = [];
+        }
+      }
+      return newWords;
+    }
+    return [words];
+  };
+
   dispatch({
-    type: FETCH_WORD_LIST_SUCCESS,
-    payload: response[0].paginatedResults,
+    type: FETCH_USER_WORD_LIST_SUCCESS,
+    payload: groupedWords(),
   });
 };
 
@@ -130,6 +149,13 @@ export const setPage = (number: number) => (dispatch: Dispatch<WordListAction>):
   dispatch({
     type: GET_WORD_LIST_PAGE,
     payload: number,
+  });
+};
+
+export const setLocalPage = (words: Word[]) => (dispatch: Dispatch<WordListAction>): void => {
+  dispatch({
+    type: FETCH_WORD_LIST_SUCCESS,
+    payload: words,
   });
 };
 

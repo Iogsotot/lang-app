@@ -8,6 +8,7 @@ const {
   GET_WORD_LIST_GROUP,
   SHOW_WORD_TRANSLATE,
   SHOW_WORD_BUTTONS,
+  FETCH_USER_WORD_LIST_SUCCESS,
 } = WordListActionTypes;
 
 export const initialState: WordListState = {
@@ -33,6 +34,9 @@ export const wordListReducer = (state = initialState, action: WordListAction): W
 
     case FETCH_WORD_LIST_SUCCESS:
       return { ...state, loading: false, words: action.payload };
+
+    case FETCH_USER_WORD_LIST_SUCCESS:
+      return { ...state, loading: false, groupOfWords: action.payload };
 
     case FETCH_WORD_LIST_ERROR:
       return { ...state, loading: false, error: action.payload };

@@ -1,7 +1,11 @@
 import { Dispatch } from 'react';
 
+interface UserWord {
+  isDeleted: boolean;
+}
 export interface Word {
   id?: string;
+  _id?: string;
   group?: number;
   page?: number;
   word: string;
@@ -15,10 +19,12 @@ export interface Word {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+  userWord?: UserWord;
 }
 
 export interface WordListState {
   words: Word[];
+  groupOfWords?: Word[][];
   page: number;
   group: number;
   loading: boolean;
@@ -29,8 +35,9 @@ export interface WordListState {
 
 export interface FetchUserWordsProps {
   group: number;
-  page: number;
-  section: string;
+  page?: number;
+  section?: string;
+  amount?: number;
   userId: string;
   token: string;
 }
@@ -43,6 +50,7 @@ export interface WordsDispatchProps {
   fetchUserWords: (props: FetchUserWordsProps) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showTranslate: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setPage: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
+  setLocalPage: (page: Word[]) => (dispatch: Dispatch<WordListAction>) => void;
 }
 
 interface FetchWordListAction {
@@ -52,6 +60,11 @@ interface FetchWordListAction {
 interface FetchWordListSuccessAction {
   type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS;
   payload: Word[];
+}
+
+interface FetchUserWordListSuccessAction {
+  type: WordListActionTypes.FETCH_USER_WORD_LIST_SUCCESS;
+  payload: Word[][];
 }
 
 interface FetchWordListErrorAction {
@@ -88,6 +101,7 @@ export enum DictionarySections {
 export enum WordListActionTypes {
   FETCH_WORD_LIST = 'FETCH_WORD_LIST',
   FETCH_WORD_LIST_SUCCESS = 'FETCH_WORD_LIST_SUCCESS',
+  FETCH_USER_WORD_LIST_SUCCESS = 'FETCH_USER_WORD_LIST_SUCCESS',
   FETCH_WORD_LIST_ERROR = 'FETCH_WORD_LIST_ERROR',
   GET_WORD_LIST_PAGE = 'GET_WORD_LIST_PAGE',
   GET_WORD_LIST_GROUP = 'GET_WORD_LIST_GROUP',
@@ -98,6 +112,7 @@ export enum WordListActionTypes {
 export type WordListAction =
   | FetchWordListAction
   | FetchWordListSuccessAction
+  | FetchUserWordListSuccessAction
   | FetchWordListErrorAction
   | GetWordListPage
   | GetWordListGroup
