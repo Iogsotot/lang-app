@@ -63,21 +63,21 @@ const Sprint: FC = () => {
   const [points, setPoints] = useState(0);
   const [modificator, setModificator] = useState(1);
   const [isSoundOn, setIsSoundOn] = useState(false);
-  const [currentWord, setCurrentWord] = useState<Word | any>({
+  const [currentWord, setCurrentWord] = useState<Word>({
+    id: '',
     group: 0,
     page: 0,
-    word: 'alcohol',
-    image: 'files/01_0002.jpg',
-    audio: 'files/01_0002.mp3',
-    audioMeaning: 'files/01_0002_meaning.mp3',
-    audioExample: 'files/01_0002_example.mp3',
-    textMeaning: '<i>Alcohol</i> is a type of drink that can make people drunk.',
-    textExample: 'A person should not drive a car after he or she has been drinking <b>alcohol</b>.',
-    transcription: '[ǽlkəhɔ̀ːl]',
-
-    textExampleTranslate: 'Человек не должен водить машину после того, как он выпил алкоголь',
-    textMeaningTranslate: 'Алкоголь - это тип напитка, который может сделать людей пьяными',
-    wordTranslate: 'алкоголь',
+    word: '',
+    image: '',
+    audio: '',
+    audioMeaning: '',
+    audioExample: '',
+    textMeaning: '',
+    textExample: '',
+    transcription: '',
+    textExampleTranslate: '',
+    textMeaningTranslate: '',
+    wordTranslate: '',
   });
   const [mistakesStat, setMistakesStat] = useState<Word[]>([]);
   const [correctAnswersStat, setCorrectAnswersStat] = useState<Word[]>([]);
@@ -185,10 +185,14 @@ const Sprint: FC = () => {
     if (words.length === 0) {
       return;
     }
-
     setSprintWords(words);
     setPair(findWordPair());
   }, [words, ready]);
+  useEffect(() => {
+    if (ready) {
+      onGameReadyAudio();
+    }
+  }, [ready]);
 
   useEffect(() => {
     document.addEventListener('keyup', handleArrowKeys);
