@@ -358,3 +358,82 @@ main {
 @media (max-width: 700px) {
   //колонки
 }
+@media (max-width: 640px) {
+  main {
+    .promo {
+      background-image: url('../../assets/icons/Image.svg');
+      background-position: center top;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 95vw auto, contain;
+
+      height: 150vh;
+      padding: 0;
+      .info_block{
+        padding-top: 33rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: auto;
+      }
+    .title {
+      text-align: center;
+    }
+    .content {
+      text-align: center;
+    }
+    }
+  }
+  .features{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    h2{
+      margin-top: 2rem !important;
+    }
+    .features__block{
+      margin-top: 2rem !important;
+      margin-bottom: 2rem !important;
+      flex-direction: column !important;
+      .features__geo, .features__stars{
+        margin-bottom: 2rem;
+      }
+    }
+  }
+  .team{
+    height: 120rem !important;
+    .subtitle{
+      width: 100% !important;
+      padding: 1.5rem;
+    }
+    .team__group{
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    .duty{
+     height: 4.75rem !important;
+    }
+  }
+    .teammates {
+      grid-template-columns: 42px 79px 258px 79px 42px !important;
+      grid-template-areas:
+        " . bramov bramov . . "
+        " . . ainuAnna ainuAnna ."
+        ". svetlana svetlana . . "
+        " . . gregory gregory ."
+        " . johnneon johnneon . ."
+        " . . iogsotot iogsotot ." !important;
+
+      .center {
+       display: none;
+      }
+    }
+  }
+    .arrow-block{
+      .content_group{
+        padding-left: 0 !important;
+        .info{
+          display: none;
+        }
+      }
+    }
+}
