@@ -38,7 +38,6 @@ export interface FetchUserWordsProps {
   page?: number;
   section?: string;
   amount?: number;
-  hideDeleted?: boolean;
   userId: string;
   token: string;
 }
@@ -52,6 +51,8 @@ export interface WordsDispatchProps {
   showTranslate: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setPage: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
   setLocalPage: (page: Word[]) => (dispatch: Dispatch<WordListAction>) => void;
+  updateWord: (words: Word[], word: Word) => (dispatch: Dispatch<WordListAction>) => void;
+  clearDeletedWords: (words: Word[]) => (dispatch: Dispatch<WordListAction>) => void;
 }
 
 interface FetchWordListAction {
@@ -93,6 +94,11 @@ interface GetWordListGroup {
   payload: number;
 }
 
+interface UpdateWord {
+  type: WordListActionTypes.UPDATE_WORD;
+  payload: Word[];
+}
+
 export enum DictionarySections {
   LEARNING = 'learning',
   HARD = 'hard',
@@ -108,6 +114,7 @@ export enum WordListActionTypes {
   GET_WORD_LIST_GROUP = 'GET_WORD_LIST_GROUP',
   SHOW_WORD_TRANSLATE = 'SHOW_WORD_TRANSLATE',
   SHOW_WORD_BUTTONS = 'SHOW_WORD_BUTTONS',
+  UPDATE_WORD = 'UPDATE_WORD',
 }
 
 export type WordListAction =
@@ -118,4 +125,5 @@ export type WordListAction =
   | GetWordListPage
   | GetWordListGroup
   | ShowWordTranslate
-  | ShowWordButtons;
+  | ShowWordButtons
+  | UpdateWord;

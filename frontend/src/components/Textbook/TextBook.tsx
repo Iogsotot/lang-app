@@ -15,10 +15,11 @@ const TextBook: FC = () => {
     setGroup,
     setPage,
     setLocalPage,
+    clearDeletedWords,
   } = useAction();
   const { group: groupFromUrl, page: pageFromUrl }: { group: string; page: string } = useParams();
   const store = useTypedSelector(commonStore => commonStore);
-  const { page, group, loading, groupOfWords } = store.wordList;
+  const { page, group, loading, groupOfWords, words } = store.wordList;
   const { isLoggedIn, user } = store.user;
 
   const nextPage = () => {
@@ -56,10 +57,16 @@ const TextBook: FC = () => {
         token: user.token,
         userId: user.userId,
         amount: ALL_WORDS_IN_GROUP,
-        hideDeleted: true,
       });
+      clearDeletedWords(words);
     }
   }, [group]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      // clearDeletedWords(words);
+    }
+  }, [words]);
 
   useEffect(() => {
     if (Number.isInteger(+pageFromUrl) && Number.isInteger(+groupFromUrl)) {
@@ -84,7 +91,7 @@ const TextBook: FC = () => {
         <WordList />
         <Pagination
           minPage={MIN_PAGE}
-          maxPage={groupOfWords?.length || MAX_PAGE}
+          maxPage={isLoggedIn ? (groupOfWords?.length || MAX_PAGE) : MAX_PAGE}
           loading={loading}
           nextPage={nextPage}
           prevPage={prevPage}

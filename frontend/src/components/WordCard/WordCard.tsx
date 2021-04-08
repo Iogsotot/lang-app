@@ -3,6 +3,7 @@ import React, { FC, useState } from 'react';
 import { WordCardProps } from './WordCard.model';
 import { API_BASE_URL } from '../../constants';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useAction } from '../../hooks/useAction';
 
 const WordCard: FC<WordCardProps> = props => {
   const {
@@ -21,9 +22,13 @@ const WordCard: FC<WordCardProps> = props => {
     displayButtons,
     userWord,
   } = props;
-  const { user, isLoggedIn } = useTypedSelector((store) => store.user);
+  const store = useTypedSelector(commonStore => commonStore);
+  const { user, isLoggedIn } = store.user;
+  const { words } = store.wordList;
   const { userId, token } = user;
   const [loading, setLoading] = useState(false);
+  const { updateWord } = useAction();
+
   const deleteWord = async () => {
     setLoading(true);
     const body = JSON.stringify({
@@ -42,6 +47,8 @@ const WordCard: FC<WordCardProps> = props => {
         body,
       },
     );
+    const thisWord = { ...props, userWord: { isDeleted: true } };
+    updateWord(words, thisWord);
     setLoading(false);
   };
 

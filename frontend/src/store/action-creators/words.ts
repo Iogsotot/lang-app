@@ -17,6 +17,7 @@ const {
   GET_WORD_LIST_GROUP,
   SHOW_WORD_TRANSLATE,
   SHOW_WORD_BUTTONS,
+  UPDATE_WORD,
 } = WordListActionTypes;
 
 const {
@@ -52,7 +53,7 @@ export const fetchRandomWords = (group: number, amount: number) => async (
 };
 
 export const fetchUserWords = ({
-  group, page, section, token, userId, amount, hideDeleted,
+  group, page, section, token, userId, amount,
 }: FetchUserWordsProps) => async (
   dispatch: Dispatch<WordListAction>,
 ): Promise<void> => {
@@ -104,13 +105,7 @@ export const fetchUserWords = ({
       let wordsPage = [];
 
       for (let i = 0; i < words.length; i++) {
-        if (hideDeleted) {
-          if (words[i]?.userWord?.isDeleted !== true) {
-            wordsPage.push(words[i]);
-          }
-        } else {
-          wordsPage.push(words[i]);
-        }
+        wordsPage.push(words[i]);
         if (wordsPage.length === 20 || i === words.length - 1) {
           newWords.push(wordsPage);
           wordsPage = [];
@@ -202,5 +197,26 @@ export const showButtons = (show: boolean) => (dispatch: Dispatch<WordListAction
   dispatch({
     type: SHOW_WORD_BUTTONS,
     payload: show,
+  });
+};
+
+export const updateWord = (words: Word[], word: Word) => (dispatch: Dispatch<WordListAction>) :void => {
+  const updatedWords = words.map((newWord) => {
+    if (newWord.word === word.word) {
+      return { ...newWord, userWord: word.userWord };
+    }
+    return newWord;
+  });
+  dispatch({
+    type: UPDATE_WORD,
+    payload: updatedWords,
+  });
+};
+
+export const clearDeletedWords = (words: Word[]) => (dispatch: Dispatch<WordListAction>) :void => {
+  const clearedWords = words.filter((word) => word.userWord?.isDeleted !== true);
+  dispatch({
+    type: UPDATE_WORD,
+    payload: clearedWords,
   });
 };
