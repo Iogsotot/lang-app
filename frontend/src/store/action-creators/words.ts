@@ -77,7 +77,6 @@ export const fetchUserWords = ({
   const aggregationFilter = filter ? `&filter=${filter}` : '';
   const wordsPerPage = amount ? `&wordsPerPage=${amount}` : '';
   const queries = `${groupFilter}${pageFilter}${aggregationFilter}${wordsPerPage}`;
-
   const response = await fetch(
     `${API_BASE_URL}/users/${userId}/aggregatedWords?${queries}`,
     {
@@ -128,12 +127,19 @@ export const fetchUserWords = ({
     payload: result,
   });
 
-  if (result.length) {
-    dispatch({
-      type: FETCH_WORD_LIST_SUCCESS,
-      payload: result[0],
-    });
-  }
+  setTimeout(() => {
+    if (result.length && result.some(Array.isArray)) {
+      dispatch({
+        type: FETCH_WORD_LIST_SUCCESS,
+        payload: result[0],
+      });
+    } else {
+      dispatch({
+        type: FETCH_WORD_LIST_SUCCESS,
+        payload: [],
+      });
+    }
+  }, 1000);
 };
 
 export const fetchWords = (group: number, page: number) => async (

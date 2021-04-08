@@ -84,7 +84,7 @@ const TextBook: FC = () => {
         <WordList />
         <Pagination
           minPage={MIN_PAGE}
-          maxPage={MAX_PAGE}
+          maxPage={groupOfWords?.length || MAX_PAGE}
           loading={loading}
           nextPage={nextPage}
           prevPage={prevPage}

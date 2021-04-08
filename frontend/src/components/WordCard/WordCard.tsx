@@ -19,6 +19,7 @@ const WordCard: FC<WordCardProps> = props => {
     playHandler,
     translate,
     displayButtons,
+    userWord,
   } = props;
   const { user, isLoggedIn } = useTypedSelector((store) => store.user);
   const { userId, token } = user;
@@ -48,12 +49,48 @@ const WordCard: FC<WordCardProps> = props => {
     setLoading(true);
     const body = JSON.stringify({
       difficulty: 'hard',
+      isLearning: true,
+    });
+    const newId = isLoggedIn ? dashedId : id;
+    const response = await fetch(
+      `${API_BASE_URL}/users/${userId}/words/${newId}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body,
+      },
+    );
+    if (response.status === 417) {
+      await fetch(
+        `${API_BASE_URL}/users/${userId}/words/${newId}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body,
+        },
+      );
+    }
+    setLoading(false);
+  };
+
+  const restoreWord = async () => {
+    setLoading(true);
+    const body = JSON.stringify({
+      isDeleted: false,
     });
     const newId = isLoggedIn ? dashedId : id;
     await fetch(
       `${API_BASE_URL}/users/${userId}/words/${newId}`,
       {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: 'application/json',
@@ -67,6 +104,35 @@ const WordCard: FC<WordCardProps> = props => {
 
   const playAudio = () => {
     playHandler(word);
+  };
+
+  const Buttons = () => {
+    if (userWord?.isDeleted) {
+      return (
+        <button disabled={!isLoggedIn || loading} onClick={restoreWord} className="button is-success is-outlined">
+          <span className="icon is-small">
+            <i className="fas fa-trash-restore" />
+          </span>
+          <span>Восстановить</span>
+        </button>
+      );
+    }
+    return (
+      <>
+        <button disabled={!isLoggedIn || loading} onClick={addWordToHard} className="button is-warning">
+          <span className="icon is-small">
+            <i className="fas fa-bookmark" />
+          </span>
+          <span>В сложные</span>
+        </button>
+        <button disabled={!isLoggedIn || loading} onClick={deleteWord} className="button is-danger is-outlined">
+          <span className="icon is-small">
+            <i className="fas fa-trash" />
+          </span>
+          <span>Удалить</span>
+        </button>
+      </>
+    );
   };
 
   return (
@@ -90,25 +156,7 @@ const WordCard: FC<WordCardProps> = props => {
               <i className="fas fa-play" />
             </span>
           </button>
-
-          {displayButtons ? (
-            <>
-              <button disabled={!isLoggedIn || loading} onClick={addWordToHard} className="button is-warning">
-                <span className="icon is-small">
-                  <i className="fas fa-bookmark" />
-                </span>
-                <span>В сложные</span>
-              </button>
-              <button disabled={!isLoggedIn || loading} onClick={deleteWord} className="button is-danger is-outlined">
-                <span className="icon is-small">
-                  <i className="fas fa-trash" />
-                </span>
-                <span>Удалить</span>
-              </button>
-            </>
-          ) : (
-            <></>
-          )}
+          {displayButtons ? <Buttons /> : <></>}
         </div>
       </div>
     </div>

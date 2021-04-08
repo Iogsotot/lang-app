@@ -36,7 +36,7 @@ export const wordListReducer = (state = initialState, action: WordListAction): W
       return { ...state, loading: false, words: action.payload };
 
     case FETCH_USER_WORD_LIST_SUCCESS:
-      return { ...state, loading: false, groupOfWords: action.payload };
+      return { ...state, groupOfWords: action.payload };
 
     case FETCH_WORD_LIST_ERROR:
       return { ...state, loading: false, error: action.payload };

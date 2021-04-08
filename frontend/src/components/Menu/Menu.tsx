@@ -8,16 +8,16 @@ import TextBookIcon from '../../assets/images/textbook_icon.png';
 import StatsIcon from '../../assets/images/stats_icon.png';
 import GameIcon from '../../assets/images/game_icon.png';
 import SettingsIcon from '../../assets/images/settings_icon.png';
-import { storageNames, LOCATIONS } from '../../constants';
+import { LOCATIONS } from '../../constants';
 
 const { textbook } = LOCATIONS;
-
-const { SHOW_BUTTONS, SHOW_TRANSLATE } = storageNames;
 
 const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
   const { showButtons, showTranslate } = useAction();
-  const { displayButtons, translate } = useTypedSelector(store => store.wordList);
+  const store = useTypedSelector(commonStore => commonStore);
+  const { displayButtons, translate } = store.wordList;
+  const { isLoggedIn } = store.user;
   const [openSettings, setOpenSettings] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -26,18 +26,14 @@ const Menu: FC = () => {
   };
 
   const onChangeButtons = () => {
-    localStorage.setItem(SHOW_BUTTONS, `${!displayButtons}`);
     showButtons(!displayButtons);
   };
 
   const onChangeTranslate = () => {
-    localStorage.setItem(SHOW_TRANSLATE, `${!translate}`);
     showTranslate(!translate);
   };
 
   useEffect(() => {
-    showButtons(!!JSON.parse(localStorage.getItem(SHOW_BUTTONS) || 'false'));
-    showTranslate(!!JSON.parse(localStorage.getItem(SHOW_TRANSLATE) || 'false'));
     if (location !== textbook) {
       setDisabled(true);
     } else {
@@ -58,11 +54,15 @@ const Menu: FC = () => {
                 <img src={TextBookIcon} alt="textbook" className="icon" />
               </Link>
             </li>
-            <li className="menu__item">
-              <Link to="/stats">
-                <img src={StatsIcon} alt="stats" className="icon" />
-              </Link>
-            </li>
+            {
+              isLoggedIn
+                ? <li className="menu__item">
+                  <Link to="/stats">
+                    <img src={StatsIcon} alt="stats" className="icon" />
+                  </Link>
+                </li>
+                : <></>
+            }
             <li className="menu__item">
               <Link to="/sprint">
                 <img src={GameIcon} alt="sprint" className="icon" />

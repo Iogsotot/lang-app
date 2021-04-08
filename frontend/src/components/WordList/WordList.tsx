@@ -5,20 +5,22 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordCard from '../WordCard';
 import { useAudios } from '../../hooks/useAudios';
 import Spinner from '../Spinner/Spinner';
+import EmptyPage from './EmptyPage';
 
 const WordList: FC = () => {
   const { words, loading, displayButtons, translate } = useTypedSelector(store => store.wordList);
-
-  if (!words) {
-    return (
-      <h1>Нет слов!</h1>
-    );
-  }
-
-  const { setAudio, toggleAudio, isPlaying } = useAudios(words);
+  const { setAudio, toggleAudio, isPlaying } = useAudios(words || []);
   const playHandler = (word: string) => {
     setAudio(word);
   };
+
+  if (!words || !words?.length) {
+    return (
+      <div className="words">
+        <EmptyPage />
+      </div>
+    );
+  }
 
   return (
     <>
