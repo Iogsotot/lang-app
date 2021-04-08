@@ -7,7 +7,7 @@ import Variants from './Variants/Variants';
 import './puzzle.scss';
 import { API_BASE_URL } from '../../../constants/constants';
 import { GameScreenProps } from './Puzzle.model';
-import successSound from '../../../assets/audio/victory.mp3';
+import successSound from '../../../assets/audio/952782968e924cf.mp3';
 import failureSound from '../../../assets/audio/failure.mp3';
 
 const reorder = (list: Word[], startIndex: number, endIndex: number) => {

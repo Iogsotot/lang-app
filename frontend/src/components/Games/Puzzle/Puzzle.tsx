@@ -2,6 +2,7 @@ import React, { useState, FC } from 'react';
 // import SettingsScreen from './SettingsScreen';
 import GameScreen from './GameScreen';
 import { WORD_GROUPS } from '../../../constants/constants';
+import Finish from '../Finish';
 
 const Puzzle: FC = () => {
   const [isFromTextbook, setFromTextbook] = useState(false);
