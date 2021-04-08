@@ -215,11 +215,14 @@ const Audiocall: FC = () => {
   return (
     <section className="audiocall">
       <div className="overlay">
-        <CloseButton
-          callback={() => {
+        <div
+          className="btn--close"
+          onClick={() => {
             closeButtonClick();
           }}
-        />
+        >
+          <i className="fal fa-times" />
+        </div>
         <ModalOnClose
           modalIsActive={modalOnCloseIsActive}
           handleCancelModal={handleCancelModal}
