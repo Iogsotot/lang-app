@@ -2,19 +2,43 @@ import React, { useState, FC } from 'react';
 // import SettingsScreen from './SettingsScreen';
 import GameScreen from './GameScreen';
 import { WORD_GROUPS } from '../../../constants/constants';
-import Finish from '../Finish';
+import ModalOnClose from '../ModalOnClose';
+import CloseButton from '../../CloseButton';
 
 const Puzzle: FC = () => {
+  const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [isFromTextbook, setFromTextbook] = useState(false);
   const [gameActive, setGameActive] = useState(false);
   const [group, setGroup] = useState(0);
   const handleStart = () => {
     setGameActive(true);
   };
+  const handleCancelModal = () => {
+    setModalOnCloseIsActive(false);
+  };
+  const handleSubmitClose = () => {
+    window.location.href = '../';
+  };
+  const closeButtonClick = () => {
+    setModalOnCloseIsActive(true);
+  };
 
   return (
     <section className="puzzle">
       <div className="overlay"/>
+      <ModalOnClose
+        modalIsActive={modalOnCloseIsActive}
+        handleCancelModal={handleCancelModal}
+        handleSubmitClose={handleSubmitClose}
+      />
+      <div
+        className="btn--close"
+        onClick={() => {
+          handleSubmitClose();
+        }}
+      >
+        <i className="fal fa-times" />
+      </div>
       {
         gameActive ? <GameScreen group={group}/> :
           <div className="puzzle__info box">
