@@ -31,14 +31,18 @@ header {
 }
 @media (max-width: 640px) {
   .nav{
-    &_link{
-      margin: 0 0.25em;
+    padding-right: 0.5rem;
+    &__link{
+      margin: 0 0.25em !important;
     }
+  }
+  .header__inner{
+    padding: 0.5rem;
   }
   .user__menu{
     a.btn{
     font-size: 14px;
-    padding: 18px 27px;
+    padding: 3px 27px;
   }}
   
 }

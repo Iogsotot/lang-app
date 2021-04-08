@@ -4,3 +4,41 @@ section.textbook {
   height: calc(100vh - 7rem);
   padding-top: 3rem;
 }
+
+@media (max-width: 640px) {
+  section.textbook {
+    height: calc(100vh + 1rem);
+  }
+.tabs{
+  font-size: 0.8rem;
+}
+.words{
+  height: calc(100vh - 16rem);
+}
+.word{
+  margin-bottom: 2rem;
+&__info{
+  margin-left: 1rem;
+}
+&__name{
+  font-size: 1.7rem;
+}
+&__meaning, &__example{
+  font-size: 0.8rem !important;
+}
+&__image img{
+  width: 13rem;
+}
+}
+
+.audio__controller {
+  margin: 0 auto 1rem;
+  .btn-play {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}
+.progress.is-large {
+  height: 1rem;
+}
+}

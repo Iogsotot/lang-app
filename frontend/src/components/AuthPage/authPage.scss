@@ -119,3 +119,34 @@
     }
   }
 }
+@media (max-width: 640px) {
+  .auth{
+    .form{
+      max-width: 25rem;
+      &__tabs__link{
+        font-size: 18px;
+      }
+      .label{
+        font-size: 0.8rem;
+      }
+      .input{
+        height: 2.5rem;
+      }
+      .field.is-grouped{
+        justify-content: center;
+        .btn{
+          padding: 1rem 3rem;
+        }
+      }
+    }   
+    .set-avatar{
+      height: 4rem;
+      width: 4rem;
+      margin: 1.9rem auto -0.3rem;
+    }
+    .user-avatar{
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+}
