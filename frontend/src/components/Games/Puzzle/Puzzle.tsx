@@ -4,12 +4,17 @@ import GameScreen from './GameScreen';
 import { WORD_GROUPS } from '../../../constants/constants';
 import ModalOnClose from '../ModalOnClose';
 import CloseButton from '../../CloseButton';
+import Finish from '../Finish';
 
 const Puzzle: FC = () => {
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [isFromTextbook, setFromTextbook] = useState(false);
   const [gameActive, setGameActive] = useState(false);
   const [group, setGroup] = useState(0);
+  const [gameFinished, setGameFinished] = useState(false);
+  const [wrongAnswers, setWrongAnswers] = useState([]);
+  const [correctAnswers, setCorrectAnswers] = useState([]);
+
   const handleStart = () => {
     setGameActive(true);
   };
@@ -26,6 +31,7 @@ const Puzzle: FC = () => {
   return (
     <section className="puzzle">
       <div className="overlay"/>
+      {gameFinished && <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 10} /> }
       <ModalOnClose
         modalIsActive={modalOnCloseIsActive}
         handleCancelModal={handleCancelModal}
@@ -40,7 +46,7 @@ const Puzzle: FC = () => {
         <i className="fal fa-times" />
       </div>
       {
-        gameActive ? <GameScreen group={group}/> :
+        gameActive ? <GameScreen setGameFinished={setGameFinished} setWrongAnswers={setWrongAnswers} setCorrectAnswers={setCorrectAnswers} group={group}/> :
           <div className="puzzle__info box">
             <h2 className="title is-2">Puzzle</h2>
             <p>

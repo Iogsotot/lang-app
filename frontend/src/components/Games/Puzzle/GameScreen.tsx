@@ -29,9 +29,11 @@ const returnElementToList = (el: Word | undefined, list: Word[]) => {
   }
   return list;
 };
+const correctAnswers: Array<Word | undefined> = [];
+const wrongAnswers: Array<Word | undefined> = [];
 
 const GameScreen = (props : GameScreenProps) => {
-  const { group } = props;
+  const { group, setGameFinished, setCorrectAnswers, setWrongAnswers } = props;
   const [collection, setCollection] = useState<Word[]>([]);
   const [phrase, setPhrase] = useState<string | null>(null);
   const [word, setWord] = useState<string>('');
@@ -61,7 +63,11 @@ const GameScreen = (props : GameScreenProps) => {
   const triggerValidation = (elem: Word | undefined) => {
     if (elem?.word === word) {
       if (counter === 5) {
-        alert('5th finished');
+        setGameFinished(true);
+      }
+      if (!correctAnswers.find(el => el === elem)) {
+        correctAnswers.push(elem);
+        setCorrectAnswers(correctAnswers);
       }
       setOutline('rgb(127,255,0)');
       setTimeout(() => {
@@ -70,7 +76,12 @@ const GameScreen = (props : GameScreenProps) => {
         startNewGame();
       }, 1000);
     } else {
-      //
+      if (!wrongAnswers.find(el => el === elem)) {
+        wrongAnswers.push(elem);
+        setWrongAnswers(wrongAnswers);
+        console.log(wrongAnswers);
+      }
+
       playFailure();
       setOutline('rgb(255,0,0)');
       setTimeout(() => { setOutline(''); }, 1000);
