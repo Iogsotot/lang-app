@@ -11,6 +11,23 @@ const FOOTER_COPYRIGHT = {
 
 const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
 
+const INITIAL_WORD_STATE = {
+  id: '',
+  group: 0,
+  page: 0,
+  word: '',
+  image: '',
+  audio: '',
+  audioMeaning: '',
+  audioExample: '',
+  textMeaning: '',
+  textExample: '',
+  transcription: '',
+  textExampleTranslate: '',
+  textMeaningTranslate: '',
+  wordTranslate: '',
+};
+
 const locations = {
   TEXTBOOK: 'textbook',
 };
@@ -55,4 +72,13 @@ const SPRINT_GET_READY = {
   timerSize: 80,
 };
 
-export { WORD_GROUPS, API_BASE_URL, FOOTER_COPYRIGHT, locations, SPRINT, SPRINT_MODAL_ON_CLOSE, SPRINT_GET_READY };
+export {
+  INITIAL_WORD_STATE,
+  WORD_GROUPS,
+  API_BASE_URL,
+  FOOTER_COPYRIGHT,
+  locations,
+  SPRINT,
+  SPRINT_MODAL_ON_CLOSE,
+  SPRINT_GET_READY,
+};

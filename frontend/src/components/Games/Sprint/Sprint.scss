@@ -91,9 +91,12 @@
     justify-content: center;
   }
 
-  .get-ready {
+  .get-ready,
+  .spinner,
+  .difficulty__box {
     grid-area: box;
     justify-self: center;
+    margin-top: 20rem;
   }
 
   .mod-note {
@@ -109,9 +112,8 @@
     }
   }
 
-  // .checkbox {
-  //   position: absolute;
-  //   right: -13rem;
-  //   top: -2.5rem;
-  // }
+  .audiocall {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+  }
 }

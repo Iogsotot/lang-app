@@ -20,6 +20,7 @@ import Checkbox from './Checkbox';
 import ToggleButton from './ToggleButton';
 import PlayAudioButton from './PlayAudioButton';
 import Spinner from '../../Spinner';
+import Difficulty from '../Difficulty';
 import { getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
 import { animateBorderColor } from '../../../libs/common';
@@ -29,7 +30,7 @@ import { WordPair } from './Sprint.model';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { useAction } from '../../../hooks/useAction';
 
-import { SPRINT } from '../../../constants';
+import { SPRINT, INITIAL_WORD_STATE } from '../../../constants';
 
 import './Sprint.scss';
 
@@ -51,12 +52,13 @@ const {
 
 const Sprint: FC = () => {
   const history = useHistory();
+  const [isLvlSelected, setLvlSelected] = useState(false);
   const [correctAnswerAudio] = useSound(onCorrect);
   const [wrongAnswerAudio] = useSound(onWrong);
   const [onGameOverAudio] = useSound(onGameOver);
   const [onGameReadyAudio] = useSound(onGameReady);
   const { words, group, page, loading } = useTypedSelector(store => store.wordList);
-  const { fetchWords } = useAction();
+  const { fetchWords, setPage, setGroup } = useAction();
   const [sprintWords, setSprintWords] = useState(words);
   const [streak, setStreak] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -67,22 +69,7 @@ const Sprint: FC = () => {
   const [modificator, setModificator] = useState(1);
   const [isSoundOn, setIsSoundOn] = useState(true);
   const [autoPlay, setAutoPlay] = useState(true);
-  const [currentWord, setCurrentWord] = useState<Word>({
-    id: '',
-    group: 0,
-    page: 0,
-    word: '',
-    image: '',
-    audio: '',
-    audioMeaning: '',
-    audioExample: '',
-    textMeaning: '',
-    textExample: '',
-    transcription: '',
-    textExampleTranslate: '',
-    textMeaningTranslate: '',
-    wordTranslate: '',
-  });
+  const [currentWord, setCurrentWord] = useState<Word>(INITIAL_WORD_STATE);
   const [mistakesStat, setMistakesStat] = useState<Word[]>([]);
   const [correctAnswersStat, setCorrectAnswersStat] = useState<Word[]>([]);
   const [gameEnd, setGameEnd] = useState(false);
@@ -96,6 +83,7 @@ const Sprint: FC = () => {
   const mod = basicPoints * 2 ** (modificator - 1);
 
   const addPoints = () => setPoints(old => old + mod);
+  const isAutoPlayAudio = () => ready && autoPlay && isLvlSelected;
 
   const handleGameOver = () => {
     if (!ready) {
@@ -183,8 +171,10 @@ const Sprint: FC = () => {
   };
 
   useEffect(() => {
-    fetchWords(group, page);
-  }, [group]);
+    if (isLvlSelected) {
+      fetchWords(group, page);
+    }
+  }, [group, page, isLvlSelected]);
 
   useEffect(() => {
     if (words.length === 0) {
@@ -202,7 +192,7 @@ const Sprint: FC = () => {
   useEffect(() => {
     document.addEventListener('keyup', handleArrowKeys);
 
-    if (autoPlay && ready) {
+    if (isAutoPlayAudio()) {
       new Audio(pair.audio).play();
     }
 
@@ -251,6 +241,13 @@ const Sprint: FC = () => {
     return <Finish correctAnswers={correctAnswersStat} wrongAnswers={mistakesStat} score={points} />;
   };
   const renderGameIfReady = () => {
+    if (!isLvlSelected) {
+      return (
+        <div className="box difficulty__box">
+          <Difficulty handleStart={() => setLvlSelected(true)} />
+        </div>
+      );
+    }
     if (loading) {
       return <Spinner />;
     }
@@ -305,13 +302,12 @@ const Sprint: FC = () => {
   return (
     <div className="sprint">
       <CloseButton callback={onCloseBtnClick} />
-      {showFinishScreen()}
       <ModalOnClose
         modalIsActive={modalOnCloseIsActive}
         handleCancelModal={handleCancelModal}
         handleSubmitClose={handleSubmitClose}
       />
-      {renderGameIfReady()}
+      {showFinishScreen() || renderGameIfReady()}
     </div>
   );
 };
