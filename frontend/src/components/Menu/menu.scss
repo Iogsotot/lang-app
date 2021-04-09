@@ -134,18 +134,20 @@ aside.menu {
     }
     .menu__list {
       display: flex;
+      margin-top: 9px;
       .menu__item {
-        display: flex;
         flex-direction: row;
-        margin: 2.30rem 1.3em;
       }
     }
-    .icon {
+    .icon, .fa-3x {
       display: block;
       margin: auto;
       width: 1.75rem;
       height: auto;
     }  
+    .fa-3x {
+      font-size: 1.8em;
+     }
     .hidden__menu.active{
     width: 241px;
     height: 93%;
