@@ -19,6 +19,7 @@ import Frogs from './Frogs';
 import Checkbox from './Checkbox';
 import ToggleButton from './ToggleButton';
 import PlayAudioButton from './PlayAudioButton';
+import Spinner from '../../Spinner';
 import { getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
 import { animateBorderColor } from '../../../libs/common';
@@ -54,7 +55,7 @@ const Sprint: FC = () => {
   const [wrongAnswerAudio] = useSound(onWrong);
   const [onGameOverAudio] = useSound(onGameOver);
   const [onGameReadyAudio] = useSound(onGameReady);
-  const { words, group, page } = useTypedSelector(store => store.wordList);
+  const { words, group, page, loading } = useTypedSelector(store => store.wordList);
   const { fetchWords } = useAction();
   const [sprintWords, setSprintWords] = useState(words);
   const [streak, setStreak] = useState(0);
@@ -250,6 +251,9 @@ const Sprint: FC = () => {
     return <Finish correctAnswers={correctAnswersStat} wrongAnswers={mistakesStat} score={points} />;
   };
   const renderGameIfReady = () => {
+    if (loading) {
+      return <Spinner />;
+    }
     if (!ready) {
       return <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback} />;
     }
