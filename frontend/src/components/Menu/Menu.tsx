@@ -65,22 +65,22 @@ const Menu: FC = () => {
             </li>
             <li className="menu__item">
               <Link to="/sprint">
-                <img src={GameIcon} alt="sprint" className="icon" />
+                <i className="fal fa-running fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/savannah">
-                <img src={GameIcon} alt="savannah" className="icon" />
+                <i className="fal fa-paw-claws fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/puzzle">
-                <img src={GameIcon} alt="puzzle" className="icon" />
+                <i className="fal fa-puzzle-piece fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/audiocall">
-                <img src={GameIcon} alt="audiocall" className="icon" />
+                <i className="fal fa-headphones-alt fa-3x"/>
               </Link>
             </li>
           </ul>
