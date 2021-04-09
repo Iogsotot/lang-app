@@ -13,4 +13,7 @@ export interface PhraseProps {
 }
 export interface GameScreenProps {
   group: number,
+  setGameFinished: (el: boolean) => void,
+  setWrongAnswers: (el: any) => void,
+  setCorrectAnswers: (el: any) => void,
 }

@@ -43,6 +43,9 @@ aside.menu {
 
     .menu__item {
       margin: 1.75rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
   .icon {
@@ -109,4 +112,13 @@ aside.menu {
       }
     }
   }
+}
+
+.fal {
+  width: 44px;
+  height: 44px;
+  color: rgb(128, 135, 162);
+}
+.fal:hover {
+  color: rgb(103, 109, 134)
 }

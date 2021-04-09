@@ -62,6 +62,9 @@ const TextBook: FC = () => {
     }
   }, [group]);
 
+  // Крч поменяй wordlist, сделай его универсальней, передавай туда words
+  // а в textbook чисть все вилкой
+
   useEffect(() => {
     if (isLoggedIn) {
       // clearDeletedWords(words);

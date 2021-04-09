@@ -1,12 +1,11 @@
+import './menu.scss';
 import { FC, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './menu.scss';
 import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import LogoWhite from '../../assets/images/Logo_white.png';
 import TextBookIcon from '../../assets/images/textbook_icon.png';
 import StatsIcon from '../../assets/images/stats_icon.png';
-import GameIcon from '../../assets/images/game_icon.png';
 import SettingsIcon from '../../assets/images/settings_icon.png';
 import { LOCATIONS } from '../../constants';
 
@@ -65,22 +64,22 @@ const Menu: FC = () => {
             }
             <li className="menu__item">
               <Link to="/sprint">
-                <img src={GameIcon} alt="sprint" className="icon" />
+                <i className="fal fa-running fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/savannah">
-                <img src={GameIcon} alt="savannah" className="icon" />
+                <i className="fal fa-paw-claws fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/puzzle">
-                <img src={GameIcon} alt="puzzle" className="icon" />
+                <i className="fal fa-puzzle-piece fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/audiocall">
-                <img src={GameIcon} alt="audiocall" className="icon" />
+                <i className="fal fa-headphones-alt fa-3x"/>
               </Link>
             </li>
           </ul>
