@@ -54,8 +54,8 @@ const Sprint: FC = () => {
   const [wrongAnswerAudio] = useSound(onWrong);
   const [onGameOverAudio] = useSound(onGameOver);
   const [onGameReadyAudio] = useSound(onGameReady);
-  const { words, group } = useTypedSelector(store => store.wordList);
-  const { fetchRandomWords } = useAction();
+  const { words, group, page } = useTypedSelector(store => store.wordList);
+  const { fetchWords } = useAction();
   const [sprintWords, setSprintWords] = useState(words);
   const [streak, setStreak] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -182,7 +182,7 @@ const Sprint: FC = () => {
   };
 
   useEffect(() => {
-    fetchRandomWords(group, wordsAmount);
+    fetchWords(group, page);
   }, [group]);
 
   useEffect(() => {
