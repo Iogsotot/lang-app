@@ -24,7 +24,7 @@ header {
   align-items: center;
   justify-content: space-between;
   &__link {
-    color: $color_black;
+    color: var(--bg-text-subtitle);
     margin: 0 1rem;
     transition: all 0.2s linear;
     border-bottom: .125rem solid transparent;

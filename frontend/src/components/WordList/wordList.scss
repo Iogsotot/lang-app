@@ -30,7 +30,7 @@
 .audio__controller {
   width: 100%;
   margin: 0 auto 2rem;
-  background: $color_white;
+  background: var(--bg-main);
   position: relative;
   &::before {
     content: "";
@@ -52,7 +52,7 @@
     z-index: 1;
     border-radius: 50%;
     border: .125rem solid $color_important;
-    background: $color_white;
+    background: var(--bg-main);
     outline: none;
     cursor: pointer;
     transition: all 0.3s linear;
@@ -90,10 +90,14 @@
           border-color: $color_important !important;
         }
       }
+      span{
+        color: var(--bg-text-subtitle) !important;
+      }
     }
   }
 }
 
+@media (max-width: 640px) {
 .words__progress__bar {
   margin-bottom: 1.25rem;
 }
@@ -108,4 +112,24 @@
     margin: 0 0.625rem;
     font-size: 1.5rem;
   }
+}
+
+.tabs{
+  font-size: 0.8rem;
+}
+.words{
+  height: calc(100vh - 16rem);
+  width: 96vw;
+}
+
+.audio__controller {
+  margin: 0 auto 1rem;
+  .btn-play {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}
+.progress.is-large {
+  height: 1rem;
+}
 }

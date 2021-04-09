@@ -29,7 +29,7 @@
     margin-left: 2rem;
     p {
       margin-bottom: 0.6rem;
-      color: $text_color_puprle;
+      color: var(--bg-word-info);
       font-style: normal;
       font-weight: normal;
       font-size: 1rem;
@@ -42,7 +42,7 @@
     font-weight: 500;
     font-size: 2.25rem;
     line-height: 1;
-    color: $another_black;
+    color: var(--bg-word-name);
     text-align: left;
   }
   &__buttons {
@@ -53,4 +53,21 @@
       }
     }
   }
+}
+@media (max-width: 640px) {
+.word{
+  margin-bottom: 2rem;
+&__info{
+  margin-left: 1rem;
+}
+&__name{
+  font-size: 1.7rem;
+}
+&__meaning, &__example{
+  font-size: 0.8rem !important;
+}
+&__image img{
+  width: 13rem;
+}
+}
 }
