@@ -50,7 +50,7 @@ const SPRINT = {
   colorOnWrongAnswer: '348, 100%, 61%', // hsl(348, 100%, 61%)
   wrongBtnText: 'Неверно',
   correctBtnText: 'Верно',
-  wordsAmount: 10,
+  wordsAmount: 100,
   basicPoints: 10,
   maxModificator: 4,
   maxStreak: 3,

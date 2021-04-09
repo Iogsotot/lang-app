@@ -28,6 +28,11 @@ export interface WordListState {
 }
 
 export interface WordsDispatchProps {
+  fetchRandomWords: (
+    group: number,
+    page: number,
+    amount: number,
+  ) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showButtons: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setGroup: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
   fetchWords: (group: number, page: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
@@ -35,10 +40,13 @@ export interface WordsDispatchProps {
   setPage: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
 }
 
+interface FetchRandomWordListAction {
+  type: WordListActionTypes.FETCH_RANDOM_WORD_LIST;
+}
+
 interface FetchWordListAction {
   type: WordListActionTypes.FETCH_WORD_LIST;
 }
-
 interface FetchWordListSuccessAction {
   type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS;
   payload: Word[];
@@ -70,6 +78,7 @@ interface GetWordListGroup {
 }
 
 export enum WordListActionTypes {
+  FETCH_RANDOM_WORD_LIST = 'FETCH_RANDOM_WORD_LIST',
   FETCH_WORD_LIST = 'FETCH_WORD_LIST',
   FETCH_WORD_LIST_SUCCESS = 'FETCH_WORD_LIST_SUCCESS',
   FETCH_WORD_LIST_ERROR = 'FETCH_WORD_LIST_ERROR',
@@ -80,6 +89,7 @@ export enum WordListActionTypes {
 }
 
 export type WordListAction =
+  | FetchRandomWordListAction
   | FetchWordListAction
   | FetchWordListSuccessAction
   | FetchWordListErrorAction

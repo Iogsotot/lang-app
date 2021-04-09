@@ -58,7 +58,7 @@ const Sprint: FC = () => {
   const [onGameOverAudio] = useSound(onGameOver);
   const [onGameReadyAudio] = useSound(onGameReady);
   const { words, group, page, loading } = useTypedSelector(store => store.wordList);
-  const { fetchWords, setPage, setGroup } = useAction();
+  const { fetchRandomWords } = useAction();
   const [sprintWords, setSprintWords] = useState(words);
   const [streak, setStreak] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -172,7 +172,7 @@ const Sprint: FC = () => {
 
   useEffect(() => {
     if (isLvlSelected) {
-      fetchWords(group, page);
+      fetchRandomWords(group, page, wordsAmount);
     }
   }, [group, page, isLvlSelected]);
 

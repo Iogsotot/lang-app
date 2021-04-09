@@ -1,6 +1,7 @@
 import { WordListAction, WordListActionTypes, WordListState } from '../../models/word';
 
 const {
+  FETCH_RANDOM_WORD_LIST,
   FETCH_WORD_LIST,
   FETCH_WORD_LIST_ERROR,
   FETCH_WORD_LIST_SUCCESS,
@@ -23,6 +24,9 @@ export const initialState: WordListState = {
 export const wordListReducer = (state = initialState, action: WordListAction): WordListState => {
   switch (action.type) {
     case FETCH_WORD_LIST:
+      return { ...state, loading: true };
+
+    case FETCH_RANDOM_WORD_LIST:
       return { ...state, loading: true };
 
     case GET_WORD_LIST_PAGE:
