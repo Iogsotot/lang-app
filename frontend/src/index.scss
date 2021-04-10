@@ -26,6 +26,29 @@ html {
 }
 
 body {
+
+  margin-left: 6.25rem;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  &::-webkit-scrollbar {
+    width: 10px;
+    background: rgba($color_important, 0.2);
+    border-radius: 10px;
+    &:hover {
+      background: rgba($color_important, 0.3);
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba($color_important, 0.3);
+    background: rgba($color_important, 0.5);
+    &:hover {
+      background: $color_important;
+    }
+  }
+}
+
+.App{
   &.light-mode{
     --bg-footer: #b57ad2;
     --bg-main: white;
@@ -57,27 +80,7 @@ body {
     --bg-gradient-auth: linear-gradient(179.61deg, #494e67 0.33%, #31334a 99.67%);
   }
   background-color: var(--bg-main);
-  margin-left: 6.25rem;
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
-  &::-webkit-scrollbar {
-    width: 10px;
-    background: rgba($color_important, 0.2);
-    border-radius: 10px;
-    &:hover {
-      background: rgba($color_important, 0.3);
-    }
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    box-shadow: inset 0 0 6px rgba($color_important, 0.3);
-    background: rgba($color_important, 0.5);
-    &:hover {
-      background: $color_important;
-    }
-  }
 }
-
 // Basic styles
 
 .wrapper {

@@ -10,20 +10,19 @@ import 'typeface-rubik';
 import Menu from './components/Menu';
 import Puzzle from './components/Games/Puzzle';
 import { Router } from './routes';
+import DarkThemeProvider from './components/Theme';
 
 const App: FC = () => (
   <div className="App">
     <Provider store={store}>
-      <BrowserRouter>
-
-        <Menu />
-
-        <Header />
-
-        <Router />
-
-        <Footer />
-      </BrowserRouter>
+      <DarkThemeProvider>
+        <BrowserRouter>
+          <Menu />
+          <Header />
+          <Router />
+          <Footer />
+        </BrowserRouter>
+      </DarkThemeProvider>
     </Provider>
   </div>
 );
