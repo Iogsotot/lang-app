@@ -1,5 +1,5 @@
 import './wordList.scss';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import WordCard from '../WordCard';
@@ -17,9 +17,6 @@ const {
 const WordList: FC<{ filter?: boolean | string }> = ({ filter }) => {
   const { words, loading, displayButtons, translate } = useTypedSelector(store => store.wordList);
   const { setAudio, toggleAudio, isPlaying, active } = useAudios(words || []);
-  const playHandler = (word: string) => {
-    setAudio(word);
-  };
 
   if (!words || !words?.length) {
     return (
@@ -33,7 +30,7 @@ const WordList: FC<{ filter?: boolean | string }> = ({ filter }) => {
     );
   }
 
-  const DisplayWords = () => {
+  const DisplayWords = useMemo(() => {
     let newWords = [...words];
     if (filter) {
       newWords = newWords.filter((word) => {
@@ -76,20 +73,20 @@ const WordList: FC<{ filter?: boolean | string }> = ({ filter }) => {
       {newWords.map(word => (
         <WordCard
           key={uuidv4()}
-          playHandler={playHandler}
+          playHandler={setAudio}
           translate={translate}
           displayButtons={displayButtons}
           {...word}
         />
       ))}</>);
-  };
+  }, [words]);
 
   return (
     <>
       <div className="words">
         <div className="words__inner">
           {!loading ? (
-            <DisplayWords />
+            DisplayWords
           ) : (
             <Spinner />
           )}

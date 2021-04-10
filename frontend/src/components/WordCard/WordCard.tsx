@@ -24,13 +24,11 @@ const WordCard: FC<WordCardProps> = props => {
     textMeaningTranslate,
     textExampleTranslate,
     playHandler,
-    translate,
-    displayButtons,
     userWord,
   } = props;
   const store = useTypedSelector(commonStore => commonStore);
   const { user, isLoggedIn } = store.user;
-  const { words } = store.wordList;
+  const { words, displayButtons, translate } = store.wordList;
   const { userId, token } = user;
   const [loading, setLoading] = useState(false);
   const { updateWord } = useAction();
