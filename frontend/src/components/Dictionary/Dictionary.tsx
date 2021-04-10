@@ -61,9 +61,6 @@ const Dictionary: FC = () => {
       userId,
       token,
     });
-    if (groupOfWords) {
-      setLocalPage(groupOfWords[page - 1]);
-    }
     history.push(`/dictionary/${activeSection}/${group}/${page}`);
   }, [activeSection, group]);
 
@@ -82,7 +79,7 @@ const Dictionary: FC = () => {
     setActiveSection(section);
   }, []);
   return (
-    <main className="dictionary">
+    <main className={`dictionary ${group}`}>
       <div className="tabs is-centered is-boxed section-tabs">
         <ul>
           <li className={`${activeSection === LEARNING ? 'is-active' : ''}`}>
@@ -116,7 +113,7 @@ const Dictionary: FC = () => {
           ))}
         </ul>
       </div>
-      <WordList />
+      <WordList filter={activeSection} />
       <Pagination
         minPage={MIN_PAGE}
         maxPage={groupOfWords?.length || 1}

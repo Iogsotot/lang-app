@@ -1,9 +1,15 @@
 import './wordCard.scss';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { WordCardProps } from './WordCard.model';
 import { API_BASE_URL } from '../../constants';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useAction } from '../../hooks/useAction';
+import { DictionarySections } from '../../models';
+
+const {
+  HARD,
+} = DictionarySections;
 
 const WordCard: FC<WordCardProps> = props => {
   const {
@@ -35,7 +41,7 @@ const WordCard: FC<WordCardProps> = props => {
       isDeleted: true,
     });
     const newId = isLoggedIn ? dashedId : id;
-    await fetch(
+    const response = await fetch(
       `${API_BASE_URL}/users/${userId}/words/${newId}`,
       {
         method: 'POST',
@@ -47,6 +53,20 @@ const WordCard: FC<WordCardProps> = props => {
         body,
       },
     );
+    if (response.status === 417) {
+      await fetch(
+        `${API_BASE_URL}/users/${userId}/words/${newId}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body,
+        },
+      );
+    }
     const thisWord = { ...props, userWord: { isDeleted: true } };
     updateWord(words, thisWord);
     setLoading(false);
@@ -106,6 +126,31 @@ const WordCard: FC<WordCardProps> = props => {
         body,
       },
     );
+    const thisWord = { ...props, userWord: { isDeleted: false } };
+    updateWord(words, thisWord);
+    setLoading(false);
+  };
+
+  const moveToEasy = async () => {
+    setLoading(true);
+    const body = JSON.stringify({
+      difficulty: 'easy',
+    });
+    const newId = isLoggedIn ? dashedId : id;
+    await fetch(
+      `${API_BASE_URL}/users/${userId}/words/${newId}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body,
+      },
+    );
+    const thisWord = { ...props, userWord: { difficulty: 'easy' } };
+    updateWord(words, thisWord);
     setLoading(false);
   };
 
@@ -124,6 +169,24 @@ const WordCard: FC<WordCardProps> = props => {
         </button>
       );
     }
+    if (userWord?.difficulty === HARD) {
+      return (
+        <>
+          <button disabled={!isLoggedIn || loading} onClick={moveToEasy} className="button is-warning">
+            <span className="icon is-small">
+              <i className="fas fa-bookmark" />
+            </span>
+            <span>Убрать из сложных</span>
+          </button>
+          <button disabled={!isLoggedIn || loading} onClick={deleteWord} className="button is-danger is-outlined">
+            <span className="icon is-small">
+              <i className="fas fa-trash" />
+            </span>
+            <span>Удалить</span>
+          </button>
+        </>
+      );
+    }
     return (
       <>
         <button disabled={!isLoggedIn || loading} onClick={addWordToHard} className="button is-warning">
@@ -138,6 +201,31 @@ const WordCard: FC<WordCardProps> = props => {
           </span>
           <span>Удалить</span>
         </button>
+      </>
+    );
+  };
+
+  const Tags = () => {
+    const tags = Object.entries(userWord || {}).map(([key, value]) => {
+      switch (key) {
+        case 'difficulty':
+          return value === HARD ? (
+            <span key={uuidv4()} className="tag is-warning is-light">Сложное</span>
+          ) : <span key={uuidv4()}></span>;
+        case 'isLearning':
+          return value ? (
+            <span key={uuidv4()} className="tag is-success is-light">Изучаемое</span>
+          ) : <span key={uuidv4()}></span>;
+        case 'isDeleted':
+          return value ? (
+            <span key={uuidv4()} className="tag is-danger is-light">Удаленное</span>
+          ) : <span key={uuidv4()}></span>;
+        default: return <span key={uuidv4()}></span>;
+      }
+    });
+    return (
+      <>
+        {tags}
       </>
     );
   };
@@ -164,6 +252,9 @@ const WordCard: FC<WordCardProps> = props => {
             </span>
           </button>
           {displayButtons ? <Buttons /> : <></>}
+        </div>
+        <div className="tags">
+          <Tags />
         </div>
       </div>
     </div>

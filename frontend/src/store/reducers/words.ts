@@ -9,7 +9,7 @@ const {
   SHOW_WORD_TRANSLATE,
   SHOW_WORD_BUTTONS,
   FETCH_USER_WORD_LIST_SUCCESS,
-  UPDATE_WORD,
+  SET_WORDS,
 } = WordListActionTypes;
 
 export const initialState: WordListState = {
@@ -48,7 +48,7 @@ export const wordListReducer = (state = initialState, action: WordListAction): W
     case SHOW_WORD_BUTTONS:
       return { ...state, displayButtons: action.payload };
 
-    case UPDATE_WORD:
+    case SET_WORDS:
       return { ...state, words: action.payload };
 
     default:

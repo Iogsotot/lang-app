@@ -15,11 +15,10 @@ const TextBook: FC = () => {
     setGroup,
     setPage,
     setLocalPage,
-    clearDeletedWords,
   } = useAction();
   const { group: groupFromUrl, page: pageFromUrl }: { group: string; page: string } = useParams();
   const store = useTypedSelector(commonStore => commonStore);
-  const { page, group, loading, groupOfWords, words } = store.wordList;
+  const { page, group, loading, groupOfWords } = store.wordList;
   const { isLoggedIn, user } = store.user;
 
   const nextPage = () => {
@@ -57,19 +56,10 @@ const TextBook: FC = () => {
         token: user.token,
         userId: user.userId,
         amount: ALL_WORDS_IN_GROUP,
+        hideDeleted: true,
       });
-      clearDeletedWords(words);
     }
   }, [group]);
-
-  // Крч поменяй wordlist, сделай его универсальней, передавай туда words
-  // а в textbook чисть все вилкой
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      // clearDeletedWords(words);
-    }
-  }, [words]);
 
   useEffect(() => {
     if (Number.isInteger(+pageFromUrl) && Number.isInteger(+groupFromUrl)) {
@@ -78,7 +68,7 @@ const TextBook: FC = () => {
     }
   }, []);
   return (
-    <main className="textbook">
+    <main className={`textbook ${group}`}>
       <div className="wrapper">
         <div className="tabs is-toggle is-toggle-rounded">
           <ul>
@@ -91,7 +81,7 @@ const TextBook: FC = () => {
             ))}
           </ul>
         </div>
-        <WordList />
+        <WordList filter={isLoggedIn} />
         <Pagination
           minPage={MIN_PAGE}
           maxPage={isLoggedIn ? (groupOfWords?.length || MAX_PAGE) : MAX_PAGE}

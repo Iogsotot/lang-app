@@ -1,8 +1,11 @@
 import { Dispatch } from 'react';
 
 interface UserWord {
-  isDeleted: boolean;
+  isDeleted?: boolean;
+  isLearning?: boolean;
+  difficulty?: string;
 }
+
 export interface Word {
   id?: string;
   _id?: string;
@@ -38,6 +41,7 @@ export interface FetchUserWordsProps {
   page?: number;
   section?: string;
   amount?: number;
+  hideDeleted?: boolean;
   userId: string;
   token: string;
 }
@@ -95,7 +99,7 @@ interface GetWordListGroup {
 }
 
 interface UpdateWord {
-  type: WordListActionTypes.UPDATE_WORD;
+  type: WordListActionTypes.SET_WORDS;
   payload: Word[];
 }
 
@@ -114,7 +118,7 @@ export enum WordListActionTypes {
   GET_WORD_LIST_GROUP = 'GET_WORD_LIST_GROUP',
   SHOW_WORD_TRANSLATE = 'SHOW_WORD_TRANSLATE',
   SHOW_WORD_BUTTONS = 'SHOW_WORD_BUTTONS',
-  UPDATE_WORD = 'UPDATE_WORD',
+  SET_WORDS = 'SET_WORDS',
 }
 
 export type WordListAction =

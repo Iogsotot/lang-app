@@ -76,6 +76,19 @@
         transition: all 0.3s linear;
       }
     }
+    &:disabled {
+      border-color: #c4c4c4;
+      i {
+        color: #c4c4c4;
+      }
+      &:hover {
+        cursor: not-allowed;
+        background: $color_white;
+        i {
+          color: #c4c4c4;
+        }
+      }
+    }
   }
 }
 
