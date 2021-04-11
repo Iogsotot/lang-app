@@ -79,7 +79,7 @@ const Dictionary: FC = () => {
     setActiveSection(section);
   }, []);
   return (
-    <main className={`dictionary ${group}`}>
+    <main className={`dictionary ${Object.keys(WORD_GROUPS)[group - 1]}`}>
       <div className="tabs is-centered is-boxed section-tabs">
         <ul>
           <li className={`${activeSection === LEARNING ? 'is-active' : ''}`}>
@@ -102,7 +102,7 @@ const Dictionary: FC = () => {
           </li>
         </ul>
       </div>
-      <div className="tabs is-toggle is-toggle-rounded group-tabs">
+      <div className="tabs is-toggle is-toggle-rounded group-tabs custom-tabs">
         <ul>
           {Object.entries(WORD_GROUPS).map(([key, value]) => (
             <li key={key} className={value === group - 1 ? 'is-active' : ''}>

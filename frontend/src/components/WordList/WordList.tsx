@@ -15,22 +15,10 @@ const {
 } = DictionarySections;
 
 const WordList: FC<{ filter?: boolean | string }> = ({ filter }) => {
-  const { words, loading, displayButtons, translate } = useTypedSelector(store => store.wordList);
+  const { words, loading } = useTypedSelector(store => store.wordList);
   const { setAudio, toggleAudio, isPlaying, active } = useAudios(words || []);
 
-  if (!words || !words?.length) {
-    return (
-      !loading
-        ? <div className="words">
-          <EmptyPage />
-        </div>
-        : <div className="words">
-          <Spinner />
-        </div>
-    );
-  }
-
-  const DisplayWords = useMemo(() => {
+  const filteredWords = useMemo(() => {
     let newWords = [...words];
     if (filter) {
       newWords = newWords.filter((word) => {
@@ -60,33 +48,33 @@ const WordList: FC<{ filter?: boolean | string }> = ({ filter }) => {
         return true;
       });
     }
+    return newWords;
+  }, [words]);
 
-    if (newWords.length === 0) {
-      return (
-        <div className="words">
+  if (!words || filteredWords.length === 0) {
+    return (
+      !loading
+        ? <div className="words">
           <EmptyPage />
         </div>
-      );
-    }
-
-    return (<>
-      {newWords.map(word => (
-        <WordCard
-          key={uuidv4()}
-          playHandler={setAudio}
-          translate={translate}
-          displayButtons={displayButtons}
-          {...word}
-        />
-      ))}</>);
-  }, [words]);
+        : <div className="words">
+          <Spinner />
+        </div>
+    );
+  }
 
   return (
     <>
       <div className="words">
         <div className="words__inner">
           {!loading ? (
-            DisplayWords
+            filteredWords.map(word => (
+              <WordCard
+                key={uuidv4()}
+                playHandler={setAudio}
+                {...word}
+              />
+            ))
           ) : (
             <Spinner />
           )}
@@ -103,12 +91,6 @@ const WordList: FC<{ filter?: boolean | string }> = ({ filter }) => {
             {isPlaying ? <i className="fas fa-pause" /> : <i className="fas fa-play" />}
           </span>
         </button>
-      </div>
-
-      <div className="words__progress__bar">
-        <progress className="progress is-large is-link" value="20" max="100">
-          80%
-        </progress>
       </div>
     </>
   );

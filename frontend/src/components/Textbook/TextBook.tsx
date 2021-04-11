@@ -68,9 +68,9 @@ const TextBook: FC = () => {
     }
   }, []);
   return (
-    <main className={`textbook ${group}`}>
+    <main className={`textbook ${Object.keys(WORD_GROUPS)[group - 1]}`}>
       <div className="wrapper">
-        <div className="tabs is-toggle is-toggle-rounded">
+        <div className="tabs is-toggle is-toggle-rounded custom-tabs group-tabs">
           <ul>
             {Object.entries(WORD_GROUPS).map(([key, value]) => (
               <li key={key} className={value === group - 1 ? 'is-active' : ''}>

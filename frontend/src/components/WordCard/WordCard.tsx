@@ -242,7 +242,6 @@ const WordCard: FC<WordCardProps> = props => {
         <p className="word__example">{textExample}</p>
 
         {translate ? <p className="word__example word__example-translate">{textExampleTranslate}</p> : ''}
-
         <div className="word__buttons">
           <button className="button is-outlined" onClick={playAudio}>
             <span className="icon is-small">

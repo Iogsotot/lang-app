@@ -77,15 +77,15 @@
       }
     }
     &:disabled {
-      border-color: #c4c4c4;
+      border-color: #c4c4c4 !important;
       i {
-        color: #c4c4c4;
+        color: #c4c4c4 !important;
       }
       &:hover {
         cursor: not-allowed;
-        background: $color_white;
+        background: $color_white !important;
         i {
-          color: #c4c4c4;
+          color: #c4c4c4 !important;
         }
       }
     }
@@ -96,14 +96,6 @@
   margin-bottom: 2.5rem !important;
   ul {
     justify-content: center;
-    li {
-      &.is-active {
-        a {
-          background-color: $color_important !important;
-          border-color: $color_important !important;
-        }
-      }
-    }
   }
 }
 
