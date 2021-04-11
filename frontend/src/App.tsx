@@ -13,7 +13,6 @@ import { Router } from './routes';
 import DarkThemeProvider from './components/Theme';
 
 const App: FC = () => (
-  <div className="App">
     <Provider store={store}>
       <DarkThemeProvider>
         <BrowserRouter>
@@ -24,7 +23,6 @@ const App: FC = () => (
         </BrowserRouter>
       </DarkThemeProvider>
     </Provider>
-  </div>
 );
 
 export default App;

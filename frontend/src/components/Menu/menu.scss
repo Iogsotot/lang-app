@@ -68,7 +68,6 @@ aside.menu {
     justify-content: center;
     height: 100px;
     position: relative;
-
     border-top: 1px solid var(--bg-menu-border);
   }
 
@@ -86,12 +85,11 @@ aside.menu {
   .hidden__menu {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding-left: 15px;
     justify-content: center;
     width: 250px;
-    height: 100%;
+    height: 100px;
     position: absolute;
-    top: 0;
     right: 0;
     z-index: 1;
     transform: translateX(-100%);
@@ -103,7 +101,9 @@ aside.menu {
       transform: translateX(100%);
       transition: all .3s linear;
     }
-
+    .field{
+      margin-bottom: 0.25rem;
+    }
     &-item {
       span {
         display: inline-block;
@@ -150,7 +150,7 @@ aside.menu {
      }
     .hidden__menu.active{
     width: 241px;
-    height: 93%;
+    height: 110px;
     top: 0;
     z-index: 50;
     right: -24px;

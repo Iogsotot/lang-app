@@ -110,32 +110,32 @@ const Menu: FC = () => {
               />
               <label htmlFor="switchTranslate">Показывать перевод</label>
             </div>
-            <div className="hidden__menu-item">
-              <div className="field">
-                <input
-                  onChange={onChangeButtons}
-                  checked={displayButtons}
-                  disabled={disabled}
-                  id="switchButtons"
-                  type="checkbox"
-                  name="switchButtons"
-                  className="switch is-info"
-                />
-                <label htmlFor="switchButtons">Показывать кнопки</label>
-              </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeButtons}
+                checked={displayButtons}
+                disabled={disabled}
+                id="switchButtons"
+                type="checkbox"
+                name="switchButtons"
+                className="switch is-info"
+              />
+              <label htmlFor="switchButtons">Показывать кнопки</label>
             </div>
-            <div className="hidden__menu-item">
-              <div className="field">
-                <input
-                  onChange={onChangeTheme}
-                  checked={darkMode}
-                  id="setDarkMode"
-                  type="checkbox"
-                  name="setDarkMode"
-                  className="switch is-info"
-                />
-                <label htmlFor="setDarkMode">Темная тема</label>
-              </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeTheme}
+                checked={darkMode}
+                id="setDarkMode"
+                type="checkbox"
+                name="setDarkMode"
+                className="switch is-info"
+              />
+              <label htmlFor="setDarkMode">Темная тема</label>
             </div>
           </div>
         </div>
@@ -143,4 +143,5 @@ const Menu: FC = () => {
     </aside>
   );
 };
+
 export default Menu;
