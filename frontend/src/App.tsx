@@ -8,7 +8,6 @@ import 'typeface-roboto';
 import 'typeface-roboto-mono';
 import 'typeface-rubik';
 import Menu from './components/Menu';
-import Puzzle from './components/Games/Puzzle';
 import { Router } from './routes';
 
 const App: FC = () => (
