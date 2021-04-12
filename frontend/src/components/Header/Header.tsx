@@ -1,15 +1,29 @@
 import './header.scss';
-import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { FC, useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useAction } from '../../hooks/useAction';
 import avatarHolder from '../../assets/icons/avatar-holder.png';
 import logoutIcon from '../../assets/icons/logout.png';
+import dictionaryIcon from '../../assets/images/dictionary_icon.png';
+import { LOCATIONS } from '../../constants';
+
+const { dictionary } = LOCATIONS;
 
 const Header: FC = () => {
+  const history = useHistory();
   const { isLoggedIn, user } = useTypedSelector(store => store.user);
   const { avatar, email, name } = user;
   const { logout } = useAction();
+  const [isDictionaryPage, setIsDictionaryPage] = useState(false);
+
+  useEffect(() => history.listen(() => {
+    if (history?.location?.pathname?.split('/')[1] === dictionary) {
+      setIsDictionaryPage(true);
+    } else {
+      setIsDictionaryPage(false);
+    }
+  }), [history]);
 
   return (
     <header>
@@ -32,6 +46,12 @@ const Header: FC = () => {
         <div className="user__menu">
           {isLoggedIn ? (
             <>
+              <Link
+                className={`dictionary__btn ${isDictionaryPage ? 'active' : ''}`}
+                to="/dictionary/learning/1/1"
+              >
+                <img src={dictionaryIcon} alt=""/>
+              </Link>
               <div className="user">
                 <div className="user__info">
                   <p>{name}</p>

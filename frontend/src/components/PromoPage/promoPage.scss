@@ -17,10 +17,10 @@ main {
   font-size: 10px;
 
   .promo {
-    background-image: url("../../assets/images/promo_bg.png");
-    background-position: top right;
-    background-repeat: no-repeat;
-    background-size: 50% auto;
+    background-image: url("../../assets/images/promo_bg.png"), url("../../assets/images/bg_book_2.png");
+    background-position: top right, 100px bottom;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 50% auto, 50% auto;
 
     color: $color_black;
 

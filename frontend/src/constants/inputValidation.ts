@@ -9,8 +9,8 @@ const TYPES: {
 };
 
 export const messages = {
-  NAME_TEST_REGEX: /[a-zA-Z]{3,}$/,
-  EMAIL_TEST_REGEX: /^[\w!#$%&'*+/=?^_`{|}~]*(?:\.?[\w!#$%&'*+/=?^_`{|}~-]+)@[^.@]+\.[^.@]{2,}$/,
+  NAME_TEST_REGEX: /[a-zA-Z]{3,30}$/,
+  EMAIL_TEST_REGEX: /^[\w.!#$%&'*+/=?^_`{|}~]*(?:\.?[\w!#$%&'*+/=?^_`{|}~-]+)@[^.@]+\.[^.@]{2,}$/,
   PASSWORD_TEST_REGEX: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
   USER_ICON: 'fa-user',
   ENVELOPE_ICON: 'fa-envelope',

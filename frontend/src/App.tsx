@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Header from './components/Header';
@@ -8,7 +8,6 @@ import 'typeface-roboto';
 import 'typeface-roboto-mono';
 import 'typeface-rubik';
 import Menu from './components/Menu';
-import Puzzle from './components/Games/Puzzle';
 import { Router } from './routes';
 
 const App: FC = () => (
