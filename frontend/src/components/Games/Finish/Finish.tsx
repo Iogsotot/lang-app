@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Word } from '../../../models/word';
@@ -7,6 +8,7 @@ import 'react-tabs/style/react-tabs.css';
 import './finish.scss';
 
 const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
+  const history = useHistory();
   const wordSoundUrl = (word: Word) => `https://rslang-2020q3.herokuapp.com/${word?.audio}`;
   const playSound = (soundUrl: string) => {
     const wordAudio = new Audio(soundUrl);
@@ -30,6 +32,12 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
 
   const WrongList = () => finishList(wrongAnswers);
 
+  const handleReturnToGameList = async () => {
+    // нужно разобраться как правильно обрабатывать хэши с помощью useHistory
+    await history.push('/');
+    window.location.hash = '#games';
+  };
+
   return (
     <div className="audiocall">
       <div className="box finish">
@@ -47,6 +55,14 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
             <div className="finish__title">Отличный результат!</div>
             <div className="subtitle">{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
             <div className="finish__score">{`+${score}`}</div>
+            <div className="finish__btns">
+              <button onClick={() => window.location.reload()} className="button is-primary finish__btn">
+                Сыграть еще раз
+              </button>
+              <button onClick={handleReturnToGameList} className="button is-link finish__btn">
+                К списку игр
+              </button>
+            </div>
           </TabPanel>
           <TabPanel>
             <div className="finish__tab-inner">
