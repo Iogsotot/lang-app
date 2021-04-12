@@ -28,6 +28,13 @@ const INITIAL_WORD_STATE = {
   wordTranslate: '',
 };
 
+const INITIAL_PAIR_STATE = {
+  word: 'null',
+  wordTranslate: 'null',
+  audio: 'null',
+  answer: false,
+};
+
 const MAX_PAGE = 30;
 const MIN_PAGE = 1;
 const ALL_WORDS_IN_GROUP = 600;
@@ -96,4 +103,5 @@ export {
   MAX_PAGE,
   MIN_PAGE,
   ALL_WORDS_IN_GROUP,
+  INITIAL_PAIR_STATE,
 };

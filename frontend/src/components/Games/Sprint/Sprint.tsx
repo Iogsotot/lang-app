@@ -23,14 +23,14 @@ import Spinner from '../../Spinner';
 import Difficulty from '../Difficulty';
 import { getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
-import { animateBorderColor } from '../../../libs/common';
+import { animateBorderColor, modificator1248 } from '../../../libs/common';
 import { Word } from '../../../models';
 import { WordPair } from './Sprint.model';
 
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { useAction } from '../../../hooks/useAction';
 
-import { SPRINT, INITIAL_WORD_STATE } from '../../../constants';
+import { SPRINT, INITIAL_WORD_STATE, INITIAL_PAIR_STATE } from '../../../constants';
 
 import './Sprint.scss';
 
@@ -73,14 +73,9 @@ const Sprint: FC = () => {
   const [mistakesStat, setMistakesStat] = useState<Word[]>([]);
   const [correctAnswersStat, setCorrectAnswersStat] = useState<Word[]>([]);
   const [gameEnd, setGameEnd] = useState(false);
-  const [pair, setPair] = useState({
-    word: 'null',
-    wordTranslate: 'null',
-    audio: 'null',
-    answer: false,
-  });
+  const [pair, setPair] = useState(INITIAL_PAIR_STATE);
 
-  const mod = basicPoints * 2 ** (modificator - 1);
+  const mod = basicPoints * modificator1248(modificator);
 
   const addPoints = () => setPoints(old => old + mod);
   const isAutoPlayAudio = () => ready && autoPlay && isLvlSelected;
@@ -89,22 +84,20 @@ const Sprint: FC = () => {
     if (!ready) {
       return;
     }
+    if (isSoundOn) {
+      onGameOverAudio();
+    }
     setGameEnd(true);
     setIsPlaying(false);
   };
 
   const findWordPair = (): WordPair => {
+    if (!words) {
+      return INITIAL_PAIR_STATE;
+    }
     if (sprintWords.length < 1) {
       handleGameOver();
-      if (isSoundOn) {
-        onGameOverAudio();
-      }
-      return {
-        word: 'null',
-        wordTranslate: 'null',
-        audio: 'null',
-        answer: false,
-      };
+      return INITIAL_PAIR_STATE;
     }
     const wordsList = sprintWords.slice(0);
     setCurrentWord(wordsList.pop() as Word);
@@ -177,7 +170,7 @@ const Sprint: FC = () => {
   }, [group, page, isLvlSelected]);
 
   useEffect(() => {
-    if (words.length === 0) {
+    if (!words || words.length === 0) {
       return;
     }
     setSprintWords(words);
