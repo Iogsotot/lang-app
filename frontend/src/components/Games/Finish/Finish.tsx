@@ -39,57 +39,61 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
   };
 
   return (
-    <div className="audiocall">
-      <div className="box finish">
-        <Tabs>
-          <TabList>
-            <Tab>
-              <i className="fas fa-circle" />
-            </Tab>
-            <Tab>
-              <i className="fas fa-circle" />
-            </Tab>
-          </TabList>
+    <div className="modal is-active">
+      <div className="modal-background" />
+      <div className="modal-content">
+        <div className="box finish">
+          <Tabs>
+            <TabList>
+              <Tab>
+                <i className="fas fa-circle" />
+              </Tab>
+              <Tab>
+                <i className="fas fa-circle" />
+              </Tab>
+            </TabList>
 
-          <TabPanel>
-            <div className="finish__title">Отличный результат!</div>
-            <div className="subtitle">{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
-            <div className="finish__score">{`+${score}`}</div>
-            <div className="finish__btns">
-              <button onClick={() => window.location.reload()} className="button is-primary finish__btn">
-                Сыграть еще раз
-              </button>
-              <button onClick={handleReturnToGameList} className="button is-link finish__btn">
-                К списку игр
-              </button>
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div className="finish__tab-inner">
-              <Scrollbars hideTracksWhenNotNeeded>
-                <div className="finish__words-list">
-                  <div>
+            <TabPanel>
+              <div className="finish__title">Отличный результат!</div>
+              <div className="subtitle">{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
+              <div className="finish__score">{`+${score}`}</div>
+              <div className="finish__btns">
+                <button onClick={() => window.location.reload()} className="button is-primary finish__btn">
+                  Сыграть еще раз
+                </button>
+                <button onClick={handleReturnToGameList} className="button is-link finish__btn">
+                  К списку игр
+                </button>
+              </div>
+            </TabPanel>
+            <TabPanel>
+              <div className="finish__tab-inner">
+                <Scrollbars hideTracksWhenNotNeeded>
+                  <div className="finish__words-list">
                     <div>
-                      <span>Знаю</span>
-                      <span className="finish__akcent-number good">{correctAnswers.length}</span>
+                      <div>
+                        <span>Знаю</span>
+                        <span className="finish__akcent-number good">{correctAnswers.length}</span>
+                      </div>
+                      <CorrectList />
                     </div>
-                    <CorrectList />
-                  </div>
 
-                  <div className="divider"></div>
+                    <div className="divider"></div>
 
-                  <div>
                     <div>
-                      <span>Сложно</span>
-                      <span className="finish__akcent-number bad">{wrongAnswers.length}</span>
+                      <div>
+                        <span>Сложно</span>
+                        <span className="finish__akcent-number bad">{wrongAnswers.length}</span>
+                      </div>
+                      <WrongList />
                     </div>
-                    <WrongList />
                   </div>
-                </div>
-              </Scrollbars>
-            </div>
-          </TabPanel>
-        </Tabs>
+                </Scrollbars>
+              </div>
+            </TabPanel>
+          </Tabs>
+        </div>
+        <button onClick={handleReturnToGameList} className="modal-close is-large" aria-label="close"></button>
       </div>
     </div>
   );

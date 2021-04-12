@@ -4,10 +4,10 @@ import { useHistory } from 'react-router-dom';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import useSound from 'use-sound';
 
-import onWrong from '../../../assets/audio/f18a8f85f945b33.mp3';
+import onWrong from '../../../assets/audio/bonkSound.mp3';
 import onCorrect from '../../../assets/audio/cratepop.mp3';
-import onGameOver from '../../../assets/audio/952782968e924cf.mp3';
-import onGameReady from '../../../assets/audio/622c286eab59510.mp3';
+import onGameOver from '../../../assets/audio/happySound.mp3';
+import onGameReady from '../../../assets/audio/bellSound.mp3';
 
 import Finish from '../Finish';
 import Button from './Button';

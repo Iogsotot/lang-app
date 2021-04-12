@@ -43,7 +43,7 @@ const WORD_GROUPS = {
 
 const SPRINT = {
   gameDuration: 60,
-  timerColor: '#00d1b2',
+  timerColor: '#00d1b2', // стандартный бульмовский бирюзовый
   timerSize: 80,
   timerStrokeWidth: 3,
   colorOnCorrectAnswer: '141, 71%, 48%', // hsl(141, 71%, 48%)
@@ -66,7 +66,7 @@ const SPRINT_MODAL_ON_CLOSE = {
 
 const SPRINT_GET_READY = {
   title: 'Приготовьтесь',
-  timerColor: '#00d1b2',
+  timerColor: '#00d1b2', // стандартный бульмовский бирюзовый
   timerDuration: 5,
   timerStrokeWidth: 3,
   timerSize: 80,
