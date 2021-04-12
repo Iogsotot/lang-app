@@ -24,13 +24,13 @@ const WordCard: FC<WordCardProps> = props => {
       </figure>
 
       <div className="word__info">
-        <h3 className="word__name impossible">{`${word} (${transcription}) ${translate ? `/ ${wordTranslate}` : ''}`}</h3>
-        <p className="word__meaning impossible">{textMeaning}</p>
-        {translate ? <p className="word__meaning word__meaning-translate impossible">{textMeaningTranslate}</p> : ''}
+        <h3 className="word__name">{`${word} (${transcription}) ${translate ? `/ ${wordTranslate}` : ''}`}</h3>
+        <p className="word__meaning">{textMeaning}</p>
+        {translate ? <p className="word__meaning word__meaning-translate">{textMeaningTranslate}</p> : ''}
 
-        <p className="word__example impossible">{textExample}</p>
+        <p className="word__example">{textExample}</p>
 
-        {translate ? <p className="word__example word__example-translate impossible">{textExampleTranslate}</p> : ''}
+        {translate ? <p className="word__example word__example-translate">{textExampleTranslate}</p> : ''}
 
         <div className="word__buttons">
           <button className="button is-outlined" onClick={() => playHandler(word)}>
