@@ -26,7 +26,7 @@ export const fetchRandomWords = (group: number, page: number, amount: number) =>
     type: FETCH_RANDOM_WORD_LIST,
   });
 
-  const response = await fetch(`${API_BASE_URL}/words/all?group=${group}&page=${page}&amount=${amount}`, {
+  const response = await fetch(`${API_BASE_URL}/words/all?group=${group + 1}&page=${page}&amount=${amount}`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
