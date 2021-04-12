@@ -1,6 +1,30 @@
 @import "../../index.scss";
 
 .word {
+  .novice{
+    --color-text-title: blueviolet;
+    --color-text-subtitle: rgb(166, 87, 240);
+    }
+    .easy{
+      --color-text-title: forestgreen;
+      --color-text-subtitle: rgb(147, 204, 92);
+    }
+    .middle{
+      --color-text-title: #5342ea;
+      --color-text-subtitle: #3273dc;
+    }
+    .hard{
+      --color-text-title: #00d1b2;;
+      --color-text-subtitle: #389a8c;
+     }
+    .impossible{
+      --color-text-title: coral;
+      --color-text-subtitle: #ff7b5b;
+    }
+    .legendary{
+      --color-text-title: #d20000;
+      --color-text-subtitle: #ff3838;
+    }
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -29,7 +53,7 @@
     margin-left: 2rem;
     p {
       margin-bottom: 0.6rem;
-      color: var(--bg-word-info);
+      color: var(--color-text-subtitle);
       font-style: normal;
       font-weight: normal;
       font-size: 1rem;
@@ -42,7 +66,7 @@
     font-weight: 500;
     font-size: 2.25rem;
     line-height: 1;
-    color: var(--bg-word-name);
+    color: var(--color-text-title);
     text-align: left;
   }
   &__buttons {
