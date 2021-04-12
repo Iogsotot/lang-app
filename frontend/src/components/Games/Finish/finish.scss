@@ -10,6 +10,7 @@
   &__title {
     font-weight: 700;
     font-size: 2rem;
+    text-align: center;
     color: #2d345c;
   }
 
@@ -33,6 +34,8 @@
   }
 
   & .react-tabs {
+    height: 100%;
+    width: 100%;
     &__tab {
       color: #c9c9c9;
 

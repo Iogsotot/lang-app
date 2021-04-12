@@ -17,11 +17,7 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
     <div>
       {list.map((word: Word) => (
         <div className="finish__words-list__row" key={word.word}>
-
-          <button
-            onClick={() => playSound(wordSoundUrl(word))}
-            className="audiocall__volume volume-button"
-          >
+          <button onClick={() => playSound(wordSoundUrl(word))} className="audiocall__volume volume-button">
             <i className="fas fa-volume-up" />
           </button>
           <span>{`${word.word.toUpperCase()} - ${word.wordTranslate}`}</span>
@@ -48,9 +44,9 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
           </TabList>
 
           <TabPanel>
-            <div className='finish__title'>Отличный результат!</div>
-            <div>{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
-            <div className='finish__score'>{`+${score}`}</div>
+            <div className="finish__title">Отличный результат!</div>
+            <div className="subtitle">{`${correctAnswers.length} изучено, ${wrongAnswers.length} на изучении`}</div>
+            <div className="finish__score">{`+${score}`}</div>
           </TabPanel>
           <TabPanel>
             <div className="finish__tab-inner">
@@ -64,7 +60,7 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
                     <CorrectList />
                   </div>
 
-                  <div className='divider'></div>
+                  <div className="divider"></div>
 
                   <div>
                     <div>
