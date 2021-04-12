@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import TextBook from './components/Textbook';
 import PromoPage from './components/PromoPage';
 import AuthPage from './components/AuthPage';
@@ -7,6 +7,7 @@ import Savannah from './components/Games/Savannah';
 import Audiocall from './components/Games/AudioCall';
 import Sprint from './components/Games/Sprint';
 import { useTypedSelector } from './hooks/useTypedSelector';
+import Dictionary from './components/Dictionary';
 import Puzzle from './components/Games/Puzzle';
 
 export const Router: FC = () => {
@@ -21,6 +22,10 @@ export const Router: FC = () => {
 
         <Route path="/textbook/:group/:page" exact>
           <TextBook />
+        </Route>
+
+        <Route path="/dictionary/:section/:group/:page" exact>
+          <Dictionary />
         </Route>
 
         <Route path="/Puzzle/" exact>
