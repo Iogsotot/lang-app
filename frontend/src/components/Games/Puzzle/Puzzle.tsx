@@ -44,7 +44,7 @@ const Puzzle: FC = () => {
         <i className="fal fa-times" />
       </div>
       {
-        gameActive ?
+        gameActive && !gameFinished ?
           <GameScreen setGameFinished={setGameFinished}
             setWrongAnswers={setWrongAnswers}
             setCorrectAnswers={setCorrectAnswers}
