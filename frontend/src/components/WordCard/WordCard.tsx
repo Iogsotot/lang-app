@@ -103,6 +103,8 @@ const WordCard: FC<WordCardProps> = props => {
         },
       );
     }
+    const thisWord = { ...props, userWord: { difficulty: 'hard' } };
+    updateWord(words, thisWord);
     setLoading(false);
   };
 

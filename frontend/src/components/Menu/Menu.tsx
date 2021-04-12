@@ -9,7 +9,7 @@ import StatsIcon from '../../assets/images/stats_icon.png';
 import SettingsIcon from '../../assets/images/settings_icon.png';
 import { LOCATIONS } from '../../constants';
 
-const { textbook } = LOCATIONS;
+const { textbook, dictionary } = LOCATIONS;
 
 const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
@@ -33,10 +33,10 @@ const Menu: FC = () => {
   };
 
   useEffect(() => {
-    if (location !== textbook) {
-      setDisabled(true);
-    } else {
+    if (location === textbook || location === dictionary) {
       setDisabled(false);
+    } else {
+      setDisabled(true);
     }
   }, [location]);
 
