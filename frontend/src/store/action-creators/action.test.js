@@ -1,11 +1,13 @@
 import { WordListActionTypes } from '../../models/word';
 import { UserActionTypes } from '../../models/user';
+import { ThemeActionTypes } from '../../models/theme';
 import { wordListReducer, initialState } from '../reducers/words';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
-import * as actions from '../action-creators/words';
-import * as users from '../action-creators/user';
+import * as actions from './words';
+import * as users from './user';
+import * as theme from './theme';
 import expect from 'expect';
 
 fetchMock.config.fallbackToNetwork = true;
@@ -22,6 +24,16 @@ describe('testing thunk functions', () => {
     }]
     const store = mockStore({ initialState })
     store.dispatch(actions.setPage('1'));
+    expect(store.getActions()).toEqual(expectedAction)
+  });
+  it('setDarkMode test', () => {
+
+    const expectedAction = [{
+      type: ThemeActionTypes.SET_DARK_MODE,
+      payload: 'true',
+    }]
+    const store = mockStore({ initialState })
+    store.dispatch(theme.setDarkMode('true'));
     expect(store.getActions()).toEqual(expectedAction)
   });
   it('setGroup test', () => {
