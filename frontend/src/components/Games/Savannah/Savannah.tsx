@@ -57,6 +57,8 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [correctAnswers, setCorrectAnswers] = useState<Word[]>([]);
   const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
   const [loading, setLoading] = useState('');
+  // const [readyGameCounter, setReadyGameCounter] = useState<number>();
+  const [gameStart, setGameStart] = useState(false);
 
   const initialGameState = {
     lives: maxLives,
@@ -116,21 +118,53 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     setGameScreen('game');
   }, []);
 
+  // useEffect(() => {
+  //   if (!timer) {
+  //     return;
+  //   }
+  //   if (gameScreen === 'game') {
+  //     const startTimerId = setInterval(() => {
+  //       setReadyGameCounter(counter + 1);
+  //       if (readyGameCounter === 3) {
+  //         startGame();
+  //       }
+  //     }, 1000);
+  //     return () => {
+  //       clearTimeout(startTimerId);
+  //     };
+  //   }
+  // }, [readyGameCounter]);
+
   useEffect(() => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
       console.log({ currentPageWords });
       setCurrentWords(currentPageWords);
       setLoading('done');
-      setGameScreen('game');
-      startGame();
+      // setReadyGameCounter(3);
     }
     fetchCurrentPageWords();
   }, [group]);
 
+  useEffect(() => {
+    if (loading === 'done' && gameStart) {
+      setGameScreen('game');
+      startGame();
+    }
+  }, [loading, gameStart]);
+
   function resetGame() {
+    setGameStart(false);
     setTimer(0);
     statsData.current = initialGameState;
+  }
+
+  function handleStartGame() {
+    if (loading !== 'done') {
+      setLoading('start');
+      setGameScreen('');
+    }
+    setGameStart(true);
   }
 
   function gameOver() {
@@ -260,10 +294,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
               ))}
             </div>
           )}
-          <button className="btn--start button is-primary is-outlined" onClick={() => {
-            setLoading('start');
-            setGameScreen('');
-          }}>
+          <button className="btn--start button is-primary is-outlined" onClick={() => { handleStartGame(); }}>
             Начать игру!
           </button>
         </div>
