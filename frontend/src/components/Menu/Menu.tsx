@@ -8,9 +8,7 @@ import TextBookIcon from '../../assets/images/textbook_icon.png';
 import StatsIcon from '../../assets/images/stats_icon.png';
 import SettingsIcon from '../../assets/images/settings_icon.png';
 import { LOCATIONS } from '../../constants';
-import { storageNames } from '../../constants/storageNames';
 
-const { DARK_MODE } = storageNames;
 const { textbook } = LOCATIONS;
 
 const Menu: FC = () => {
@@ -18,9 +16,9 @@ const Menu: FC = () => {
   const { showButtons, showTranslate, setDarkMode } = useAction();
   const store = useTypedSelector(commonStore => commonStore);
   const { displayButtons, translate } = store.wordList;
+  const { darkMode } = store.theme;
   const { isLoggedIn } = store.user;
   const [openSettings, setOpenSettings] = useState(false);
-  const { darkMode } = useTypedSelector(store => store.theme);
   const [disabled, setDisabled] = useState(false);
 
   const toggleSettigns = () => {
@@ -36,7 +34,6 @@ const Menu: FC = () => {
   };
 
   const onChangeTheme = () => {
-    localStorage.setItem(DARK_MODE, `${!darkMode}`);
     setDarkMode(!darkMode);
   };
 
