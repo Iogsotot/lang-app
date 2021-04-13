@@ -1,0 +1,31 @@
+.stats {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: #f2f2f2;
+
+  &__block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  &__result {
+      font-size: 3rem;
+      color: #279b8f;
+      margin: 20px;
+  }
+
+  &__box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+      min-width: 300px;
+      
+      text-align: center;
+  }
+}
