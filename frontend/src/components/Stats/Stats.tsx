@@ -52,23 +52,24 @@ const Stats: FC = () => {
       </div>
       <div className="stats__block">
         <div className="box stats__box">
-          <h4>Изученые слова </h4>
+          <h4>Изученых слов в игре </h4>
           <PieComponent data={data} />
         </div>
         <div className="box stats__box">
-          <h4>Правильных ответов </h4>
+          <h4>Правильных ответов в игре </h4>
           <PieComponent data={data} />
         </div>
         <div className="box stats__box">
-          <h4>Самая длинная серия </h4>
+          <h4>Самая длинная серия правильных ответов </h4>
           <PieComponent data={data} />
         </div>
       </div>
       <h2>Прогресс</h2>
-      <div className="box stats__box">
-        <h4>Изученные слова </h4>
-        <BarComponent data={daysData} />
-      </div>
+      <div className="stats__block">
+        <div className="box stats__box bar-box">
+          <BarComponent data={daysData} />
+        </div>
+      </div >
     </div>
   );
 };

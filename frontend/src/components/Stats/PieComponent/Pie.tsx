@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { PieChart, Pie, Sector, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
 import { PieProps } from './Pie.model';
 import '../stats.scss';
 
@@ -18,7 +18,7 @@ const PieComponent: FC<PieProps> = ({ data }) => {
         <span>Изученые слова </span>
         <PieComponent data={data} />
       </div>
-      <Legend verticalAlign="bottom" layout="vertical" />
+      <Legend verticalAlign="bottom" layout="vertical" iconType="circle" iconSize={8} />
     </PieChart>
   );
 };
