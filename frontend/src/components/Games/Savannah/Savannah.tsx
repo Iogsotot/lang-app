@@ -1,13 +1,15 @@
+/* eslint-disable no-nested-ternary */
 import { useCallback, useEffect, useState, FC, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import './savannah.scss';
 import { SavannahProps } from './Savannah.model';
 import { WORD_GROUPS, API_BASE_URL } from '../../../constants';
 import ModalOnClose from '../ModalOnClose';
 import Finish from '../Finish';
+import Spinner from '../../Spinner';
 import { Word } from '../../../models/word';
 import gameDataActions from '../../../store/action-creators/gameDataActions';
+import './savannah.scss';
 
 type StateProps = {
   page: number;
@@ -54,6 +56,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [round, setRound] = useState(1);
   const [correctAnswers, setCorrectAnswers] = useState<Word[]>([]);
   const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
+  const [loading, setLoading] = useState('');
 
   const initialGameState = {
     lives: maxLives,
@@ -108,11 +111,19 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     return response;
   }
 
+  const startGame = useCallback(() => {
+    setTimer(maxCount);
+    setGameScreen('game');
+  }, []);
+
   useEffect(() => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
-      // console.log({ currentPageWords });
+      console.log({ currentPageWords });
       setCurrentWords(currentPageWords);
+      setLoading('done');
+      setGameScreen('game');
+      startGame();
     }
     fetchCurrentPageWords();
   }, [group]);
@@ -189,11 +200,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     }
   }, [counter, timer]);
 
-  const handleStart = useCallback(() => {
-    setTimer(maxCount);
-    setGameScreen('game');
-  }, []);
-
   function checkPair(word: number) {
     setRound(round + 1);
     resetGameRound();
@@ -254,41 +260,48 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
               ))}
             </div>
           )}
-          <button className="btn--start button is-primary is-outlined" onClick={handleStart}>
+          <button className="btn--start button is-primary is-outlined" onClick={() => {
+            setLoading('start');
+            setGameScreen('');
+          }}>
             Начать игру!
           </button>
         </div>
       )}
-      {gameScreen === 'game' && (
-        <div className="savannah-body">
-          <div className="status-bar box">
-            <div>lives: {statsData.current.lives}</div>
-            <div className="lives">
-              <i className="fas fa-heart"></i>
-              <i className="fas fa-heart"></i>
-              <i className="fas fa-heart"></i>
-              <i className="fas fa-heart"></i>
-              <i className="far fa-heart"></i>
+      {loading === 'start' && <Spinner/>}
+      {gameScreen === 'game' &&
+        (
+          <div className="savannah-body">
+            <div className="status-bar box">
+              <div>lives: {statsData.current.lives}</div>
+              <div className="lives">
+                <i className="fas fa-heart"></i>
+                <i className="fas fa-heart"></i>
+                <i className="fas fa-heart"></i>
+                <i className="fas fa-heart"></i>
+                <i className="far fa-heart"></i>
+              </div>
             </div>
-          </div>
 
-          <div className="current-word__container title is-3 has-text-centered">
-            <div className={currentWordClassNames} key={currentWords[wordsChunk[soughtIndex]].word}>
-              {currentWords[wordsChunk[soughtIndex]].wordTranslate}
+            <div className="current-word__container title is-3 has-text-centered">
+              <div className={currentWordClassNames} key={currentWords[wordsChunk[soughtIndex]].word}>
+                {currentWords[wordsChunk[soughtIndex]].wordTranslate}
+              </div>
             </div>
-          </div>
 
-          <div className="answer-variants">
-            <div className="wrapper">
-              {WORDS.map(word => (
-                <div className="button  is-primary is-outlined" onClick={() => checkPair(word)} key={word}>
-                  {currentWords[wordsChunk[word]].word}
-                </div>
-              ))}
+            <div className="answer-variants">
+              <div className="wrapper">
+                {WORDS.map(word => (
+                  <div className="button  is-primary is-outlined" onClick={() => checkPair(word)} key={word}>
+                    {currentWords[wordsChunk[word]].word}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
+
       {gameScreen === 'stats' && (
         <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={statsData.current.point} />
       )}
