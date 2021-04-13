@@ -2,9 +2,11 @@ import { FC } from 'react';
 
 import { ButtonProps } from './Button.model';
 
-const Button: FC<ButtonProps> = ({ props, onBtnClick, text, className, icon }) => {
+// вместо того что бы странно выбирать иконки надо сделать компоненту кнопки,
+// которая могла бы оборачивать содержимое кнопки или еще как нибудь (HOC)
+const Button: FC<ButtonProps> = ({ onBtnClick, text, className, icon }) => {
   const handleClick = () => {
-    onBtnClick(props);
+    onBtnClick();
   };
 
   const leftIcon = icon === 'arrow-left' && (

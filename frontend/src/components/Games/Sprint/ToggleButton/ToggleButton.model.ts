@@ -1,5 +1,5 @@
 export interface ToggleButtonProps {
   property: boolean;
-  callback: (...args: any) => void;
+  callback: () => void;
   className: string;
 }
