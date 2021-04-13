@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
+import { useCallback, useEffect, useState, FC, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './savannah.scss';
 import { SavannahProps } from './Savannah.model';
 import { WORD_GROUPS, API_BASE_URL } from '../../../constants';
+import ModalOnClose from '../ModalOnClose';
 import Finish from '../Finish';
 import { Word } from '../../../models/word';
 import gameDataActions from '../../../store/action-creators/gameDataActions';
@@ -31,17 +32,20 @@ const mapStateToProps = ({ gameData }: any) => {
 
 const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const { setPage, addToActiveWords } = props;
+  const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const answerVariantsCount = 4;
   const WORDS = [0, 1, 2, 3];
   const maxCount = 6;
   const maxLives = 5;
+  const maxRound = 30;
   const allWordsInGroupCount = 600;
 
   const currentLocation = useLocation();
   let previousLocation = '';
+  console.log(currentLocation);
   if (currentLocation.state) {
     // eslint-disable-next-line prefer-destructuring
-    previousLocation = currentLocation.state.from.split('/')[1];
+    previousLocation = currentLocation.state.from;
   }
 
   const [group, setGroup] = useState(0);
@@ -58,6 +62,17 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     wrongAswersCount: 0,
     point: 0,
   };
+
+  const handleCancelModal = () => {
+    setModalOnCloseIsActive(false);
+  };
+
+  const handleSubmitClose = () => {
+    window.location.href = '../';
+  };
+
+  const closeButtonClick = () =>
+    (round < maxRound ? setModalOnCloseIsActive(true) : handleSubmitClose());
   const statsData = useRef(initialGameState);
 
   // welcome, game, stats
@@ -164,7 +179,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
           resolveAsWrongAnswer();
           resetGameRound();
           clearInterval(startTimerId);
-          if (round === 30) {
+          if (round === maxRound) {
             gameOver();
           }
         }
@@ -194,21 +209,26 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     if (gameScreen === 'welcome') {
       window.location.href = '../';
     }
-    // открыть попап с предупреждением
     resetGame();
     setGameScreen('welcome');
   }
 
   return (
     <section className="savannah">
-      <div className="overlay"></div>
-      <div
-        className="btn--close"
-        onClick={() => {
-          handleClose();
-        }}
-      >
-        <i className="fal fa-times" />
+      <ModalOnClose
+        modalIsActive={modalOnCloseIsActive}
+        handleCancelModal={handleCancelModal}
+        handleSubmitClose={handleSubmitClose}
+      />
+      <div className="overlay">
+        <div
+          className="btn--close"
+          onClick={() => {
+            closeButtonClick();
+          }}
+        >
+          <i className="fal fa-times" />
+        </div>
       </div>
 
       {gameScreen === 'welcome' && (

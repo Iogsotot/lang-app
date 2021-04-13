@@ -64,22 +64,22 @@ const Menu: FC = () => {
                 : <></>
             }
             <li className="menu__item">
-              <Link to="/sprint">
+              <Link to={{ pathname: '/sprint', state: { from: location } }}>
                 <i className="fal fa-running fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/savannah">
+              <Link to={{ pathname: '/savannah', state: { from: location } }}>
                 <i className="fal fa-paw-claws fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/puzzle">
+              <Link to={{ pathname: '/puzzle', state: { from: location } }}>
                 <i className="fal fa-puzzle-piece fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/audiocall">
+              <Link to={{ pathname: '/audiocall', state: { from: location } }}>
                 <i className="fal fa-headphones-alt fa-3x"/>
               </Link>
             </li>

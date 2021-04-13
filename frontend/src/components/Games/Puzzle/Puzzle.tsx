@@ -1,14 +1,15 @@
-import React, { useState, FC } from 'react';
+import { useState, FC } from 'react';
+import { useLocation } from 'react-router-dom';
 // import SettingsScreen from './SettingsScreen';
 import GameScreen from './GameScreen';
 import { WORD_GROUPS } from '../../../constants/constants';
 import ModalOnClose from '../ModalOnClose';
-import CloseButton from '../../CloseButton';
+// import CloseButton from '../../CloseButton';
 import Finish from '../Finish';
 
 const Puzzle: FC = () => {
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
-  const [isFromTextbook, setFromTextbook] = useState(false);
+  // const [isFromTextbook, setFromTextbook] = useState(false);
   const [gameActive, setGameActive] = useState(false);
   const [group, setGroup] = useState(0);
   const [gameFinished, setGameFinished] = useState(false);
@@ -24,9 +25,16 @@ const Puzzle: FC = () => {
   const handleSubmitClose = () => {
     window.location.href = '../';
   };
-  const closeButtonClick = () => {
-    setModalOnCloseIsActive(true);
-  };
+  // const closeButtonClick = () => {
+  //   setModalOnCloseIsActive(true);
+  // };
+
+  const currentLocation = useLocation();
+  let previousLocation = '';
+  if (currentLocation.state) {
+    // eslint-disable-next-line prefer-destructuring
+    previousLocation = currentLocation.state.from;
+  }
 
   return (
     <section className="puzzle">
@@ -61,7 +69,7 @@ const Puzzle: FC = () => {
             В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может, вам так легче учить
             язык.
           </p>
-          {!isFromTextbook && (
+          {previousLocation !== 'textbook' && (
             <div className="difficulty-btn-block">
               <p>Сложность:</p>
               {Object.entries(WORD_GROUPS).map(([key, value]) => (
