@@ -365,13 +365,13 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
         (
           <div className="savannah-body">
             <div className="status-bar box">
-              <div>lives: {statsData.current.lives}</div>
               <div className="lives">
-                <i className="fas fa-heart"></i>
-                <i className="fas fa-heart"></i>
-                <i className="fas fa-heart"></i>
-                <i className="fas fa-heart"></i>
-                <i className="far fa-heart"></i>
+                {[...Array(statsData.current.lives)].map(() => (
+                  <i className="fas fa-heart"/>
+                ))}
+                {[...Array(5 - statsData.current.lives)].map(() => (
+                  <i className="far fa-heart"/>
+                ))}
               </div>
             </div>
 
