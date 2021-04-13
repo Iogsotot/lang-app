@@ -13,10 +13,10 @@ const { textbook } = LOCATIONS;
 
 const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
-  // const currentLocation = useLocation();
-  const { showButtons, showTranslate } = useAction();
+  const { showButtons, showTranslate, setDarkMode } = useAction();
   const store = useTypedSelector(commonStore => commonStore);
   const { displayButtons, translate } = store.wordList;
+  const { darkMode } = store.theme;
   const { isLoggedIn } = store.user;
   const [openSettings, setOpenSettings] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -31,6 +31,10 @@ const Menu: FC = () => {
 
   const onChangeTranslate = () => {
     showTranslate(!translate);
+  };
+
+  const onChangeTheme = () => {
+    setDarkMode(!darkMode);
   };
 
   useEffect(() => {
@@ -104,19 +108,32 @@ const Menu: FC = () => {
               />
               <label htmlFor="switchTranslate">Показывать перевод</label>
             </div>
-            <div className="hidden__menu-item">
-              <div className="field">
-                <input
-                  onChange={onChangeButtons}
-                  checked={displayButtons}
-                  disabled={disabled}
-                  id="switchButtons"
-                  type="checkbox"
-                  name="switchButtons"
-                  className="switch is-info"
-                />
-                <label htmlFor="switchButtons">Показывать кнопки</label>
-              </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeButtons}
+                checked={displayButtons}
+                disabled={disabled}
+                id="switchButtons"
+                type="checkbox"
+                name="switchButtons"
+                className="switch is-info"
+              />
+              <label htmlFor="switchButtons">Показывать кнопки</label>
+            </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeTheme}
+                checked={darkMode}
+                id="setDarkMode"
+                type="checkbox"
+                name="setDarkMode"
+                className="switch is-info"
+              />
+              <label htmlFor="setDarkMode">Темная тема</label>
             </div>
           </div>
         </div>
@@ -124,4 +141,5 @@ const Menu: FC = () => {
     </aside>
   );
 };
+
 export default Menu;

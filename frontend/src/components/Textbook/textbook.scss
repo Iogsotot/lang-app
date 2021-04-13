@@ -361,3 +361,8 @@ main.dictionary {
     }
   }
 }
+@media (max-width: 640px) {
+  section.textbook {
+    height: calc(100vh + 1rem);
+  }
+}

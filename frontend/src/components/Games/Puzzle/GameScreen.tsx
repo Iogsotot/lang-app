@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import useSound from 'use-sound';
 import { Word } from '../../../models/word';
@@ -32,7 +32,7 @@ const returnElementToList = (el: Word | undefined, list: Word[]) => {
 const correctAnswers: Array<Word | undefined> = [];
 const wrongAnswers: Array<Word | undefined> = [];
 
-const GameScreen = (props: GameScreenProps) => {
+const GameScreen: FC<GameScreenProps> = (props) => {
   const { group, setGameFinished, setCorrectAnswers, setWrongAnswers } = props;
   const [collection, setCollection] = useState<Word[]>([]);
   const [phrase, setPhrase] = useState<string | null>(null);
@@ -47,9 +47,10 @@ const GameScreen = (props: GameScreenProps) => {
     fetch(`${API_BASE_URL}/words/all?amount=5?group=${group}`)
       .then(res => res.json())
       .then(res => {
-        const firstElem = res[0];
-        setPhrase(firstElem.textMeaning);
-        setWord(firstElem.word);
+        const value = Math.floor(Math.random() * res.length);
+        const randomElem = res[value];
+        setPhrase(randomElem.textMeaning);
+        setWord(randomElem.word);
         setCollection(res);
         setGuess(undefined);
         setCounter(counter + 1);

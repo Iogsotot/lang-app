@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { PhraseProps } from '../Puzzle.model';
 
@@ -12,15 +12,7 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   ...draggableStyle,
 });
 
-// const getListStyle = (isDraggingOver: boolean) => ({
-//   background: isDraggingOver ? 'lightblue' : 'lightgrey',
-//   display: 'flex',
-//   padding: grid,
-//   overflow: 'auto',
-//   width: '250px',
-// });
-
-const Phrase = ({ phrase, word, item, outline }: PhraseProps) => {
+const Phrase: FC<PhraseProps> = ({ phrase, word, item, outline }) => {
   const splicePhrase = () => (word && phrase ? phrase.toLowerCase().split(word) : []);
   const [firstPart, secondPart] = splicePhrase();
 
@@ -28,7 +20,7 @@ const Phrase = ({ phrase, word, item, outline }: PhraseProps) => {
     <div className="puzzle__phrase" style={{ border: `4px solid ${outline}` }}>
       <div>{firstPart}</div>
       <Droppable droppableId="phrase" direction="horizontal">
-        {(provided, snapshot) => (
+        {(provided) => (
           <div ref={provided.innerRef} className="puzzle__space">
             {item && (
               <Draggable key={item.id} draggableId={item.id || '0'} index={0}>
