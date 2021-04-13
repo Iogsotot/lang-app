@@ -4,10 +4,12 @@
   position: relative;
   height: calc(100vh - 78px);
   background: url("../../../assets/images/savannah-bg.svg");
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: cover;
   background-position-x: center;
   background-position-y: 100%;
+
+  transition: background-position-y 250ms linear;
 
   .savannah-body {
     width: inherit;

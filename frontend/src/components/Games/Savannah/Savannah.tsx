@@ -216,7 +216,10 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
 
   function resolveAsCorrectAnswer() {
     // звук правильного ответа
-    const bgModificator = `${100 - (statsData.current.correctAnswersCount * 3)}%`;
+    let bgModificator = '0%';
+    if (statsData.current.correctAnswersCount <= 33) {
+      bgModificator = `${100 - (statsData.current.correctAnswersCount * 3)}%`;
+    }
     setBgPosition(bgModificator);
 
     const updatedCorrectAnswers = [...correctAnswers, currentWords[wordsChunk[soughtIndex]]];
