@@ -49,7 +49,7 @@ export interface FetchUserWordsProps {
 export interface WordsDispatchProps {
   showButtons: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setGroup: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
-  fetchWords: (group: number, page: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
+  fetchWords: (group: number, page: number, sort?: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   fetchUserWords: (props: FetchUserWordsProps) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showTranslate: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setPage: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
