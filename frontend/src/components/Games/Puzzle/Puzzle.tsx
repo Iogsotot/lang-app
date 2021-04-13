@@ -25,11 +25,13 @@ const Puzzle: FC = () => {
 
   return (
     <section className="puzzle">
+
       <div className="overlay"/>
       {gameFinished &&
       <Finish correctAnswers={correctAnswers}
         wrongAnswers={wrongAnswers}
         score={correctAnswers.length * 10} /> }
+
       <ModalOnClose
         modalIsActive={modalOnCloseIsActive}
         handleCancelModal={handleCancelModal}
@@ -43,6 +45,7 @@ const Puzzle: FC = () => {
       >
         <i className="fal fa-times" />
       </div>
+
       {
         gameActive && !gameFinished ?
           <GameScreen setGameFinished={setGameFinished}

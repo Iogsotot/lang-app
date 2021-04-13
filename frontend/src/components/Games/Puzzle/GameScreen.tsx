@@ -7,7 +7,7 @@ import Variants from './Variants/Variants';
 import './puzzle.scss';
 import { API_BASE_URL } from '../../../constants/constants';
 import { GameScreenProps } from './Puzzle.model';
-import successSound from '../../../assets/audio/952782968e924cf.mp3';
+import successSound from '../../../assets/audio/happySound.mp3';
 import failureSound from '../../../assets/audio/failure.mp3';
 
 const reorder = (list: Word[], startIndex: number, endIndex: number) => {
@@ -84,13 +84,15 @@ const GameScreen: FC<GameScreenProps> = (props) => {
 
       playFailure();
       setOutline('rgb(255,0,0)');
-      setTimeout(() => { setOutline(''); }, 1000);
+      setTimeout(() => {
+        setOutline('');
+      }, 1000);
     }
   };
 
   const handleDoubleClick = (event: React.MouseEvent) => {
     const target = event.target as Element;
-    const guessElem = collection.find((el) => el.id === target.id);
+    const guessElem = collection.find(el => el.id === target.id);
     const newState = deleteGuessElem(guessElem, collection);
     if (guess) {
       newState.push(guess);
@@ -101,7 +103,7 @@ const GameScreen: FC<GameScreenProps> = (props) => {
   };
 
   const onDragEnd = useCallback(
-    (result) => {
+    result => {
       const { source, destination } = result;
       if (!destination) {
         return;
@@ -125,10 +127,9 @@ const GameScreen: FC<GameScreenProps> = (props) => {
         case 'phrase':
           if (source.droppableId === 'phrase') {
             // перетаскиваем внутри phrase - ничего не происходит
-
           } else if (source.droppableId === 'variants') {
             // перетаскиваем из variants в phrase - меняем состояние + валидация
-            const guessElem = collection.find((el) => el.id === result.draggableId);
+            const guessElem = collection.find(el => el.id === result.draggableId);
             const newState = deleteGuessElem(guessElem, collection);
             if (guess) {
               newState.push(guess);

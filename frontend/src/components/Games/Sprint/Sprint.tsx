@@ -4,29 +4,33 @@ import { useHistory } from 'react-router-dom';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import useSound from 'use-sound';
 
-import onWrong from '../../../assets/audio/wilhelm_scream.mp3';
+import onWrong from '../../../assets/audio/bonkSound.mp3';
 import onCorrect from '../../../assets/audio/cratepop.mp3';
-import onGameOver from '../../../assets/audio/952782968e924cf.mp3';
-import onGameReady from '../../../assets/audio/622c286eab59510.mp3';
+import onGameOver from '../../../assets/audio/happySound.mp3';
+import onGameReady from '../../../assets/audio/bellSound.mp3';
 
+import Finish from '../Finish';
 import Button from './Button';
 import Streak from './Streak';
 import ModalOnClose from './ModalOnClose';
 import CloseButton from '../../CloseButton';
 import GetReady from './GetReady';
 import Frogs from './Frogs';
+import Checkbox from './Checkbox';
 import ToggleButton from './ToggleButton';
 import PlayAudioButton from './PlayAudioButton';
+import Spinner from '../../Spinner';
+import Difficulty from '../Difficulty';
 import { getRandomBooleanAnswer, randomInteger } from '../../../libs/random';
 import { compareAnswer } from '../../../libs/gameLogic';
-import { animateBorderColor } from '../../../libs/common';
+import { animateBorderColor, modificator1248 } from '../../../libs/common';
 import { Word } from '../../../models';
 import { WordPair } from './Sprint.model';
 
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { useAction } from '../../../hooks/useAction';
 
-import { SPRINT } from '../../../constants';
+import { SPRINT, INITIAL_WORD_STATE, INITIAL_PAIR_STATE } from '../../../constants';
 
 import './Sprint.scss';
 
@@ -43,67 +47,57 @@ const {
   basicPoints,
   maxModificator,
   maxStreak,
+  checkboxAuto,
 } = SPRINT;
 
 const Sprint: FC = () => {
   const history = useHistory();
+  const [isLvlSelected, setLvlSelected] = useState(false);
   const [correctAnswerAudio] = useSound(onCorrect);
   const [wrongAnswerAudio] = useSound(onWrong);
   const [onGameOverAudio] = useSound(onGameOver);
   const [onGameReadyAudio] = useSound(onGameReady);
-  const { words, group, page } = useTypedSelector(store => store.wordList);
-  const { fetchWords } = useAction();
+  const { words, group, page, loading } = useTypedSelector(store => store.wordList);
+  const { fetchRandomWords } = useAction();
   const [sprintWords, setSprintWords] = useState(words);
   const [streak, setStreak] = useState(0);
-  const [IsPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [ready, setReady] = useState(false);
   const [getReadyIsPlaying, setGetReadyIsPlaying] = useState(true);
   const [points, setPoints] = useState(0);
   const [modificator, setModificator] = useState(1);
-  const [isSoundOn, setIsSoundOn] = useState(false);
-  const [currentWord, setCurrentWord] = useState<Word | any>({
-    group: 0,
-    page: 0,
-    word: 'alcohol',
-    image: 'files/01_0002.jpg',
-    audio: 'files/01_0002.mp3',
-    audioMeaning: 'files/01_0002_meaning.mp3',
-    audioExample: 'files/01_0002_example.mp3',
-    textMeaning: '<i>Alcohol</i> is a type of drink that can make people drunk.',
-    textExample: 'A person should not drive a car after he or she has been drinking <b>alcohol</b>.',
-    transcription: '[ǽlkəhɔ̀ːl]',
-
-    textExampleTranslate: 'Человек не должен водить машину после того, как он выпил алкоголь',
-    textMeaningTranslate: 'Алкоголь - это тип напитка, который может сделать людей пьяными',
-    wordTranslate: 'алкоголь',
-  });
+  const [isSoundOn, setIsSoundOn] = useState(true);
+  const [autoPlay, setAutoPlay] = useState(true);
+  const [currentWord, setCurrentWord] = useState<Word>(INITIAL_WORD_STATE);
   const [mistakesStat, setMistakesStat] = useState<Word[]>([]);
   const [correctAnswersStat, setCorrectAnswersStat] = useState<Word[]>([]);
-  const [pair, setPair] = useState({
-    word: 'null',
-    wordTranslate: 'null',
-    audio: 'null',
-    answer: false,
-  });
-  const mod = basicPoints * 2 ** (modificator - 1);
+  const [gameEnd, setGameEnd] = useState(false);
+  const [pair, setPair] = useState(INITIAL_PAIR_STATE);
 
-  const addPoints = () => {
-    setPoints(old => old + mod);
+  const mod = basicPoints * modificator1248(modificator);
+
+  const addPoints = () => setPoints(old => old + mod);
+  const isAutoPlayAudio = () => ready && autoPlay && isLvlSelected;
+
+  const handleGameOver = () => {
+    if (!ready) {
+      return;
+    }
+    if (isSoundOn) {
+      onGameOverAudio();
+    }
+    setGameEnd(true);
+    setIsPlaying(false);
   };
 
   const findWordPair = (): WordPair => {
+    if (!words) {
+      return INITIAL_PAIR_STATE;
+    }
     if (sprintWords.length < 1) {
-      // тута запускаем сообщение о конце игры
-      if (isSoundOn && ready) {
-        onGameOverAudio();
-      }
-      return {
-        word: 'null',
-        wordTranslate: 'null',
-        audio: 'null',
-        answer: false,
-      };
+      handleGameOver();
+      return INITIAL_PAIR_STATE;
     }
     const wordsList = sprintWords.slice(0);
     setCurrentWord(wordsList.pop() as Word);
@@ -138,7 +132,7 @@ const Sprint: FC = () => {
   };
 
   const handleAnswerBtnClick = (arg: boolean): void => {
-    if (!IsPlaying) return;
+    if (!isPlaying) return;
     if (compareAnswer(arg, pair.answer)) {
       // correct answer
       if (isSoundOn) {
@@ -170,20 +164,30 @@ const Sprint: FC = () => {
   };
 
   useEffect(() => {
-    fetchWords(group, page);
-  }, [group]);
+    if (isLvlSelected) {
+      fetchRandomWords(group, page, wordsAmount);
+    }
+  }, [group, page, isLvlSelected]);
 
   useEffect(() => {
-    if (words.length === 0) {
+    if (!words || words.length === 0) {
       return;
     }
-
     setSprintWords(words);
     setPair(findWordPair());
   }, [words, ready]);
+  useEffect(() => {
+    if (ready) {
+      onGameReadyAudio();
+    }
+  }, [ready]);
 
   useEffect(() => {
     document.addEventListener('keyup', handleArrowKeys);
+
+    if (isAutoPlayAudio()) {
+      new Audio(pair.audio).play();
+    }
 
     return () => {
       document.removeEventListener('keyup', handleArrowKeys);
@@ -200,9 +204,7 @@ const Sprint: FC = () => {
     setModalOnCloseIsActive(true);
   };
 
-  const handleSubmitClose = () => {
-    history.push('/');
-  };
+  const handleSubmitClose = () => history.push('/');
 
   const handleCancelModal = () => {
     if (ready) {
@@ -213,19 +215,83 @@ const Sprint: FC = () => {
     setModalOnCloseIsActive(false);
   };
 
-  const setReadyCallback = () => {
-    setReady(true);
-  };
+  const setReadyCallback = () => setReady(true);
 
-  const togglePause = () => {
-    setIsPlaying(old => !old);
-  };
+  const togglePause = () => setIsPlaying(old => !old);
 
-  const toggleSound = () => {
-    setIsSoundOn(old => !old);
-  };
+  const toggleSound = () => setIsSoundOn(old => !old);
+
+  const toggleAutoPlay = () => setAutoPlay(old => !old);
+
+  const handleAnswerBtnClickTrue = () => handleAnswerBtnClick(true);
+  const handleAnswerBtnClickFalse = () => handleAnswerBtnClick(false);
 
   const { word, wordTranslate, audio } = pair;
+  const showFinishScreen = () => {
+    if (!gameEnd) {
+      return;
+    }
+    return <Finish correctAnswers={correctAnswersStat} wrongAnswers={mistakesStat} score={points} />;
+  };
+  const renderGameIfReady = () => {
+    if (!isLvlSelected) {
+      return (
+        <div className="box difficulty__box">
+          <Difficulty handleStart={() => setLvlSelected(true)} />
+        </div>
+      );
+    }
+    if (loading) {
+      return <Spinner />;
+    }
+    if (!ready) {
+      return <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback} />;
+    }
+    return (
+      <>
+        <div onClick={togglePause} className={`countdown-wrapper ${!isPlaying ? 'pause' : ''}`}>
+          <CountdownCircleTimer
+            onComplete={handleGameOver}
+            size={timerSize}
+            strokeWidth={timerStrokeWidth}
+            isPlaying={isPlaying && !gameEnd}
+            duration={gameDuration}
+            colors={timerColor}
+          >
+            {({ remainingTime }) => (isPlaying ? remainingTime : null)}
+          </CountdownCircleTimer>
+        </div>
+        <span className="score subtitle">{points}</span>
+        <div className="box sprint__box">
+          <ToggleButton className={'toggle-sound'} property={isSoundOn} callback={toggleSound} />
+          <PlayAudioButton audio={audio} />
+          <Streak streak={streak} isModMax={modificator === maxModificator} maxStreak={maxStreak} />
+          {modificator > 1 && <span className="mod-note">{`+${mod} points per word`}</span>}
+          <Frogs modificator={modificator} maxFrogs={maxModificator} />
+          <div className="sprint__game-wrapper">
+            <div className="title">{word}</div>
+            <div className="subtitle">{wordTranslate}</div>
+            <div className="buttons">
+              <Button
+                icon="arrow-left"
+                className="is-danger"
+                text={wrongBtnText}
+                onBtnClick={handleAnswerBtnClickFalse}
+              />
+              <Button
+                icon="arrow-right"
+                className="is-success"
+                text={correctBtnText}
+                onBtnClick={handleAnswerBtnClickTrue}
+              />
+            </div>
+          </div>
+          <Checkbox labelText={checkboxAuto} callback={toggleAutoPlay} checked={autoPlay} />
+        </div>
+      </>
+    );
+  };
+
   return (
     <div className="sprint">
       <CloseButton callback={onCloseBtnClick} />
@@ -234,52 +300,7 @@ const Sprint: FC = () => {
         handleCancelModal={handleCancelModal}
         handleSubmitClose={handleSubmitClose}
       />
-      {!ready ? (
-        <GetReady isPlaying={getReadyIsPlaying} onComplete={setReadyCallback} />
-      ) : (
-        <>
-          <div onClick={togglePause} className={`countdown-wrapper ${!IsPlaying ? 'pause' : ''}`}>
-            <CountdownCircleTimer
-              onComplete={() => console.log('помогите, я застрял в коллбеке')}
-              size={timerSize}
-              strokeWidth={timerStrokeWidth}
-              isPlaying={IsPlaying}
-              duration={gameDuration}
-              colors={timerColor}
-            >
-              {({ remainingTime }) => (IsPlaying ? remainingTime : null)}
-            </CountdownCircleTimer>
-          </div>
-          <span className="score subtitle">{points}</span>
-          <div className="box sprint__box">
-            <ToggleButton className={'toggle-sound'} property={isSoundOn} callback={toggleSound} />
-            <PlayAudioButton audio={audio} />
-            <Streak streak={streak} isModMax={modificator === maxModificator} maxStreak={maxStreak} />
-            {modificator > 1 && <span className="mod-note">{`+${mod} points per word`}</span>}
-            <Frogs modificator={modificator} maxFrogs={maxModificator} />
-            <div className="sprint__game-wrapper">
-              <div className="title">{word}</div>
-              <div className="subtitle">{wordTranslate}</div>
-              <div className="buttons">
-                <Button
-                  icon="arrow-left"
-                  className="is-danger"
-                  text={wrongBtnText}
-                  onBtnClick={handleAnswerBtnClick}
-                  props={false}
-                />
-                <Button
-                  icon="arrow-right"
-                  className="is-success"
-                  text={correctBtnText}
-                  onBtnClick={handleAnswerBtnClick}
-                  props={true}
-                />
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+      {showFinishScreen() || renderGameIfReady()}
     </div>
   );
 };

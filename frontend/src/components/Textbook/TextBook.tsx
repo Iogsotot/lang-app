@@ -44,7 +44,7 @@ const TextBook: FC = () => {
         setLocalPage(groupOfWords[page - 1]);
       }
     } else {
-      fetchWords(group - 1, page - 1);
+      fetchWords(group - 1, page - 1, 1);
     }
     history.push(`/textbook/${group}/${page}`);
   }, [group, page]);
