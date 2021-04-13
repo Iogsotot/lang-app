@@ -8,16 +8,16 @@ import TextBookIcon from '../../assets/images/textbook_icon.png';
 import StatsIcon from '../../assets/images/stats_icon.png';
 import SettingsIcon from '../../assets/images/settings_icon.png';
 import { LOCATIONS } from '../../constants';
-import { setDarkMode } from '../../store/action-creators/theme';
+import { storageNames } from '../../constants/storageNames';
 
 const { DARK_MODE } = storageNames;
 const { textbook } = LOCATIONS;
 
 const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
-  const { showButtons, showTranslate } = useAction();
+  const { showButtons, showTranslate, setDarkMode } = useAction();
   const store = useTypedSelector(commonStore => commonStore);
-  const { displayButtons, translate, setDarkMode } = store.wordList;
+  const { displayButtons, translate } = store.wordList;
   const { isLoggedIn } = store.user;
   const [openSettings, setOpenSettings] = useState(false);
   const { darkMode } = useTypedSelector(store => store.theme);
