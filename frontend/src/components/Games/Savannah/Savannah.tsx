@@ -146,7 +146,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   useEffect(() => {
     if (loading === 'done' && gameStart) {
       setGameScreen('game');
-      // startGame();
+      startGame();
     }
   }, [loading, gameStart]);
 
