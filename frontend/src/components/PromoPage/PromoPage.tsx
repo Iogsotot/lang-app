@@ -19,15 +19,15 @@ const PromoPage: FC = () => {
               isVisible={true}
             >
               <h1 className="title title--bigest">Учи английский вместе с RSlang!</h1>
-              <p className="content">Проводи время весело и с пользой! Ускорь свой прогресс! Возобновляй знания!</p>
-              {!isLoggedIn ? (
-                <Link to="/auth" className="btn">
-                  Войти
-                </Link>
-              ) : (
-                <></>
-              )}
             </Animated>
+            <p className="content">Проводи время весело и с пользой! Ускорь свой прогресс! Возобновляй знания!</p>
+            {!isLoggedIn ? (
+              <Link to="/auth" className="btn">
+                  Войти
+              </Link>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </section>
@@ -43,40 +43,40 @@ const PromoPage: FC = () => {
       </section>
 
       <section className="features" id="features">
-      <Animated
-              animationIn="bounceInLeft"
-              animationOut="fadeOut"
-              isVisible={true}
-            >
-        <h2>
-          Что можно делать в <b>RS lang</b>
-        </h2>
-        <h3 className="subtitle">
-          Вместе с нами вы можете заниматься где угодно и когда удобно благодаря удобному и бесплатному доступу!{' '}
-        </h3>
-        <div className="features__block">
-          <div className="features__geo">
-            <img src="./images/feat_1.png" alt="geo" />
-            <h4>Всегда под рукой</h4>
-            <p className="content">
-              Занимайтесь из дома, на работе или в путешествии — с компьютера или смартфона.
-            </p>
+        <Animated
+          animationIn="bounceInLeft"
+          animationOut="fadeOut"
+          isVisible={true}
+        >
+          <h2>
+            Что можно делать в <b>RS lang</b>
+          </h2>
+          <h3 className="subtitle">
+            Вместе с нами вы можете заниматься где угодно и когда удобно благодаря удобному и бесплатному доступу!{' '}
+          </h3>
+          <div className="features__block">
+            <div className="features__geo">
+              <img src="./images/feat_1.png" alt="geo" />
+              <h4>Всегда под рукой</h4>
+              <p className="content">
+                Занимайтесь из дома, на работе или в путешествии — с компьютера или смартфона.
+              </p>
+            </div>
+            <div className="features__stars">
+              <img src="./images/feat_2.png" alt="geo" />
+              <h4>Обучение в играх и карточках</h4>
+              <p className="content">
+                Игровая практика доказала свою эффективность в изучении языков для всех возрастов.
+              </p>
+            </div>
+            <div className="features__power-field">
+              <img src="./images/feat_3.png" alt="geo" />
+              <h4>Отслеживание прогресса</h4>
+              <p className="content">
+                Вы можете видеть результаты своей работы наглядно с помощью статистики.
+              </p>
+            </div>
           </div>
-          <div className="features__stars">
-            <img src="./images/feat_2.png" alt="geo" />
-            <h4>Обучение в играх и карточках</h4>
-            <p className="content">
-              Игровая практика доказала свою эффективность в изучении языков для всех возрастов.
-            </p>
-          </div>
-          <div className="features__power-field">
-            <img src="./images/feat_3.png" alt="geo" />
-            <h4>Отслеживание прогресса</h4>
-            <p className="content">
-              Вы можете видеть результаты своей работы наглядно с помощью статистики.
-            </p>
-          </div>
-        </div>
         </Animated>
       </section>
 
