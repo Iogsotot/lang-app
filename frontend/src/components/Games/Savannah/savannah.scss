@@ -48,6 +48,24 @@
     }
   }
 
+  .btn--sound {
+    position: absolute;
+    top: 0.8rem;
+    left: 1rem;
+    aspect-ratio: 1/1;
+    width: 48px;
+
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    transition: all 250ms;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 250ms;
+    }
+  }
+
   .savannah__info {
     position: absolute;
     top: 20%;

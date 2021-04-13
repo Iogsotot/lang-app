@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { useCallback, useEffect, useState, FC, useRef } from 'react';
+import useSound from 'use-sound';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { SavannahProps } from './Savannah.model';
@@ -10,6 +11,11 @@ import Spinner from '../../Spinner';
 import { Word } from '../../../models/word';
 import gameDataActions from '../../../store/action-creators/gameDataActions';
 import './savannah.scss';
+import successSound from '../../../assets/audio/pew.mp3';
+import failureSound from '../../../assets/audio/failure.mp3';
+import winSound from '../../../assets/audio/victory.mp3';
+import UIsound from '../../../assets/audio/puk.mp3';
+import startGameSound from '../../../assets/audio/bellSound.mp3';
 
 type StateProps = {
   page: number;
@@ -62,6 +68,12 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [gameStart, setGameStart] = useState(false);
   const [correctAnswerSeries, setCorrectAnswerSeries] = useState<string[]>([]);
   const [bgPosition, setBgPosition] = useState('100%');
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [playSuccess] = useSound(successSound);
+  const [playFailure] = useSound(failureSound);
+  const [playStartGameSound] = useSound(startGameSound);
+  const [playWin] = useSound(winSound);
+  // const [playUI] = useSound(UIsound);
 
   const initialGameState = {
     lives: maxLives,
@@ -177,6 +189,9 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   function handleStartGame() {
+    if (soundEnabled) {
+      playStartGameSound();
+    }
     if (loading !== 'done') {
       setLoading('start');
       setGameScreen('');
@@ -185,6 +200,9 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   function gameOver() {
+    if (soundEnabled) {
+      playWin();
+    }
     setGameScreen('stats');
     setGameFinishPoints(statsData.current.point);
     // console.log('game over');
@@ -198,6 +216,9 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   function resolveAsWrongAnswer() {
+    if (soundEnabled) {
+      playFailure();
+    }
     setCorrectAnswerSeries([]);
     const updatedWrongAnswers = [...wrongAnswers, currentWords[wordsChunk[soughtIndex]]];
     setWrongAnswers(updatedWrongAnswers);
@@ -215,6 +236,9 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   function resolveAsCorrectAnswer() {
+    if (soundEnabled) {
+      playSuccess();
+    }
     // звук правильного ответа
     let bgModificator = '0%';
     if (statsData.current.correctAnswersCount <= 33) {
@@ -324,6 +348,13 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
         handleSubmitClose={handleSubmitClose}
       />
       <div className="overlay">
+        <div
+          className="btn--sound"
+          onClick={() => setSoundEnabled(!soundEnabled)}
+        >
+          {soundEnabled && <i className="fal fa-volume-up" />}
+          {!soundEnabled && <i className="fal fa-volume-slash" />}
+        </div>
         <div
           className="btn--close"
           onClick={() => {
