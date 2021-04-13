@@ -13,9 +13,10 @@ const { textbook } = LOCATIONS;
 
 const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
-  const { showButtons, showTranslate } = useAction();
+  const { showButtons, showTranslate, setDarkMode } = useAction();
   const store = useTypedSelector(commonStore => commonStore);
   const { displayButtons, translate } = store.wordList;
+  const { darkMode } = store.theme;
   const { isLoggedIn } = store.user;
   const [openSettings, setOpenSettings] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -30,6 +31,10 @@ const Menu: FC = () => {
 
   const onChangeTranslate = () => {
     showTranslate(!translate);
+  };
+
+  const onChangeTheme = () => {
+    setDarkMode(!darkMode);
   };
 
   useEffect(() => {
@@ -64,22 +69,22 @@ const Menu: FC = () => {
             }
             <li className="menu__item">
               <Link to="/sprint">
-                <i className="fal fa-running fa-3x"/>
+                <i className="fal fa-running fa-3x" />
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/savannah">
-                <i className="fal fa-paw-claws fa-3x"/>
+                <i className="fal fa-paw-claws fa-3x" />
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/puzzle">
-                <i className="fal fa-puzzle-piece fa-3x"/>
+                <i className="fal fa-puzzle-piece fa-3x" />
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/audiocall">
-                <i className="fal fa-headphones-alt fa-3x"/>
+                <i className="fal fa-headphones-alt fa-3x" />
               </Link>
             </li>
           </ul>
@@ -103,19 +108,32 @@ const Menu: FC = () => {
               />
               <label htmlFor="switchTranslate">Показывать перевод</label>
             </div>
-            <div className="hidden__menu-item">
-              <div className="field">
-                <input
-                  onChange={onChangeButtons}
-                  checked={displayButtons}
-                  disabled={disabled}
-                  id="switchButtons"
-                  type="checkbox"
-                  name="switchButtons"
-                  className="switch is-info"
-                />
-                <label htmlFor="switchButtons">Показывать кнопки</label>
-              </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeButtons}
+                checked={displayButtons}
+                disabled={disabled}
+                id="switchButtons"
+                type="checkbox"
+                name="switchButtons"
+                className="switch is-info"
+              />
+              <label htmlFor="switchButtons">Показывать кнопки</label>
+            </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeTheme}
+                checked={darkMode}
+                id="setDarkMode"
+                type="checkbox"
+                name="setDarkMode"
+                className="switch is-info"
+              />
+              <label htmlFor="setDarkMode">Темная тема</label>
             </div>
           </div>
         </div>
@@ -123,4 +141,5 @@ const Menu: FC = () => {
     </aside>
   );
 };
+
 export default Menu;
