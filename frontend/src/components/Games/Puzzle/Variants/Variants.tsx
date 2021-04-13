@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Word } from '../../../../models/word';
 import { VariantsProps } from '../Puzzle.model';
@@ -22,7 +22,7 @@ const getListStyle = (isDraggingOver: boolean) => ({
   overflow: 'auto',
 });
 
-const Variants = (props: VariantsProps) => {
+const Variants: FC<VariantsProps> = (props) => {
   const { items, handleDoubleClick } = props;
   return (
     <div className="puzzle__variants">

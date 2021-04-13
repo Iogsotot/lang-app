@@ -36,6 +36,28 @@ header {
     }
   }
 }
+.dictionary__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 46px;
+  transition: all .3s linear;
+  &:hover {
+    filter: brightness(0.5);
+    transition: all .3s linear;
+  }
+  &.active {
+    filter: hue-rotate(75deg);
+    &:hover {
+      filter: hue-rotate(75deg) brightness(0.5);
+      transition: all .3s linear;
+    }
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
 @media (max-width: 640px) {
   .header__inner{
     flex-wrap: wrap;

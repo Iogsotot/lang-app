@@ -83,6 +83,14 @@ const AuthPage: FC = () => {
     }
   };
 
+  const keyPressHandler = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      if (formReady && !loading) {
+        onSubmit();
+      }
+    }
+  };
+
   const toLoginForm = () => {
     setIsLogin(false);
   };
@@ -123,6 +131,7 @@ const AuthPage: FC = () => {
               successText={nameSuccess}
               errorText={nameError}
               onChangeHandler={onNameChange}
+              keyPressHandler={keyPressHandler}
             />
           </>
           : <></>
@@ -135,6 +144,7 @@ const AuthPage: FC = () => {
           successText={emailSuccess}
           errorText={emailErorr}
           onChangeHandler={onEmailChange}
+          keyPressHandler={keyPressHandler}
         />
         <Input
           placeholder={PASSWORD}
@@ -144,6 +154,7 @@ const AuthPage: FC = () => {
           successText={passwordSuccess}
           errorText={passwordError}
           onChangeHandler={onPasswordChange}
+          keyPressHandler={keyPressHandler}
         />
 
         <div className="field is-grouped">
