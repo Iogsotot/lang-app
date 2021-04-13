@@ -57,8 +57,11 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [correctAnswers, setCorrectAnswers] = useState<Word[]>([]);
   const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
   const [loading, setLoading] = useState('');
+  const [gameFinishPoints, setGameFinishPoints] = useState(0);
   // const [readyGameCounter, setReadyGameCounter] = useState<number>();
   const [gameStart, setGameStart] = useState(false);
+  // let correctAnswerSeries: string[] = [];
+  const [correctAnswerSeries, setCorrectAnswerSeries] = useState<string[]>([]);
 
   const initialGameState = {
     lives: maxLives,
@@ -153,6 +156,20 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     }
   }, [loading, gameStart]);
 
+  function addPoints() {
+    const basicPoints = 10;
+    let points = basicPoints;
+    if (correctAnswerSeries.length > 0) {
+      const { length } = correctAnswerSeries;
+      if (length === 1) points = basicPoints * 2;
+      if (length === 2) points = basicPoints * 3;
+      if (length === 3) points = basicPoints * 4;
+      if (length === 4) points = basicPoints * 5;
+      if (length >= 5) points = basicPoints * 6;
+    }
+    return points;
+  }
+
   function resetGame() {
     setGameStart(false);
     setTimer(0);
@@ -169,16 +186,22 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
 
   function gameOver() {
     setGameScreen('stats');
-    console.log('game over');
-    console.log(statsData.current.wrongAswersCount);
-    console.log(statsData.current.correctAnswersCount);
-    console.log(statsData.current.lives);
+    setGameFinishPoints(statsData.current.point);
+    // console.log('game over');
+    // console.log(statsData.current.wrongAswersCount);
+    // console.log(statsData.current.correctAnswersCount);
+    // console.log(statsData.current.lives);
     console.log(statsData.current.point);
+    console.log(correctAnswerSeries);
 
     resetGame();
   }
 
   function resolveAsWrongAnswer() {
+    // звук правильного ответа
+    console.log('deleted array');
+
+    setCorrectAnswerSeries([]);
     const updatedWrongAnswers = [...wrongAnswers, currentWords[wordsChunk[soughtIndex]]];
     setWrongAnswers(updatedWrongAnswers);
     let { lives } = statsData.current;
@@ -187,9 +210,9 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     lives -= 1;
     statsData.current.lives = lives;
     statsData.current.wrongAswersCount = wrongAnswersCount;
-    console.log(lives);
+    // console.log(lives);
 
-    console.log('нэ маладэц');
+    // console.log('нэ маладэц');
     if (lives === 0) {
       gameOver();
     }
@@ -201,7 +224,15 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     let { correctAnswersCount } = statsData.current;
     correctAnswersCount += 1;
     statsData.current.correctAnswersCount = correctAnswersCount;
-    console.log('маладэц');
+    const updatedCorrectAnswerSeries = [...correctAnswerSeries, 'piy'];
+    setCorrectAnswerSeries(updatedCorrectAnswerSeries);
+
+    console.log(correctAnswerSeries);
+
+    statsData.current.point += addPoints();
+    console.log(statsData.current.point);
+
+    // console.log('маладэц');
   }
 
   const resetGameRound = useCallback(() => {
@@ -334,7 +365,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
       }
 
       {gameScreen === 'stats' && (
-        <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={statsData.current.point} />
+        <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={gameFinishPoints} />
       )}
     </section>
   );
