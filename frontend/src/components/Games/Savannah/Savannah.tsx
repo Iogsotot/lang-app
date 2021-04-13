@@ -64,10 +64,10 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [wrongAnswers, setWrongAnswers] = useState<Word[]>([]);
   const [loading, setLoading] = useState('');
   const [gameFinishPoints, setGameFinishPoints] = useState(0);
-  // const [readyGameCounter, setReadyGameCounter] = useState<number>();
   const [gameStart, setGameStart] = useState(false);
   const [correctAnswerSeries, setCorrectAnswerSeries] = useState<string[]>([]);
   const [bgPosition, setBgPosition] = useState('100%');
+  const [crystalHeight, setCrystalHeight] = useState('4rem');
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [playSuccess] = useSound(successSound);
   const [playFailure] = useSound(failureSound);
@@ -133,30 +133,12 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     setGameScreen('game');
   }, []);
 
-  // useEffect(() => {
-  //   if (!timer) {
-  //     return;
-  //   }
-  //   if (gameScreen === 'game') {
-  //     const startTimerId = setInterval(() => {
-  //       setReadyGameCounter(counter + 1);
-  //       if (readyGameCounter === 3) {
-  //         startGame();
-  //       }
-  //     }, 1000);
-  //     return () => {
-  //       clearTimeout(startTimerId);
-  //     };
-  //   }
-  // }, [readyGameCounter]);
-
   useEffect(() => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
       console.log({ currentPageWords });
       setCurrentWords(currentPageWords);
       setLoading('done');
-      // setReadyGameCounter(3);
     }
     fetchCurrentPageWords();
   }, [group]);
@@ -164,7 +146,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   useEffect(() => {
     if (loading === 'done' && gameStart) {
       setGameScreen('game');
-      startGame();
+      // startGame();
     }
   }, [loading, gameStart]);
 
@@ -205,12 +187,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     }
     setGameScreen('stats');
     setGameFinishPoints(statsData.current.point);
-    // console.log('game over');
-    // console.log(statsData.current.wrongAswersCount);
-    // console.log(statsData.current.correctAnswersCount);
-    // console.log(statsData.current.lives);
-    console.log(statsData.current.point);
-    console.log(correctAnswerSeries);
 
     resetGame();
   }
@@ -229,7 +205,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     statsData.current.lives = lives;
     statsData.current.wrongAswersCount = wrongAnswersCount;
 
-    // console.log('нэ маладэц');
     if (lives === 0) {
       gameOver();
     }
@@ -239,12 +214,16 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     if (soundEnabled) {
       playSuccess();
     }
-    // звук правильного ответа
     let bgModificator = '0%';
     if (statsData.current.correctAnswersCount <= 33) {
       bgModificator = `${100 - (statsData.current.correctAnswersCount * 3)}%`;
     }
     setBgPosition(bgModificator);
+
+    if (statsData.current.correctAnswersCount <= 5) {
+      const crystalModificator = `${4 + (statsData.current.correctAnswersCount / 2)}rem`;
+      setCrystalHeight(crystalModificator);
+    }
 
     const updatedCorrectAnswers = [...correctAnswers, currentWords[wordsChunk[soughtIndex]]];
     setCorrectAnswers(updatedCorrectAnswers);
@@ -254,12 +233,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     const updatedCorrectAnswerSeries = [...correctAnswerSeries, 'piy'];
     setCorrectAnswerSeries(updatedCorrectAnswerSeries);
 
-    console.log(correctAnswerSeries);
-
     statsData.current.point += addPoints();
-    console.log(statsData.current.point);
-
-    // console.log('маладэц');
   }
 
   const resetGameRound = useCallback(() => {
@@ -348,21 +322,21 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
         handleSubmitClose={handleSubmitClose}
       />
       <div className="overlay">
-        <div
-          className="btn--sound"
-          onClick={() => setSoundEnabled(!soundEnabled)}
-        >
-          {soundEnabled && <i className="fal fa-volume-up" />}
-          {!soundEnabled && <i className="fal fa-volume-slash" />}
-        </div>
-        <div
-          className="btn--close"
-          onClick={() => {
-            closeButtonClick();
-          }}
-        >
-          <i className="fal fa-times" />
-        </div>
+      </div>
+      <div
+        className="btn--sound"
+        onClick={() => setSoundEnabled(!soundEnabled)}
+      >
+        {soundEnabled && <i className="fal fa-volume-up" />}
+        {!soundEnabled && <i className="fal fa-volume-slash" />}
+      </div>
+      <div
+        className="btn--close"
+        onClick={() => {
+          closeButtonClick();
+        }}
+      >
+        <i className="fal fa-times" />
       </div>
 
       {gameScreen === 'welcome' && (
@@ -398,7 +372,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
       {gameScreen === 'game' &&
         (
           <div className="savannah-body">
-            <div className="status-bar box">
+            <div className="status-bar">
               <div className="lives">
                 {[...Array(statsData.current.lives)].map(() => (
                   <i className="fas fa-heart"/>
@@ -425,7 +399,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
               </div>
             </div>
             <div className="crystal-block">
-              <div className="crystal"/>
+              <div className='crystal crystal-anim' style={ { height: crystalHeight }}/>
             </div>
           </div>
         )
