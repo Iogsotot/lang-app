@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { API_BASE_URL, notifications, storageNames } from '../../constants';
+import { API_BASE_URL, notifications } from '../../constants';
 import { UserAction, UserActionTypes } from '../../models/user';
 
 const {
@@ -15,8 +15,6 @@ const {
   CLEAR_USER_NOTIFICATIONS,
   LOG_OUT,
 } = UserActionTypes;
-
-const { USER_STORAGE } = storageNames;
 
 export const register = (formData: FormData) =>
   (async (dispatch: Dispatch<UserAction>): Promise<void> => {
@@ -48,10 +46,6 @@ export const login = (formData: FormData) =>
       }
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem(USER_STORAGE, JSON.stringify({
-          user: { ...data },
-          isLoggedIn: true,
-        }));
         dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
       }
     } catch (error) {
@@ -61,7 +55,6 @@ export const login = (formData: FormData) =>
 
 export const logout = () =>
   ((dispatch: Dispatch<UserAction>): void => {
-    localStorage.removeItem(USER_STORAGE);
     dispatch({ type: LOG_OUT });
   });
 

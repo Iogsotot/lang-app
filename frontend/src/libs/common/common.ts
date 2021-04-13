@@ -15,3 +15,5 @@ export const animateBorderColor = (selector: string, colorHsl: string): void => 
       },
     );
 };
+
+export const modificator1248 = (modificator: number): number => 2 ** (modificator - 1);

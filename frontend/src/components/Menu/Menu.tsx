@@ -1,24 +1,23 @@
+import './menu.scss';
 import { FC, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import './menu.scss';
-import { MenuProps } from './Menu.model';
 import { useAction } from '../../hooks/useAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import LogoWhite from '../../assets/images/Logo_white.png';
 import TextBookIcon from '../../assets/images/textbook_icon.png';
 import StatsIcon from '../../assets/images/stats_icon.png';
-import GameIcon from '../../assets/images/game_icon.png';
 import SettingsIcon from '../../assets/images/settings_icon.png';
-import { storageNames, locations } from '../../constants';
+import { LOCATIONS } from '../../constants';
 
-const { TEXTBOOK } = locations;
+const { textbook } = LOCATIONS;
 
-const { SHOW_BUTTONS, SHOW_TRANSLATE } = storageNames;
-
-const Menu: FC<MenuProps> = () => {
+const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
-  const { showButtons, showTranslate } = useAction();
-  const { displayButtons, translate } = useTypedSelector(store => store.wordList);
+  const { showButtons, showTranslate, setDarkMode } = useAction();
+  const store = useTypedSelector(commonStore => commonStore);
+  const { displayButtons, translate } = store.wordList;
+  const { darkMode } = store.theme;
+  const { isLoggedIn } = store.user;
   const [openSettings, setOpenSettings] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -27,19 +26,19 @@ const Menu: FC<MenuProps> = () => {
   };
 
   const onChangeButtons = () => {
-    localStorage.setItem(SHOW_BUTTONS, `${!displayButtons}`);
     showButtons(!displayButtons);
   };
 
   const onChangeTranslate = () => {
-    localStorage.setItem(SHOW_TRANSLATE, `${!translate}`);
     showTranslate(!translate);
   };
 
+  const onChangeTheme = () => {
+    setDarkMode(!darkMode);
+  };
+
   useEffect(() => {
-    showButtons(!!JSON.parse(localStorage.getItem(SHOW_BUTTONS) || 'false'));
-    showTranslate(!!JSON.parse(localStorage.getItem(SHOW_TRANSLATE) || 'false'));
-    if (location !== TEXTBOOK) {
+    if (location !== textbook) {
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -55,33 +54,37 @@ const Menu: FC<MenuProps> = () => {
         <nav>
           <ul className="menu__list">
             <li className="menu__item">
-              <Link to="/textbook/0/0">
+              <Link to="/textbook/1/1">
                 <img src={TextBookIcon} alt="textbook" className="icon" />
               </Link>
             </li>
-            <li className="menu__item">
-              <Link to="/stats">
-                <img src={StatsIcon} alt="stats" className="icon" />
-              </Link>
-            </li>
+            {
+              isLoggedIn
+                ? <li className="menu__item">
+                  <Link to="/stats">
+                    <img src={StatsIcon} alt="stats" className="icon" />
+                  </Link>
+                </li>
+                : <></>
+            }
             <li className="menu__item">
               <Link to="/sprint">
-                <img src={GameIcon} alt="sprint" className="icon" />
+                <i className="fal fa-running fa-3x" />
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/savannah">
-                <img src={GameIcon} alt="savannah" className="icon" />
+                <i className="fal fa-paw-claws fa-3x" />
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/find-pair">
-                <img src={GameIcon} alt="find-pair" className="icon" />
+              <Link to="/puzzle">
+                <i className="fal fa-puzzle-piece fa-3x" />
               </Link>
             </li>
             <li className="menu__item">
               <Link to="/audiocall">
-                <img src={GameIcon} alt="audiocall" className="icon" />
+                <i className="fal fa-headphones-alt fa-3x" />
               </Link>
             </li>
           </ul>
@@ -98,24 +101,39 @@ const Menu: FC<MenuProps> = () => {
                 onChange={onChangeTranslate}
                 checked={translate}
                 disabled={disabled}
-                id="switchTranslate" type="checkbox"
+                id="switchTranslate"
+                type="checkbox"
                 name="switchTranslate"
                 className="switch is-info"
               />
               <label htmlFor="switchTranslate">Показывать перевод</label>
             </div>
-            <div className="hidden__menu-item">
-              <div className="field">
-                <input
-                  onChange={onChangeButtons}
-                  checked={displayButtons}
-                  disabled={disabled}
-                  id="switchButtons" type="checkbox"
-                  name="switchButtons"
-                  className="switch is-info"
-                />
-                <label htmlFor="switchButtons">Показывать кнопки</label>
-              </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeButtons}
+                checked={displayButtons}
+                disabled={disabled}
+                id="switchButtons"
+                type="checkbox"
+                name="switchButtons"
+                className="switch is-info"
+              />
+              <label htmlFor="switchButtons">Показывать кнопки</label>
+            </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeTheme}
+                checked={darkMode}
+                id="setDarkMode"
+                type="checkbox"
+                name="setDarkMode"
+                className="switch is-info"
+              />
+              <label htmlFor="setDarkMode">Темная тема</label>
             </div>
           </div>
         </div>

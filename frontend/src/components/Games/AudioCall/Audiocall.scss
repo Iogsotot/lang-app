@@ -1,16 +1,67 @@
 .audiocall {
-  width: 100vw;
-  height: 100vh;
+  position: relative;
+  height: calc(100vh - 78px);
+  background: url("https://i.ytimg.com/vi/_yJ0c1u1ElU/maxresdefault.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
   display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 20;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  background: linear-gradient(0deg, rgba(141, 219, 224, 1) 0%, rgba(70, 92, 255, 1) 100%);
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .btn--close {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    aspect-ratio: 1/1;
+    width: 48px;
 
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    transition: all 250ms;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 250ms;
+    }
+    .fal,
+    .far {
+      font-family: "Font Awesome 5 Pro";
+    }
+  }
+  &__info {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 450px;
+    margin: auto;
+
+    background-color: rgba(255, 255, 255, 0.5);
+
+    .btn {
+      display: block;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      margin: 1rem auto 0.5rem;
+    }
+  }
   &_inner {
     margin: 0 auto;
     width: 70%;
@@ -37,7 +88,7 @@
 
     &__text {
       font-size: 1.8rem;
-      color: #3b51f7;
+      color: white;
     }
   }
 
@@ -66,6 +117,7 @@
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
+      background-color: rgba(0, 0, 0, 0.5);
 
       & button {
         font-size: 1.5rem;
@@ -79,7 +131,6 @@
     & .button {
       font-size: 1.3rem;
     }
-    
   }
 
   &__volume {
@@ -134,9 +185,9 @@
     font-size: 1.5rem;
   }
 
-  & .button.is-warning {
-    font-size: 1.5rem;
-  }
+  // & .button.is-warning {
+  //   font-size: 1.5rem;
+  // }
 
   & .close-btn {
     position: absolute;
@@ -150,48 +201,57 @@
     }
 
     &:hover::before,
-  &:hover::after {
-    background-color: #7a7a7a;
-  }
+    &:hover::after {
+      background-color: #7a7a7a;
+    }
 
     &:focus {
       outline: none;
     }
   }
+
+  .buttons {
+    justify-content: center;
+  }
+  .difficulty-btn-block {
+    & .button {
+      margin: 5px;
+      font-size: 1.2rem;
+
+      &:disabled {
+        cursor: default;
+      }
+    }
+  }
+
+  .volume-button {
+    background-color: transparent;
+    border-radius: 50%;
+    color: #373b53;
+    border: none;
+
+    &:hover {
+      background-color: #fff3;
+      opacity: 0.8;
+    }
+
+    &:active {
+      outline: none;
+      background-color: #fff5;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+  .fas {
+    color: white;
+  }
+}
+.fa-circle {
+  color: #aaa;
 }
 
-.buttons {
-  justify-content: center;
-}
-.difficulty-btn-block {
-
-  & .button.is-warning{
-    margin: 5px;
-  font-size: 1.2rem;
-   
-  &:disabled {
-    cursor: default;
-  }
-  }
-}
-
-.volume-button {
-  background-color: transparent;
-  border-radius: 50%;
-  color: #373b53;
-  border: none;
-
-  &:hover {
-    background-color: #fff3;
-    opacity: 0.8;
-  }
-
-  &:active {
-    outline: none;
-    background-color: #fff5;
-  }
-
-  &:focus {
-    outline: none;
-  }
+.react-tabs__tab--selected > .fa-circle {
+  color: #b57ad2;
 }

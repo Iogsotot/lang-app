@@ -1,0 +1,11 @@
+@import '../../index.scss';
+
+.custom__pagination {
+  button {
+    background: transparent;
+    cursor: pointer;
+    &.is-current {
+      background: $color_important;
+    }
+  }
+}

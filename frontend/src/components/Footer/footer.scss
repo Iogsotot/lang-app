@@ -3,7 +3,7 @@
 footer {
   height: 11rem;
   padding-top: 0.8rem;
-  background: $main-bg;
+  background: var(--bg-footer);
 
   color: $color_white;
 
@@ -72,6 +72,46 @@ footer {
         height: 2.7rem;
         width: auto;
       }
+    }
+  }
+}
+@media (max-width: 640px) {
+  nav.footer__nav.nav{
+    display: none;
+    }
+  footer{
+    height: 27rem;
+    & > .wrapper {
+      flex-direction: row;
+    }
+    .links-group{
+      flex-direction: column;
+      justify-content: center;
+    }
+    .dev-list{
+      h4{
+        margin-top: 2.5rem;
+      }
+      .author {
+        margin-left: 0.5rem;
+        .icon {
+          height: 2.6rem;
+          width: auto;
+        }
+      }
+    }
+    .RSS {
+      order: 2;
+      margin-right: 0;
+      img {
+        width: 9.3rem;
+      }
+      div{
+        font-size: 14px;
+      }
+    }
+    h4 {
+      text-align: center;
     }
   }
 }

@@ -1,8 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Word } from '../../../models/word';
 import Finish from '../Finish';
-import CloseButton from '../../CloseButton';
-import ModalOnClose from './ModalOnClose';
+import ModalOnClose from '../ModalOnClose';
 import { WORD_GROUPS, API_BASE_URL } from '../../../constants/constants';
 import './Audiocall.scss';
 
@@ -91,12 +90,10 @@ const Audiocall: FC = () => {
     setCurrentView(true);
 
     if (answer === currentWord.wordTranslate) {
-      const updatedCorrectAnswers = correctAnswers;
-      updatedCorrectAnswers.push(currentWord);
+      const updatedCorrectAnswers = [...correctAnswers, currentWord];
       setCorrectAnswers(updatedCorrectAnswers);
     } else {
-      const updatedWrongAnswers = wrongAnswers;
-      updatedWrongAnswers.push(currentWord);
+      const updatedWrongAnswers = [...wrongAnswers, currentWord];
       setWrongAnswers(updatedWrongAnswers);
     }
   };
@@ -157,7 +154,7 @@ const Audiocall: FC = () => {
     );
   };
 
-  const keyControls = (e: any) => {
+  const keyControls = (e: KeyboardEvent) => {
     switch (e.code) {
       case 'Digit1':
       case 'Numpad1':
@@ -183,7 +180,7 @@ const Audiocall: FC = () => {
     }
   };
 
-  const enterKey = (e: any) => {
+  const enterKey = (e: KeyboardEvent) => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       if (currentView) nextWord();
       else dontKnowClick();
@@ -215,65 +212,74 @@ const Audiocall: FC = () => {
     (currentWordNumber < words.length ? setModalOnCloseIsActive(true) : handleSubmitClose());
 
   return (
-    <div className="audiocall">
-      <CloseButton
-        callback={() => {
-          closeButtonClick();
-        }}
-      />
-      <ModalOnClose
-        modalIsActive={modalOnCloseIsActive}
-        handleCancelModal={handleCancelModal}
-        handleSubmitClose={handleSubmitClose}
-      />
-      {!start && !isFromTextbook && (
-        <div className="difficulty-btn-block">
-          <h2>Сложность:</h2>
-          {Object.entries(WORD_GROUPS).map(([key, value]) => (
-            <button
-              disabled={value === group}
-              key={key}
-              onClick={() => {
-                setGroup(value);
-              }}
-              className="button is-warning is-small"
-            >
-              {key}
-            </button>
-          ))}
-          <div className="audiocall__start-button">
-            <button className="button is-danger" onClick={clickStart}>
-              Начать игру
-            </button>
-          </div>
+    <section className="audiocall">
+      <div className="overlay">
+        <div
+          className="btn--close"
+          onClick={() => {
+            closeButtonClick();
+          }}
+        >
+          <i className="fal fa-times" />
         </div>
-      )}
-      {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
-        <div className="audiocall_inner">
-          <div>
-            {currentView && <OpenCurrentWord />}
-            {!currentView && <CloseCurrentWord />}
+        <ModalOnClose
+          modalIsActive={modalOnCloseIsActive}
+          handleCancelModal={handleCancelModal}
+          handleSubmitClose={handleSubmitClose}
+        />
+        {!start && !isFromTextbook && (
+          <div className="audiocall__info box">
+            <h2 className="title is-2">Audiocall</h2>
+            <p>
+            В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может,
+            вам так легче учить язык.
+            </p>
+            <div className="difficulty-btn-block">
+              <h2>Сложность:</h2>
+              {Object.entries(WORD_GROUPS).map(([key, value]) => (
+                <button
+                  disabled={value === group}
+                  key={key}
+                  onClick={() => {
+                    setGroup(value);
+                  }}
+                  className="button is-warning is-small"
+                >
+                  {key}
+                </button>
+              ))}
+            </div>
+            <button className="btn button is-primary is-outlined" onClick={clickStart}>Начать игру</button>
           </div>
-          <div className="audiocall__answers">
-            <VariantsButtons />
+        )}
+        {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
+          <div className="audiocall_inner">
+            <div>
+              {currentView && <OpenCurrentWord />}
+              {!currentView && <CloseCurrentWord />}
+            </div>
+            <div className="audiocall__answers">
+              <VariantsButtons />
 
-            {currentView && (
-              <button className="button is-danger" onClick={nextWord}>
-                <i className="fas fa-angle-double-right" />
-              </button>
-            )}
-            {!currentView && (
-              <button className="button is-danger" onClick={dontKnowClick}>
-                Я не знаю
-              </button>
-            )}
+              {currentView && (
+                <button className="button is-danger" onClick={nextWord}>
+                  <i className="fas fa-angle-double-right" />
+                </button>
+              )}
+              {!currentView && (
+                <button className="button is-danger" onClick={dontKnowClick}>
+                  Я не знаю
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-      {start && currentWordNumber >= words.length && (
-        <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 10} />
-      )}
-    </div>
+        )}
+        {start && currentWordNumber >= words.length && (
+          <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 10} />
+        )}
+
+      </div>
+    </section>
   );
 };
 export default Audiocall;
