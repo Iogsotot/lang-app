@@ -1,13 +1,10 @@
 import { FC } from 'react';
-import useSound from 'use-sound';
 
 import { PlayAudioButtonProps } from './PlayAudioButton.model';
 
 const PlayAudioButton: FC<PlayAudioButtonProps> = ({ audio }) => {
-  const [playAudio] = useSound(audio);
-
   const clickHandler = () => {
-    playAudio();
+    new Audio(audio).play();
   };
 
   return (

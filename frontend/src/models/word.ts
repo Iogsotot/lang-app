@@ -47,6 +47,11 @@ export interface FetchUserWordsProps {
 }
 
 export interface WordsDispatchProps {
+  fetchRandomWords: (
+    group: number,
+    page: number,
+    amount: number,
+  ) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showButtons: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setGroup: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
   fetchWords: (group: number, page: number, sort?: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
@@ -58,10 +63,13 @@ export interface WordsDispatchProps {
   clearDeletedWords: (words: Word[]) => (dispatch: Dispatch<WordListAction>) => void;
 }
 
+interface FetchRandomWordListAction {
+  type: WordListActionTypes.FETCH_RANDOM_WORD_LIST;
+}
+
 interface FetchWordListAction {
   type: WordListActionTypes.FETCH_WORD_LIST;
 }
-
 interface FetchWordListSuccessAction {
   type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS;
   payload: Word[];
@@ -109,6 +117,7 @@ export enum DictionarySections {
 }
 
 export enum WordListActionTypes {
+  FETCH_RANDOM_WORD_LIST = 'FETCH_RANDOM_WORD_LIST',
   FETCH_WORD_LIST = 'FETCH_WORD_LIST',
   FETCH_WORD_LIST_SUCCESS = 'FETCH_WORD_LIST_SUCCESS',
   FETCH_USER_WORD_LIST_SUCCESS = 'FETCH_USER_WORD_LIST_SUCCESS',
@@ -121,6 +130,7 @@ export enum WordListActionTypes {
 }
 
 export type WordListAction =
+  | FetchRandomWordListAction
   | FetchWordListAction
   | FetchWordListSuccessAction
   | FetchUserWordListSuccessAction
