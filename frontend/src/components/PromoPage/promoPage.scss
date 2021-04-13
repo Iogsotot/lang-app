@@ -280,14 +280,16 @@ main {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      padding-left: 4rem;
-
+      padding: 0 1rem;
+      img{
+        max-width: 34rem;
+      }
       .info {
         list-style: none;
         margin: auto;
         .info__item {
           position: relative;
-          margin-bottom: 3.75rem;
+          margin-bottom: 0.75rem;
         }
 
         .info__item::before {
@@ -295,10 +297,9 @@ main {
           display: inline-block;
           content: "\2022";
           margin-left: -2rem;
-          top: 12px;
+          top: 20px;
           left: 0;
           width: 1em;
-
           font-weight: bold;
           font-size: 3rem;
           color: #b57ad2;
@@ -306,12 +307,13 @@ main {
         }
         h4 {
           text-align: left;
-          margin-bottom: 1.125rem;
+          margin-bottom: 1rem;
         }
         p {
           font-size: 1rem;
           line-height: 137%;
         }
+        
       }
     }
   }
@@ -447,10 +449,20 @@ main {
   }
     .arrow-block{
     padding-top: 1.7rem !important;
+    .subtitle{
+      padding: 1rem;
+    }
       .content_group{
         padding-left: 0 !important;
-        .info{
+        img{
           display: none;
+        }
+        .info{
+          display: flex;
+          flex-direction: column;
+          .info__item{
+            margin-left: 3rem;
+          }
         }
       }
     }

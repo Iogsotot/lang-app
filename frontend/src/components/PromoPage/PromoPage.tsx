@@ -10,8 +10,8 @@ const PromoPage: FC = () => {
       <section className="promo">
         <div className="wrapper">
           <div className="info_block">
-            <h1 className="title title--bigest">Вдохновляющий и продающий текст! мы такие классные!</h1>
-            <p className="content">Тут тоже о том, как классно в нашей аппе учить англ</p>
+            <h1 className="title title--bigest">Учи английский вместе с RSlang!</h1>
+            <p className="content">Проводи время весело и с пользой! Ускорь свой прогресс! Возобновляй знания!</p>
             {!isLoggedIn ? (
               <Link to="/auth" className="btn">
                 Войти
@@ -38,31 +38,28 @@ const PromoPage: FC = () => {
           Что можно делать в <b>RS lang</b>
         </h2>
         <h3 className="subtitle">
-          Тут опять врём, что у нас тут так классно и вот смотрите что можно делать в нашей аппе{' '}
+        Вместе с нами вы можете заниматься где угодно и когда удобно благодаря удобному и бесплатному доступу!{' '}
         </h3>
         <div className="features__block">
           <div className="features__geo">
             <img src="./images/feat_1.png" alt="geo" />
-            <h4>Lorem ipsum</h4>
+            <h4>Всегда под рукой</h4>
             <p className="content">
-              Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-              rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
+             Занимайтесь из дома, на работе или в путешествии — с компьютера или смартфона.
             </p>
           </div>
           <div className="features__stars">
             <img src="./images/feat_2.png" alt="geo" />
-            <h4>Lorem ipsum</h4>
+            <h4>Обучение в играх и карточках</h4>
             <p className="content">
-              Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-              rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
+             Игровая практика доказала свою эффективность в изучении языков для всех возрастов.
             </p>
           </div>
           <div className="features__power-field">
             <img src="./images/feat_3.png" alt="geo" />
-            <h4>Lorem ipsum</h4>
+            <h4>Отслеживание прогресса</h4>
             <p className="content">
-              Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-              rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
+             Вы можете видеть результаты своей работы наглядно с помощью статистики.
             </p>
           </div>
         </div>
@@ -76,7 +73,7 @@ const PromoPage: FC = () => {
         <div className="team__group">
           <div className="teammates">
             <div className="bramov">
-              <p className="duty">Max - 10+ years of tech recruiting for VC funded startups</p>
+              <p className="duty">"Puzzle game", бэк, ловля багов и ревью кода.</p>
               <div className="teammate__info">
                 <img src="https://avatars.githubusercontent.com/u/54726292?v=4" alt="Bramov" />
                 <div className="name">Alexey Abramov</div>
@@ -84,7 +81,7 @@ const PromoPage: FC = () => {
             </div>
 
             <div className="ainuAnna">
-              <p className="duty">Max - 10+ years of tech recruiting for VC funded startups</p>
+              <p className="duty">Стили, адаптив, темная тема, анимации, тесты.</p>
               <div className="teammate__info">
                 <img src="https://avatars.githubusercontent.com/u/65246069?v=4" alt="Ann Tereshko" />
                 <div className="name">Ann Tereshko</div>
@@ -92,7 +89,7 @@ const PromoPage: FC = () => {
             </div>
 
             <div className="svetlana-tyshkevich">
-              <p className="duty">Max - 10+ years of tech recruiting for VC funded startups</p>
+              <p className="duty">"Audiocall game", графики на странице статистики.</p>
               <div className="teammate__info">
                 <img src="https://avatars.githubusercontent.com/u/70635819?v=4" alt="Svetlana Tyshkevich" />
                 <div className="name">Svetlana Tyshkevich</div>
@@ -100,7 +97,7 @@ const PromoPage: FC = () => {
             </div>
 
             <div className="gregoryMoskalev">
-              <p className="duty">Max - 10+ years of tech recruiting for VC funded startups</p>
+              <p className="duty">"Sprint game", бэк, ловля багов и ревью кода.</p>
               <div className="teammate__info">
                 <img src="https://avatars.githubusercontent.com/u/62020954?v=4" alt="Gregory Moskalev" />
                 <div className="name">Gregory Moskalev</div>
@@ -108,7 +105,7 @@ const PromoPage: FC = () => {
             </div>
 
             <div className="johnneon">
-              <p className="duty">Max - 10+ years of tech recruiting for VC funded startups</p>
+              <p className="duty">Тимлид, авторизация, словарь, учебник, стили, бэк, redux, ревью кода. </p>
               <div className="teammate__info">
                 <img src="https://avatars.githubusercontent.com/u/53760291?v=4" alt="Efimovich Evgenii" />
                 <div className="name">Efimovich Evgenii</div>
@@ -116,7 +113,7 @@ const PromoPage: FC = () => {
             </div>
 
             <div className="iogsotot">
-              <p className="duty">Max - 10+ years of tech recruiting for VC funded startups</p>
+              <p className="duty">Тимлид, "Savannah game", бэк, макет, ловля багов и ревью кода.</p>
               <div className="teammate__info">
                 <img src="https://avatars.githubusercontent.com/u/50149163?v=4" alt="Anna Justus" />
                 <div className="name">Anna Justus</div>
@@ -151,27 +148,34 @@ const PromoPage: FC = () => {
       </section>
       <section className="arrow-block">
         <div className="wrapper">
-          <h2 className="title">Вот такенных результатов достигните</h2>
-          <h3 className="subtitle">Если будете с нами заниматься и ещё с 5ю репетиторами</h3>
+          <h2 className="title">С <b>RS lang</b> Вы сможете достигнуть высоких результатов</h2>
+          <h3 className="subtitle">Немного об английском в цифрах и фактах. Все это станет Вам доступным!</h3>
           <div className="content_group">
             <ul className="info">
               <li className="info__item">
-                <h4>160%</h4>
-                <p>Эта цифра - это результат умножения 80 на 2, она сама маленькая из всех представленных здесь цифр</p>
+              <h4>33%</h4>
+                <p>От населения земли во всем мире свободно разговаривают на английском языке.</p>
               </li>
               <li className="info__item">
-                <h4>200%</h4>
+                 <h4>50%</h4>
+                <p>Всех научных и технических публикаций написаны выходят на английском языке.</p>
+              </li>
+              <li className="info__item">
+                 <h4>75%</h4>
+                <p>Всех писем и телеграмм написаны на английском языке.</p>
+              </li>
+              <li className="info__item">
+              <h4>85%</h4>
+                <p>Международных конференций и организаций используют английский язык.</p>
+              </li>
+              <li className="info__item">
+              <h4>90%</h4>
                 <p>
-                  Цифра явно получше - тут уже целых два нолика есть, что хорошо гармионирует c кружочками знака
-                  процентов
+                 Всей информации в Интернете хранится на английском языке.
                 </p>
               </li>
-              <li className="info__item">
-                <h4>230%</h4>
-                <p>Самая огромная наша цифра, мы тут тоже придумаем (может быть ) что она будет значить.</p>
-              </li>
             </ul>
-            <img src="./images/arrow_img.png" alt="arrows & girl" />
+            <img src="./images/stats.jpg" alt="arrows & girl" />
           </div>
         </div>
       </section>
