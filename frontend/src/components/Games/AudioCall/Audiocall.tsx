@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Word } from '../../../models/word';
 import Finish from '../Finish';
-import CloseButton from '../../CloseButton';
 import ModalOnClose from '../ModalOnClose';
 import { WORD_GROUPS, API_BASE_URL } from '../../../constants/constants';
 import './Audiocall.scss';
@@ -155,7 +154,7 @@ const Audiocall: FC = () => {
     );
   };
 
-  const keyControls = (e: any) => {
+  const keyControls = (e: KeyboardEvent) => {
     switch (e.code) {
       case 'Digit1':
       case 'Numpad1':
@@ -181,7 +180,7 @@ const Audiocall: FC = () => {
     }
   };
 
-  const enterKey = (e: any) => {
+  const enterKey = (e: KeyboardEvent) => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       if (currentView) nextWord();
       else dontKnowClick();
