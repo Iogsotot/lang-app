@@ -12,13 +12,13 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   ...draggableStyle,
 });
 
-const getListStyle = (isDraggingOver: boolean) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  display: 'flex',
-  padding: grid,
-  overflow: 'auto',
-  width: '250px',
-});
+// const getListStyle = (isDraggingOver: boolean) => ({
+//   background: isDraggingOver ? 'lightblue' : 'lightgrey',
+//   display: 'flex',
+//   padding: grid,
+//   overflow: 'auto',
+//   width: '250px',
+// });
 
 const Phrase = ({ phrase, word, item, outline }: PhraseProps) => {
   const splicePhrase = () => (word && phrase ? phrase.toLowerCase().split(word) : []);

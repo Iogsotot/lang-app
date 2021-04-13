@@ -8,7 +8,6 @@ import { WORD_GROUPS, API_BASE_URL } from '../../../constants/constants';
 import './Audiocall.scss';
 
 const Audiocall: FC = () => {
-  const [isFromTextbook, setIsFromTextbook] = useState(false);
   const [group, setGroup] = useState(0);
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [currentView, setCurrentView] = useState(false);
@@ -236,7 +235,7 @@ const Audiocall: FC = () => {
           handleCancelModal={handleCancelModal}
           handleSubmitClose={handleSubmitClose}
         />
-        {!start && !isFromTextbook && (
+        {!start && (
           <div className="audiocall__info box">
             <h2 className="title is-2">Audiocall</h2>
             <p>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, FC, useRef } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import useSound from 'use-sound';
 import { Word } from '../../../models/word';
@@ -79,7 +79,6 @@ const GameScreen = (props: GameScreenProps) => {
       if (!wrongAnswers.find(el => el === elem)) {
         wrongAnswers.push(elem);
         setWrongAnswers(wrongAnswers);
-        console.log(wrongAnswers);
       }
 
       playFailure();

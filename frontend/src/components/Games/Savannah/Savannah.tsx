@@ -42,7 +42,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
 
   const currentLocation = useLocation();
   let previousLocation = '';
-  console.log(currentLocation);
   if (currentLocation.state) {
     // eslint-disable-next-line prefer-destructuring
     previousLocation = currentLocation.state.from;

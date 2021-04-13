@@ -13,7 +13,7 @@ const { textbook } = LOCATIONS;
 
 const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
-  const currentLocation = useLocation();
+  // const currentLocation = useLocation();
   const { showButtons, showTranslate } = useAction();
   const store = useTypedSelector(commonStore => commonStore);
   const { displayButtons, translate } = store.wordList;
