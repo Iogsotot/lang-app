@@ -18,6 +18,10 @@ const ALL_WORDS_IN_GROUP = 600;
 const LOCATIONS = {
   textbook: 'textbook',
   dictionary: 'dictionary',
+  sprint: 'sprint',
+  savannah: 'savannah',
+  puzzle: 'puzzle',
+  audiocall: 'audiocall',
 };
 
 const USER_WORDS_FILTERS = {
