@@ -60,8 +60,8 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [gameFinishPoints, setGameFinishPoints] = useState(0);
   // const [readyGameCounter, setReadyGameCounter] = useState<number>();
   const [gameStart, setGameStart] = useState(false);
-  // let correctAnswerSeries: string[] = [];
   const [correctAnswerSeries, setCorrectAnswerSeries] = useState<string[]>([]);
+  const [bgPosition, setBgPosition] = useState('100%');
 
   const initialGameState = {
     lives: maxLives,
@@ -198,9 +198,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   function resolveAsWrongAnswer() {
-    // звук правильного ответа
-    console.log('deleted array');
-
     setCorrectAnswerSeries([]);
     const updatedWrongAnswers = [...wrongAnswers, currentWords[wordsChunk[soughtIndex]]];
     setWrongAnswers(updatedWrongAnswers);
@@ -210,7 +207,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     lives -= 1;
     statsData.current.lives = lives;
     statsData.current.wrongAswersCount = wrongAnswersCount;
-    // console.log(lives);
 
     // console.log('нэ маладэц');
     if (lives === 0) {
@@ -219,6 +215,10 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   function resolveAsCorrectAnswer() {
+    // звук правильного ответа
+    const bgModificator = `${100 - (statsData.current.correctAnswersCount * 3)}%`;
+    setBgPosition(bgModificator);
+
     const updatedCorrectAnswers = [...correctAnswers, currentWords[wordsChunk[soughtIndex]]];
     setCorrectAnswers(updatedCorrectAnswers);
     let { correctAnswersCount } = statsData.current;
@@ -314,7 +314,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   }
 
   return (
-    <section className="savannah">
+    <section className="savannah" style={{ backgroundPositionY: bgPosition }}>
       <ModalOnClose
         modalIsActive={modalOnCloseIsActive}
         handleCancelModal={handleCancelModal}
@@ -389,6 +389,9 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="crystal-block">
+              <div className="crystal"/>
             </div>
           </div>
         )
