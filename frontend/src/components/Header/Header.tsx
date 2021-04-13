@@ -5,6 +5,7 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useAction } from '../../hooks/useAction';
 import avatarHolder from '../../assets/icons/avatar-holder.png';
 import logoutIcon from '../../assets/icons/logout.png';
+import LogoDark from '../../assets/images/Logo_dark.png';
 import dictionaryIcon from '../../assets/images/dictionary_icon.png';
 import { LOCATIONS } from '../../constants';
 
@@ -35,6 +36,9 @@ const Header: FC = () => {
   return (
     <header>
       <div className="header__inner">
+      <a href="/" className="header__logo-field">
+          <img src={LogoDark} alt="RS Lang" />
+        </a>
         <nav className="nav">
           <a href="/#features" className="nav__link">
             Возможности

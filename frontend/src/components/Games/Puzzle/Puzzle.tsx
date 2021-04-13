@@ -1,9 +1,7 @@
 import React, { useState, FC } from 'react';
-// import SettingsScreen from './SettingsScreen';
 import GameScreen from './GameScreen';
 import { WORD_GROUPS } from '../../../constants/constants';
 import ModalOnClose from '../ModalOnClose';
-import CloseButton from '../../CloseButton';
 import Finish from '../Finish';
 
 const Puzzle: FC = () => {
@@ -24,14 +22,16 @@ const Puzzle: FC = () => {
   const handleSubmitClose = () => {
     window.location.href = '../';
   };
-  const closeButtonClick = () => {
-    setModalOnCloseIsActive(true);
-  };
 
   return (
     <section className="puzzle">
+
       <div className="overlay"/>
-      {gameFinished && <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 10} /> }
+      {gameFinished &&
+      <Finish correctAnswers={correctAnswers}
+        wrongAnswers={wrongAnswers}
+        score={correctAnswers.length * 10} /> }
+
       <ModalOnClose
         modalIsActive={modalOnCloseIsActive}
         handleCancelModal={handleCancelModal}
@@ -45,8 +45,13 @@ const Puzzle: FC = () => {
       >
         <i className="fal fa-times" />
       </div>
+
       {
-        gameActive ? <GameScreen setGameFinished={setGameFinished} setWrongAnswers={setWrongAnswers} setCorrectAnswers={setCorrectAnswers} group={group}/> :
+        gameActive && !gameFinished ?
+          <GameScreen setGameFinished={setGameFinished}
+            setWrongAnswers={setWrongAnswers}
+            setCorrectAnswers={setCorrectAnswers}
+            group={group}/> :
           <div className="puzzle__info box">
             <h2 className="title is-2">Puzzle</h2>
             <p>

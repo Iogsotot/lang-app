@@ -7,9 +7,20 @@
   padding: 40px 20px 140px;
   font-size: 1.5rem;
 
+  &__btns {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
+  &__btn {
+    margin: 0.4rem auto;
+  }
+
   &__title {
     font-weight: 700;
     font-size: 2rem;
+    text-align: center;
     color: #2d345c;
   }
 
@@ -33,6 +44,8 @@
   }
 
   & .react-tabs {
+    height: 100%;
+    width: 100%;
     &__tab {
       color: #c9c9c9;
 
