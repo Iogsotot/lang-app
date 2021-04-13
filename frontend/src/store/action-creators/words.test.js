@@ -1,9 +1,11 @@
 import { WordListActionTypes } from '../../models/word';
-import { wordListReducer, initialState } from "../reducers/words";
+import { UserActionTypes } from '../../models/user';
+import { wordListReducer, initialState } from '../reducers/words';
 import configureMockStore from 'redux-mock-store'
-import thunk from "redux-thunk";
+import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import * as actions from '../action-creators/words';
+import * as users from '../action-creators/user';
 import expect from 'expect';
 
 fetchMock.config.fallbackToNetwork = true;
@@ -59,37 +61,35 @@ describe('async actions', () => {
     fetchMock.restore()
   })
 
-  it('creates FETCH_WORDS_SUCCESS when fetching words has been done', () => {
-    fetchMock.getOnce(`/words`, {
+  it('creates FETCH_USER when fetching user has been done', () => {
+    fetchMock.getOnce(`/users`, {
       payload: {},
       headers: { 'content-type': 'application/json' }
     })
 
     const expectedActions = [
-      { type: WordListActionTypes.FETCH_WORD_LIST },
-      { type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS, payload: {} }
+      { type: UserActionTypes.FETCH_USER },
+      { type: UserActionTypes.REGISTER_USER_SUCCESS, payload: {} }
     ]
     const store = mockStore({ payload: {} })
 
-    return store.dispatch(actions.fetchWords('0', '0')).then(() => {
-      // return of async actions
+    return store.dispatch(users.register('')).then(() => {
       expect(store.getActions()).toMatchObject(expectedActions);
     })
   })
-  it('creates FETCH_WORDS_SUCCESS when fetching words has been done', () => {
+  it('creates FETCH_RANDOM_WORD_LIST when fetching words has been done', () => {
     fetchMock.getOnce(`/words/all`, {
       payload: {},
       headers: { 'content-type': 'application/json' }
     })
 
     const expectedActions = [
-      { type: WordListActionTypes.FETCH_WORD_LIST },
+      { type: WordListActionTypes.FETCH_RANDOM_WORD_LIST },
       { type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS, payload: {} }
     ]
     const store = mockStore({ payload: {} })
 
     return store.dispatch(actions.fetchRandomWords('0', '0')).then(() => {
-      // return of async actions
       expect(store.getActions()).toMatchObject(expectedActions);
     })
   })
@@ -99,21 +99,21 @@ describe(">>>R E D U C E R --- Test wordListReducer", () => {
   it("should return the initial state", () => {
     expect(wordListReducer(undefined, {})).toEqual({
       displayButtons: true, error: null,
-      group: 0,
+      group: 1,
       loading: false,
-      page: 0,
+      page: 1,
       translate: true,
       words: [],
     });
   })
 });
 it('+++ reducer for GET_WORD_LIST_PAGE', () => {
-  let state = { payload: 1 }
-  state = wordListReducer(state, { type: "GET_WORD_LIST_PAGE", payload: 1 })
-  expect(state).toMatchObject({ payload: 1 })
+  let state = { payload: 0 }
+  state = wordListReducer(state, { type: "GET_WORD_LIST_PAGE", payload: 0 })
+  expect(state).toMatchObject({ payload: 0 })
 });
 it('+++ reducer for GET_WORD_LIST_GROUP', () => {
-  let state = { payload: 2 }
-  state = wordListReducer(state, { type: "GET_WORD_LIST_GROUP", payload: 2 })
-  expect(state).toMatchObject({ payload: 2 })
+  let state = { payload: 0 }
+  state = wordListReducer(state, { type: "GET_WORD_LIST_GROUP", payload: 0 })
+  expect(state).toMatchObject({ payload: 0 })
 });
