@@ -1,5 +1,5 @@
 import './footer.scss';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { HashLink as Link } from 'react-router-hash-link';
 import { FOOTER_COPYRIGHT, LOCATIONS } from '../../constants';
