@@ -11,13 +11,3 @@ export interface SavannahProps {
   test?: string,
   location?: string,
 }
-
-// export interface GameProps {
-//   statsData: any,
-//   currentWordClassNames: string,
-//   WORDS: any,
-//   currentWords: any,
-//   wordsChunk: any,
-//   soughtIndex: any,
-//   checkPair: any,
-// }
