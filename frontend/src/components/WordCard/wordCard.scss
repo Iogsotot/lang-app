@@ -53,4 +53,13 @@
       }
     }
   }
+  .tags {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 0;
+    span {
+      margin: 0;
+    }
+  }
 }

@@ -4,7 +4,7 @@ import { Word } from '../models/word';
 interface UseAudiosHook {
   setAudio: (word: string) => void;
   toggleAudio: () => void;
-  currentWord: string;
+  active: boolean;
   isPlaying: boolean;
 }
 
@@ -20,6 +20,7 @@ export const useAudios = (data: Word[]): UseAudiosHook => {
   const [audioItem, setAudioItem] = useState<HTMLAudioElement | null>();
   const [audioIndex, setAudioIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [active, setActive] = useState(false);
 
   const checkIsItPlayingForFixError = () => {
     if (audioItem) {
@@ -69,6 +70,12 @@ export const useAudios = (data: Word[]): UseAudiosHook => {
   };
 
   useEffect(() => {
+    if (audioItem) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+
     play();
     audioItem?.addEventListener('ended', playNext);
     return () => audioItem?.removeEventListener('ended', playNext);
@@ -89,6 +96,6 @@ export const useAudios = (data: Word[]): UseAudiosHook => {
     setAudio,
     toggleAudio,
     isPlaying,
-    currentWord: current.word,
+    active,
   };
 };

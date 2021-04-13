@@ -11,8 +11,19 @@ const FOOTER_COPYRIGHT = {
 
 const API_BASE_URL = 'https://rslang-2020q3.herokuapp.com';
 
-const locations = {
-  TEXTBOOK: 'textbook',
+const MAX_PAGE = 30;
+const MIN_PAGE = 1;
+const ALL_WORDS_IN_GROUP = 600;
+
+const LOCATIONS = {
+  textbook: 'textbook',
+  dictionary: 'dictionary',
+};
+
+const USER_WORDS_FILTERS = {
+  learningWords: '{"userWord.isLearning":true}',
+  hardWords: '{"userWord.difficulty":"hard"}',
+  deletedWords: '{"userWord.isDeleted":true}',
 };
 
 const WORD_GROUPS = {
@@ -58,8 +69,12 @@ export {
   WORD_GROUPS,
   API_BASE_URL,
   FOOTER_COPYRIGHT,
-  locations,
+  LOCATIONS,
   SPRINT,
+  USER_WORDS_FILTERS,
   SPRINT_MODAL_ON_CLOSE,
   SPRINT_GET_READY,
+  MAX_PAGE,
+  MIN_PAGE,
+  ALL_WORDS_IN_GROUP,
 };

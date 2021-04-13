@@ -9,6 +9,7 @@ const Input: FC<InputProps> = ({
   successText = '',
   errorText = '',
   onChangeHandler,
+  keyPressHandler,
   placeholder,
 }) => {
   const [elementData, setElementData] = useState({
@@ -54,6 +55,7 @@ const Input: FC<InputProps> = ({
           type={type}
           value={value}
           onChange={onChangeHandler}
+          onKeyPress={keyPressHandler}
         />
         <span className="icon is-small is-left">
           <i className={`fas ${icon}`}>&#0;</i>

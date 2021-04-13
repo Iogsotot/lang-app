@@ -1,11 +1,9 @@
 import { UserAction, UserActionTypes, UserState } from '../../models/user';
-import { notifications, storageNames } from '../../constants';
+import { notifications } from '../../constants';
 
 const {
   USER_CREATED_SUCCESSFULLY,
 } = notifications;
-
-const { USER_STORAGE } = storageNames;
 
 const {
   FETCH_USER,
@@ -16,20 +14,17 @@ const {
   LOG_OUT,
 } = UserActionTypes;
 
-const storageState =
-  JSON.parse(localStorage.getItem(USER_STORAGE)
-  || JSON.stringify({ user: {
+const initialState: UserState = {
+  user: {
     message: '',
     token: '',
     refreshToken: '',
     userId: '',
     name: '',
+    email: '',
+    avatar: '',
   },
   isLoggedIn: false,
-  }));
-
-const initialState: UserState = {
-  ...storageState,
   loading: false,
   error: null,
   notification: '',
