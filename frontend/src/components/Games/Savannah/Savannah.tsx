@@ -275,6 +275,36 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     resolveAsWrongAnswer();
   }
 
+  const keyControls = (e: any) => {
+    switch (e.code) {
+      case 'Digit1':
+      case 'Numpad1':
+        checkPair(0);
+        break;
+      case 'Digit2':
+      case 'Numpad2':
+        checkPair(1);
+        break;
+      case 'Digit3':
+      case 'Numpad3':
+        checkPair(2);
+        break;
+      case 'Digit4':
+      case 'Numpad4':
+        checkPair(3);
+        break;
+      default:
+    }
+  };
+
+  useEffect(() => {
+    const setKeyControls = () => {
+      window.addEventListener('keydown', keyControls);
+    };
+    setKeyControls();
+    return () => window.removeEventListener('keydown', keyControls);
+  }, [round]);
+
   function handleClose() {
     if (gameScreen === 'welcome') {
       window.location.href = '../';
