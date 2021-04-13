@@ -141,14 +141,17 @@ export const fetchUserWords = ({
   }, 1000);
 };
 
-export const fetchWords = (group: number, page: number) => async (
+export const fetchWords = (group: number, page: number, sort = 0) => async (
   dispatch: Dispatch<WordListAction>,
 ): Promise<void> => {
   dispatch({
     type: FETCH_WORD_LIST,
   });
-
-  const response = await fetch(`${API_BASE_URL}/words?group=${group}&page=${page}`, {
+  let fetchWordsUrl = `${API_BASE_URL}/words?group=${group}&page=${page}`;
+  if (sort) {
+    fetchWordsUrl += `&sort=${sort}`;
+  }
+  const response = await fetch(fetchWordsUrl, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
