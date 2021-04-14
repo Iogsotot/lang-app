@@ -2,13 +2,13 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: min-content;
-  height: 100vh;
+  height: calc(100vh - 85.2px);
   background-size: cover;
   background-position: center;
   grid-template-areas:
-    'timer . . close'
-    '. score score .'
-    '. box box .';
+    "timer . . close"
+    ". score score ."
+    ". box box .";
 
   .subtitle {
     text-align: center;
@@ -53,14 +53,14 @@
     user-select: none;
     cursor: pointer;
 
-    &.pause div[aria-label='Countdown timer'] > div {
+    &.pause div[aria-label="Countdown timer"] > div {
       font-size: 2rem;
       &::before,
       &::after {
         height: 2px;
         width: 1.6rem;
         background-color: hsl(0, 0%, 48%);
-        content: '';
+        content: "";
         display: block;
         position: absolute;
         transform-origin: center center;
@@ -125,8 +125,8 @@
   .sprint {
     width: 100vw;
     grid-template-areas:
-      'timer . . close'
-      'score score score score'
-      'box box box box';
+      "timer . . close"
+      "score score score score"
+      "box box box box";
   }
 }
