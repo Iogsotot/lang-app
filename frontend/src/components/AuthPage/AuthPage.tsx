@@ -114,7 +114,7 @@ const AuthPage: FC = () => {
   return (
     <main className="auth">
        <div className="bg-video-wrap">
-       <video src="https://designsupply-web.com/samplecontent/vender/codepen/20181014.mp4" autoPlay muted loop>
+       <video src="https://assets.mixkit.co/videos/preview/mixkit-blonde-woman-reading-a-book-4948-large.mp4" autoPlay muted loop>
         </video>
         <div className="overlay">
     </div>
