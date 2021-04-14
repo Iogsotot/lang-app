@@ -91,10 +91,6 @@
     }
   }
 
-  .modal-buttons {
-    justify-content: center;
-  }
-
   .get-ready,
   .spinner,
   .difficulty__box {
@@ -125,6 +121,12 @@
   .audiocall {
     grid-column: 1 / -1;
     grid-row: 1 / -1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sprint {
+    height: calc(100vh - 100px);
   }
 }
 
