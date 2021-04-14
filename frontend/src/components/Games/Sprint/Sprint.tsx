@@ -35,6 +35,8 @@ import { SPRINT, INITIAL_WORD_STATE, INITIAL_PAIR_STATE } from '../../../constan
 import './Sprint.scss';
 
 const {
+  gameName,
+  gameDesc,
   gameDuration,
   timerColor,
   colorOnCorrectAnswer,
@@ -242,13 +244,7 @@ const Sprint: FC = () => {
   };
   const renderGameIfReady = () => {
     if (!isLvlSelected) {
-      return (
-        <div className="box difficulty__box">
-          { previousLocation !== 'textbook' &&
-            <Difficulty handleStart={() => setLvlSelected(true)} />
-          }
-        </div>
-      );
+      return <Difficulty title={gameName} desc={gameDesc} handleStart={() => setLvlSelected(true)} />;
     }
     if (loading) {
       return <Spinner />;

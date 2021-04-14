@@ -64,6 +64,8 @@ const WORD_GROUPS = {
 };
 
 const SPRINT = {
+  gameName: 'Спринт',
+  gameDesc: 'Учит быстро переводить на ваш родной язык. Для этой тренировки используются слова из вашего словаря.',
   gameDuration: 60,
   timerColor: '#00d1b2', // стандартный бульмовский бирюзовый
   timerSize: 80,
