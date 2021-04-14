@@ -42,6 +42,10 @@ const ALL_WORDS_IN_GROUP = 600;
 const LOCATIONS = {
   textbook: 'textbook',
   dictionary: 'dictionary',
+  sprint: 'sprint',
+  savannah: 'savannah',
+  puzzle: 'puzzle',
+  audiocall: 'audiocall',
 };
 
 const USER_WORDS_FILTERS = {
@@ -75,7 +79,7 @@ const SPRINT = {
   checkboxAuto: ' Автопроизношение',
 };
 
-const SPRINT_MODAL_ON_CLOSE = {
+const MODAL_ON_CLOSE = {
   modalTitle: 'Тренировка не закончена!',
   modalSubTitle: 'Если вы закроете тренировку, ваши результаты обнулятся',
   sumbitCloseBtnText: 'Закрыть тренировку',
@@ -98,7 +102,7 @@ export {
   LOCATIONS,
   SPRINT,
   USER_WORDS_FILTERS,
-  SPRINT_MODAL_ON_CLOSE,
+  MODAL_ON_CLOSE,
   SPRINT_GET_READY,
   MAX_PAGE,
   MIN_PAGE,

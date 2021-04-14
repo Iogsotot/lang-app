@@ -24,7 +24,6 @@ main {
 
     color: $color_black;
 
-    // padding-bottom: 36rem;
     height: 90vh;
     padding-left: 2.5rem;
     padding-bottom: 19rem;
@@ -243,13 +242,10 @@ main {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      // flex: 1 1 35vw;
-      // width: 25vw;
       margin: 1rem;
       padding: 1.5rem;
       img {
         margin: auto;
-        // height: 23rem;
         width: 35vmin;
       }
       .game__title {
