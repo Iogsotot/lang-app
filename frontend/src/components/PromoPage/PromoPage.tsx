@@ -26,7 +26,6 @@ const PromoPage: FC = () => {
         </ScrollAnimation>
       </section>
       <section className="video" id="video">
-        <ScrollAnimation animateIn="bounceInUp">
           <iframe
             title="rs lang video review"
             src="https://www.youtube.com/embed/qtsNbxgPngA"
@@ -35,7 +34,6 @@ const PromoPage: FC = () => {
             allowFullScreen
             className="video-player"
           />
-        </ScrollAnimation>
       </section>
       <section className="features" id="features">
         <ScrollAnimation animateIn="bounceInUp">
