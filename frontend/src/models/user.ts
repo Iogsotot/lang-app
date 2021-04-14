@@ -29,6 +29,7 @@ export interface UsersDispatchProps {
   login: (formData: FormData) => (dispatch: Dispatch<UserAction>) => void;
   logout: () => (dispatch: Dispatch<UserAction>) => void;
   clearUserNotifications: () => (dispatch: Dispatch<UserAction>) => void;
+  updateToken: (user: User) => (dispatch: Dispatch<UserAction>) => Promise<void>;
 }
 
 interface FetchUserAction {
@@ -58,6 +59,11 @@ interface LogOut {
   type: UserActionTypes.LOG_OUT;
 }
 
+interface RefreshUserToken {
+  type: UserActionTypes.REFRESH_TOKEN;
+  payload: User;
+}
+
 export enum UserActionTypes {
   FETCH_USER = 'FETCH_USER',
   REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS',
@@ -65,6 +71,7 @@ export enum UserActionTypes {
   FETCH_USER_ERROR = 'FETCH_USER_ERROR',
   CLEAR_USER_NOTIFICATIONS = 'CLEAR_USER_NOTIFICATIONS',
   LOG_OUT = 'LOG_OUT',
+  REFRESH_TOKEN = 'REFRESH_TOKEN',
 }
 
 export type UserAction =
@@ -73,4 +80,5 @@ export type UserAction =
   | LoginUserSuccessAction
   | FetchUserErrorAction
   | ClearUserNotificationsAction
-  | LogOut;
+  | LogOut
+  | RefreshUserToken;

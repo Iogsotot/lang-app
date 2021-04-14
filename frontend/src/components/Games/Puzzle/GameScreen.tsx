@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { useLocation } from 'react-router-dom';
 import useSound from 'use-sound';
 import { Word } from '../../../models/word';
 import Phrase from './Phrase/Phrase';
@@ -9,6 +10,7 @@ import { API_BASE_URL } from '../../../constants/constants';
 import { GameScreenProps } from './Puzzle.model';
 import successSound from '../../../assets/audio/happySound.mp3';
 import failureSound from '../../../assets/audio/failure.mp3';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 const reorder = (list: Word[], startIndex: number, endIndex: number) => {
   const [removed] = list.splice(startIndex, 1);
@@ -33,6 +35,8 @@ const correctAnswers: Array<Word | undefined> = [];
 const wrongAnswers: Array<Word | undefined> = [];
 
 const GameScreen: FC<GameScreenProps> = (props) => {
+  const wordList = useTypedSelector(commonStore => commonStore.wordList);
+  const { words } = wordList;
   const { group, setGameFinished, setCorrectAnswers, setWrongAnswers } = props;
   const [collection, setCollection] = useState<Word[]>([]);
   const [phrase, setPhrase] = useState<string | null>(null);
@@ -42,6 +46,7 @@ const GameScreen: FC<GameScreenProps> = (props) => {
   const [outline, setOutline] = useState('');
   const [playSuccess] = useSound(successSound);
   const [playFailure] = useSound(failureSound);
+  const currentLocation = useLocation();
 
   const startNewGame = () => {
     fetch(`${API_BASE_URL}/words/all?amount=5?group=${group}`)

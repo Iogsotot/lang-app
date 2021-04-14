@@ -16,39 +16,42 @@ const {
 
 const WordList: FC<{ filter?: boolean | string }> = ({ filter }) => {
   const { words, loading } = useTypedSelector(store => store.wordList);
-  const { setAudio, toggleAudio, isPlaying, active } = useAudios(words || []);
+  const { setAudio, toggleAudio, isPlaying, active } = useAudios(words && words.length ? words : []);
 
   const filteredWords = useMemo(() => {
-    let newWords = [...words];
-    if (filter) {
-      newWords = newWords.filter((word) => {
-        switch (filter) {
-          case LEARNING:
-            if (word.userWord?.isLearning !== true || word.userWord?.isDeleted === true) {
-              return false;
-            }
-            break;
-          case HARD:
-            if (word.userWord?.difficulty !== HARD || word.userWord?.isDeleted === true) {
-              return false;
-            }
-            break;
-          case DELETED:
-            if (word.userWord?.isDeleted !== true) {
-              return false;
-            }
-            break;
-          case true:
-            if (word.userWord?.isDeleted === true) {
-              return false;
-            }
-            break;
-          default: return true;
-        }
-        return true;
-      });
+    if (words && words.length) {
+      let newWords = [...words];
+      if (filter) {
+        newWords = newWords.filter((word) => {
+          switch (filter) {
+            case LEARNING:
+              if (word.userWord?.isLearning !== true || word.userWord?.isDeleted === true) {
+                return false;
+              }
+              break;
+            case HARD:
+              if (word.userWord?.difficulty !== HARD || word.userWord?.isDeleted === true) {
+                return false;
+              }
+              break;
+            case DELETED:
+              if (word.userWord?.isDeleted !== true) {
+                return false;
+              }
+              break;
+            case true:
+              if (word.userWord?.isDeleted === true) {
+                return false;
+              }
+              break;
+            default: return true;
+          }
+          return true;
+        });
+      }
+      return newWords;
     }
-    return newWords;
+    return [];
   }, [words]);
 
   if (!words || filteredWords.length === 0) {

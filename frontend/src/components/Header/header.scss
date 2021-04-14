@@ -1,4 +1,4 @@
-@import "../../index.scss";
+@import "../../variables";
 
 header {
   border-color: white;
@@ -87,6 +87,9 @@ header {
 }
 
 @media (max-width: 930px) {
+  header {
+    height: 100px;
+  }
   .header__inner {
     flex-wrap: wrap;
   }

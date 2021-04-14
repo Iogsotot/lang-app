@@ -113,13 +113,16 @@ const AuthPage: FC = () => {
 
   return (
     <main className="auth">
+       <div className="bg-video-wrap">
+       <video src="https://assets.mixkit.co/videos/preview/mixkit-blonde-woman-reading-a-book-4948-large.mp4" autoPlay muted loop>
+        </video>
+        <div className="overlay">
+    </div>
       <div className="form">
-
         <div className="form__tabs">
           <button onClick={toLoginForm} className={`form__tabs__link ${!isLogin ? 'active' : ''}`}>{SIGN_UP}</button>
           <button onClick={toRegisterForm} className={`form__tabs__link ${isLogin ? 'active' : ''}`}>{SIGN_IN}</button>
         </div>
-
         {!isLogin
           ? <>
             <AvatarUpload onImageReady={target => onImageReady(target)} />
@@ -173,7 +176,7 @@ const AuthPage: FC = () => {
         notification={notification}
         clearNotification={clearUserNotifications}
       />
-
+    </div>
     </main>
   );
 };

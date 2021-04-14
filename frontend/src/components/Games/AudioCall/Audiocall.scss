@@ -9,12 +9,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  .box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 3;
-  }
+
   .overlay {
     position: absolute;
     top: 0;
@@ -44,24 +39,7 @@
       font-family: "Font Awesome 5 Pro";
     }
   }
-  &__info {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%);
-    width: 450px;
-    margin: auto;
 
-    background-color: rgba(255, 255, 255, 0.5);
-
-    .btn {
-      display: block;
-      width: fit-content;
-      display: flex;
-      align-items: center;
-      margin: 1rem auto 0.5rem;
-    }
-  }
   &_inner {
     margin: 0 auto;
     width: 70%;
@@ -131,6 +109,10 @@
     & .button {
       font-size: 1.3rem;
     }
+  }
+
+  & .audiocall__volume_main.volume-button {
+    color: #fff;
   }
 
   &__volume {
@@ -206,20 +188,6 @@
     }
   }
 
-  .buttons {
-    justify-content: center;
-  }
-  .difficulty-btn-block {
-    & .button {
-      margin: 5px;
-      font-size: 1.2rem;
-
-      &:disabled {
-        cursor: default;
-      }
-    }
-  }
-
   .volume-button {
     background-color: transparent;
     border-radius: 50%;
@@ -240,9 +208,6 @@
       outline: none;
     }
   }
-  .fas {
-    color: white;
-  }
 }
 .fa-circle {
   color: #aaa;
@@ -250,4 +215,37 @@
 
 .react-tabs__tab--selected > .fa-circle {
   color: #b57ad2;
+}
+
+@media (max-width: 1000px) {
+  .audiocall {
+    & .overlay {
+      height: 100%;
+    }
+
+    &__answers .button {
+      font-size: 1.1rem;
+    }
+
+    &__current-word {
+      height: 30vh;
+    }
+
+    & img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .audiocall {
+    height: calc(100vh - 200px);
+  }
+}
+
+@media (max-width: 930px) {
+  .audiocall {
+    height: calc(100vh - 100px);
+  }
 }

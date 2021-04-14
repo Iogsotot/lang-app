@@ -1,6 +1,12 @@
 import { Dispatch } from 'react';
 import { API_BASE_URL, USER_WORDS_FILTERS } from '../../constants';
-import { WordListAction, WordListActionTypes, FetchUserWordsProps, DictionarySections, Word } from '../../models';
+import {
+  WordListAction,
+  WordListActionTypes,
+  FetchUserWordsProps,
+  DictionarySections,
+  Word,
+} from '../../models';
 
 const {
   FETCH_RANDOM_WORD_LIST,
@@ -83,23 +89,14 @@ export const fetchUserWords = ({
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  })
-    .then(data => data.json())
-    .catch(error => {
-      dispatch({
-        type: FETCH_WORDS_API_ERROR,
-        payload: error,
-      });
-    });
-
-  dispatch({
-    type: FETCH_WORD_LIST_SUCCESS,
-    payload: response,
   });
+
+  const data = await response.json();
+
   const groupedWords = (): Word[][] => {
     let words: Word[] = [];
-    if (response && response[0]?.paginatedResults) {
-      words = response[0].paginatedResults;
+    if (data && data[0]?.paginatedResults) {
+      words = data[0].paginatedResults;
       const newWords = [];
       let wordsPage = [];
 
@@ -131,7 +128,7 @@ export const fetchUserWords = ({
     if (result.length && result.some(Array.isArray)) {
       dispatch({
         type: FETCH_WORD_LIST_SUCCESS,
-        payload: result[0],
+        payload: result[0] || [],
       });
     } else {
       dispatch({

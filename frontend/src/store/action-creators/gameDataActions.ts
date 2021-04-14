@@ -52,22 +52,24 @@ export default {
           type: ADD_TO_ACTIVE_WORDS_ACTION,
           payload: [...activeWords, word],
         });
-        await fetch(
-          `${API_BASE_URL}/${userData.userId}/words/${word.id}`,
-          {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${userData.token}`,
+        if (userData.userId) {
+          await fetch(
+            `${API_BASE_URL}/users/${userData.userId}/words/${word.id}`,
+            {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userData.token}`,
+              },
+              body: JSON.stringify({
+                isLearning: true,
+                learningStartDate: Date.now(),
+              }),
             },
-            body: JSON.stringify({
-              isLearning: true,
-              learningStartDate: Date.now(),
-            }),
-          },
-        )
-          .then((data) => data.json());
+          )
+            .then((data) => data.json());
+        }
       }
     }),
 
