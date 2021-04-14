@@ -4,9 +4,9 @@ import Button from '../Button';
 
 import { ModalOnCloseProps } from './ModalOnClose.model';
 
-import { SPRINT_MODAL_ON_CLOSE } from '../../../../constants';
+import { MODAL_ON_CLOSE } from '../../../../constants';
 
-const { modalTitle, modalSubTitle, sumbitCloseBtnText, canselModalBtn } = SPRINT_MODAL_ON_CLOSE;
+const { modalTitle, modalSubTitle, sumbitCloseBtnText, canselModalBtn } = MODAL_ON_CLOSE;
 
 const ModalOnClose: FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal, handleSubmitClose }) => (
   <div className={`modal ${modalIsActive ? 'is-active' : ''}`}>

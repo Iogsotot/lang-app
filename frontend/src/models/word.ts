@@ -31,6 +31,7 @@ export interface WordListState {
   page: number;
   group: number;
   loading: boolean;
+  hiddenLoading: boolean;
   error: null | string;
   translate: boolean;
   displayButtons: boolean;
@@ -47,6 +48,11 @@ export interface FetchUserWordsProps {
 }
 
 export interface WordsDispatchProps {
+  fetchRandomWords: (
+    group: number,
+    page: number,
+    amount: number,
+  ) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showButtons: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setGroup: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
   fetchWords: (group: number, page: number, sort?: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
@@ -54,14 +60,29 @@ export interface WordsDispatchProps {
   showTranslate: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setPage: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
   setLocalPage: (page: Word[]) => (dispatch: Dispatch<WordListAction>) => void;
-  updateWord: (words: Word[], word: Word) => (dispatch: Dispatch<WordListAction>) => void;
+  updateWord: (
+    words: Word[],
+    word: Word,
+    token: string,
+    userId: string,
+    newId: string,
+    body: string,
+    method?: string,
+  ) => (dispatch: Dispatch<WordListAction>) => void;
   clearDeletedWords: (words: Word[]) => (dispatch: Dispatch<WordListAction>) => void;
 }
 
-interface FetchWordListAction {
-  type: WordListActionTypes.FETCH_WORD_LIST;
+interface FetchRandomWordListAction {
+  type: WordListActionTypes.FETCH_RANDOM_WORD_LIST;
 }
 
+interface FetchWordListAction {
+  type: WordListActionTypes.FETCH_WORDS_API;
+}
+
+interface FetchWordUpdateAction {
+  type: WordListActionTypes.START_FETCH_WORD_UPDATE;
+}
 interface FetchWordListSuccessAction {
   type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS;
   payload: Word[];
@@ -73,7 +94,7 @@ interface FetchUserWordListSuccessAction {
 }
 
 interface FetchWordListErrorAction {
-  type: WordListActionTypes.FETCH_WORD_LIST_ERROR;
+  type: WordListActionTypes.FETCH_WORDS_API_ERROR;
   payload: string;
 }
 
@@ -109,18 +130,21 @@ export enum DictionarySections {
 }
 
 export enum WordListActionTypes {
-  FETCH_WORD_LIST = 'FETCH_WORD_LIST',
+  FETCH_RANDOM_WORD_LIST = 'FETCH_RANDOM_WORD_LIST',
+  FETCH_WORDS_API = 'FETCH_WORDS_API',
   FETCH_WORD_LIST_SUCCESS = 'FETCH_WORD_LIST_SUCCESS',
   FETCH_USER_WORD_LIST_SUCCESS = 'FETCH_USER_WORD_LIST_SUCCESS',
-  FETCH_WORD_LIST_ERROR = 'FETCH_WORD_LIST_ERROR',
+  FETCH_WORDS_API_ERROR = 'FETCH_WORDS_API_ERROR',
   GET_WORD_LIST_PAGE = 'GET_WORD_LIST_PAGE',
   GET_WORD_LIST_GROUP = 'GET_WORD_LIST_GROUP',
   SHOW_WORD_TRANSLATE = 'SHOW_WORD_TRANSLATE',
   SHOW_WORD_BUTTONS = 'SHOW_WORD_BUTTONS',
   SET_WORDS = 'SET_WORDS',
+  START_FETCH_WORD_UPDATE = 'START_FETCH_WORD_UPDATE',
 }
 
 export type WordListAction =
+  | FetchRandomWordListAction
   | FetchWordListAction
   | FetchWordListSuccessAction
   | FetchUserWordListSuccessAction
@@ -129,4 +153,5 @@ export type WordListAction =
   | GetWordListGroup
   | ShowWordTranslate
   | ShowWordButtons
-  | UpdateWord;
+  | UpdateWord
+  | FetchWordUpdateAction;

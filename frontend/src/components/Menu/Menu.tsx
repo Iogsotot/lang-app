@@ -9,13 +9,14 @@ import StatsIcon from '../../assets/images/stats_icon.png';
 import SettingsIcon from '../../assets/images/settings_icon.png';
 import { LOCATIONS } from '../../constants';
 
-const { textbook } = LOCATIONS;
+const { textbook, dictionary } = LOCATIONS;
 
 const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
-  const { showButtons, showTranslate } = useAction();
+  const { showButtons, showTranslate, setDarkMode } = useAction();
   const store = useTypedSelector(commonStore => commonStore);
   const { displayButtons, translate } = store.wordList;
+  const { darkMode } = store.theme;
   const { isLoggedIn } = store.user;
   const [openSettings, setOpenSettings] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -32,11 +33,15 @@ const Menu: FC = () => {
     showTranslate(!translate);
   };
 
+  const onChangeTheme = () => {
+    setDarkMode(!darkMode);
+  };
+
   useEffect(() => {
-    if (location !== textbook) {
-      setDisabled(true);
-    } else {
+    if (location === textbook || location === dictionary) {
       setDisabled(false);
+    } else {
+      setDisabled(true);
     }
   }, [location]);
 
@@ -63,22 +68,22 @@ const Menu: FC = () => {
                 : <></>
             }
             <li className="menu__item">
-              <Link to="/sprint">
+              <Link to={{ pathname: '/sprint', state: { from: location } }}>
                 <i className="fal fa-running fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/savannah">
+              <Link to={{ pathname: '/savannah', state: { from: location } }}>
                 <i className="fal fa-paw-claws fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/puzzle">
+              <Link to={{ pathname: '/puzzle', state: { from: location } }}>
                 <i className="fal fa-puzzle-piece fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/audiocall">
+              <Link to={{ pathname: '/audiocall', state: { from: location } }}>
                 <i className="fal fa-headphones-alt fa-3x"/>
               </Link>
             </li>
@@ -103,19 +108,32 @@ const Menu: FC = () => {
               />
               <label htmlFor="switchTranslate">Показывать перевод</label>
             </div>
-            <div className="hidden__menu-item">
-              <div className="field">
-                <input
-                  onChange={onChangeButtons}
-                  checked={displayButtons}
-                  disabled={disabled}
-                  id="switchButtons"
-                  type="checkbox"
-                  name="switchButtons"
-                  className="switch is-info"
-                />
-                <label htmlFor="switchButtons">Показывать кнопки</label>
-              </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeButtons}
+                checked={displayButtons}
+                disabled={disabled}
+                id="switchButtons"
+                type="checkbox"
+                name="switchButtons"
+                className="switch is-info"
+              />
+              <label htmlFor="switchButtons">Показывать кнопки</label>
+            </div>
+          </div>
+          <div className="hidden__menu-item">
+            <div className="field">
+              <input
+                onChange={onChangeTheme}
+                checked={darkMode}
+                id="setDarkMode"
+                type="checkbox"
+                name="setDarkMode"
+                className="switch is-info"
+              />
+              <label htmlFor="setDarkMode">Темная тема</label>
             </div>
           </div>
         </div>
@@ -123,4 +141,5 @@ const Menu: FC = () => {
     </aside>
   );
 };
+
 export default Menu;

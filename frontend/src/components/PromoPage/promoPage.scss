@@ -24,7 +24,6 @@ main {
 
     color: $color_black;
 
-    // padding-bottom: 36rem;
     height: 90vh;
     padding-left: 2.5rem;
     padding-bottom: 19rem;
@@ -44,8 +43,7 @@ main {
   }
 
   .video {
-    background: linear-gradient(180deg, rgba(255, 244, 229, 0) 0%, rgba(181, 122, 210, 0.776388) 89.77%),
-      linear-gradient(179.61deg, #f9f4fc -73%, rgba(255, 244, 229, 0) 52.76%);
+    background: var(--bg-gradient-video);
     height: 80vh;
     padding: 4.43rem 3rem;
 
@@ -58,10 +56,14 @@ main {
 
   .features {
     color: $color_extra_black;
-    background-color: white;
+    background-color: var(--bg-main);
     h2 {
+      color: var(--bg-text-title);
       margin-top: 7.75rem;
       margin-bottom: 0.875rem;
+    }
+    h3{
+      color: var(--bg-text-subtitle);
     }
     h4 {
       margin: 1.57rem auto;
@@ -70,7 +72,6 @@ main {
       text-align: center;
       line-height: 150%;
     }
-
     .features__block {
       display: flex;
       flex-direction: row;
@@ -84,6 +85,7 @@ main {
     .features__geo,
     .features__stars,
     .features__power-field {
+      color: var(--bg-text-title);
       display: flex;
       justify-content: center;
       flex-direction: column;
@@ -97,12 +99,13 @@ main {
   .team {
     clip-path: url(#clip4);
     height: 63rem;
-    background-color: white;
+    background-color: var(--bg-main);
     background-image: url("../../assets/images/team_bg.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: top center;
     .title {
+      color:$color_extra_black;
       padding-top: 2rem;
       margin-bottom: 0.5rem;
     }
@@ -222,10 +225,11 @@ main {
   }
 
   .game {
-    color: $color_black;
-    background: white;
+    color: var(--bg-text-subtitle);;
+    background: var(--bg-main);
     padding: 5.2rem 0 6.25rem;
     h2 {
+      color: var(--bg-text-title);
       margin-bottom: 4.5rem;
     }
     .game__grid {
@@ -238,16 +242,14 @@ main {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      // flex: 1 1 35vw;
-      // width: 25vw;
       margin: 1rem;
       padding: 1.5rem;
       img {
         margin: auto;
-        // height: 23rem;
         width: 35vmin;
       }
       .game__title {
+        color: var(--bg-text-title);
         text-align: center;
         font-size: 1.5rem;
         padding-bottom: 2rem;
@@ -262,11 +264,12 @@ main {
   }
 
   .arrow-block {
-    color: $color_black;
-    background: linear-gradient(179.68deg, #f9f4fc 7.55%, rgba(255, 244, 229, 0.0001) 91.16%);
+    color: var(--bg-text-subtitle);
+    background: var(--bg-gradient-arrow);
     padding-top: 5.7rem;
     padding-bottom: 4.1rem;
     .subtitle {
+      color: var(--bg-text-subtitle);
       margin: 0.875rem auto 1.57rem !important;
     }
     .content_group {
@@ -357,4 +360,92 @@ main {
 
 @media (max-width: 700px) {
   //колонки
+}
+@media (max-width: 640px) {
+  main {
+    .promo {
+      background-image: url('../../assets/icons/Image.svg');
+      background-position: center 20px;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 95vw auto, contain;
+      padding: 0;
+      .info_block{
+        padding-top: 33rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: auto;
+      }
+    .title {
+      text-align: center;
+      padding: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .content {
+      text-align: center;
+      margin-bottom: 1.375rem;
+    }
+    }
+  }
+  .features{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    h2{
+
+      margin-top: 2rem !important;
+    }
+    .features__block{
+      margin-top: 2rem !important;
+      margin-bottom: 2rem !important;
+      flex-direction: column !important;
+      .features__geo, .features__stars{
+        margin-bottom: 2rem;
+      }
+    }
+  }
+  .team{
+    height: 120rem !important;
+    .subtitle{
+      width: 100% !important;
+      padding: 1.5rem;
+    }
+    .team__group{
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    .duty{
+     height: 4.75rem !important;
+    }
+  }
+    .teammates {
+      grid-template-columns: 42px 79px 258px 79px 42px !important;
+      grid-template-areas:
+        " . bramov bramov . . "
+        " . . ainuAnna ainuAnna ."
+        ". svetlana svetlana . . "
+        " . . gregory gregory ."
+        " . johnneon johnneon . ."
+        " . . iogsotot iogsotot ." !important;
+
+      .center {
+       display: none;
+      }
+    }
+  }
+  .game{
+    padding: 1.2rem 0 1.25rem !important;
+    h2{
+      margin-bottom: 1.5rem !important;
+    }
+  }
+    .arrow-block{
+    padding-top: 1.7rem !important;
+      .content_group{
+        padding-left: 0 !important;
+        .info{
+          display: none;
+        }
+      }
+    }
 }

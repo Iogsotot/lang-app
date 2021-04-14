@@ -5,10 +5,11 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useAction } from '../../hooks/useAction';
 import avatarHolder from '../../assets/icons/avatar-holder.png';
 import logoutIcon from '../../assets/icons/logout.png';
+import LogoDark from '../../assets/images/Logo_dark.png';
 import dictionaryIcon from '../../assets/images/dictionary_icon.png';
 import { LOCATIONS } from '../../constants';
 
-const { dictionary } = LOCATIONS;
+const { textbook, dictionary } = LOCATIONS;
 
 const Header: FC = () => {
   const history = useHistory();
@@ -16,18 +17,28 @@ const Header: FC = () => {
   const { avatar, email, name } = user;
   const { logout } = useAction();
   const [isDictionaryPage, setIsDictionaryPage] = useState(false);
+  const [showDictionaryIcon, setShowDictionaryIcon] = useState(false);
 
   useEffect(() => history.listen(() => {
-    if (history?.location?.pathname?.split('/')[1] === dictionary) {
+    const location = history?.location?.pathname?.split('/')[1];
+    if (location === dictionary) {
       setIsDictionaryPage(true);
     } else {
       setIsDictionaryPage(false);
+    }
+    if (location === dictionary || location === textbook) {
+      setShowDictionaryIcon(true);
+    } else {
+      setShowDictionaryIcon(false);
     }
   }), [history]);
 
   return (
     <header>
       <div className="header__inner">
+        <a href="/" className="header__logo-field">
+          <img src={LogoDark} alt="RS Lang" />
+        </a>
         <nav className="nav">
           <a href="/#features" className="nav__link">
             Возможности
@@ -46,12 +57,15 @@ const Header: FC = () => {
         <div className="user__menu">
           {isLoggedIn ? (
             <>
-              <Link
-                className={`dictionary__btn ${isDictionaryPage ? 'active' : ''}`}
-                to="/dictionary/learning/1/1"
-              >
-                <img src={dictionaryIcon} alt=""/>
-              </Link>
+              { showDictionaryIcon ?
+                <Link
+                  className={`dictionary__btn ${isDictionaryPage ? 'active' : ''}`}
+                  to="/dictionary/learning/1/1"
+                >
+                  <img src={dictionaryIcon} alt=""/>
+                </Link>
+                : <></>
+              }
               <div className="user">
                 <div className="user__info">
                   <p>{name}</p>

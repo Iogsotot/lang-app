@@ -1,13 +1,12 @@
 import React, { FC, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Word } from '../../../models/word';
 import Finish from '../Finish';
-import CloseButton from '../../CloseButton';
 import ModalOnClose from '../ModalOnClose';
 import { WORD_GROUPS, API_BASE_URL } from '../../../constants/constants';
 import './Audiocall.scss';
 
 const Audiocall: FC = () => {
-  const [isFromTextbook, setIsFromTextbook] = useState(false);
   const [group, setGroup] = useState(0);
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [currentView, setCurrentView] = useState(false);
@@ -155,7 +154,7 @@ const Audiocall: FC = () => {
     );
   };
 
-  const keyControls = (e: any) => {
+  const keyControls = (e: KeyboardEvent) => {
     switch (e.code) {
       case 'Digit1':
       case 'Numpad1':
@@ -181,7 +180,7 @@ const Audiocall: FC = () => {
     }
   };
 
-  const enterKey = (e: any) => {
+  const enterKey = (e: KeyboardEvent) => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       if (currentView) nextWord();
       else dontKnowClick();
@@ -212,6 +211,13 @@ const Audiocall: FC = () => {
   const closeButtonClick = () =>
     (currentWordNumber < words.length ? setModalOnCloseIsActive(true) : handleSubmitClose());
 
+  const currentLocation = useLocation();
+  let previousLocation = '';
+  if (currentLocation.state) {
+    // eslint-disable-next-line prefer-destructuring
+    previousLocation = currentLocation.state.from;
+  }
+
   return (
     <section className="audiocall">
       <div className="overlay">
@@ -228,28 +234,32 @@ const Audiocall: FC = () => {
           handleCancelModal={handleCancelModal}
           handleSubmitClose={handleSubmitClose}
         />
-        {!start && !isFromTextbook && (
+        {!start && (
           <div className="audiocall__info box">
             <h2 className="title is-2">Audiocall</h2>
             <p>
-            В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может,
-            вам так легче учить язык.
+              В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может,
+              вам так легче учить язык.
             </p>
-            <div className="difficulty-btn-block">
-              <h2>Сложность:</h2>
-              {Object.entries(WORD_GROUPS).map(([key, value]) => (
-                <button
-                  disabled={value === group}
-                  key={key}
-                  onClick={() => {
-                    setGroup(value);
-                  }}
-                  className="button is-warning is-small"
-                >
-                  {key}
-                </button>
-              ))}
-            </div>
+
+            {previousLocation !== 'textbook' && (
+              <div className="difficulty-btn-block">
+                <h2>Сложность:</h2>
+                {Object.entries(WORD_GROUPS).map(([key, value]) => (
+                  <button
+                    disabled={value === group}
+                    key={key}
+                    onClick={() => {
+                      setGroup(value);
+                    }}
+                    className="button is-warning is-small"
+                  >
+                    {key}
+                  </button>
+                ))}
+              </div>
+            )
+            }
             <button className="btn button is-primary is-outlined" onClick={clickStart}>Начать игру</button>
           </div>
         )}

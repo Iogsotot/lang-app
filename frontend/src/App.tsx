@@ -9,22 +9,19 @@ import 'typeface-roboto-mono';
 import 'typeface-rubik';
 import Menu from './components/Menu';
 import { Router } from './routes';
+import DarkThemeProvider from './components/Theme';
 
 const App: FC = () => (
-  <div className="App">
-    <Provider store={store}>
+  <Provider store={store}>
+    <DarkThemeProvider>
       <BrowserRouter>
-
         <Menu />
-
         <Header />
-
         <Router />
-
         <Footer />
       </BrowserRouter>
-    </Provider>
-  </div>
+    </DarkThemeProvider>
+  </Provider>
 );
 
 export default App;

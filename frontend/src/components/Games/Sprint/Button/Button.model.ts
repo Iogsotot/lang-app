@@ -1,6 +1,5 @@
 export interface ButtonProps {
-  props?: any;
-  onBtnClick: (...args: any) => void;
+  onBtnClick: () => void;
   text: string;
   className: string;
   icon?: string;

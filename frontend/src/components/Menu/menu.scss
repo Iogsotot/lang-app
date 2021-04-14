@@ -26,10 +26,10 @@ aside.menu {
   flex-wrap: nowrap;
   justify-content: space-between;
 
-  background-color: #373b53;
+  background-color: var(--bg-aside-menu);
   .logo-field {
     display: block;
-    background-color: #3490cf;
+    background-color: var(--bg-logo);
     height: 100px;
     padding-top: 1.375rem;
     img {
@@ -68,8 +68,7 @@ aside.menu {
     justify-content: center;
     height: 100px;
     position: relative;
-
-    border-top: 1px solid #494e67;
+    border-top: 1px solid var(--bg-menu-border);
   }
 
   .btn-menu__settings {
@@ -80,18 +79,17 @@ aside.menu {
     background: transparent;
     cursor: pointer;
     outline: none;
-    background-color: #373b53;
+    background-color: var(--bg-aside-menu);
   }
 
   .hidden__menu {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding-left: 15px;
     justify-content: center;
     width: 250px;
-    height: 100%;
+    height: 100px;
     position: absolute;
-    top: 0;
     right: 0;
     z-index: 1;
     transform: translateX(-100%);
@@ -103,7 +101,9 @@ aside.menu {
       transform: translateX(100%);
       transition: all .3s linear;
     }
-
+    .field{
+      margin-bottom: 0.25rem;
+    }
     &-item {
       span {
         display: inline-block;
@@ -112,6 +112,57 @@ aside.menu {
       }
     }
   }
+}
+@media (max-width: 640px) {
+  aside.menu{
+    width: 100%;
+    height: 100px;
+    top: calc(100% - 100px);
+    .logo-field{
+      display: none;
+    }
+    .down-group{
+    flex-direction: row-reverse;
+    justify-content: end;
+    margin-top: -195px;
+    margin-right: 1.5rem;
+    height: 100px;
+    }
+    .top-group{
+      z-index: 50;
+      width: 420px;
+    }
+    .menu__list {
+      display: flex;
+      margin-top: 9px;
+      .menu__item {
+        flex-direction: row;
+      }
+    }
+    .icon, .fa-3x {
+      display: block;
+      margin: auto;
+      width: 1.75rem;
+      height: auto;
+    }
+    .fa-3x {
+      font-size: 1.8em;
+     }
+    .hidden__menu.active{
+    width: 241px;
+    height: 110px;
+    top: 0;
+    z-index: 50;
+    right: -24px;
+    transform: translateY(-100%);
+    border-radius: 0px;
+    visibility: inherit;
+    }
+    .hidden__menu{
+     visibility: hidden;
+    }
+  }
+
 }
 
 .fal {
