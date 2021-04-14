@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -6,14 +6,87 @@ import { Word } from '../../../models/word';
 import { FinishProps } from './Finish.model';
 import 'react-tabs/style/react-tabs.css';
 import './finish.scss';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { API_BASE_URL } from '../../../constants';
+import { fetchUserWords, updateWord } from '../../../store/action-creators/words';
 
 const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
+  // const [loadedWords, setLoadedWords] = useState();
   const history = useHistory();
   const wordSoundUrl = (word: Word) => `https://rslang-2020q3.herokuapp.com/${word?.audio}`;
   const playSound = (soundUrl: string) => {
     const wordAudio = new Audio(soundUrl);
     wordAudio.play();
   };
+  const store = useTypedSelector(commonStore => commonStore);
+  const { userId, token } = store.user.user;
+  const { words } = store.wordList;
+  useEffect(() => {
+    console.log(words);
+  }, [words]);
+
+  useEffect(() => {
+    fetch(`https://rslang-2020q3.herokuapp.com/users/${userId}/aggregatedWords`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(res => res.json()).then(res => {
+      const userWords = res[0].paginatedResults;
+      console.log(userWords);
+      console.log('he');
+      userWords.forEach((el: any) => {
+        const haveProp = Object.prototype.hasOwnProperty.call(el, 'userWord');
+        if (haveProp) {
+          console.log('i have that prop');
+        } else {
+          const body = JSON.stringify({
+            stats: {
+              wrongGameAnswersCount: 0,
+              correctGameAnswersCount: 1,
+            },
+            learningStartDate: new Date(),
+            isLearning: true,
+          });
+          updateWord(words, el, token, userId, el.id, body);
+        }
+      });
+    });
+    /*
+    correctAnswers.forEach(async (el) => {
+      await fetch(`${API_BASE_URL}/users/${userId}/words/${el.id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => res.json())
+        .then(res => {
+          console.log(res);
+          const startDate = res.learningStartDate ?? new Date();
+          const body = JSON.stringify({
+            isLearning: true,
+            stats: {
+              wrongGameAnswersCount: res.stats.wrongGameAnswersCount++,
+            },
+            learningStartDate: startDate,
+          });
+          fetch(`${API_BASE_URL}/users/${userId}/words/${el.id}`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body,
+          })
+            .then(result => result.json())
+            .then(result => console.log(result));
+        });
+    });
+
+     */
+  }, []);
 
   const finishList = (list: Word[]) => (
     <div>
