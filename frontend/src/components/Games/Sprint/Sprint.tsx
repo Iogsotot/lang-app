@@ -1,5 +1,5 @@
-import React, { useState, useEffect, FC } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState, useEffect, FC } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import useSound from 'use-sound';
@@ -79,6 +79,13 @@ const Sprint: FC = () => {
 
   const addPoints = () => setPoints(old => old + mod);
   const isAutoPlayAudio = () => ready && autoPlay && isLvlSelected;
+
+  const currentLocation = useLocation();
+  let previousLocation = '';
+  if (currentLocation.state) {
+    // eslint-disable-next-line prefer-destructuring
+    previousLocation = currentLocation.state.from;
+  }
 
   const handleGameOver = () => {
     if (!ready) {
@@ -237,7 +244,9 @@ const Sprint: FC = () => {
     if (!isLvlSelected) {
       return (
         <div className="box difficulty__box">
-          <Difficulty handleStart={() => setLvlSelected(true)} />
+          { previousLocation !== 'textbook' &&
+            <Difficulty handleStart={() => setLvlSelected(true)} />
+          }
         </div>
       );
     }

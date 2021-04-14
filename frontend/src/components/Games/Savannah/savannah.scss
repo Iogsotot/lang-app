@@ -2,13 +2,17 @@
 
 .savannah {
   position: relative;
-  height: calc(100vh - 78px);
-  background: url("../../../assets/images/savannah-bg.jpg");
-  background-repeat: no-repeat;
+  height: calc(100vh - 99.55px);
+  background: url("../../../assets/images/savannah-bg.svg");
+  background-repeat: repeat;
   background-size: cover;
-  background-position: center top;
+  background-position-x: center;
+  background-position-y: 100%;
+
+  transition: background-position-y 250ms linear;
 
   .savannah-body {
+    position: relative;
     width: inherit;
     height: inherit;
   }
@@ -24,6 +28,7 @@
 
   .btn--close {
     position: absolute;
+    z-index: 20;
     top: 0.5rem;
     right: 1rem;
     aspect-ratio: 1/1;
@@ -45,6 +50,25 @@
     }
   }
 
+  .btn--sound {
+    position: absolute;
+    z-index: 20;
+    top: 0.8rem;
+    left: 1rem;
+    aspect-ratio: 1/1;
+    width: 48px;
+
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    transition: all 250ms;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 250ms;
+    }
+  }
+
   .savannah__info {
     position: absolute;
     top: 20%;
@@ -54,7 +78,7 @@
     margin: auto;
     text-align: justify;
 
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
 
     .btn--start {
       display: block;
@@ -68,6 +92,7 @@
     height: 30rem;
     .current-word {
       height: inherit;
+      color: $color_white;
       &.start-anim {
         animation: fall 5000ms ease-in both;
       }
@@ -82,6 +107,7 @@
   }
   .status-bar {
     text-align: right;
+    height: 5rem;
     & > * {
       display: inline-block;
       height: 2rem;
@@ -90,7 +116,8 @@
     .lives {
       text-align: right;
       color: lightcoral;
-      margin-right: 2.5rem;
+      margin-right: 4rem;
+      margin-top: 1rem;
       .fa-heart {
         margin: 0.1rem;
       }
@@ -107,6 +134,40 @@
     }
     .button {
       color: $color_white;
+    }
+  }
+
+  .crystal-block {
+    .crystal {
+      position: absolute;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 4rem;
+      aspect-ratio: 1/1;
+      background-image: url("../../../assets/images/crystal.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 100;
+      animation: crystalFly 3000ms infinite;
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 2;
+        display: block;
+        content: "";
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 100%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+      }
+      &:hover::before {
+        animation: circle 550ms;
+      }
     }
   }
 
@@ -138,5 +199,37 @@
   }
   100% {
     transform: translateY(100%);
+  }
+}
+
+@keyframes crystalFly {
+  0% {
+    transform: translate(-50%, 0%);
+  }
+  40% {
+    transform: translate(-50%, 40%);
+  }
+
+  50% {
+    transform: translate(-50%, 40%);
+  }
+  100% {
+    transform: translate(-50%, 0%);
+  }
+}
+
+@keyframes circle {
+  0% {
+    opacity: 0.5;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  40% {
+    opacity: 1;
+    background: rgba(205, 255, 224, 0.2);
+  }
+  100% {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
   }
 }

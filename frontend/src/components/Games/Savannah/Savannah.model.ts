@@ -9,5 +9,5 @@ export interface SavannahProps {
   group: number,
   words?: Word[],
   test?: string,
-  // setPage: any,
+  location?: string,
 }
