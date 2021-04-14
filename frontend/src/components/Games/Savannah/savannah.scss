@@ -69,24 +69,6 @@
     }
   }
 
-  .savannah__info {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%);
-    width: 450px;
-    margin: auto;
-    text-align: justify;
-
-    background-color: rgba(255, 255, 255, 0.8);
-
-    .btn--start {
-      display: block;
-      width: fit-content;
-      margin: 1rem auto 0.5rem;
-    }
-  }
-
   .current-word__container {
     position: relative;
     height: 30rem;
@@ -167,27 +149,6 @@
       }
       &:hover::before {
         animation: circle 550ms;
-      }
-    }
-  }
-
-  .difficulty-btn-block {
-    text-align: center;
-    max-width: 19rem;
-    margin: auto;
-    button {
-      margin: 0.5rem 0.8rem;
-      &:nth-of-type(4) {
-        margin-right: 0;
-      }
-      &:nth-of-type(5) {
-        margin-left: 0;
-      }
-      &:first-of-type {
-        margin-left: 0;
-      }
-      &:last-of-type {
-        margin-right: 0;
       }
     }
   }
