@@ -359,20 +359,26 @@ main {
       }
     }
     .team {
+      height: unset;
       .subtitle {
         width: 100% !important;
         padding: 1.5rem;
       }
       .team__group {
+        .center {
+          display: none;
+        }
         .teammates {
-          display: grid;
-          margin: auto;
-          grid-template-columns: 38px 309px 61px 125px 61px 275px 26px;
-          grid-template-areas:
-            ". bramov bramov center ainuAnna ainuAnna ."
-            ". . . center . . . "
-            "svetlana svetlana . center . gregory gregory"
-            ". johnneon johnneon center iogsotot iogsotot .";
+          display: flex;
+          flex-direction: column;
+
+          // margin: auto;
+          // grid-template-columns: 38px 309px 61px 125px 61px 275px 26px;
+          // grid-template-areas:
+          //   ". bramov bramov center ainuAnna ainuAnna ."
+          //   ". . . center . . . "
+          //   "svetlana svetlana . center . gregory gregory"
+          //   ". johnneon johnneon center iogsotot iogsotot .";
           .center {
             height: 8rem !important;
           }
