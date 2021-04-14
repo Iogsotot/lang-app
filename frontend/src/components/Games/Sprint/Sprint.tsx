@@ -1,5 +1,5 @@
 import { useState, useEffect, FC } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import useSound from 'use-sound';
@@ -81,13 +81,6 @@ const Sprint: FC = () => {
 
   const addPoints = () => setPoints(old => old + mod);
   const isAutoPlayAudio = () => ready && autoPlay && isLvlSelected;
-
-  const currentLocation = useLocation();
-  let previousLocation = '';
-  if (currentLocation.state) {
-    // eslint-disable-next-line prefer-destructuring
-    previousLocation = currentLocation.state.from;
-  }
 
   const handleGameOver = () => {
     if (!ready) {
