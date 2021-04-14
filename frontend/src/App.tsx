@@ -12,16 +12,16 @@ import { Router } from './routes';
 import DarkThemeProvider from './components/Theme';
 
 const App: FC = () => (
-    <Provider store={store}>
-      <DarkThemeProvider>
-        <BrowserRouter>
-          <Menu />
-          <Header />
-          <Router />
-          <Footer />
-        </BrowserRouter>
-      </DarkThemeProvider>
-    </Provider>
+  <Provider store={store}>
+    <DarkThemeProvider>
+      <BrowserRouter>
+        <Menu />
+        <Header />
+        <Router />
+        <Footer />
+      </BrowserRouter>
+    </DarkThemeProvider>
+  </Provider>
 );
 
 export default App;
