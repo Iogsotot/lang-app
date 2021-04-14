@@ -63,7 +63,7 @@ main {
       margin-top: 7.75rem;
       margin-bottom: 0.875rem;
     }
-    h3{
+    h3 {
       color: var(--bg-text-subtitle);
     }
     h4 {
@@ -106,7 +106,7 @@ main {
     background-size: contain;
     background-position: top center;
     .title {
-      color:$color_extra_black;
+      color: $color_extra_black;
       padding-top: 2rem;
       margin-bottom: 0.5rem;
     }
@@ -226,7 +226,7 @@ main {
   }
 
   .game {
-    color: var(--bg-text-subtitle);;
+    color: var(--bg-text-subtitle);
     background: var(--bg-main);
     padding: 5.2rem 0 6.25rem;
     h2 {
@@ -262,7 +262,7 @@ main {
         cursor: pointer;
         background-color: rgba(111, 82, 237, 0.2);
         transition: all 250ms linear;
-        color:$color_white;
+        color: $color_white;
       }
     }
   }
@@ -281,7 +281,7 @@ main {
       flex-direction: row;
       justify-content: space-between;
       padding: 0 1rem;
-      img{
+      img {
         max-width: 34rem;
       }
       .info {
@@ -313,7 +313,6 @@ main {
           font-size: 1rem;
           line-height: 137%;
         }
-        
       }
     }
   }
@@ -345,38 +344,43 @@ main {
       background-position: top right;
       background-repeat: no-repeat;
       background-size: 40vw auto;
-
+      height: unset;
+      padding-bottom: 2rem;
       .info_block {
         width: 50vw;
       }
     }
-    .features{
-      .features__block{
+    .video {
+      height: 65vw;
+      padding: 2rem 1rem;
+    }
+    .features {
+      .features__block {
         flex-wrap: wrap;
       }
     }
-    .team{
-      .subtitle{
+    .team {
+      .subtitle {
         width: 100% !important;
         padding: 1.5rem;
       }
-    .team__group{
-    .teammates {
-      display: grid;
-      margin: auto;
-      grid-template-columns: 38px 309px 61px 125px 61px 275px 26px;
-      grid-template-areas:
-        ". bramov bramov center ainuAnna ainuAnna ."
-        ". . . center . . . "
-        "svetlana svetlana . center . gregory gregory"
-        ". johnneon johnneon center iogsotot iogsotot .";
-        .center{
-          height: 8rem !important;
+      .team__group {
+        .teammates {
+          display: grid;
+          margin: auto;
+          grid-template-columns: 38px 309px 61px 125px 61px 275px 26px;
+          grid-template-areas:
+            ". bramov bramov center ainuAnna ainuAnna ."
+            ". . . center . . . "
+            "svetlana svetlana . center . gregory gregory"
+            ". johnneon johnneon center iogsotot iogsotot .";
+          .center {
+            height: 8rem !important;
+          }
         }
+      }
     }
   }
-  }
-}
 }
 @media (max-width: 768px) {
   main {
@@ -384,44 +388,49 @@ main {
       background-image: url("../../assets/images/promo_bg.png");
       background-position: top right;
       background-repeat: no-repeat;
-      background-size: 40vw auto;
-      padding-bottom: 10rem;
-      .info_block {
-        padding-top: 10rem;
-      }
+      background-size: 44vw auto;
+      // padding-bottom: 10rem;
+      // height: 42vh;
+      // .info_block {
+      //   padding-top: 10rem;
+      // }
     }
-  .team{
-    height: 110rem;
-    .subtitle{
-      width: 100% !important;
-      padding: 1.5rem;
-    }
-    .team__group{
-      .teammates {
-        grid-template-columns: 60px 90px 330px 90px 60px;
-        grid-template-areas:
-        " . bramov bramov . . "
-        " . . ainuAnna ainuAnna ."
-        ". svetlana svetlana . . "
-        " . . gregory gregory ."
-        " . johnneon johnneon . ."
-        " . . iogsotot iogsotot ." ;
+    // .video {
+    //   height: 40vh;
+    // }
 
-        .center {
-          display: none;
+    .team {
+      height: 110rem;
+      .subtitle {
+        width: 100% !important;
+        padding: 1.5rem;
+      }
+      .team__group {
+        .teammates {
+          grid-template-columns: 60px 90px 330px 90px 60px;
+          grid-template-areas:
+            " . bramov bramov . . "
+            " . . ainuAnna ainuAnna ."
+            ". svetlana svetlana . . "
+            " . . gregory gregory ."
+            " . johnneon johnneon . ."
+            " . . iogsotot iogsotot .";
+
+          .center {
+            display: none;
+          }
         }
       }
     }
-  }
-    .arrow-block{
-      .content_group{
-        img{
+    .arrow-block {
+      .content_group {
+        img {
           display: none;
         }
-        .info{
+        .info {
           display: flex;
           flex-direction: column;
-          .info__item{
+          .info__item {
             margin-left: 3rem;
           }
         }
@@ -433,94 +442,95 @@ main {
 @media (max-width: 640px) {
   main {
     .promo {
-      background-image: url('../../assets/icons/Image.svg');
+      background-image: url("../../assets/icons/Image.svg");
       background-position: center 0;
       background-repeat: no-repeat, no-repeat;
-      background-size: 68vw auto, contain;
+      background-size: 52vw auto, contain;
       padding: 0;
-      .info_block{
+      height: 50vh;
+      .info_block {
         padding-top: 20rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         width: auto;
       }
-    .title {
-      text-align: center;
-      padding: 0.5rem;
-      margin-bottom: 0.8rem;
-    }
-    .content {
-      text-align: center;
-      margin-bottom: 1.375rem;
-    }
-  }
-  .features{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    h2{
-
-      margin-top: 2rem !important;
-    }
-    .features__block{
-      margin-top: 2rem !important;
-      margin-bottom: 2rem !important;
-      flex-direction: column !important;
-      .features__geo, .features__stars{
-        margin-bottom: 2rem;
+      .title {
+        text-align: center;
+        padding: 0.5rem;
+        margin-bottom: 0.8rem;
+      }
+      .content {
+        text-align: center;
+        margin-bottom: 1.375rem;
       }
     }
-  }
-  .team{
-    height: 120rem !important;
-    .subtitle{
-      width: 100% !important;
-      padding: 1.5rem;
-    }
-    .team__group{
-    justify-content: center;
-    align-items: center;
-    width: fit-content;
-    .duty{
-     height: 4.75rem !important;
-    }
-    .teammates {
-      grid-template-columns: 42px 79px 258px 79px 42px;
-      grid-template-areas:
-        " . bramov bramov . . "
-        " . . ainuAnna ainuAnna ."
-        ". svetlana svetlana . . "
-        " . . gregory gregory ."
-        " . johnneon johnneon . ."
-        " . . iogsotot iogsotot .";
-
-      .center {
-       display: none;
+    .features {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      h2 {
+        margin-top: 2rem !important;
+      }
+      .features__block {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
+        flex-direction: column !important;
+        .features__geo,
+        .features__stars {
+          margin-bottom: 2rem;
+        }
       }
     }
-  }
-  }
-  .game{
-    padding: 1.2rem 0 1.25rem !important;
-    h2{
-      margin-bottom: 1.5rem !important;
+    .team {
+      height: 120rem !important;
+      .subtitle {
+        width: 100% !important;
+        padding: 1.5rem;
+      }
+      .team__group {
+        justify-content: center;
+        align-items: center;
+        width: fit-content;
+        .duty {
+          height: 4.75rem !important;
+        }
+        .teammates {
+          grid-template-columns: 42px 79px 258px 79px 42px;
+          grid-template-areas:
+            " . bramov bramov . . "
+            " . . ainuAnna ainuAnna ."
+            ". svetlana svetlana . . "
+            " . . gregory gregory ."
+            " . johnneon johnneon . ."
+            " . . iogsotot iogsotot .";
+
+          .center {
+            display: none;
+          }
+        }
+      }
     }
-  }
-    .arrow-block{
-    padding-top: 1.7rem !important;
-    .subtitle{
-      padding: 1rem;
+    .game {
+      padding: 1.2rem 0 1.25rem !important;
+      h2 {
+        margin-bottom: 1.5rem !important;
+      }
     }
-      .content_group{
+    .arrow-block {
+      padding-top: 1.7rem !important;
+      .subtitle {
+        padding: 1rem;
+      }
+      .content_group {
         padding-left: 0 !important;
-        img{
+        img {
           display: none;
         }
-        .info{
+        .info {
           display: flex;
           flex-direction: column;
-          .info__item{
+          .info__item {
             margin-left: 3rem;
           }
         }
