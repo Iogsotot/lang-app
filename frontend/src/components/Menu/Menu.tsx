@@ -9,7 +9,7 @@ import StatsIcon from '../../assets/images/stats_icon.png';
 import SettingsIcon from '../../assets/images/settings_icon.png';
 import { LOCATIONS } from '../../constants';
 
-const { textbook } = LOCATIONS;
+const { textbook, dictionary } = LOCATIONS;
 
 const Menu: FC = () => {
   const location = useLocation().pathname.split('/')[1];
@@ -38,10 +38,10 @@ const Menu: FC = () => {
   };
 
   useEffect(() => {
-    if (location !== textbook) {
-      setDisabled(true);
-    } else {
+    if (location === textbook || location === dictionary) {
       setDisabled(false);
+    } else {
+      setDisabled(true);
     }
   }, [location]);
 
@@ -68,23 +68,23 @@ const Menu: FC = () => {
                 : <></>
             }
             <li className="menu__item">
-              <Link to="/sprint">
-                <i className="fal fa-running fa-3x" />
+              <Link to={{ pathname: '/sprint', state: { from: location } }}>
+                <i className="fal fa-running fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/savannah">
-                <i className="fal fa-paw-claws fa-3x" />
+              <Link to={{ pathname: '/savannah', state: { from: location } }}>
+                <i className="fal fa-paw-claws fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/puzzle">
-                <i className="fal fa-puzzle-piece fa-3x" />
+              <Link to={{ pathname: '/puzzle', state: { from: location } }}>
+                <i className="fal fa-puzzle-piece fa-3x"/>
               </Link>
             </li>
             <li className="menu__item">
-              <Link to="/audiocall">
-                <i className="fal fa-headphones-alt fa-3x" />
+              <Link to={{ pathname: '/audiocall', state: { from: location } }}>
+                <i className="fal fa-headphones-alt fa-3x"/>
               </Link>
             </li>
           </ul>
