@@ -128,7 +128,7 @@ export const fetchUserWords = ({
     if (result.length && result.some(Array.isArray)) {
       dispatch({
         type: FETCH_WORD_LIST_SUCCESS,
-        payload: result[0],
+        payload: result[0] || [],
       });
     } else {
       dispatch({

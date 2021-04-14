@@ -29,7 +29,7 @@ export interface UsersDispatchProps {
   login: (formData: FormData) => (dispatch: Dispatch<UserAction>) => void;
   logout: () => (dispatch: Dispatch<UserAction>) => void;
   clearUserNotifications: () => (dispatch: Dispatch<UserAction>) => void;
-  updateToken: (user: User, token: string, refreshToken: string) => (dispatch: Dispatch<UserAction>) => Promise<void>;
+  updateToken: (user: User) => (dispatch: Dispatch<UserAction>) => Promise<void>;
 }
 
 interface FetchUserAction {

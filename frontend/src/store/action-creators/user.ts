@@ -14,6 +14,7 @@ const {
   FETCH_USER_ERROR,
   CLEAR_USER_NOTIFICATIONS,
   LOG_OUT,
+  REFRESH_TOKEN,
 } = UserActionTypes;
 
 export const register = (formData: FormData) =>
@@ -53,8 +54,24 @@ export const login = (formData: FormData) =>
     }
   });
 
-export const updateToken = (user: User, token: string, refreshToken: string) =>
-  (async (dispatch: Dispatch<UserAction>): Promise<void> => {});
+export const updateToken = (user: User) =>
+  (async (dispatch: Dispatch<UserAction>): Promise<void> => {
+    const refresh = await fetch(`${API_BASE_URL}/users/${user.userId}/tokens`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${user.refreshToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then((data) => data.json());
+
+    const { token, refreshToken } = refresh;
+
+    dispatch({
+      type: REFRESH_TOKEN,
+      payload: { ...user, token, refreshToken },
+    });
+  });
 
 export const logout = () =>
   ((dispatch: Dispatch<UserAction>): void => {
