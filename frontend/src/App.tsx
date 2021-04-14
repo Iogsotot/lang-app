@@ -10,17 +10,20 @@ import 'typeface-rubik';
 import Menu from './components/Menu';
 import { Router } from './routes';
 import DarkThemeProvider from './components/Theme';
+import AuthProvider from './providers/AuthProvider';
 
 const App: FC = () => (
   <Provider store={store}>
-    <DarkThemeProvider>
-      <BrowserRouter>
-        <Menu />
-        <Header />
-        <Router />
-        <Footer />
-      </BrowserRouter>
-    </DarkThemeProvider>
+    <AuthProvider>
+      <DarkThemeProvider>
+        <BrowserRouter>
+          <Menu />
+          <Header />
+          <Router />
+          <Footer />
+        </BrowserRouter>
+      </DarkThemeProvider>
+    </AuthProvider>
   </Provider>
 );
 
