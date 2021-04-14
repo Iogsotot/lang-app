@@ -43,25 +43,39 @@ const Stats: FC = () => {
     <div className="stats">
       <h2>Сегодня</h2>
       <div className="stats__block">
-        <div className="box stats__box">
+        <div className="box stats__box resume-box">
           <h4>Изученных слов</h4> <span className="stats__result">54</span>
         </div>
-        <div className="box stats__box">
+        <div className="box stats__box resume-box">
           <h4>Правильных ответов</h4> <span className="stats__result">60%</span>
         </div>
       </div>
       <div className="stats__block">
-        <div className="box stats__box">
-          <h4>Изученых слов в игре </h4>
+        <div className="box stats__box pie-box">
+          <h4>Прогресс изучения слов в играх</h4>
           <PieComponent data={data} />
         </div>
-        <div className="box stats__box">
-          <h4>Правильных ответов в игре </h4>
-          <PieComponent data={data} />
-        </div>
-        <div className="box stats__box">
+        <div className="box stats__box pie-box">
           <h4>Самая длинная серия правильных ответов </h4>
           <PieComponent data={data} />
+        </div>
+      </div>
+      <div className="stats__block">
+        <div className="box stats__box progress-box">
+          <h2>83%</h2>
+          <span>Правильных ответов в игре Спринт </span>
+        </div>
+        <div className="box stats__box progress-box">
+          <h2>83%</h2>
+          <span>Правильных ответов в игре Саванна </span>
+        </div>
+        <div className="box stats__box progress-box">
+          <h2>83%</h2>
+          <span>Правильных ответов в игре Паззл </span>
+        </div>
+        <div className="box stats__box progress-box">
+          <h2>83%</h2>
+          <span>Правильных ответов в игре Аудиовызов </span>
         </div>
       </div>
       <h2>Прогресс</h2>
@@ -69,7 +83,7 @@ const Stats: FC = () => {
         <div className="box stats__box bar-box">
           <BarComponent data={daysData} />
         </div>
-      </div >
+      </div>
     </div>
   );
 };

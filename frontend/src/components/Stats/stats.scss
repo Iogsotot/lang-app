@@ -1,5 +1,5 @@
 .stats {
-  //   padding: 30px;
+  padding: 30px 0;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -8,7 +8,7 @@
   background-color: #f2f2f2;
 
   &__block {
-      position: relative;
+    position: relative;
     max-width: calc(95vw - 100px);
     display: flex;
     flex-wrap: wrap;
@@ -22,7 +22,7 @@
   }
 
   &__box {
-      position: relative;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,7 +36,57 @@
 }
 
 .bar-box {
-    height: 400px;
-    min-width: 350px;
-    width: 70vw;
+  height: 400px;
+  min-width: 350px;
+  width: 70vw;
+}
+
+.progress-box {
+  width: 20%;
+
+  flex-basis: 20%;
+  padding-left: 100px;
+  & span {
+    color: #a6acbe;
+  }
+
+  &::before {
+    content: '';
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    left: 15px;
+    background-image: url('../../assets/icons/stats-book.png');
+    background-repeat: no-repeat;
+    background-color: #4cb8ff20;
+    background-position: center;
+    border-radius: 50%;
+  }
+}
+
+.resume-box {
+
+  flex-basis: 40%;
+  & span {
+      
+  padding-left: 50px;
+  }
+
+  &::before {
+    content: '';
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    left: 25px;
+    top: 40%;
+    background-image: url('../../assets/icons/stats-cup.png');
+    background-repeat: no-repeat;
+    background-color: #ffb80020;
+    background-position: center;
+    border-radius: 50%;
+  }
+}
+
+.pie-box {
+    width: 30%;
 }

@@ -6,6 +6,14 @@ import '../stats.scss';
 const PieComponent: FC<PieProps> = ({ data }) => {
   const COLORS = ['#6F52ED', '#FFB800', '#FF4C61', '#33D69F'];
 
+  // const renderLegend = () => (
+  //   <ul>
+  //     {data.map((entry, index) => (
+  //       <li key={`item-${index}`}>{`${entry.name} - ${entry.value}`}</li>
+  //     ))}
+  //   </ul>
+  // );
+
   return (
     <PieChart width={400} height={400}>
       <Pie data={data} cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#8884d8" dataKey="value">
