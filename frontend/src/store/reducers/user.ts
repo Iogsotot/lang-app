@@ -12,6 +12,7 @@ const {
   FETCH_USER_ERROR,
   CLEAR_USER_NOTIFICATIONS,
   LOG_OUT,
+  REFRESH_TOKEN,
 } = UserActionTypes;
 
 const initialState: UserState = {
@@ -46,6 +47,9 @@ export const userReducer = (state = initialState, action: UserAction): UserState
 
     case LOG_OUT:
       return { ...state, ...initialState, isLoggedIn: false };
+
+    case REFRESH_TOKEN:
+      return { ...state, user: action.payload };
 
     case CLEAR_USER_NOTIFICATIONS:
       return { ...state, notification: '', error: null };

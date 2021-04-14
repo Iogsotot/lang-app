@@ -151,7 +151,7 @@ const PromoPage: FC = () => {
       </section>
       <section className="arrow-block">
         <div className="wrapper">
-          <h2 className="title">Вот такенных результатов достигните</h2>
+          <h2 className="title">Вот такенных результатов достигнете</h2>
           <h3 className="subtitle">Если будете с нами заниматься и ещё с 5ю репетиторами</h3>
           <div className="content_group">
             <ul className="info">
