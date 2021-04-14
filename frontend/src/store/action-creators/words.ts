@@ -4,8 +4,8 @@ import { WordListAction, WordListActionTypes, FetchUserWordsProps, DictionarySec
 
 const {
   FETCH_RANDOM_WORD_LIST,
-  FETCH_WORD_LIST,
-  FETCH_WORD_LIST_ERROR,
+  FETCH_WORDS_API,
+  FETCH_WORDS_API_ERROR,
   FETCH_WORD_LIST_SUCCESS,
   FETCH_USER_WORD_LIST_SUCCESS,
   GET_WORD_LIST_PAGE,
@@ -13,6 +13,7 @@ const {
   SHOW_WORD_TRANSLATE,
   SHOW_WORD_BUTTONS,
   SET_WORDS,
+  START_FETCH_WORD_UPDATE,
 } = WordListActionTypes;
 
 const { deletedWords, hardWords, learningWords } = USER_WORDS_FILTERS;
@@ -35,7 +36,7 @@ export const fetchRandomWords = (group: number, page: number, amount: number) =>
   })
     .then(data => data.json())
     .catch(error => {
-      dispatch({ type: FETCH_WORD_LIST_ERROR, payload: error });
+      dispatch({ type: FETCH_WORDS_API_ERROR, payload: error });
     });
 
   dispatch({ type: FETCH_WORD_LIST_SUCCESS, payload: response });
@@ -51,7 +52,7 @@ export const fetchUserWords = ({
   hideDeleted,
 }: FetchUserWordsProps) => async (dispatch: Dispatch<WordListAction>): Promise<void> => {
   dispatch({
-    type: FETCH_WORD_LIST,
+    type: FETCH_WORDS_API,
   });
 
   let filter: string;
@@ -86,7 +87,7 @@ export const fetchUserWords = ({
     .then(data => data.json())
     .catch(error => {
       dispatch({
-        type: FETCH_WORD_LIST_ERROR,
+        type: FETCH_WORDS_API_ERROR,
         payload: error,
       });
     });
@@ -145,7 +146,7 @@ export const fetchWords = (group: number, page: number, sort = 0) => async (
   dispatch: Dispatch<WordListAction>,
 ): Promise<void> => {
   dispatch({
-    type: FETCH_WORD_LIST,
+    type: FETCH_WORDS_API,
   });
   let fetchWordsUrl = `${API_BASE_URL}/words?group=${group}&page=${page}`;
   if (sort) {
@@ -161,7 +162,7 @@ export const fetchWords = (group: number, page: number, sort = 0) => async (
     .then(data => data.json())
     .catch(error => {
       dispatch({
-        type: FETCH_WORD_LIST_ERROR,
+        type: FETCH_WORDS_API_ERROR,
         payload: error,
       });
     });
@@ -207,18 +208,59 @@ export const showButtons = (show: boolean) => (dispatch: Dispatch<WordListAction
   });
 };
 
-export const updateWord = (words: Word[], word: Word) => (dispatch: Dispatch<WordListAction>): void => {
-  const updatedWords = words.map(newWord => {
-    if (newWord.word === word.word) {
-      return { ...newWord, userWord: word.userWord };
+export const updateWord = (
+  words: Word[],
+  word: Word,
+  token: string,
+  userId: string,
+  newId: string,
+  body: string,
+  method = 'POST',
+) =>
+  async (dispatch: Dispatch<WordListAction>): Promise<void> => {
+    dispatch({
+      type: START_FETCH_WORD_UPDATE,
+    });
+    const updatedWords = words.map(newWord => {
+      if (newWord.word === word.word) {
+        return { ...newWord, userWord: word.userWord };
+      }
+      return newWord;
+    });
+
+    const response = await fetch(
+      `${API_BASE_URL}/users/${userId}/words/${newId}`,
+      {
+        method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body,
+      },
+    );
+
+    if (response.status === 417) {
+      await fetch(
+        `${API_BASE_URL}/users/${userId}/words/${newId}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body,
+        },
+      );
     }
-    return newWord;
-  });
-  dispatch({
-    type: SET_WORDS,
-    payload: updatedWords,
-  });
-};
+
+    dispatch({
+      type: SET_WORDS,
+      payload: updatedWords,
+    });
+  };
 
 export const clearDeletedWords = (words: Word[]) => (dispatch: Dispatch<WordListAction>): void => {
   const clearedWords = words.filter(word => word.userWord?.isDeleted !== true);

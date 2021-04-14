@@ -365,11 +365,9 @@ main {
   main {
     .promo {
       background-image: url('../../assets/icons/Image.svg');
-      background-position: center top;
+      background-position: center 20px;
       background-repeat: no-repeat, no-repeat;
       background-size: 95vw auto, contain;
-
-      height: 150vh;
       padding: 0;
       .info_block{
         padding-top: 33rem;
