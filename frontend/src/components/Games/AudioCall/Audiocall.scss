@@ -1,7 +1,7 @@
 .audiocall {
   position: relative;
   height: calc(100vh - 78px);
-  background: url("https://i.ytimg.com/vi/_yJ0c1u1ElU/maxresdefault.jpg");
+  background: url('https://i.ytimg.com/vi/_yJ0c1u1ElU/maxresdefault.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
@@ -9,12 +9,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  .box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 3;
-  }
+
   .overlay {
     position: absolute;
     top: 0;
@@ -41,27 +36,10 @@
     }
     .fal,
     .far {
-      font-family: "Font Awesome 5 Pro";
+      font-family: 'Font Awesome 5 Pro';
     }
   }
-  &__info {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%);
-    width: 450px;
-    margin: auto;
 
-    background-color: rgba(255, 255, 255, 0.5);
-
-    .btn {
-      display: block;
-      width: fit-content;
-      display: flex;
-      align-items: center;
-      margin: 1rem auto 0.5rem;
-    }
-  }
   &_inner {
     margin: 0 auto;
     width: 70%;
@@ -203,20 +181,6 @@
 
     &:focus {
       outline: none;
-    }
-  }
-
-  .buttons {
-    justify-content: center;
-  }
-  .difficulty-btn-block {
-    & .button {
-      margin: 5px;
-      font-size: 1.2rem;
-
-      &:disabled {
-        cursor: default;
-      }
     }
   }
 

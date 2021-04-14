@@ -1,5 +1,5 @@
 import { useState, useEffect, FC } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import useSound from 'use-sound';
@@ -35,6 +35,8 @@ import { SPRINT, INITIAL_WORD_STATE, INITIAL_PAIR_STATE } from '../../../constan
 import './Sprint.scss';
 
 const {
+  gameName,
+  gameDesc,
   gameDuration,
   timerColor,
   colorOnCorrectAnswer,
@@ -79,13 +81,6 @@ const Sprint: FC = () => {
 
   const addPoints = () => setPoints(old => old + mod);
   const isAutoPlayAudio = () => ready && autoPlay && isLvlSelected;
-
-  const currentLocation = useLocation();
-  let previousLocation = '';
-  if (currentLocation.state) {
-    // eslint-disable-next-line prefer-destructuring
-    previousLocation = currentLocation.state.from;
-  }
 
   const handleGameOver = () => {
     if (!ready) {
@@ -242,13 +237,7 @@ const Sprint: FC = () => {
   };
   const renderGameIfReady = () => {
     if (!isLvlSelected) {
-      return (
-        <div className="box difficulty__box">
-          { previousLocation !== 'textbook' &&
-            <Difficulty handleStart={() => setLvlSelected(true)} />
-          }
-        </div>
-      );
+      return <Difficulty title={gameName} desc={gameDesc} handleStart={() => setLvlSelected(true)} />;
     }
     if (loading) {
       return <Spinner />;
