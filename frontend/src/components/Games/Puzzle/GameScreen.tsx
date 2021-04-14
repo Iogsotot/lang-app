@@ -63,23 +63,7 @@ const GameScreen: FC<GameScreenProps> = (props) => {
   };
 
   useEffect(() => {
-    let previousLocation = '';
-    if (currentLocation.state) {
-      // eslint-disable-next-line prefer-destructuring
-      previousLocation = currentLocation.state.from;
-    }
-    if (previousLocation !== 'dictionary' && previousLocation !== 'textbook') {
-      startNewGame();
-    } else {
-      const fiveWords = words.slice(0, 5);
-      const value = Math.floor(Math.random() * fiveWords.length);
-      const randomElem = fiveWords[value];
-      setPhrase(randomElem.textMeaning);
-      setWord(randomElem.word);
-      setCollection(fiveWords);
-      setGuess(undefined);
-      setCounter(counter + 1);
-    }
+    startNewGame();
   }, []);
 
   const triggerValidation = (elem: Word | undefined) => {
