@@ -70,6 +70,20 @@ const SAVANNAH = {
     'В этой игре на вас обрушится дождь из слов! к счастью слова падают по одной капельке. Ваша задача - успеть выбрать правильно слово до того, как оно упадёт. Удачи!',
 };
 
+const PUZZLE = {
+  gameName: 'Puzzle',
+  gameDesc:
+    // eslint-disable-next-line max-len
+    'В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может, вам так легче учить язык.',
+};
+
+const AUDIO_CALL = {
+  gameName: 'Audiocall',
+  gameDesc:
+    // eslint-disable-next-line max-len
+    'Улучшает восприятие речи на слух, а также навыки написания слов.',
+};
+
 const SPRINT = {
   gameName: 'Спринт',
   gameDesc: 'Учит быстро переводить на ваш родной язык. Для этой тренировки используются слова из вашего словаря.',
@@ -118,4 +132,6 @@ export {
   ALL_WORDS_IN_GROUP,
   INITIAL_PAIR_STATE,
   SAVANNAH,
+  PUZZLE,
+  AUDIO_CALL,
 };

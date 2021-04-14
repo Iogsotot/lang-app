@@ -35,7 +35,7 @@ const Difficulty: FC<DifficultyProps> = ({ handleStart, title, desc }) => {
                 onClick={() => {
                   setGroup(value);
                 }}
-                className="button is-warning is-small"
+                className="button is-warning is-small btn__difficulty"
               >
                 {key}
               </button>

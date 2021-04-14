@@ -1,9 +1,9 @@
-@import "../../../index.scss";
+@import '../../../index.scss';
 
 .savannah {
   position: relative;
   height: calc(100vh - 99.55px);
-  background: url("../../../assets/images/savannah-bg.svg");
+  background: url('../../../assets/images/savannah-bg.svg');
   background-repeat: repeat;
   background-size: cover;
   background-position-x: center;
@@ -46,7 +46,7 @@
 
     .fal,
     .far {
-      font-family: "Font Awesome 5 Pro";
+      font-family: 'Font Awesome 5 Pro';
     }
   }
 
@@ -66,24 +66,6 @@
       cursor: pointer;
       opacity: 0.7;
       transition: all 250ms;
-    }
-  }
-
-  .savannah__info {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%);
-    width: 450px;
-    margin: auto;
-    text-align: justify;
-
-    background-color: rgba(255, 255, 255, 0.8);
-
-    .btn--start {
-      display: block;
-      width: fit-content;
-      margin: 1rem auto 0.5rem;
     }
   }
 
@@ -145,7 +127,7 @@
       transform: translateX(-50%);
       height: 4rem;
       aspect-ratio: 1/1;
-      background-image: url("../../../assets/images/crystal.png");
+      background-image: url('../../../assets/images/crystal.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -157,7 +139,7 @@
         left: 50%;
         z-index: 2;
         display: block;
-        content: "";
+        content: '';
         width: 0;
         height: 0;
         background: rgba(255, 255, 255, 0.2);
@@ -167,27 +149,6 @@
       }
       &:hover::before {
         animation: circle 550ms;
-      }
-    }
-  }
-
-  .difficulty-btn-block {
-    text-align: center;
-    max-width: 19rem;
-    margin: auto;
-    button {
-      margin: 0.5rem 0.8rem;
-      &:nth-of-type(4) {
-        margin-right: 0;
-      }
-      &:nth-of-type(5) {
-        margin-left: 0;
-      }
-      &:first-of-type {
-        margin-left: 0;
-      }
-      &:last-of-type {
-        margin-right: 0;
       }
     }
   }
