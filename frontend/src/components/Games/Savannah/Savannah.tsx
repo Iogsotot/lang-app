@@ -107,17 +107,22 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const currentWordClassNames = counter === 0 ? 'current-word' : 'current-word start-anim';
 
   useEffect(() => {
-    const chunk = (() => {
-      const wordsArr = [];
-      while (wordsArr.length < answerVariantsCount) {
-        const randomWordIndex = Math.floor(Math.random() * allWordsInGroupCount);
-        if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
-      }
-      return wordsArr;
-    })();
-    setSoughtIndex(Math.floor(Math.random() * answerVariantsCount));
-    setWordsChunk(chunk);
-  }, [round]);
+    if (currentWords.length > 0) {
+      const chunk = (() => {
+        const wordsArr = [];
+        // console.log(currentWords);
+        // console.log(wordsArr.length);
+        // console.log(answerVariantsCount);
+        while (wordsArr.length < answerVariantsCount) {
+          const randomWordIndex = Math.floor(Math.random() * currentWords.length);
+          if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
+        }
+        return wordsArr;
+      })();
+      setSoughtIndex(Math.floor(Math.random() * answerVariantsCount));
+      setWordsChunk(chunk);
+    }
+  }, [round, currentWords]);
 
   async function fetchWords(wordsGroup: number) {
     const response = await fetch(`${API_BASE_URL}/words/all?group=${wordsGroup}&amount=600`, {
@@ -158,7 +163,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
 
   useEffect(() => {
     if (currentWords.length >= 1) {
-      console.log(currentWords);
+      // console.log(currentWords);
 
       setLoading('done');
     }
@@ -167,7 +172,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   useEffect(() => {
     if (loading === 'done' && gameStart) {
       setGameScreen('game');
-      // startGame();
+      startGame();
     }
   }, [loading, gameStart]);
 
