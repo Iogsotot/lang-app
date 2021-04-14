@@ -5,7 +5,11 @@
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  background-color: #f2f2f2;
+  background-color: var(--bg-main);
+
+  & h2 {
+    color: var(--bg-text-title);
+  }
 
   &__block {
     position: relative;
@@ -65,11 +69,9 @@
 }
 
 .resume-box {
-
   flex-basis: 40%;
   & span {
-      
-  padding-left: 50px;
+    padding-left: 50px;
   }
 
   &::before {
@@ -88,5 +90,5 @@
 }
 
 .pie-box {
-    width: 30%;
+  width: 30%;
 }
