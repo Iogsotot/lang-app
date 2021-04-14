@@ -241,8 +241,7 @@ const Audiocall: FC = () => {
           <div className="audiocall__info box">
             <h2 className="title is-2">Audiocall</h2>
             <p>
-              В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может, вам так легче учить
-              язык.
+              В этой игре вы должны выбрать правильный перевод к произнесенному слову.
             </p>
 
             {previousLocation !== 'textbook' && (
