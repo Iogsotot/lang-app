@@ -74,6 +74,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [gameFinishPoints, setGameFinishPoints] = useState(0);
   const [gameStart, setGameStart] = useState(false);
   const [correctAnswerSeries, setCorrectAnswerSeries] = useState<string[]>([]);
+  const [longestWinStreak, setLongestWinStreak] = useState<number>(0);
   const [bgPosition, setBgPosition] = useState('100%');
   const [crystalHeight, setCrystalHeight] = useState('4rem');
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -212,6 +213,8 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     if (soundEnabled) {
       playFailure();
     }
+
+    if (correctAnswerSeries.length >= longestWinStreak) { setLongestWinStreak(correctAnswerSeries.length); }
     setCorrectAnswerSeries([]);
     const updatedWrongAnswers = [...wrongAnswers, currentWords[wordsChunk[soughtIndex]]];
     setWrongAnswers(updatedWrongAnswers);
@@ -322,14 +325,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     setKeyControls();
     return () => window.removeEventListener('keydown', keyControls);
   }, [round]);
-
-  // function handleClose() {
-  //   if (gameScreen === 'welcome') {
-  //     window.location.href = '../';
-  //   }
-  //   resetGame();
-  //   setGameScreen('welcome');
-  // }
 
   return (
     <section className="savannah" style={{ backgroundPositionY: bgPosition }}>
