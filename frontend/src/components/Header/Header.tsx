@@ -29,7 +29,7 @@ const Header: FC = () => {
   return (
     <header>
       <div className="header__inner">
-      <a href="/" className="header__logo-field">
+        <a href="/" className="header__logo-field">
           <img src={LogoDark} alt="RS Lang" />
         </a>
         <nav className="nav">
