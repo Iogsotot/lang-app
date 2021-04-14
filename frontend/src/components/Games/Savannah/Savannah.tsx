@@ -110,9 +110,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     if (currentWords.length > 0) {
       const chunk = (() => {
         const wordsArr = [];
-        // console.log(currentWords);
-        // console.log(wordsArr.length);
-        // console.log(answerVariantsCount);
         while (wordsArr.length < answerVariantsCount) {
           const randomWordIndex = Math.floor(Math.random() * currentWords.length);
           if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
@@ -149,22 +146,16 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
       const currentPageWords = await fetchWords(group);
       setCurrentWords(currentPageWords);
       setLoading('done');
-      // console.log(currentPageWords);
     }
     if (previousLocation !== 'dictionary' && previousLocation !== 'textbook') {
       fetchCurrentPageWords();
     } else {
-      console.log(words);
       setCurrentWords(words);
-      console.log(currentWords);
     }
-    console.log(currentWords);
   }, [group]);
 
   useEffect(() => {
     if (currentWords.length >= 1) {
-      // console.log(currentWords);
-
       setLoading('done');
     }
   }, [currentWords]);
@@ -375,11 +366,11 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
         <div className="savannah-body">
           <div className="status-bar">
             <div className="lives">
-              {[...Array(statsData.current.lives)].map(() => (
-                <i className="fas fa-heart" />
+              {[...Array(statsData.current.lives)].map((item, index) => (
+                <i className="fas fa-heart" key={index}/>
               ))}
-              {[...Array(5 - statsData.current.lives)].map(() => (
-                <i className="far fa-heart" />
+              {[...Array(5 - statsData.current.lives)].map((item, index) => (
+                <i className="far fa-heart" key={index}/>
               ))}
             </div>
           </div>
