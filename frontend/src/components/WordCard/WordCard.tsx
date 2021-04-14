@@ -1,8 +1,7 @@
 import './wordCard.scss';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { WordCardProps } from './WordCard.model';
-import { API_BASE_URL } from '../../constants';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useAction } from '../../hooks/useAction';
 import { DictionarySections } from '../../models';
@@ -28,128 +27,45 @@ const WordCard: FC<WordCardProps> = props => {
   } = props;
   const store = useTypedSelector(commonStore => commonStore);
   const { user, isLoggedIn } = store.user;
-  const { words, displayButtons, translate } = store.wordList;
+  const { words, displayButtons, translate, hiddenLoading: loading } = store.wordList;
   const { userId, token } = user;
-  const [loading, setLoading] = useState(false);
   const { updateWord } = useAction();
 
   const deleteWord = async () => {
-    setLoading(true);
     const body = JSON.stringify({
       isDeleted: true,
     });
     const newId = isLoggedIn ? dashedId : id;
-    const response = await fetch(
-      `${API_BASE_URL}/users/${userId}/words/${newId}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body,
-      },
-    );
-    if (response.status === 417) {
-      await fetch(
-        `${API_BASE_URL}/users/${userId}/words/${newId}`,
-        {
-          method: 'PUT',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body,
-        },
-      );
-    }
     const thisWord = { ...props, userWord: { isDeleted: true } };
-    updateWord(words, thisWord);
-    setLoading(false);
+    updateWord(words, thisWord, token, userId, newId as string, body);
   };
 
   const addWordToHard = async () => {
-    setLoading(true);
     const body = JSON.stringify({
       difficulty: 'hard',
       isLearning: true,
     });
     const newId = isLoggedIn ? dashedId : id;
-    const response = await fetch(
-      `${API_BASE_URL}/users/${userId}/words/${newId}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body,
-      },
-    );
-    if (response.status === 417) {
-      await fetch(
-        `${API_BASE_URL}/users/${userId}/words/${newId}`,
-        {
-          method: 'PUT',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body,
-        },
-      );
-    }
-    setLoading(false);
+    const thisWord = { ...props, userWord: { difficulty: 'hard', isLearning: true } };
+    updateWord(words, thisWord, token, userId, newId as string, body);
   };
 
   const restoreWord = async () => {
-    setLoading(true);
     const body = JSON.stringify({
       isDeleted: false,
     });
     const newId = isLoggedIn ? dashedId : id;
-    await fetch(
-      `${API_BASE_URL}/users/${userId}/words/${newId}`,
-      {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body,
-      },
-    );
     const thisWord = { ...props, userWord: { isDeleted: false } };
-    updateWord(words, thisWord);
-    setLoading(false);
+    updateWord(words, thisWord, token, userId, newId as string, body, 'PUT');
   };
 
   const moveToEasy = async () => {
-    setLoading(true);
     const body = JSON.stringify({
       difficulty: 'easy',
     });
     const newId = isLoggedIn ? dashedId : id;
-    await fetch(
-      `${API_BASE_URL}/users/${userId}/words/${newId}`,
-      {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body,
-      },
-    );
-    const thisWord = { ...props, userWord: { difficulty: 'easy' } };
-    updateWord(words, thisWord);
-    setLoading(false);
+    const thisWord = { ...props, userWord: { difficulty: 'easy', isLearning: true } };
+    updateWord(words, thisWord, token, userId, newId as string, body, 'PUT');
   };
 
   const playAudio = () => {

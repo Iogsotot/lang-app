@@ -1,7 +1,7 @@
 .notification {
   max-width: calc(100% - .625rem);
   padding: .9375rem;
-  position: fixed;
+  position: fixed !important;
   top: .3125rem;
   right: 50%;
   transform: translate(50%, calc(-100% - .9375rem));
