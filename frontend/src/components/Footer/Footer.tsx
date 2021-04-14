@@ -55,7 +55,7 @@ const Footer: FC = () => {
 
                 <div className="developers">
                   <div className="dev-list">
-                    <h4>Кто всё это понаделал</h4>
+                    <h4>Над проектом работали</h4>
                     {FOOTER_COPYRIGHT.developers.map(item => (
                       <div className="author" key={item.name}>
                         <a href={item.link} className="link">
