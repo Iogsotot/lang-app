@@ -14,16 +14,16 @@ import AuthProvider from './providers/AuthProvider';
 
 const App: FC = () => (
   <Provider store={store}>
-    <AuthProvider>
-      <DarkThemeProvider>
-        <BrowserRouter>
-          <Menu />
-          <Header />
-          <Router />
-          <Footer />
-        </BrowserRouter>
-      </DarkThemeProvider>
-    </AuthProvider>
+    {/* <AuthProvider> */}
+    <DarkThemeProvider>
+      <BrowserRouter>
+        <Menu />
+        <Header />
+        <Router />
+        <Footer />
+      </BrowserRouter>
+    </DarkThemeProvider>
+    {/* </AuthProvider> */}
   </Provider>
 );
 
