@@ -32,13 +32,11 @@ const mapDispatchToProps = gameDataActions;
 const mapStateToProps = ({ gameData, wordList }: any) => {
   const { page, group } = gameData;
   const { words } = wordList;
-  // console.log(wordList.words);
 
   const props: SavannahProps = {
     page,
     group,
     words,
-    // wordsFromStore,
   };
   return props;
 };
@@ -46,7 +44,6 @@ const mapStateToProps = ({ gameData, wordList }: any) => {
 const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const { setPage, addToActiveWords } = props;
   const { words } = props;
-  // console.log(words);
 
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const answerVariantsCount = 4;
@@ -54,7 +51,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const maxCount = 6;
   const maxLives = 5;
   const maxRound = 30;
-  const allWordsInGroupCount = 600;
 
   const currentLocation = useLocation();
   let previousLocation = '';
