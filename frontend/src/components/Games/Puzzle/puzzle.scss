@@ -1,7 +1,7 @@
 .puzzle {
   position: relative;
-  height: calc(100vh - 78px);
-  background: url('../../../assets/images/puzzle_layout.jpeg');
+  height: calc(100vh - 85.2px);
+  background: url("../../../assets/images/puzzle_layout.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
@@ -31,7 +31,7 @@
     }
     .fal,
     .far {
-      font-family: 'Font Awesome 5 Pro';
+      font-family: "Font Awesome 5 Pro";
     }
   }
 
@@ -77,4 +77,10 @@
   flex-direction: row;
   min-height: 100px;
   align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .puzzle {
+    height: calc(100vh - 100px);
+  }
 }

@@ -11,7 +11,7 @@ import { WORD_GROUPS } from '../../../constants/constants';
 import './Difficulty.scss';
 
 const Difficulty: FC<DifficultyProps> = ({ handleStart, title, desc }) => {
-  const { group } = useTypedSelector(store => store.wordList);
+  const { group, words } = useTypedSelector(store => store.wordList);
   const { setGroup } = useAction();
   const currentLocation = useLocation();
   let previousLocation = '';
@@ -20,12 +20,15 @@ const Difficulty: FC<DifficultyProps> = ({ handleStart, title, desc }) => {
     previousLocation = currentLocation.state.from;
   }
 
+  const isLvlShouldBeSelected = () =>
+    (previousLocation !== 'textbook' && previousLocation !== 'dictionary') || words.length === 0;
+
   return (
     <div className="box difficulty__box savannah__info">
       <div className="difficulty-btn-block">
         <h2 className="title is-2">{title}</h2>
         <p>{desc}</p>
-        {previousLocation !== 'textbook' && previousLocation !== 'dictionary' && (
+        {isLvlShouldBeSelected() && (
           <>
             <p>Сложность:</p>
             {Object.entries(WORD_GROUPS).map(([key, value]) => (
@@ -43,7 +46,7 @@ const Difficulty: FC<DifficultyProps> = ({ handleStart, title, desc }) => {
           </>
         )}
 
-        <button className="btn--start button is-primary is-outlined" onClick={handleStart}>
+        <button className="btn--start button is-primary" onClick={handleStart}>
           Начать игру!
         </button>
       </div>

@@ -2,9 +2,10 @@
 
 header {
   border-color: white;
-  box-shadow: 0 .25rem .625rem -.125rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.625rem -0.125rem rgba(0, 0, 0, 0.1);
+  height: 85.2px;
 
-  &__logo-field{
+  &__logo-field {
     display: none;
   }
 }
@@ -13,7 +14,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.1rem;
+  padding: 1.1rem 1.1rem 0.8rem;
+  height: 85.2px;
   .header__logo-field {
     display: none;
   }
@@ -27,12 +29,12 @@ header {
     color: var(--bg-text-subtitle);
     margin: 0 1rem;
     transition: all 0.2s linear;
-    border-bottom: .125rem solid transparent;
+    border-bottom: 0.125rem solid transparent;
     &:hover {
       color: $color_important;
       transition: all 0.2s linear;
       text-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
-      border-bottom: .125rem solid $color_important;
+      border-bottom: 0.125rem solid $color_important;
     }
   }
 }
@@ -41,16 +43,16 @@ header {
   align-items: center;
   justify-content: center;
   margin-right: 46px;
-  transition: all .3s linear;
+  transition: all 0.3s linear;
   &:hover {
     filter: brightness(0.5);
-    transition: all .3s linear;
+    transition: all 0.3s linear;
   }
   &.active {
     filter: hue-rotate(75deg);
     &:hover {
       filter: hue-rotate(75deg) brightness(0.5);
-      transition: all .3s linear;
+      transition: all 0.3s linear;
     }
   }
   img {
@@ -59,32 +61,35 @@ header {
   }
 }
 @media (max-width: 640px) {
-  .header__inner{
+  .header__inner {
     flex-wrap: wrap;
     padding: 0.5rem;
-    .header__logo-field{
-    display: inline;
-    order: 1;
-    img{
-      height: 4rem;
-      margin-left: 0.9rem;
+    .header__logo-field {
+      display: inline;
+      order: 1;
+      img {
+        height: 4rem;
+        margin-left: 0.9rem;
+      }
     }
+    .nav {
+      order: 3;
     }
-  .nav{
-    order: 3;
-  }
-  .user__menu{
-    order: 2;
-    .btn{
-      font-size: 16px;
-      padding: 10px 40px;
-      margin-bottom: 0.5rem;
+    .user__menu {
+      order: 2;
+      .btn {
+        font-size: 16px;
+        padding: 10px 40px;
+        margin-bottom: 0.5rem;
+      }
     }
-   }
   }
 }
 
 @media (max-width: 930px) {
+  header {
+    height: 100px;
+  }
   .header__inner {
     flex-wrap: wrap;
   }

@@ -1,25 +1,84 @@
-import { FC } from 'react';
-import { useHistory } from 'react-router-dom';
+import { FC, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Word } from '../../../models/word';
 import { FinishProps } from './Finish.model';
 import 'react-tabs/style/react-tabs.css';
 import './finish.scss';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { API_BASE_URL } from '../../../constants';
 
 const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
   const history = useHistory();
-  const wordSoundUrl = (word: Word) => `https://rslang-2020q3.herokuapp.com/${word?.audio}`;
+  const wordSoundUrl = (word: Word) => `${word?.audio}`;
   const playSound = (soundUrl: string) => {
     const wordAudio = new Audio(soundUrl);
     wordAudio.play();
   };
+  const store = useTypedSelector(commonStore => commonStore);
+  const { userId, token } = store.user.user;
+  const browserLocation = window.location.href.split('/');
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/users/${userId}/statistics`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(res => res.json()).then(res => {
+      const data = {
+        learnedWords: res.learnedWords,
+        optional: res.optional,
+      };
+
+      if (!res.learnedWords) {
+        data.learnedWords = correctAnswers.length + wrongAnswers.length;
+      } else {
+        data.learnedWords = res.learnedWords + correctAnswers.length + wrongAnswers.length;
+      }
+      const date = new Date();
+      const dateString = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+      const location = browserLocation[browserLocation.length - 1];
+
+      if (data.optional[dateString]) {
+        if (data.optional[dateString][location]) {
+          data.optional[dateString][location].wrongAnswers = res.optional[dateString][location].wrongAnswers++;
+          data.optional[dateString][location].correctAnswers = res.optional[dateString][location].correctAnswers++;
+        } else {
+          data.optional[dateString][location].wrongAnswers = res.optional[dateString][location].wrongAnswers++;
+          data.optional[dateString][location].correctAnswers = res.optional[dateString][location].correctAnswers++;
+        }
+      } else {
+        data.optional[dateString] = {};
+        data.optional[dateString][location] = {
+          wrongAnswers: wrongAnswers.length,
+          correctAnswers: correctAnswers.length,
+        };
+      }
+
+      const body = JSON.stringify(data);
+
+      fetch(`${API_BASE_URL}/users/${userId}/statistics`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body,
+      }).then(result => result.json()).then(result => {
+        console.log(result);
+      });
+    });
+  }, []);
 
   const finishList = (list: Word[]) => (
     <div>
       {list.map((word: Word) => (
         <div className="finish__words-list__row" key={word.word}>
-          <button onClick={() => playSound(wordSoundUrl(word))} className="audiocall__volume volume-button">
+          <button onClick={() => playSound(wordSoundUrl(word))} className="finish__volume volume-button">
             <i className="fas fa-volume-up" />
           </button>
           <span>{`${word.word.toUpperCase()} - ${word.wordTranslate}`}</span>
