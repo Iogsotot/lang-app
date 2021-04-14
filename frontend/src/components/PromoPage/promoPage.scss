@@ -349,6 +349,10 @@ main {
         width: 50vw;
       }
     }
+    .video {
+      height: 65vw;
+      padding: 2rem 1rem;
+    }
     .features {
       .features__block {
         flex-wrap: wrap;
@@ -390,6 +394,10 @@ main {
       //   padding-top: 10rem;
       // }
     }
+    // .video {
+    //   height: 40vh;
+    // }
+
     .team {
       height: 110rem;
       .subtitle {
