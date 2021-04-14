@@ -73,7 +73,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [playFailure] = useSound(failureSound);
   const [playStartGameSound] = useSound(startGameSound);
   const [playWin] = useSound(winSound);
-  // const [playUI] = useSound(UIsound);
 
   const initialGameState = {
     lives: maxLives,
@@ -136,7 +135,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   useEffect(() => {
     async function fetchCurrentPageWords() {
       const currentPageWords = await fetchWords(group);
-      console.log({ currentPageWords });
       setCurrentWords(currentPageWords);
       setLoading('done');
     }
