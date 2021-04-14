@@ -219,7 +219,6 @@
 
 @media (max-width: 1000px) {
   .audiocall {
-      height: calc(100vh - 100px);
     & .overlay {
       height: 100%;
     }
@@ -241,7 +240,12 @@
 
 @media (max-width: 640px) {
   .audiocall {
-      height: calc(100vh - 200px);
+    height: calc(100vh - 200px);
   }
 }
 
+@media (max-width: 930px) {
+  .audiocall {
+    height: calc(100vh - 100px);
+  }
+}

@@ -173,3 +173,9 @@ aside.menu {
 .fal:hover {
   color: rgb(103, 109, 134);
 }
+
+@media (max-width: 930px) {
+  .logo-field {
+    height: 100px !important;
+  }
+}

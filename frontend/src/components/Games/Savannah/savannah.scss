@@ -194,3 +194,9 @@
     opacity: 0;
   }
 }
+
+@media (max-width: 1024px) {
+  .savannah {
+    height: calc(100vh - 100px);
+  }
+}

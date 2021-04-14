@@ -78,3 +78,9 @@
   min-height: 100px;
   align-items: center;
 }
+
+@media (max-width: 1024px) {
+  .puzzle {
+    height: calc(100vh - 100px);
+  }
+}

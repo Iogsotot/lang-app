@@ -124,6 +124,12 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .sprint {
+    height: calc(100vh - 100px);
+  }
+}
+
 @media (max-width: 770px) {
   .sprint {
     width: 100vw;
