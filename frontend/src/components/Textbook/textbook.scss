@@ -20,6 +20,12 @@ main.dictionary {
     }
   }
 
+  .custom-tabs {
+    ul {
+      justify-content: center;
+    }
+  }
+
   &.Novice {
     .custom__pagination {
       button {
