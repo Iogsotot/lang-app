@@ -71,7 +71,7 @@ const GameScreen: FC<GameScreenProps> = (props) => {
     if (previousLocation !== 'dictionary' && previousLocation !== 'textbook') {
       startNewGame();
     } else {
-      const fiveWords = words.splice(0, 4);
+      const fiveWords = words.slice(0, 5);
       const value = Math.floor(Math.random() * fiveWords.length);
       const randomElem = fiveWords[value];
       setPhrase(randomElem.textMeaning);
