@@ -4,9 +4,8 @@ import useSound from 'use-sound';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { SavannahProps } from './Savannah.model';
-import { SAVANNAH, API_BASE_URL } from '../../../constants';
+import { WORD_GROUPS, API_BASE_URL } from '../../../constants';
 import ModalOnClose from '../ModalOnClose';
-import Difficulty from '../Difficulty';
 import Finish from '../Finish';
 import Spinner from '../../Spinner';
 import { Word } from '../../../models/word';
@@ -17,8 +16,6 @@ import failureSound from '../../../assets/audio/failure.mp3';
 import winSound from '../../../assets/audio/victory.mp3';
 import UIsound from '../../../assets/audio/puk.mp3';
 import startGameSound from '../../../assets/audio/bellSound.mp3';
-
-const { gameName, gameDesc } = SAVANNAH;
 
 type StateProps = {
   page: number;
@@ -92,7 +89,8 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     window.location.href = '../';
   };
 
-  const closeButtonClick = () => (round < maxRound ? setModalOnCloseIsActive(true) : handleSubmitClose());
+  const closeButtonClick = () =>
+    (round < maxRound ? setModalOnCloseIsActive(true) : handleSubmitClose());
   const statsData = useRef(initialGameState);
 
   // welcome, game, stats
@@ -216,12 +214,12 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     }
     let bgModificator = '0%';
     if (statsData.current.correctAnswersCount <= 33) {
-      bgModificator = `${100 - statsData.current.correctAnswersCount * 3}%`;
+      bgModificator = `${100 - (statsData.current.correctAnswersCount * 3)}%`;
     }
     setBgPosition(bgModificator);
 
     if (statsData.current.correctAnswersCount <= 5) {
-      const crystalModificator = `${4 + statsData.current.correctAnswersCount / 2}rem`;
+      const crystalModificator = `${4 + (statsData.current.correctAnswersCount / 2)}rem`;
       setCrystalHeight(crystalModificator);
     }
 
@@ -321,8 +319,12 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
         handleCancelModal={handleCancelModal}
         handleSubmitClose={handleSubmitClose}
       />
-      <div className="overlay"></div>
-      <div className="btn--sound" onClick={() => setSoundEnabled(!soundEnabled)}>
+      <div className="overlay">
+      </div>
+      <div
+        className="btn--sound"
+        onClick={() => setSoundEnabled(!soundEnabled)}
+      >
         {soundEnabled && <i className="fal fa-volume-up" />}
         {!soundEnabled && <i className="fal fa-volume-slash" />}
       </div>
@@ -336,48 +338,70 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
       </div>
 
       {gameScreen === 'welcome' && (
-        <Difficulty
-          title={gameName}
-          desc={gameDesc}
-          handleStart={() => {
-            handleStartGame();
-          }}
-        />
-      )}
-      {loading === 'start' && <Spinner />}
-      {gameScreen === 'game' && (
-        <div className="savannah-body">
-          <div className="status-bar">
-            <div className="lives">
-              {[...Array(statsData.current.lives)].map(() => (
-                <i className="fas fa-heart" />
-              ))}
-              {[...Array(5 - statsData.current.lives)].map(() => (
-                <i className="far fa-heart" />
-              ))}
-            </div>
-          </div>
-
-          <div className="current-word__container title is-3 has-text-centered">
-            <div className={currentWordClassNames} key={currentWords[wordsChunk[soughtIndex]].word}>
-              {currentWords[wordsChunk[soughtIndex]].wordTranslate}
-            </div>
-          </div>
-
-          <div className="answer-variants">
-            <div className="wrapper">
-              {WORDS.map(word => (
-                <div className="button  is-primary is-outlined" onClick={() => checkPair(word)} key={word}>
-                  {currentWords[wordsChunk[word]].word}
-                </div>
+        <div className="savannah__info box">
+          <h2 className="title is-2">Savannah</h2>
+          <p>
+            В этой игре на вас обрушится дождь из слов! к счастью слова падают по одной капельке. Ваша задача - успеть
+            выбрать правильно слово до того, как оно упадёт. Удачи!
+          </p>
+          {previousLocation !== 'textbook' && (
+            <div className="difficulty-btn-block">
+              <p>Сложность:</p>
+              {Object.entries(WORD_GROUPS).map(([key, value]) => (
+                <button
+                  disabled={value === group}
+                  key={key}
+                  onClick={() => {
+                    setGroup(value);
+                  }}
+                  className="button is-warning is-small"
+                >
+                  {key}
+                </button>
               ))}
             </div>
-          </div>
-          <div className="crystal-block">
-            <div className="crystal crystal-anim" style={{ height: crystalHeight }} />
-          </div>
+          )}
+          <button className="btn--start button is-primary is-outlined" onClick={() => { handleStartGame(); }}>
+            Начать игру!
+          </button>
         </div>
       )}
+      {loading === 'start' && <Spinner/>}
+      {gameScreen === 'game' &&
+        (
+          <div className="savannah-body">
+            <div className="status-bar">
+              <div className="lives">
+                {[...Array(statsData.current.lives)].map(() => (
+                  <i className="fas fa-heart"/>
+                ))}
+                {[...Array(5 - statsData.current.lives)].map(() => (
+                  <i className="far fa-heart"/>
+                ))}
+              </div>
+            </div>
+
+            <div className="current-word__container title is-3 has-text-centered">
+              <div className={currentWordClassNames} key={currentWords[wordsChunk[soughtIndex]].word}>
+                {currentWords[wordsChunk[soughtIndex]].wordTranslate}
+              </div>
+            </div>
+
+            <div className="answer-variants">
+              <div className="wrapper">
+                {WORDS.map(word => (
+                  <div className="button  is-primary is-outlined" onClick={() => checkPair(word)} key={word}>
+                    {currentWords[wordsChunk[word]].word}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="crystal-block">
+              <div className='crystal crystal-anim' style={ { height: crystalHeight }}/>
+            </div>
+          </div>
+        )
+      }
 
       {gameScreen === 'stats' && (
         <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={gameFinishPoints} />

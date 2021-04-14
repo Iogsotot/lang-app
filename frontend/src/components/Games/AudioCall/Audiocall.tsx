@@ -3,11 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { Word } from '../../../models/word';
 import Finish from '../Finish';
 import ModalOnClose from '../ModalOnClose';
-import Difficulty from '../Difficulty';
-import { API_BASE_URL, AUDIO_CALL } from '../../../constants/constants';
+import { WORD_GROUPS, API_BASE_URL } from '../../../constants/constants';
 import './Audiocall.scss';
-
-const { gameName, gameDesc } = AUDIO_CALL;
 
 const Audiocall: FC = () => {
   const [group, setGroup] = useState(0);
@@ -119,7 +116,7 @@ const Audiocall: FC = () => {
         <img src={currentWord.image} />
       </div>
       <button onClick={() => playSound(currentWord.audio)} className="audiocall__volume volume-button">
-        <i className="fas fa-volume-up" />
+        <i className="fas fa-volume-up"/>
       </button>
       <div className="audiocall__current-word__text">{currentWord.word}</div>
     </div>
@@ -237,7 +234,35 @@ const Audiocall: FC = () => {
           handleCancelModal={handleCancelModal}
           handleSubmitClose={handleSubmitClose}
         />
-        {!start && <Difficulty title={gameName} desc={gameDesc} handleStart={clickStart} />}
+        {!start && (
+          <div className="audiocall__info box">
+            <h2 className="title is-2">Audiocall</h2>
+            <p>
+              В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может,
+              вам так легче учить язык.
+            </p>
+
+            {previousLocation !== 'textbook' && (
+              <div className="difficulty-btn-block">
+                <h2>Сложность:</h2>
+                {Object.entries(WORD_GROUPS).map(([key, value]) => (
+                  <button
+                    disabled={value === group}
+                    key={key}
+                    onClick={() => {
+                      setGroup(value);
+                    }}
+                    className="button is-warning is-small"
+                  >
+                    {key}
+                  </button>
+                ))}
+              </div>
+            )
+            }
+            <button className="btn button is-primary is-outlined" onClick={clickStart}>Начать игру</button>
+          </div>
+        )}
         {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
           <div className="audiocall_inner">
             <div>
@@ -263,6 +288,7 @@ const Audiocall: FC = () => {
         {start && currentWordNumber >= words.length && (
           <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 10} />
         )}
+
       </div>
     </section>
   );

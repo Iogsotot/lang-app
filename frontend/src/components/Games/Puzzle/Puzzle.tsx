@@ -1,12 +1,9 @@
 import { useState, FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import GameScreen from './GameScreen';
-import { PUZZLE } from '../../../constants/constants';
+import { WORD_GROUPS } from '../../../constants/constants';
 import ModalOnClose from '../ModalOnClose';
-import Difficulty from '../Difficulty';
 import Finish from '../Finish';
-
-const { gameName, gameDesc } = PUZZLE;
 
 const Puzzle: FC = () => {
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
@@ -35,10 +32,12 @@ const Puzzle: FC = () => {
 
   return (
     <section className="puzzle">
-      <div className="overlay" />
-      {gameFinished && (
-        <Finish correctAnswers={correctAnswers} wrongAnswers={wrongAnswers} score={correctAnswers.length * 10} />
-      )}
+
+      <div className="overlay"/>
+      {gameFinished &&
+      <Finish correctAnswers={correctAnswers}
+        wrongAnswers={wrongAnswers}
+        score={correctAnswers.length * 10} /> }
 
       <ModalOnClose
         modalIsActive={modalOnCloseIsActive}
@@ -54,16 +53,41 @@ const Puzzle: FC = () => {
         <i className="fal fa-times" />
       </div>
 
-      {gameActive && !gameFinished ? (
-        <GameScreen
-          setGameFinished={setGameFinished}
-          setWrongAnswers={setWrongAnswers}
-          setCorrectAnswers={setCorrectAnswers}
-          group={group}
-        />
-      ) : (
-        <Difficulty title={gameName} desc={gameDesc} handleStart={handleStart} />
-      )}
+      {
+        gameActive && !gameFinished ?
+          <GameScreen setGameFinished={setGameFinished}
+            setWrongAnswers={setWrongAnswers}
+            setCorrectAnswers={setCorrectAnswers}
+            group={group}/> :
+          <div className="puzzle__info box">
+            <h2 className="title is-2">Puzzle</h2>
+            <p>
+              В этой игре вы должны добавить правильное слово к фразе. Не знаю, зачем, но, может,
+              вам так легче учить язык.
+            </p>
+            {previousLocation !== 'textbook' && (
+              <div className="difficulty-btn-block">
+                <p>Сложность:</p>
+                {Object.entries(WORD_GROUPS).map(([key, value]) => (
+                  <button
+                    disabled={value === group}
+                    key={key}
+                    onClick={() => {
+                      setGroup(value);
+                    }}
+                    className="button is-warning is-small"
+                  >
+                    {key}
+                  </button>
+                ))}
+
+              </div>
+            )}
+            <button className="btn button is-primary is-outlined" onClick={handleStart}>
+            Начать игру!
+            </button>
+          </div>
+      }
     </section>
   );
 };
