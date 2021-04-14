@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import store from './store/store';
 import 'typeface-roboto';
 import 'typeface-roboto-mono';
