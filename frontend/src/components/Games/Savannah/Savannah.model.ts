@@ -10,4 +10,5 @@ export interface SavannahProps {
   words?: Word[],
   test?: string,
   location?: string,
+  wordsFromStore?: Word[],
 }

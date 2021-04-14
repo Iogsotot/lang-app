@@ -15,7 +15,6 @@ import './savannah.scss';
 import successSound from '../../../assets/audio/pew.mp3';
 import failureSound from '../../../assets/audio/failure.mp3';
 import winSound from '../../../assets/audio/victory.mp3';
-import UIsound from '../../../assets/audio/puk.mp3';
 import startGameSound from '../../../assets/audio/bellSound.mp3';
 
 const { gameName, gameDesc } = SAVANNAH;
@@ -30,26 +29,28 @@ type DispatchProps = typeof gameDataActions;
 
 const mapDispatchToProps = gameDataActions;
 
-const mapStateToProps = ({ gameData }: any) => {
-  const { page, group, words, test } = gameData;
+const mapStateToProps = ({ gameData, wordList }: any) => {
+  const { page, group } = gameData;
+  const { words } = wordList;
+
   const props: SavannahProps = {
     page,
     group,
     words,
-    test,
   };
   return props;
 };
 
 const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const { setPage, addToActiveWords } = props;
+  const { words } = props;
+
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const answerVariantsCount = 4;
   const WORDS = [0, 1, 2, 3];
   const maxCount = 6;
   const maxLives = 5;
   const maxRound = 30;
-  const allWordsInGroupCount = 600;
 
   const currentLocation = useLocation();
   let previousLocation = '';
@@ -69,6 +70,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const [gameFinishPoints, setGameFinishPoints] = useState(0);
   const [gameStart, setGameStart] = useState(false);
   const [correctAnswerSeries, setCorrectAnswerSeries] = useState<string[]>([]);
+  const [longestWinStreak, setLongestWinStreak] = useState<number>(0);
   const [bgPosition, setBgPosition] = useState('100%');
   const [crystalHeight, setCrystalHeight] = useState('4rem');
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -102,17 +104,19 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   const currentWordClassNames = counter === 0 ? 'current-word' : 'current-word start-anim';
 
   useEffect(() => {
-    const chunk = (() => {
-      const wordsArr = [];
-      while (wordsArr.length < answerVariantsCount) {
-        const randomWordIndex = Math.floor(Math.random() * allWordsInGroupCount);
-        if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
-      }
-      return wordsArr;
-    })();
-    setSoughtIndex(Math.floor(Math.random() * answerVariantsCount));
-    setWordsChunk(chunk);
-  }, [round]);
+    if (currentWords.length > 0) {
+      const chunk = (() => {
+        const wordsArr = [];
+        while (wordsArr.length < answerVariantsCount) {
+          const randomWordIndex = Math.floor(Math.random() * currentWords.length);
+          if (wordsArr.indexOf(randomWordIndex) === -1) wordsArr.push(randomWordIndex);
+        }
+        return wordsArr;
+      })();
+      setSoughtIndex(Math.floor(Math.random() * answerVariantsCount));
+      setWordsChunk(chunk);
+    }
+  }, [round, currentWords]);
 
   async function fetchWords(wordsGroup: number) {
     const response = await fetch(`${API_BASE_URL}/words/all?group=${wordsGroup}&amount=600`, {
@@ -140,8 +144,18 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
       setCurrentWords(currentPageWords);
       setLoading('done');
     }
-    fetchCurrentPageWords();
+    if (previousLocation !== 'dictionary' && previousLocation !== 'textbook') {
+      fetchCurrentPageWords();
+    } else {
+      setCurrentWords(words);
+    }
   }, [group]);
+
+  useEffect(() => {
+    if (currentWords.length >= 1) {
+      setLoading('done');
+    }
+  }, [currentWords]);
 
   useEffect(() => {
     if (loading === 'done' && gameStart) {
@@ -195,6 +209,8 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     if (soundEnabled) {
       playFailure();
     }
+
+    if (correctAnswerSeries.length >= longestWinStreak) { setLongestWinStreak(correctAnswerSeries.length); }
     setCorrectAnswerSeries([]);
     const updatedWrongAnswers = [...wrongAnswers, currentWords[wordsChunk[soughtIndex]]];
     setWrongAnswers(updatedWrongAnswers);
@@ -306,14 +322,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     return () => window.removeEventListener('keydown', keyControls);
   }, [round]);
 
-  function handleClose() {
-    if (gameScreen === 'welcome') {
-      window.location.href = '../';
-    }
-    resetGame();
-    setGameScreen('welcome');
-  }
-
   return (
     <section className="savannah" style={{ backgroundPositionY: bgPosition }}>
       <ModalOnClose
@@ -349,11 +357,11 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
         <div className="savannah-body">
           <div className="status-bar">
             <div className="lives">
-              {[...Array(statsData.current.lives)].map(() => (
-                <i className="fas fa-heart" />
+              {[...Array(statsData.current.lives)].map((item, index) => (
+                <i className="fas fa-heart" key={index}/>
               ))}
-              {[...Array(5 - statsData.current.lives)].map(() => (
-                <i className="far fa-heart" />
+              {[...Array(5 - statsData.current.lives)].map((item, index) => (
+                <i className="far fa-heart" key={index}/>
               ))}
             </div>
           </div>
