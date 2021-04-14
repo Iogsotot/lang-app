@@ -9,9 +9,9 @@ const PromoPage: FC = () => {
   return (
     <main>
       <section className="promo">
+        <ScrollAnimation animateIn="zoomIn">
         <div className="wrapper">
           <div className="info_block">
-            <ScrollAnimation animateIn="zoomIn">
               <h1 className="title title--bigest">Учи английский вместе с RSlang!</h1>
               <p className="content">Проводи время весело и с пользой! Ускорь свой прогресс! Возобновляй знания!</p>
               {!isLoggedIn ? (
@@ -21,9 +21,9 @@ const PromoPage: FC = () => {
               ) : (
                 <></>
               )}
-            </ScrollAnimation>
           </div>
         </div>
+        </ScrollAnimation>
       </section>
       <section className="video" id="video">
         <ScrollAnimation animateIn="bounceInUp">
