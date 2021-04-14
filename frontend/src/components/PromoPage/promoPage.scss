@@ -396,29 +396,36 @@ main {
       padding: 1.5rem;
     }
     .team__group{
-  .teammates {
-    grid-template-columns: 60px 90px 330px 90px 60px;
-    grid-template-areas:
-      " . bramov bramov . . "
-      " . . ainuAnna ainuAnna ."
-      ". svetlana svetlana . . "
-      " . . gregory gregory ."
-      " . johnneon johnneon . ."
-      " . . iogsotot iogsotot ." ;
+      .teammates {
+        grid-template-columns: 60px 90px 330px 90px 60px;
+        grid-template-areas:
+        " . bramov bramov . . "
+        " . . ainuAnna ainuAnna ."
+        ". svetlana svetlana . . "
+        " . . gregory gregory ."
+        " . johnneon johnneon . ."
+        " . . iogsotot iogsotot ." ;
 
-    .center {
-     display: none;
+        .center {
+          display: none;
+        }
+      }
     }
-}
-}
-  .arrow-block{
+  }
+    .arrow-block{
       .content_group{
         img{
           display: none;
         }
+        .info{
+          display: flex;
+          flex-direction: column;
+          .info__item{
+            margin-left: 3rem;
+          }
+        }
       }
-  }
-}
+    }
   }
 }
 
