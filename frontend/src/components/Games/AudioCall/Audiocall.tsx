@@ -3,8 +3,11 @@ import { useLocation } from 'react-router-dom';
 import { Word } from '../../../models/word';
 import Finish from '../Finish';
 import ModalOnClose from '../ModalOnClose';
-import { WORD_GROUPS, API_BASE_URL } from '../../../constants/constants';
+import Difficulty from '../Difficulty';
+import { API_BASE_URL, AUDIO_CALL } from '../../../constants/constants';
 import './Audiocall.scss';
+
+const { gameName, gameDesc } = AUDIO_CALL;
 
 const Audiocall: FC = () => {
   const [group, setGroup] = useState(0);
@@ -237,35 +240,8 @@ const Audiocall: FC = () => {
           handleCancelModal={handleCancelModal}
           handleSubmitClose={handleSubmitClose}
         />
-        {!start && (
-          <div className="audiocall__info box">
-            <h2 className="title is-2">Audiocall</h2>
-            <p>
-              В этой игре вы должны выбрать правильный перевод к произнесенному слову.
-            </p>
+        {!start && <Difficulty title={gameName} desc={gameDesc} handleStart={clickStart} />}
 
-            {previousLocation !== 'textbook' && (
-              <div className="difficulty-btn-block">
-                <h2>Сложность:</h2>
-                {Object.entries(WORD_GROUPS).map(([key, value]) => (
-                  <button
-                    disabled={value === group}
-                    key={key}
-                    onClick={() => {
-                      setGroup(value);
-                    }}
-                    className="button is-warning is-small"
-                  >
-                    {key}
-                  </button>
-                ))}
-              </div>
-            )}
-            <button className="btn button is-primary is-outlined" onClick={clickStart}>
-              Начать игру
-            </button>
-          </div>
-        )}
         {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
           <div className="audiocall_inner">
             <div>
