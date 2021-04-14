@@ -1,0 +1,132 @@
+.sprint {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: min-content;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  grid-template-areas:
+    'timer . . close'
+    '. score score .'
+    '. box box .';
+
+  .subtitle {
+    text-align: center;
+  }
+
+  &__box {
+    position: relative;
+    grid-area: box;
+    width: 30rem;
+    max-width: 100vw;
+    height: 30rem;
+    max-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid transparent;
+    justify-self: center;
+    opacity: 0.9;
+
+    & .play-audio-btn {
+      margin-left: auto;
+    }
+  }
+
+  &__game-wrapper {
+    margin: auto 0;
+  }
+
+  & .score {
+    grid-area: score;
+    height: 2rem;
+    text-align: center;
+  }
+
+  & .countdown-wrapper {
+    height: fit-content;
+    width: fit-content;
+    grid-area: timer;
+    margin: 1rem;
+    font-size: 1.8rem;
+    user-select: none;
+    cursor: pointer;
+
+    &.pause div[aria-label='Countdown timer'] > div {
+      font-size: 2rem;
+      &::before,
+      &::after {
+        height: 2px;
+        width: 1.6rem;
+        background-color: hsl(0, 0%, 48%);
+        content: '';
+        display: block;
+        position: absolute;
+        transform-origin: center center;
+      }
+
+      &:hover::before,
+      &:hover::after {
+        background-color: hsl(0, 0%, 21%);
+      }
+
+      &::before {
+        transform: translateX(20%) rotate(90deg);
+      }
+
+      &::after {
+        transform: translateX(-20%) rotate(90deg);
+      }
+    }
+  }
+
+  & .close-btn {
+    grid-area: close;
+    justify-self: end;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .modal-buttons {
+    justify-content: center;
+  }
+
+  .get-ready,
+  .spinner,
+  .difficulty__box {
+    grid-area: box;
+    justify-self: center;
+    margin-top: 10vh;
+  }
+
+  .mod-note {
+    position: absolute;
+  }
+
+  .toggle-sound {
+    position: absolute;
+    right: 0rem;
+    top: -3rem;
+    .button {
+      font-size: 1.6rem;
+    }
+  }
+
+  .audiocall {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+  }
+}
+
+@media (max-width: 770px) {
+  .sprint {
+    width: 100vw;
+    grid-template-areas:
+      'timer . . close'
+      'score score score score'
+      'box box box box';
+  }
+}

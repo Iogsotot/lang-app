@@ -1,0 +1,107 @@
+@import "../../index.scss";
+
+.word {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 5rem;
+
+  >* {
+    flex: 1 1 25rem;
+  }
+
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+
+    img {
+      border-radius: 1.5rem;
+      display: block;
+      height: inherit;
+    }
+  }
+
+  .word__info {
+    >* {
+      transition: all 200ms linear;
+    }
+
+    width: 100%;
+    margin-left: 2rem;
+
+    p {
+      margin-bottom: 0.6rem;
+      color: var(--bg-word-info);
+      font-style: normal;
+      font-weight: normal;
+      font-size: 1rem;
+      line-height: 1.625rem;
+    }
+  }
+
+  &__name {
+    margin-bottom: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2.25rem;
+    line-height: 1;
+    color: var(--bg-word-name);
+    text-align: left;
+  }
+
+  &__buttons {
+    button {
+      margin-right: 0.625rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .tags {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 0;
+
+    span {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .word {
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+
+    .word__image {
+      margin-bottom: 10px;
+
+      img {
+        max-width: 90%;
+        width: 100%;
+      }
+    }
+
+    .word__info {
+      margin-left: 0;
+    }
+
+    &__name {
+      font-size: 1.7rem;
+    }
+
+    &__meaning,
+    &__example {
+      font-size: 0.8rem !important;
+    }
+
+    &__image img {
+      width: 13rem;
+    }
+  }
+}

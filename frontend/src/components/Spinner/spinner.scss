@@ -1,0 +1,45 @@
+@import '../../index.scss';
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.spinner__inner div {
+  position: absolute;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: .625rem solid rgba($color_important, .7);
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+
+.spinner__inner div {
+  animation: spin 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.spinner__inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transform-origin: 0 0;
+}
+
+.spinner__inner div {
+  box-sizing: content-box;
+}

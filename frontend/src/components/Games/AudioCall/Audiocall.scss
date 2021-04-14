@@ -1,0 +1,253 @@
+.audiocall {
+  position: relative;
+  height: calc(100vh - 78px);
+  background: url("https://i.ytimg.com/vi/_yJ0c1u1ElU/maxresdefault.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .btn--close {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    aspect-ratio: 1/1;
+    width: 48px;
+
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    transition: all 250ms;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 250ms;
+    }
+    .fal,
+    .far {
+      font-family: "Font Awesome 5 Pro";
+    }
+  }
+  &__info {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 450px;
+    margin: auto;
+
+    background-color: rgba(255, 255, 255, 0.5);
+
+    .btn {
+      display: block;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      margin: 1rem auto 0.5rem;
+    }
+  }
+  &_inner {
+    margin: 0 auto;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__current-word {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    & img {
+      width: 250px;
+      height: 250px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    &__text {
+      font-size: 1.8rem;
+      color: white;
+    }
+  }
+
+  &__hotKey {
+    color: #407bd3;
+    font-size: 1.1rem;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+
+  &__answers {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 15%;
+
+    &__button {
+      position: relative;
+    }
+
+    &__variants {
+      width: 80%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      background-color: rgba(0, 0, 0, 0.5);
+
+      & button {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__start-button {
+    margin-top: 80px;
+
+    & .button {
+      font-size: 1.3rem;
+    }
+  }
+
+  &__volume {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+
+    &_main {
+      width: 150px;
+      height: 150px;
+      font-size: 75px;
+    }
+  }
+
+  & .button.is-ghost {
+    color: #fff;
+    margin: 3px;
+
+    &:hover {
+      background-color: #fff3;
+      text-decoration: none;
+    }
+
+    &:active {
+      outline: none;
+      background-color: #fff5;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:disabled {
+      color: #fff;
+      background-color: transparent;
+      border: none;
+      opacity: 1;
+      cursor: default;
+    }
+
+    &.wrong:disabled {
+      background-color: #9b352795;
+    }
+
+    &.correct:disabled {
+      background-color: #279b8f95;
+    }
+  }
+
+  &__answers .button.is-danger {
+    color: #fff;
+    font-size: 1.5rem;
+  }
+
+  & .close-btn {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    z-index: 25;
+
+    &::before,
+    &::after {
+      background-color: #fff;
+    }
+
+    &:hover::before,
+    &:hover::after {
+      background-color: #7a7a7a;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+  .difficulty-btn-block {
+    & .button {
+      margin: 5px;
+      font-size: 1.2rem;
+
+      &:disabled {
+        cursor: default;
+      }
+    }
+  }
+
+  .volume-button {
+    background-color: transparent;
+    border-radius: 50%;
+    color: #373b53;
+    border: none;
+
+    &:hover {
+      background-color: #fff3;
+      opacity: 0.8;
+    }
+
+    &:active {
+      outline: none;
+      background-color: #fff5;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+  .fas {
+    color: white;
+  }
+}
+.fa-circle {
+  color: #aaa;
+}
+
+.react-tabs__tab--selected > .fa-circle {
+  color: #b57ad2;
+}

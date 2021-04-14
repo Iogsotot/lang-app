@@ -1,7 +1,14 @@
 import { Dispatch } from 'react';
 
+interface UserWord {
+  isDeleted?: boolean;
+  isLearning?: boolean;
+  difficulty?: string;
+}
+
 export interface Word {
   id?: string;
+  _id?: string;
   group?: number;
   page?: number;
   word: string;
@@ -15,37 +22,79 @@ export interface Word {
   wordTranslate: string;
   textMeaningTranslate: string;
   textExampleTranslate: string;
+  userWord?: UserWord;
 }
 
 export interface WordListState {
   words: Word[];
+  groupOfWords?: Word[][];
   page: number;
   group: number;
   loading: boolean;
+  hiddenLoading: boolean;
   error: null | string;
   translate: boolean;
   displayButtons: boolean;
 }
 
+export interface FetchUserWordsProps {
+  group: number;
+  page?: number;
+  section?: string;
+  amount?: number;
+  hideDeleted?: boolean;
+  userId: string;
+  token: string;
+}
+
 export interface WordsDispatchProps {
+  fetchRandomWords: (
+    group: number,
+    page: number,
+    amount: number,
+  ) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showButtons: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setGroup: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
-  fetchWords: (group: number, page: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
+  fetchWords: (group: number, page: number, sort?: number) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
+  fetchUserWords: (props: FetchUserWordsProps) => (dispatch: Dispatch<WordListAction>) => Promise<void>;
   showTranslate: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setPage: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
+  setLocalPage: (page: Word[]) => (dispatch: Dispatch<WordListAction>) => void;
+  updateWord: (
+    words: Word[],
+    word: Word,
+    token: string,
+    userId: string,
+    newId: string,
+    body: string,
+    method?: string,
+  ) => (dispatch: Dispatch<WordListAction>) => void;
+  clearDeletedWords: (words: Word[]) => (dispatch: Dispatch<WordListAction>) => void;
+}
+
+interface FetchRandomWordListAction {
+  type: WordListActionTypes.FETCH_RANDOM_WORD_LIST;
 }
 
 interface FetchWordListAction {
-  type: WordListActionTypes.FETCH_WORD_LIST;
+  type: WordListActionTypes.FETCH_WORDS_API;
 }
 
+interface FetchWordUpdateAction {
+  type: WordListActionTypes.START_FETCH_WORD_UPDATE;
+}
 interface FetchWordListSuccessAction {
   type: WordListActionTypes.FETCH_WORD_LIST_SUCCESS;
   payload: Word[];
 }
 
+interface FetchUserWordListSuccessAction {
+  type: WordListActionTypes.FETCH_USER_WORD_LIST_SUCCESS;
+  payload: Word[][];
+}
+
 interface FetchWordListErrorAction {
-  type: WordListActionTypes.FETCH_WORD_LIST_ERROR;
+  type: WordListActionTypes.FETCH_WORDS_API_ERROR;
   payload: string;
 }
 
@@ -69,21 +118,40 @@ interface GetWordListGroup {
   payload: number;
 }
 
+interface UpdateWord {
+  type: WordListActionTypes.SET_WORDS;
+  payload: Word[];
+}
+
+export enum DictionarySections {
+  LEARNING = 'learning',
+  HARD = 'hard',
+  DELETED = 'deleted',
+}
+
 export enum WordListActionTypes {
-  FETCH_WORD_LIST = 'FETCH_WORD_LIST',
+  FETCH_RANDOM_WORD_LIST = 'FETCH_RANDOM_WORD_LIST',
+  FETCH_WORDS_API = 'FETCH_WORDS_API',
   FETCH_WORD_LIST_SUCCESS = 'FETCH_WORD_LIST_SUCCESS',
-  FETCH_WORD_LIST_ERROR = 'FETCH_WORD_LIST_ERROR',
+  FETCH_USER_WORD_LIST_SUCCESS = 'FETCH_USER_WORD_LIST_SUCCESS',
+  FETCH_WORDS_API_ERROR = 'FETCH_WORDS_API_ERROR',
   GET_WORD_LIST_PAGE = 'GET_WORD_LIST_PAGE',
   GET_WORD_LIST_GROUP = 'GET_WORD_LIST_GROUP',
   SHOW_WORD_TRANSLATE = 'SHOW_WORD_TRANSLATE',
   SHOW_WORD_BUTTONS = 'SHOW_WORD_BUTTONS',
+  SET_WORDS = 'SET_WORDS',
+  START_FETCH_WORD_UPDATE = 'START_FETCH_WORD_UPDATE',
 }
 
 export type WordListAction =
-  FetchWordListAction
+  | FetchRandomWordListAction
+  | FetchWordListAction
   | FetchWordListSuccessAction
+  | FetchUserWordListSuccessAction
   | FetchWordListErrorAction
   | GetWordListPage
   | GetWordListGroup
   | ShowWordTranslate
-  | ShowWordButtons;
+  | ShowWordButtons
+  | UpdateWord
+  | FetchWordUpdateAction;

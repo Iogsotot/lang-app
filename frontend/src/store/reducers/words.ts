@@ -1,20 +1,25 @@
 import { WordListAction, WordListActionTypes, WordListState } from '../../models/word';
 
 const {
-  FETCH_WORD_LIST,
-  FETCH_WORD_LIST_ERROR,
+  FETCH_RANDOM_WORD_LIST,
+  FETCH_WORDS_API,
+  FETCH_WORDS_API_ERROR,
   FETCH_WORD_LIST_SUCCESS,
   GET_WORD_LIST_PAGE,
   GET_WORD_LIST_GROUP,
   SHOW_WORD_TRANSLATE,
   SHOW_WORD_BUTTONS,
+  FETCH_USER_WORD_LIST_SUCCESS,
+  SET_WORDS,
+  START_FETCH_WORD_UPDATE,
 } = WordListActionTypes;
 
-const initialState: WordListState = {
+export const initialState: WordListState = {
   words: [],
-  page: 0,
-  group: 0,
+  page: 1,
+  group: 1,
   loading: false,
+  hiddenLoading: false,
   error: null,
   translate: true,
   displayButtons: true,
@@ -22,7 +27,13 @@ const initialState: WordListState = {
 
 export const wordListReducer = (state = initialState, action: WordListAction): WordListState => {
   switch (action.type) {
-    case FETCH_WORD_LIST:
+    case FETCH_WORDS_API:
+      return { ...state, loading: true };
+
+    case START_FETCH_WORD_UPDATE:
+      return { ...state, hiddenLoading: true };
+
+    case FETCH_RANDOM_WORD_LIST:
       return { ...state, loading: true };
 
     case GET_WORD_LIST_PAGE:
@@ -34,7 +45,10 @@ export const wordListReducer = (state = initialState, action: WordListAction): W
     case FETCH_WORD_LIST_SUCCESS:
       return { ...state, loading: false, words: action.payload };
 
-    case FETCH_WORD_LIST_ERROR:
+    case FETCH_USER_WORD_LIST_SUCCESS:
+      return { ...state, groupOfWords: action.payload };
+
+    case FETCH_WORDS_API_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     case SHOW_WORD_TRANSLATE:
@@ -42,6 +56,9 @@ export const wordListReducer = (state = initialState, action: WordListAction): W
 
     case SHOW_WORD_BUTTONS:
       return { ...state, displayButtons: action.payload };
+
+    case SET_WORDS:
+      return { ...state, words: action.payload, hiddenLoading: false };
 
     default:
       return state;

@@ -1,0 +1,235 @@
+@import "../../../index.scss";
+
+.savannah {
+  position: relative;
+  height: calc(100vh - 99.55px);
+  background: url("../../../assets/images/savannah-bg.svg");
+  background-repeat: repeat;
+  background-size: cover;
+  background-position-x: center;
+  background-position-y: 100%;
+
+  transition: background-position-y 250ms linear;
+
+  .savannah-body {
+    position: relative;
+    width: inherit;
+    height: inherit;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .btn--close {
+    position: absolute;
+    z-index: 20;
+    top: 0.5rem;
+    right: 1rem;
+    aspect-ratio: 1/1;
+    width: 48px;
+
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    transition: all 250ms;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 250ms;
+    }
+
+    .fal,
+    .far {
+      font-family: "Font Awesome 5 Pro";
+    }
+  }
+
+  .btn--sound {
+    position: absolute;
+    z-index: 20;
+    top: 0.8rem;
+    left: 1rem;
+    aspect-ratio: 1/1;
+    width: 48px;
+
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    transition: all 250ms;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 250ms;
+    }
+  }
+
+  .savannah__info {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 450px;
+    margin: auto;
+    text-align: justify;
+
+    background-color: rgba(255, 255, 255, 0.8);
+
+    .btn--start {
+      display: block;
+      width: fit-content;
+      margin: 1rem auto 0.5rem;
+    }
+  }
+
+  .current-word__container {
+    position: relative;
+    height: 30rem;
+    .current-word {
+      height: inherit;
+      color: $color_white;
+      &.start-anim {
+        animation: fall 5000ms ease-in both;
+      }
+    }
+
+    .timer--start {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%);
+    }
+  }
+  .status-bar {
+    text-align: right;
+    height: 5rem;
+    & > * {
+      display: inline-block;
+      height: 2rem;
+      line-height: 2rem;
+    }
+    .lives {
+      text-align: right;
+      color: lightcoral;
+      margin-right: 4rem;
+      margin-top: 1rem;
+      .fa-heart {
+        margin: 0.1rem;
+      }
+    }
+  }
+  .answer-variants {
+    display: block;
+    & > .wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      max-width: 50rem;
+      margin: auto;
+    }
+    .button {
+      color: $color_white;
+    }
+  }
+
+  .crystal-block {
+    .crystal {
+      position: absolute;
+      bottom: 5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 4rem;
+      aspect-ratio: 1/1;
+      background-image: url("../../../assets/images/crystal.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 100;
+      animation: crystalFly 3000ms infinite;
+      &::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 2;
+        display: block;
+        content: "";
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 100%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+      }
+      &:hover::before {
+        animation: circle 550ms;
+      }
+    }
+  }
+
+  .difficulty-btn-block {
+    text-align: center;
+    max-width: 19rem;
+    margin: auto;
+    button {
+      margin: 0.5rem 0.8rem;
+      &:nth-of-type(4) {
+        margin-right: 0;
+      }
+      &:nth-of-type(5) {
+        margin-left: 0;
+      }
+      &:first-of-type {
+        margin-left: 0;
+      }
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes crystalFly {
+  0% {
+    transform: translate(-50%, 0%);
+  }
+  40% {
+    transform: translate(-50%, 40%);
+  }
+
+  50% {
+    transform: translate(-50%, 40%);
+  }
+  100% {
+    transform: translate(-50%, 0%);
+  }
+}
+
+@keyframes circle {
+  0% {
+    opacity: 0.5;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  40% {
+    opacity: 1;
+    background: rgba(205, 255, 224, 0.2);
+  }
+  100% {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+  }
+}

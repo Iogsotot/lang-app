@@ -1,0 +1,97 @@
+.puzzle {
+  position: relative;
+  height: calc(100vh - 78px);
+  background: url("../../../assets/images/puzzle_layout.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top;
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .btn--close {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    aspect-ratio: 1/1;
+    width: 48px;
+
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    transition: all 250ms;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 250ms;
+    }
+    .fal,
+    .far {
+      font-family: "Font Awesome 5 Pro";
+    }
+  }
+  .puzzle__info {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 450px;
+    margin: auto;
+
+    background-color: rgba(255, 255, 255, 0.5);
+
+    .btn {
+      display: block;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      margin: 1rem auto 0.5rem;
+    }
+  }
+  &__screen {
+    background: rgba(0, 0, 0, 0.2);
+    h2 {
+      color: white;
+    }
+  }
+  &__phrase {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #c9ced6;
+    min-height: 100px;
+  }
+  &__variants {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  &__space {
+    background-color: white;
+    min-width: 70px;
+    height: 70px;
+    margin: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .card {
+      margin: 2% !important;
+    }
+  }
+}
+.space {
+  min-width: 50px;
+}
+.phrase {
+  display: flex;
+  flex-direction: row;
+  min-height: 100px;
+  align-items: center;
+}

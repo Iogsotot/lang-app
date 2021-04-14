@@ -1,29 +1,27 @@
-import './App.scss';
-import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { FC } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import TextBook from './components/Textbook';
-import PromoPage from './components/PromoPage';
-import { index } from './store';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import store from './store/store';
+import 'typeface-roboto';
+import 'typeface-roboto-mono';
+import 'typeface-rubik';
+import Menu from './components/Menu';
+import { Router } from './routes';
+import DarkThemeProvider from './components/Theme';
 
-const App: React.FC = () => (
-  <div className="App">
-    <Provider store={index}>
+const App: FC = () => (
+  <Provider store={store}>
+    <DarkThemeProvider>
       <BrowserRouter>
-        <Switch>
-          <Route path="/" exact>
-            <PromoPage />
-          </Route>
-
-          <Route path="/textbook/:group/:page" exact>
-            <TextBook />
-          </Route>
-
-          <Redirect to="/" />
-        </Switch>
+        <Menu />
+        <Header />
+        <Router />
+        <Footer />
       </BrowserRouter>
-    </Provider>
-  </div>
+    </DarkThemeProvider>
+  </Provider>
 );
 
 export default App;

@@ -1,0 +1,377 @@
+@import "../../index.scss";
+
+main.textbook {
+  height: calc(100vh - 7rem);
+  padding-top: 3rem;
+}
+
+main.textbook,
+main.dictionary {
+  .custom__pagination {
+    padding: 0 10px;
+    button {
+      background: transparent;
+      cursor: pointer;
+      color: var(--bg-text-title);
+      &.is-current {
+        background: $color_important;
+        border-color: $color_important;
+      }
+    }
+  }
+
+  .custom-tabs {
+    ul {
+      justify-content: center;
+    }
+  }
+
+  &.Novice {
+    .custom__pagination {
+      button {
+        &.is-current {
+          background: $Novice;
+          border-color: $Novice;
+        }
+      }
+    }
+
+    .custom-tabs {
+      ul {
+        li {
+          &.is-active {
+            a {
+              background: $Novice;
+              border-color: $Novice;
+            }
+          }
+        }
+      }
+    }
+
+    .words::-webkit-scrollbar {
+      background: rgba($Novice, 0.2);
+
+      &:hover {
+        background: rgba($Novice, 0.3);
+      }
+    }
+
+    .words::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba($Novice, 0.3);
+      background: rgba($Novice, 0.5);
+
+      &:hover {
+        background: $Novice;
+      }
+    }
+
+    .audio__controller {
+      &::before {
+        background: $Novice;
+      }
+
+      .btn-play {
+        border-color: $Novice;
+        color: $Novice;
+
+        &:hover {
+          color: white;
+          background: $Novice;
+        }
+      }
+    }
+  }
+
+  &.Easy {
+    .custom__pagination {
+      button {
+        &.is-current {
+          background: $Easy;
+          border-color: $Easy;
+        }
+      }
+    }
+
+    .custom-tabs {
+      ul {
+        li {
+          &.is-active {
+            a {
+              background: $Easy;
+              border-color: $Easy;
+            }
+          }
+        }
+      }
+    }
+
+    .words::-webkit-scrollbar {
+      background: rgba($Easy, 0.2);
+
+      &:hover {
+        background: rgba($Easy, 0.3);
+      }
+    }
+
+    .words::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba($Easy, 0.3);
+      background: rgba($Easy, 0.5);
+
+      &:hover {
+        background: $Easy;
+      }
+    }
+
+    .audio__controller {
+      &::before {
+        background: $Easy;
+      }
+
+      .btn-play {
+        border-color: $Easy;
+        color: $Easy;
+
+        &:hover {
+          color: white;
+          background: $Easy;
+        }
+      }
+    }
+  }
+
+  &.Middle {
+    .custom__pagination {
+      button {
+        &.is-current {
+          background: $Middle;
+          border-color: $Middle;
+        }
+      }
+    }
+
+    .custom-tabs {
+      ul {
+        li {
+          &.is-active {
+            a {
+              background: $Middle;
+              border-color: $Middle;
+            }
+          }
+        }
+      }
+    }
+
+    .words::-webkit-scrollbar {
+      background: rgba($Middle, 0.2);
+
+      &:hover {
+        background: rgba($Middle, 0.3);
+      }
+    }
+
+    .words::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba($Middle, 0.3);
+      background: rgba($Middle, 0.5);
+
+      &:hover {
+        background: $Middle;
+      }
+    }
+
+    .audio__controller {
+      &::before {
+        background: $Middle;
+      }
+
+      .btn-play {
+        border-color: $Middle;
+        color: $Middle;
+
+        &:hover {
+          color: white;
+          background: $Middle;
+        }
+      }
+    }
+  }
+
+  &.Hard {
+    .custom__pagination {
+      button {
+        &.is-current {
+          background: $Hard;
+          border-color: $Hard;
+        }
+      }
+    }
+
+    .custom-tabs {
+      ul {
+        li {
+          &.is-active {
+            a {
+              background: $Hard;
+              border-color: $Hard;
+            }
+          }
+        }
+      }
+    }
+
+    .words::-webkit-scrollbar {
+      background: rgba($Hard, 0.2);
+
+      &:hover {
+        background: rgba($Hard, 0.3);
+      }
+    }
+
+    .words::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba($Hard, 0.3);
+      background: rgba($Hard, 0.5);
+
+      &:hover {
+        background: $Hard;
+      }
+    }
+
+    .audio__controller {
+      &::before {
+        background: $Hard;
+      }
+
+      .btn-play {
+        border-color: $Hard;
+        color: $Hard;
+
+        &:hover {
+          color: white;
+          background: $Hard;
+        }
+      }
+    }
+  }
+
+  &.Impossible {
+    .custom__pagination {
+      button {
+        &.is-current {
+          background: $Impossible;
+          border-color: $Impossible;
+        }
+      }
+    }
+
+    .custom-tabs {
+      ul {
+        li {
+          &.is-active {
+            a {
+              background: $Impossible;
+              border-color: $Impossible;
+            }
+          }
+        }
+      }
+    }
+
+    .words::-webkit-scrollbar {
+      background: rgba($Impossible, 0.2);
+
+      &:hover {
+        background: rgba($Impossible, 0.3);
+      }
+    }
+
+    .words::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba($Impossible, 0.3);
+      background: rgba($Impossible, 0.5);
+
+      &:hover {
+        background: $Impossible;
+      }
+    }
+
+    .audio__controller {
+      &::before {
+        background: $Impossible;
+      }
+
+      .btn-play {
+        border-color: $Impossible;
+        color: $Impossible;
+
+        &:hover {
+          color: white;
+          background: $Impossible;
+        }
+      }
+    }
+  }
+
+  &.Legendary {
+    .custom__pagination {
+      button {
+        &.is-current {
+          background: $Legendary;
+          border-color: $Legendary;
+        }
+      }
+    }
+
+    .custom-tabs {
+      ul {
+        li {
+          &.is-active {
+            a {
+              background: $Legendary;
+              border-color: $Legendary;
+            }
+          }
+        }
+      }
+    }
+
+    .words::-webkit-scrollbar {
+      background: rgba($Legendary, 0.2);
+
+      &:hover {
+        background: rgba($Legendary, 0.3);
+      }
+    }
+
+    .words::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba($Legendary, 0.3);
+      background: rgba($Legendary, 0.5);
+
+      &:hover {
+        background: $Legendary;
+      }
+    }
+
+    .audio__controller {
+      &::before {
+        background: $Legendary;
+      }
+
+      .btn-play {
+        border-color: $Legendary;
+        color: $Legendary;
+
+        &:hover {
+          color: white;
+          background: $Legendary;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 640px) {
+  main.textbook,
+  main.dictionary {
+    padding: 1rem 0;
+    height: auto;
+  }
+}

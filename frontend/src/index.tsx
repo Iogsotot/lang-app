@@ -1,12 +1,20 @@
 import 'bulma/css/bulma.css';
-import './index.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import { BrowserRouter } from 'react-router-dom';
+import 'typeface-roboto';
+import 'typeface-roboto-mono';
+import 'typeface-rubik';
+import './index.scss';
+
 import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
 );

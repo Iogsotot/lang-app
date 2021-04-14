@@ -1,0 +1,129 @@
+@import '../../index.scss';
+
+main.dictionary {
+  &.Novice {
+    .section-tabs {
+      ul {
+        border-bottom-color: $Novice !important;
+
+        li {
+          &.is-active {
+            a {
+              color: $Novice !important;
+              border-color: $Novice !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.Easy {
+    .section-tabs {
+      ul {
+        border-bottom-color: $Easy !important;
+
+        li {
+          &.is-active {
+            a {
+              color: $Easy !important;
+              border-color: $Easy !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.Middle {
+    .section-tabs {
+      ul {
+        border-bottom-color: $Middle !important;
+
+        li {
+          &.is-active {
+            a {
+              color: $Middle !important;
+              border-color: $Middle !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.Hard {
+    .section-tabs {
+      ul {
+        border-bottom-color: $Hard !important;
+
+        li {
+          &.is-active {
+            a {
+              color: $Hard !important;
+              border-color: $Hard !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.Impossible {
+    .section-tabs {
+      ul {
+        border-bottom-color: $Impossible !important;
+
+        li {
+          &.is-active {
+            a {
+              color: $Impossible !important;
+              border-color: $Impossible !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.Legendary {
+    .section-tabs {
+      ul {
+        border-bottom-color: $Legendary !important;
+
+        li {
+          &.is-active {
+            a {
+              color: $Legendary !important;
+              border-color: $Legendary !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.section-tabs {
+  margin-top: 20px;
+
+  ul {
+    justify-content: center;
+    border-bottom-color: $color_important !important;
+
+    li {
+      &.is-active {
+        a {
+          color: $color_important !important;
+          border-color: $color_important !important;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .section-tabs {
+    margin-top: 0;
+  }
+}
