@@ -39,6 +39,10 @@
       font-size: 1rem;
       line-height: 1.625rem;
     }
+    .word__stat {
+      color: var(--bg-text-title);
+      font-weight: bold;
+    }
   }
 
   &__name {

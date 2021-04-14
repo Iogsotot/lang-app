@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -6,9 +6,14 @@ import { Word } from '../../../models/word';
 import { FinishProps } from './Finish.model';
 import 'react-tabs/style/react-tabs.css';
 import './finish.scss';
+import { useAction } from '../../../hooks/useAction';
+import { useTypedSelector } from '../../../hooks/useTypedSelector';
 
 const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
   const history = useHistory();
+  const { setStats } = useAction();
+  const store = useTypedSelector(commonStore => commonStore);
+  const { stats } = store.wordList;
   const wordSoundUrl = (word: Word) => `https://rslang-2020q3.herokuapp.com/${word?.audio}`;
   const playSound = (soundUrl: string) => {
     const wordAudio = new Audio(soundUrl);
@@ -37,6 +42,14 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
     await history.push('/');
     window.location.hash = '#games';
   };
+
+  useEffect(() => {
+    setStats(stats || [], correctAnswers || [], true);
+  }, []);
+
+  useEffect(() => {
+    setStats(stats || [], wrongAnswers || [], false);
+  }, []);
 
   return (
     <div className="modal is-active">

@@ -4,6 +4,10 @@ interface UserWord {
   isDeleted?: boolean;
   isLearning?: boolean;
   difficulty?: string;
+  stats?: {
+    wrongGameAnswersCount?: number;
+    correctGameAnswersCount?: number;
+  }
 }
 
 export interface Word {
@@ -25,8 +29,15 @@ export interface Word {
   userWord?: UserWord;
 }
 
+export interface StatsItem {
+  word: string;
+  wrongGameAnswersCount?: number;
+  correctGameAnswersCount?: number;
+}
+
 export interface WordListState {
   words: Word[];
+  stats: StatsItem[];
   groupOfWords?: Word[][];
   page: number;
   group: number;
@@ -60,6 +71,7 @@ export interface WordsDispatchProps {
   showTranslate: (show: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   setPage: (number: number) => (dispatch: Dispatch<WordListAction>) => void;
   setLocalPage: (page: Word[]) => (dispatch: Dispatch<WordListAction>) => void;
+  setStats: (stats: StatsItem[], words: Word[], answer: boolean) => (dispatch: Dispatch<WordListAction>) => void;
   updateWord: (
     words: Word[],
     word: Word,
@@ -91,6 +103,11 @@ interface FetchWordListSuccessAction {
 interface FetchUserWordListSuccessAction {
   type: WordListActionTypes.FETCH_USER_WORD_LIST_SUCCESS;
   payload: Word[][];
+}
+
+interface AddWordToStats {
+  type: WordListActionTypes.SET_STATS;
+  payload: StatsItem[];
 }
 
 interface FetchWordListErrorAction {
@@ -141,6 +158,7 @@ export enum WordListActionTypes {
   SHOW_WORD_BUTTONS = 'SHOW_WORD_BUTTONS',
   SET_WORDS = 'SET_WORDS',
   START_FETCH_WORD_UPDATE = 'START_FETCH_WORD_UPDATE',
+  SET_STATS = 'SET_STATS',
 }
 
 export type WordListAction =
@@ -154,4 +172,5 @@ export type WordListAction =
   | ShowWordTranslate
   | ShowWordButtons
   | UpdateWord
-  | FetchWordUpdateAction;
+  | FetchWordUpdateAction
+  | AddWordToStats;

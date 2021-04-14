@@ -6,6 +6,7 @@ import {
   FetchUserWordsProps,
   DictionarySections,
   Word,
+  StatsItem,
 } from '../../models';
 
 const {
@@ -20,6 +21,7 @@ const {
   SHOW_WORD_BUTTONS,
   SET_WORDS,
   START_FETCH_WORD_UPDATE,
+  SET_STATS,
 } = WordListActionTypes;
 
 const { deletedWords, hardWords, learningWords } = USER_WORDS_FILTERS;
@@ -264,5 +266,47 @@ export const clearDeletedWords = (words: Word[]) => (dispatch: Dispatch<WordList
   dispatch({
     type: SET_WORDS,
     payload: clearedWords,
+  });
+};
+
+export const setStats =
+(stats: StatsItem[], words: Word[], answer: boolean) => (dispatch: Dispatch<WordListAction>): void => {
+  const currnetWords = words ? [...words] : [];
+  const currentStats = stats ? [...stats] : [];
+
+  currnetWords.forEach((element) => {
+    const currentWord = currentStats.find((elem) => elem.word === element.word);
+    if (!currentWord) {
+      currentStats.push({
+        word: element.word,
+        correctGameAnswersCount: answer ? 1 : 0,
+        wrongGameAnswersCount: answer ? 0 : 1,
+      });
+    }
+  });
+
+  const newStats = currentStats.map((element) => {
+    const currentWord = currnetWords.find((elem) => elem.word === element.word);
+    if (currentWord) {
+      if (answer) {
+        return {
+          ...element,
+          correctGameAnswersCount:
+            element.correctGameAnswersCount
+            || element.correctGameAnswersCount === 0 ? element.correctGameAnswersCount++ : 0,
+        };
+      }
+      return {
+        ...element,
+        wrongGameAnswersCount:
+            element.wrongGameAnswersCount
+            || element.wrongGameAnswersCount === 0 ? element.wrongGameAnswersCount++ : 0,
+      };
+    }
+    return element;
+  });
+  dispatch({
+    type: SET_STATS,
+    payload: newStats || [],
   });
 };

@@ -12,10 +12,12 @@ const {
   FETCH_USER_WORD_LIST_SUCCESS,
   SET_WORDS,
   START_FETCH_WORD_UPDATE,
+  SET_STATS,
 } = WordListActionTypes;
 
 export const initialState: WordListState = {
   words: [],
+  stats: [],
   page: 1,
   group: 1,
   loading: false,
@@ -59,6 +61,9 @@ export const wordListReducer = (state = initialState, action: WordListAction): W
 
     case SET_WORDS:
       return { ...state, words: action.payload, hiddenLoading: false };
+
+    case SET_STATS:
+      return { ...state, stats: action.payload };
 
     default:
       return state;
