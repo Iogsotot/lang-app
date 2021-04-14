@@ -21,7 +21,7 @@ const Difficulty: FC<DifficultyProps> = ({ handleStart, title, desc }) => {
   }
 
   return (
-    <div className="box difficulty__box">
+    <div className="box difficulty__box savannah__info">
       <div className="difficulty-btn-block">
         <h2 className="title is-2">{title}</h2>
         <p>{desc}</p>
