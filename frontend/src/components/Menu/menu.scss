@@ -1,5 +1,5 @@
-@import 'bulma';
-@import 'bulma-switch';
+@import "bulma";
+@import "bulma-switch";
 // bg, btn
 $main-bg: #b57ad2;
 
@@ -30,8 +30,8 @@ aside.menu {
   .logo-field {
     display: block;
     background-color: var(--bg-logo);
-    height: 100px;
-    padding-top: 1.375rem;
+    height: 85.2px;
+    padding-top: 0.5rem;
     img {
       display: block;
       margin-left: 1.375rem;
@@ -93,15 +93,15 @@ aside.menu {
     right: 0;
     z-index: 1;
     transform: translateX(-100%);
-    transition: all .3s linear;
+    transition: all 0.3s linear;
     background-color: #373b53;
     border-radius: 0px 22px 22px 0px;
     color: $color_white;
     &.active {
       transform: translateX(100%);
-      transition: all .3s linear;
+      transition: all 0.3s linear;
     }
-    .field{
+    .field {
       margin-bottom: 0.25rem;
     }
     &-item {
@@ -114,21 +114,21 @@ aside.menu {
   }
 }
 @media (max-width: 640px) {
-  aside.menu{
+  aside.menu {
     width: 100%;
     height: 100px;
     top: calc(100% - 100px);
-    .logo-field{
+    .logo-field {
       display: none;
     }
-    .down-group{
-    flex-direction: row-reverse;
-    justify-content: end;
-    margin-top: -195px;
-    margin-right: 1.5rem;
-    height: 100px;
+    .down-group {
+      flex-direction: row-reverse;
+      justify-content: end;
+      margin-top: -195px;
+      margin-right: 1.5rem;
+      height: 100px;
     }
-    .top-group{
+    .top-group {
       z-index: 50;
       width: 420px;
     }
@@ -139,7 +139,8 @@ aside.menu {
         flex-direction: row;
       }
     }
-    .icon, .fa-3x {
+    .icon,
+    .fa-3x {
       display: block;
       margin: auto;
       width: 1.75rem;
@@ -147,22 +148,21 @@ aside.menu {
     }
     .fa-3x {
       font-size: 1.8em;
-     }
-    .hidden__menu.active{
-    width: 241px;
-    height: 110px;
-    top: 0;
-    z-index: 50;
-    right: -24px;
-    transform: translateY(-100%);
-    border-radius: 0px;
-    visibility: inherit;
     }
-    .hidden__menu{
-     visibility: hidden;
+    .hidden__menu.active {
+      width: 241px;
+      height: 110px;
+      top: 0;
+      z-index: 50;
+      right: -24px;
+      transform: translateY(-100%);
+      border-radius: 0px;
+      visibility: inherit;
+    }
+    .hidden__menu {
+      visibility: hidden;
     }
   }
-
 }
 
 .fal {
@@ -171,5 +171,5 @@ aside.menu {
   color: rgb(128, 135, 162);
 }
 .fal:hover {
-  color: rgb(103, 109, 134)
+  color: rgb(103, 109, 134);
 }

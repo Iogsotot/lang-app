@@ -1,7 +1,7 @@
 .puzzle {
   position: relative;
-  height: calc(100vh - 78px);
-  background: url('../../../assets/images/puzzle_layout.jpeg');
+  height: calc(100vh - 85.2px);
+  background: url("../../../assets/images/puzzle_layout.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
@@ -31,7 +31,7 @@
     }
     .fal,
     .far {
-      font-family: 'Font Awesome 5 Pro';
+      font-family: "Font Awesome 5 Pro";
     }
   }
 
