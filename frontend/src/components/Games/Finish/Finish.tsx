@@ -2,13 +2,13 @@ import { FC, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Word } from '../../../models/word';
+import { FetchUserWordsProps, Word } from '../../../models/word';
 import { FinishProps } from './Finish.model';
 import 'react-tabs/style/react-tabs.css';
 import './finish.scss';
 import { useTypedSelector } from '../../../hooks/useTypedSelector';
 import { API_BASE_URL } from '../../../constants';
-import { fetchUserWords, updateWord } from '../../../store/action-creators/words';
+import { useAction } from '../../../hooks/useAction';
 
 const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
   // const [loadedWords, setLoadedWords] = useState();
@@ -19,11 +19,14 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
     wordAudio.play();
   };
   const store = useTypedSelector(commonStore => commonStore);
+  const { isLoggedIn } = store.user;
   const { userId, token } = store.user.user;
   const { words } = store.wordList;
   useEffect(() => {
-    console.log(words);
+    // console.log(words);
   }, [words]);
+
+  const { updateWord } = useAction();
 
   useEffect(() => {
     fetch(`https://rslang-2020q3.herokuapp.com/users/${userId}/aggregatedWords`, {
@@ -34,24 +37,49 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
     }).then(res => res.json()).then(res => {
       const userWords = res[0].paginatedResults;
       console.log(userWords);
-      console.log('he');
+
+      correctAnswers.forEach(el => {
+        const body = JSON.stringify({
+          stats: {
+            correctGameAnswersCount: 1,
+          },
+        });
+        const { id } = el;
+        updateWord(words, el, token, userId, id as string, body);
+      });
+
+      const allWords = [...userWords, ...correctAnswers, ...wrongAnswers];
       userWords.forEach((el: any) => {
+        console.log(el);
         const haveProp = Object.prototype.hasOwnProperty.call(el, 'userWord');
+        console.log(haveProp);
+        // eslint-disable-next-line no-underscore-dangle
+        const dashedId = el._id;
+        const { id } = el;
+        const newId = (isLoggedIn ? dashedId : id) ?? id;
         if (haveProp) {
-          console.log('i have that prop');
+          const body = JSON.stringify({
+            stats: {
+              correctGameAnswersCount: el.userWord.stats.correctGameAnswersCount ?? 0,
+              wrongGameAnswersCount: el.userWord.stats.wrongGameAnswersCount ?? 0,
+            },
+            isLearning: true,
+          });
+          updateWord(words, el, token, userId, newId as string, body);
         } else {
           const body = JSON.stringify({
             stats: {
               wrongGameAnswersCount: 0,
-              correctGameAnswersCount: 1,
+              correctGameAnswersCount: 0,
             },
             learningStartDate: new Date(),
             isLearning: true,
           });
-          updateWord(words, el, token, userId, el.id, body);
+          updateWord(words, el, token, userId, newId as string, body);
         }
       });
     });
+
     /*
     correctAnswers.forEach(async (el) => {
       await fetch(`${API_BASE_URL}/users/${userId}/words/${el.id}`, {
