@@ -1,7 +1,7 @@
 .puzzle {
   position: relative;
   height: calc(100vh - 78px);
-  background: url("../../../assets/images/puzzle_layout.jpeg");
+  background: url('../../../assets/images/puzzle_layout.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
@@ -31,27 +31,10 @@
     }
     .fal,
     .far {
-      font-family: "Font Awesome 5 Pro";
+      font-family: 'Font Awesome 5 Pro';
     }
   }
-  .puzzle__info {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%);
-    width: 450px;
-    margin: auto;
 
-    background-color: rgba(255, 255, 255, 0.5);
-
-    .btn {
-      display: block;
-      width: fit-content;
-      display: flex;
-      align-items: center;
-      margin: 1rem auto 0.5rem;
-    }
-  }
   &__screen {
     background: rgba(0, 0, 0, 0.2);
     h2 {
