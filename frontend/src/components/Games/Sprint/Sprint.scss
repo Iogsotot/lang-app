@@ -42,6 +42,7 @@
     grid-area: score;
     height: 2rem;
     text-align: center;
+    color: var(--bg-text-subtitle);
   }
 
   & .countdown-wrapper {
@@ -106,8 +107,14 @@
     position: absolute;
     right: 0rem;
     top: -3rem;
+    color: var(--bg-text-subtitle);
     .button {
       font-size: 1.6rem;
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.8;
     }
   }
 

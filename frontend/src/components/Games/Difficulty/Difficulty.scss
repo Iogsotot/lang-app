@@ -7,7 +7,13 @@
   margin: auto;
   text-align: justify;
 
-  background-color: rgba(255, 255, 255, 0.8);
+  &.box {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  & .title {
+    color: #2b292d;
+  }
 
   .btn--start {
     font-size: inherit;
@@ -38,61 +44,8 @@
   }
 }
 
-// .puzzle__info {
-//   position: absolute;
-//   top: 20%;
-//   left: 50%;
-//   transform: translate(-50%);
-//   width: 450px;
-//   margin: auto;
-
-//   background-color: rgba(255, 255, 255, 0.5);
-
-//   .btn {
-//     display: block;
-//     width: fit-content;
-//     display: flex;
-//     align-items: center;
-//     margin: 1rem auto 0.5rem;
-//   }
-// }
-
-// &__info {
-//   position: absolute;
-//   top: 20%;
-//   left: 50%;
-//   transform: translate(-50%);
-//   width: 450px;
-//   margin: auto;
-
-//   background-color: rgba(255, 255, 255, 0.5);
-
-//   .btn {
-//     display: block;
-//     width: fit-content;
-//     display: flex;
-//     align-items: center;
-//     margin: 1rem auto 0.5rem;
-//   }
-// }
-
-// .box {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   z-index: 3;
-// }
-
-// .buttons {
-//   justify-content: center;
-// }
-// .difficulty-btn-block {
-//   & .button {
-//     margin: 5px;
-//     font-size: 1.2rem;
-
-//     &:disabled {
-//       cursor: default;
-//     }
-//   }
-// }
+@media (max-width: 1000px) {
+  .savannah__info {
+    top: 10%;
+  }
+}

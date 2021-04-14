@@ -9,7 +9,7 @@ import './finish.scss';
 
 const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
   const history = useHistory();
-  const wordSoundUrl = (word: Word) => `https://rslang-2020q3.herokuapp.com/${word?.audio}`;
+  const wordSoundUrl = (word: Word) => `${word?.audio}`;
   const playSound = (soundUrl: string) => {
     const wordAudio = new Audio(soundUrl);
     wordAudio.play();
@@ -19,7 +19,7 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
     <div>
       {list.map((word: Word) => (
         <div className="finish__words-list__row" key={word.word}>
-          <button onClick={() => playSound(wordSoundUrl(word))} className="audiocall__volume volume-button">
+          <button onClick={() => playSound(wordSoundUrl(word))} className="finish__volume volume-button">
             <i className="fas fa-volume-up" />
           </button>
           <span>{`${word.word.toUpperCase()} - ${word.wordTranslate}`}</span>

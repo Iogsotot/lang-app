@@ -46,7 +46,7 @@ const Difficulty: FC<DifficultyProps> = ({ handleStart, title, desc }) => {
           </>
         )}
 
-        <button className="btn--start button is-primary is-outlined" onClick={handleStart}>
+        <button className="btn--start button is-primary" onClick={handleStart}>
           Начать игру!
         </button>
       </div>
