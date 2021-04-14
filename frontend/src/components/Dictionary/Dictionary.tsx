@@ -28,8 +28,8 @@ const Dictionary: FC = () => {
     page: string;
   } = useParams();
   const store = useTypedSelector(commonStore => commonStore);
-  const { page, group, loading, groupOfWords } = store.wordList;
   const { userId, token } = store.user.user;
+  const { page, group, loading, groupOfWords } = store.wordList;
   const [activeSection, setActiveSection] = useState<Sections>(LEARNING);
 
   const nextPage = () => {

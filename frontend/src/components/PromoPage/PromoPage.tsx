@@ -176,6 +176,7 @@ const PromoPage: FC = () => {
             <h2 className="title">С <b>RS lang</b> Вы сможете достигнуть высоких результатов</h2>
             <h3 className="subtitle">Немного об английском в цифрах и фактах. Все это станет Вам доступным!</h3>
           </ScrollAnimation>
+
           <div className="content_group">
             <ul className="info">
               <ScrollAnimation animateIn="lightSpeedIn">

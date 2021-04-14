@@ -23,6 +23,7 @@ const Audiocall: FC = () => {
   const [wordsVariants, setWordsVariants] = useState<string[]>([]);
   const [pressedButtonIdx, setPressedButtonIdx] = useState(-1);
   const [correctButtonIdx, setCorrectButtonIdx] = useState(-1);
+  const [series, setSeries] = useState(0);
 
   const startNewGame = () => {
     fetch(`${API_BASE_URL}/words/all?amount=10?group=${group}`)
@@ -95,9 +96,11 @@ const Audiocall: FC = () => {
     if (answer === currentWord.wordTranslate) {
       const updatedCorrectAnswers = [...correctAnswers, currentWord];
       setCorrectAnswers(updatedCorrectAnswers);
+      setSeries(series + 1);
     } else {
       const updatedWrongAnswers = [...wrongAnswers, currentWord];
       setWrongAnswers(updatedWrongAnswers);
+      setSeries(0);
     }
   };
 
@@ -127,7 +130,7 @@ const Audiocall: FC = () => {
 
   const CloseCurrentWord = () => (
     <div className="audiocall__current-word">
-      <button onClick={() => playSound(currentWord.audio)} className="audiocall__volume_main volume-button">
+      <button onClick={() => playSound(currentWord.audio)} className=" volume-button audiocall__volume_main">
         <i className="fas fa-volume-up" />
       </button>
     </div>
@@ -238,6 +241,7 @@ const Audiocall: FC = () => {
           handleSubmitClose={handleSubmitClose}
         />
         {!start && <Difficulty title={gameName} desc={gameDesc} handleStart={clickStart} />}
+
         {start && currentWordNumber >= 0 && currentWordNumber < words.length && (
           <div className="audiocall_inner">
             <div>

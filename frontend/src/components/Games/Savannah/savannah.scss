@@ -1,9 +1,9 @@
-@import '../../../index.scss';
+@import "../../../index.scss";
 
 .savannah {
   position: relative;
-  height: calc(100vh - 99.55px);
-  background: url('../../../assets/images/savannah-bg.svg');
+  height: calc(100vh - 85.2px);
+  background: url("../../../assets/images/savannah-bg.svg");
   background-repeat: repeat;
   background-size: cover;
   background-position-x: center;
@@ -46,7 +46,7 @@
 
     .fal,
     .far {
-      font-family: 'Font Awesome 5 Pro';
+      font-family: "Font Awesome 5 Pro";
     }
   }
 
@@ -127,7 +127,7 @@
       transform: translateX(-50%);
       height: 4rem;
       aspect-ratio: 1/1;
-      background-image: url('../../../assets/images/crystal.png');
+      background-image: url("../../../assets/images/crystal.png");
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -139,7 +139,7 @@
         left: 50%;
         z-index: 2;
         display: block;
-        content: '';
+        content: "";
         width: 0;
         height: 0;
         background: rgba(255, 255, 255, 0.2);
