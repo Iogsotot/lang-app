@@ -6,6 +6,8 @@ import { ModalOnCloseProps } from './ModalOnClose.model';
 
 import { MODAL_ON_CLOSE } from '../../../../constants';
 
+import './ModalOnClose.scss';
+
 const { modalTitle, modalSubTitle, sumbitCloseBtnText, canselModalBtn } = MODAL_ON_CLOSE;
 
 const ModalOnClose: FC<ModalOnCloseProps> = ({ modalIsActive, handleCancelModal, handleSubmitClose }) => (
