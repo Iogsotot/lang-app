@@ -91,22 +91,6 @@ export const fetchUserWords = ({
     },
   });
 
-  // if (response.status === 401) {
-  //   const refresh = await fetch(`${API_BASE_URL}/users/${userId}/tokens`, {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: `Bearer ${refreshToken}`,
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   }).then((data) => data.json());
-
-  //   dispatch({
-  //     type: REFRESH_TOKEN,
-  //     payload: refresh,
-  //   });
-  // }
-
   const data = await response.json();
 
   const groupedWords = (): Word[][] => {

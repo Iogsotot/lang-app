@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import { API_BASE_URL, notifications } from '../../constants';
-import { UserAction, UserActionTypes } from '../../models/user';
+import { UserAction, UserActionTypes, User } from '../../models';
 
 const {
   USER_HAS_BEEN_REGISTERED,
@@ -52,6 +52,9 @@ export const login = (formData: FormData) =>
       dispatch({ type: FETCH_USER_ERROR, payload: error.message });
     }
   });
+
+export const updateToken = (user: User, token: string, refreshToken: string) =>
+  (async (dispatch: Dispatch<UserAction>): Promise<void> => {});
 
 export const logout = () =>
   ((dispatch: Dispatch<UserAction>): void => {
