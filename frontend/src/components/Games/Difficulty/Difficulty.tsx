@@ -25,7 +25,7 @@ const Difficulty: FC<DifficultyProps> = ({ handleStart, title, desc }) => {
       <div className="difficulty-btn-block">
         <h2 className="title is-2">{title}</h2>
         <p>{desc}</p>
-        {previousLocation !== 'textbook' && (
+        {previousLocation !== 'textbook' && previousLocation !== 'dictionary' && (
           <>
             <p>Сложность:</p>
             {Object.entries(WORD_GROUPS).map(([key, value]) => (
