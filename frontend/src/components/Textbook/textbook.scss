@@ -8,10 +8,11 @@ main.textbook {
 main.textbook,
 main.dictionary {
   .custom__pagination {
+    padding: 0 10px;
     button {
       background: transparent;
       cursor: pointer;
-
+      color: var(--bg-text-title);
       &.is-current {
         background: $color_important;
         border-color: $color_important;
@@ -362,7 +363,9 @@ main.dictionary {
   }
 }
 @media (max-width: 640px) {
-  section.textbook {
-    height: calc(100vh + 1rem);
+  main.textbook,
+  main.dictionary {
+    padding: 1rem 0;
+    height: auto;
   }
 }

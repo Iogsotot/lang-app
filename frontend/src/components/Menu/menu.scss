@@ -117,7 +117,7 @@ aside.menu {
   aside.menu{
     width: 100%;
     height: 100px;
-    top: calc(var(--vh, 100vh) - 96px);
+    top: calc(100% - 100px);
     .logo-field{
       display: none;
     }
@@ -144,7 +144,7 @@ aside.menu {
       margin: auto;
       width: 1.75rem;
       height: auto;
-    }  
+    }
     .fa-3x {
       font-size: 1.8em;
      }
@@ -162,7 +162,7 @@ aside.menu {
      visibility: hidden;
     }
   }
-  
+
 }
 
 .fal {
