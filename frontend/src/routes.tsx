@@ -9,6 +9,7 @@ import Sprint from './components/Games/Sprint';
 import { useTypedSelector } from './hooks/useTypedSelector';
 import Dictionary from './components/Dictionary';
 import Puzzle from './components/Games/Puzzle';
+import Stats from './components/Stats';
 
 export const Router: FC = () => {
   const { isLoggedIn } = useTypedSelector(store => store.user);
@@ -26,6 +27,10 @@ export const Router: FC = () => {
 
         <Route path="/dictionary/:section/:group/:page" exact>
           <Dictionary />
+        </Route>
+
+        <Route path="/stats/" exact>
+          <Stats />
         </Route>
 
         <Route path="/Puzzle/" exact>
