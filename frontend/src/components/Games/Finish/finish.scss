@@ -70,6 +70,33 @@
       }
     }
   }
+  & .volume-button {
+    background-color: transparent;
+    border-radius: 50%;
+    color: #373b53;
+    border: none;
+
+    &:hover {
+      background-color: #fff3;
+      opacity: 0.8;
+    }
+
+    &:active {
+      outline: none;
+      background-color: #fff5;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__volume {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    cursor: pointer;
+  }
 
   &__akcent-number {
     display: inline-block;

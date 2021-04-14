@@ -124,7 +124,7 @@ const Audiocall: FC = () => {
 
   const CloseCurrentWord = () => (
     <div className="audiocall__current-word">
-      <button onClick={() => playSound(currentWord.audio)} className="audiocall__volume_main volume-button">
+      <button onClick={() => playSound(currentWord.audio)} className=" volume-button audiocall__volume_main">
         <i className="fas fa-volume-up" />
       </button>
     </div>
