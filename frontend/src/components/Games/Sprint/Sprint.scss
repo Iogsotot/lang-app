@@ -18,7 +18,9 @@
     position: relative;
     grid-area: box;
     width: 30rem;
+    max-width: 100vw;
     height: 30rem;
+    max-height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,6 +33,7 @@
       margin-left: auto;
     }
   }
+
   &__game-wrapper {
     margin: auto 0;
   }
@@ -96,7 +99,7 @@
   .difficulty__box {
     grid-area: box;
     justify-self: center;
-    margin-top: 20rem;
+    margin-top: 10vh;
   }
 
   .mod-note {
@@ -115,5 +118,15 @@
   .audiocall {
     grid-column: 1 / -1;
     grid-row: 1 / -1;
+  }
+}
+
+@media (max-width: 770px) {
+  .sprint {
+    width: 100vw;
+    grid-template-areas:
+      'timer . . close'
+      'score score score score'
+      'box box box box';
   }
 }
