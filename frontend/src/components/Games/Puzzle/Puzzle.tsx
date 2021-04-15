@@ -11,7 +11,7 @@ const { gameName, gameDesc } = PUZZLE;
 const Puzzle: FC = () => {
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
   const [gameActive, setGameActive] = useState(false);
-  const [group, setGroup] = useState(0);
+  const [group] = useState(0);
   const [gameFinished, setGameFinished] = useState(false);
   const [wrongAnswers, setWrongAnswers] = useState([]);
   const [correctAnswers, setCorrectAnswers] = useState([]);

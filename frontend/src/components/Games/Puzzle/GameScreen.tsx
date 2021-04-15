@@ -35,8 +35,8 @@ const correctAnswers: Array<Word | undefined> = [];
 const wrongAnswers: Array<Word | undefined> = [];
 
 const GameScreen: FC<GameScreenProps> = (props) => {
-  const wordList = useTypedSelector(commonStore => commonStore.wordList);
-  const { words } = wordList;
+  // const wordList = useTypedSelector(commonStore => commonStore.wordList);
+  // const { words } = wordList;
   const { group, setGameFinished, setCorrectAnswers, setWrongAnswers } = props;
   const [collection, setCollection] = useState<Word[]>([]);
   const [phrase, setPhrase] = useState<string | null>(null);
@@ -46,7 +46,6 @@ const GameScreen: FC<GameScreenProps> = (props) => {
   const [outline, setOutline] = useState('');
   const [playSuccess] = useSound(successSound);
   const [playFailure] = useSound(failureSound);
-  const currentLocation = useLocation();
 
   const startNewGame = () => {
     fetch(`${API_BASE_URL}/words/all?amount=5?group=${group}`)
