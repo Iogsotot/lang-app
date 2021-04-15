@@ -8,12 +8,17 @@ header {
   &__logo-field {
     display: none;
   }
+
+  .btn--auth {
+    padding: 1rem 1.5rem;
+  }
 }
 
 .header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  // flex-direction: row-reverse;
   padding: 1.1rem 1.1rem 0.8rem;
   height: 85.2px;
   .header__logo-field {
@@ -89,6 +94,10 @@ header {
 @media (max-width: 930px) {
   header {
     height: 100px;
+
+    .btn--auth {
+      display: none;
+    }
   }
   .header__inner {
     flex-wrap: wrap;

@@ -17,10 +17,10 @@ main {
   font-size: 10px;
 
   .promo {
-    background-image: url("../../assets/images/promo_bg.png");
-    background-position: top right;
-    background-repeat: no-repeat;
-    background-size: 50% auto;
+    background-image: url("../../assets/images/promo_bg.png"), url("../../assets/images/bg_book_2.png");
+    background-position: top right, 100px bottom;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 50% auto, 50% auto;
 
     color: $color_black;
 
@@ -35,7 +35,6 @@ main {
     .title {
       margin-bottom: 1.8rem;
       text-align: left;
-      font-size: 70px;
     }
     .content {
       max-width: 26.625rem;
@@ -329,10 +328,10 @@ main {
 @media (max-width: 1800px) {
   main {
     .promo {
-      background-image: url("../../assets/images/promo_bg.png");
-      background-position: top right;
-      background-repeat: no-repeat;
-      background-size: 50% auto;
+      background-image: url("../../assets/images/promo_bg.png"), url("../../assets/images/bg_book_2.png");
+      background-position: top right, center bottom;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 50% auto, 80vh auto;
     }
   }
 }
@@ -364,6 +363,9 @@ main {
       .subtitle {
         width: 100% !important;
         padding: 1.5rem;
+      }
+      .duty {
+        width: 505px;
       }
       .team__group {
         .center {
@@ -452,8 +454,8 @@ main {
       background-position: center 0;
       background-repeat: no-repeat, no-repeat;
       background-size: 52vw auto, contain;
-      padding: 0;
-      height: 50vh;
+      padding: 0 0 1rem;
+      // height: 50vh;
       .info_block {
         padding-top: 20rem;
         display: flex;

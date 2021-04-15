@@ -80,7 +80,7 @@ const Header: FC = () => {
               </button>
             </>
           ) : (
-            <Link className="btn" to="/auth">
+            <Link className="btn btn--auth" to="/auth">
               Вход / Регистрация
             </Link>
           )}
