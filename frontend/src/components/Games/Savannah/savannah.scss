@@ -71,7 +71,7 @@
 
   .current-word__container {
     position: relative;
-    height: 30rem;
+    height: calc(60vh - 150px);
     .current-word {
       height: inherit;
       color: $color_white;
@@ -198,5 +198,26 @@
 @media (max-width: 1024px) {
   .savannah {
     height: calc(100vh - 100px);
+  }
+}
+
+@media (max-width: 930px) {
+  .savannah {
+    .wrapper {
+      max-width: calc(100vw - 150px) !important;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .savannah {
+    .crystal-block {
+      .crystal {
+        bottom: 7.7rem;
+      }
+    }
+    .wrapper {
+      max-width: calc(100vw - 50px) !important;
+    }
   }
 }
