@@ -374,14 +374,6 @@ main {
         .teammates {
           display: flex;
           flex-direction: column;
-
-          // margin: auto;
-          // grid-template-columns: 38px 309px 61px 125px 61px 275px 26px;
-          // grid-template-areas:
-          //   ". bramov bramov center ainuAnna ainuAnna ."
-          //   ". . . center . . . "
-          //   "svetlana svetlana . center . gregory gregory"
-          //   ". johnneon johnneon center iogsotot iogsotot .";
           .center {
             height: 8rem !important;
           }
@@ -397,16 +389,7 @@ main {
       background-position: top right;
       background-repeat: no-repeat;
       background-size: 44vw auto;
-      // padding-bottom: 10rem;
-      // height: 42vh;
-      // .info_block {
-      //   padding-top: 10rem;
-      // }
     }
-    // .video {
-    //   height: 40vh;
-    // }
-
     .team {
       height: 110rem;
       .subtitle {
@@ -455,7 +438,6 @@ main {
       background-repeat: no-repeat, no-repeat;
       background-size: 52vw auto, contain;
       padding: 0 0 1rem;
-      // height: 50vh;
       .info_block {
         padding-top: 20rem;
         display: flex;

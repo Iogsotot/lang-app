@@ -35,8 +35,8 @@ const correctAnswers: Array<Word | undefined> = [];
 const wrongAnswers: Array<Word | undefined> = [];
 
 const GameScreen: FC<GameScreenProps> = (props) => {
-  // const wordList = useTypedSelector(commonStore => commonStore.wordList);
-  // const { words } = wordList;
+  const wordList = useTypedSelector(commonStore => commonStore.wordList);
+  const { words } = wordList;
   const { group, setGameFinished, setCorrectAnswers, setWrongAnswers } = props;
   const [collection, setCollection] = useState<Word[]>([]);
   const [phrase, setPhrase] = useState<string | null>(null);
@@ -115,13 +115,9 @@ const GameScreen: FC<GameScreenProps> = (props) => {
       switch (destination.droppableId) {
         case 'variants':
           if (source.droppableId === 'variants') {
-            // перетаскиваем из variants в variants - реордеринг
             const newState = reorder(collection, source.index, destination.index);
             setCollection(newState);
           } else if (source.droppableId === 'phrase') {
-            // перетаскиваем из phrase в variants - просто возвращаем элемент и обнуляем guess
-            // const newState = reorder(collection, source.index, destination.index);
-
             const updatedState = returnElementToList(guess, collection);
             const newState = reorder(collection, updatedState.length - 1, destination.index);
             setCollection(newState);

@@ -201,7 +201,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     }
     setGameScreen('stats');
     setGameFinishPoints(statsData.current.point);
-
     resetGame();
   }
 
@@ -285,6 +284,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   function checkPair(word: number) {
     setRound(round + 1);
     resetGameRound();
+
     if (word === soughtIndex) {
       resolveAsCorrectAnswer();
       return;
@@ -375,7 +375,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
           <div className="answer-variants">
             <div className="wrapper">
               {WORDS.map(word => (
-                <div className="button  is-primary is-outlined" onClick={() => checkPair(word)} key={word}>
+                <div className="button  is-primary is-outlined btn-answers" onClick={() => checkPair(word)} key={word}>
                   {currentWords[wordsChunk[word]].word}
                 </div>
               ))}

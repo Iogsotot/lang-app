@@ -114,8 +114,24 @@
       max-width: 50rem;
       margin: auto;
     }
-    .button {
+    .btn-answers {
+      position: relative;
       color: $color_white;
+      &:before {
+        position: absolute;
+        top: -20px;
+        right: -10px;
+        content: "1";
+      }
+      &:nth-of-type(2):before {
+        content: "2";
+      }
+      &:nth-of-type(3):before {
+        content: "3";
+      }
+      &:nth-of-type(4):before {
+        content: "4";
+      }
     }
   }
 

@@ -119,55 +119,58 @@ const AuthPage: FC = () => {
         <div className="overlay">
         </div>
         <div className="form">
-          <div className="form__tabs">
-            <button onClick={toLoginForm} className={`form__tabs__link ${!isLogin ? 'active' : ''}`}>{SIGN_UP}</button>
-            <button onClick={toRegisterForm} className={`form__tabs__link ${isLogin ? 'active' : ''}`}>{SIGN_IN}</button>
-          </div>
-          {!isLogin
-            ? <>
-              <AvatarUpload onImageReady={target => onImageReady(target)} />
-              <Input
-                placeholder={NAME}
-                icon={USER_ICON}
-                type={TYPE.text}
-                value={name}
-                successText={nameSuccess}
-                errorText={nameError}
-                onChangeHandler={onNameChange}
-                keyPressHandler={keyPressHandler}
-              />
-            </>
-            : <></>
-          }
-          <Input
-            placeholder={EMAIL}
-            icon={ENVELOPE_ICON}
-            type={TYPE.email}
-            value={email}
-            successText={emailSuccess}
-            errorText={emailErorr}
-            onChangeHandler={onEmailChange}
-            keyPressHandler={keyPressHandler}
-          />
-          <Input
-            placeholder={PASSWORD}
-            icon={LOCK_ICON}
-            type={TYPE.password}
-            value={password}
-            successText={passwordSuccess}
-            errorText={passwordError}
-            onChangeHandler={onPasswordChange}
-            keyPressHandler={keyPressHandler}
-          />
+          <div className="box auth-form-bg">
 
-          <div className="field is-grouped">
-            <button
-              disabled={!formReady || loading}
-              className="btn btn-submit"
-              onClick={onSubmit}
-            >
-              {!isLogin ? SIGN_UP : SIGN_IN}
-            </button>
+            <div className="form__tabs">
+              <button onClick={toLoginForm} className={`form__tabs__link ${!isLogin ? 'active' : ''}`}>{SIGN_UP}</button>
+              <button onClick={toRegisterForm} className={`form__tabs__link ${isLogin ? 'active' : ''}`}>{SIGN_IN}</button>
+            </div>
+            {!isLogin
+              ? <>
+                <AvatarUpload onImageReady={target => onImageReady(target)} />
+                <Input
+                  placeholder={NAME}
+                  icon={USER_ICON}
+                  type={TYPE.text}
+                  value={name}
+                  successText={nameSuccess}
+                  errorText={nameError}
+                  onChangeHandler={onNameChange}
+                  keyPressHandler={keyPressHandler}
+                />
+              </>
+              : <></>
+            }
+            <Input
+              placeholder={EMAIL}
+              icon={ENVELOPE_ICON}
+              type={TYPE.email}
+              value={email}
+              successText={emailSuccess}
+              errorText={emailErorr}
+              onChangeHandler={onEmailChange}
+              keyPressHandler={keyPressHandler}
+            />
+            <Input
+              placeholder={PASSWORD}
+              icon={LOCK_ICON}
+              type={TYPE.password}
+              value={password}
+              successText={passwordSuccess}
+              errorText={passwordError}
+              onChangeHandler={onPasswordChange}
+              keyPressHandler={keyPressHandler}
+            />
+
+            <div className="field is-grouped">
+              <button
+                disabled={!formReady || loading}
+                className="btn btn-submit"
+                onClick={onSubmit}
+              >
+                {!isLogin ? SIGN_UP : SIGN_IN}
+              </button>
+            </div>
           </div>
         </div>
 

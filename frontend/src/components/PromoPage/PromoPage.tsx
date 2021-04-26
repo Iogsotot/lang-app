@@ -28,7 +28,7 @@ const PromoPage: FC = () => {
       <section className="video" id="video">
         <iframe
           title="rs lang video review"
-          src="https://www.youtube.com/embed/qtsNbxgPngA"
+          src="https://www.youtube.com/embed/jpMpVQut-1I"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -156,9 +156,9 @@ const PromoPage: FC = () => {
               </Link>
             </ScrollAnimation>
             <ScrollAnimation animateIn="zoomIn">
-              <Link to="find-pair" className="game__block card">
+              <Link to="puzzle" className="game__block card">
                 <img src="./images/find-pair_logo_3.png" alt="find-pair" />
-                <p className="game__title game__find-pair">Найди пару</p>
+                <p className="game__title game__find-pair">Паззл</p>
               </Link>
             </ScrollAnimation>
             <ScrollAnimation animateIn="zoomIn">
