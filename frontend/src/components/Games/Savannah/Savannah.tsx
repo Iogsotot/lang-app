@@ -42,7 +42,7 @@ const mapStateToProps = ({ gameData, wordList }: any) => {
 };
 
 const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
-  const { setPage, addToActiveWords } = props;
+  const { addToActiveWords } = props;
   const { words } = props;
 
   const [modalOnCloseIsActive, setModalOnCloseIsActive] = useState(false);
@@ -59,7 +59,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     previousLocation = currentLocation.state.from;
   }
 
-  const [group, setGroup] = useState(0);
+  const [group] = useState(0);
   const [currentWords, setCurrentWords] = useState<Word[]>([]);
   const [wordsChunk, setWordsChunk] = useState([0]);
   const [soughtIndex, setSoughtIndex] = useState(Math.floor(Math.random() * answerVariantsCount));
@@ -201,7 +201,6 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     }
     setGameScreen('stats');
     setGameFinishPoints(statsData.current.point);
-
     resetGame();
   }
 
@@ -285,6 +284,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
   function checkPair(word: number) {
     setRound(round + 1);
     resetGameRound();
+
     if (word === soughtIndex) {
       resolveAsCorrectAnswer();
       return;
@@ -292,7 +292,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
     resolveAsWrongAnswer();
   }
 
-  const keyControls = (e: any) => {
+  const keyControls = (e: KeyboardEvent) => {
     switch (e.code) {
       case 'Digit1':
       case 'Numpad1':
@@ -375,7 +375,7 @@ const Savannah: FC<SavannahProps & StateProps & DispatchProps> = props => {
           <div className="answer-variants">
             <div className="wrapper">
               {WORDS.map(word => (
-                <div className="button  is-primary is-outlined" onClick={() => checkPair(word)} key={word}>
+                <div className="button  is-primary is-outlined btn-answers" onClick={() => checkPair(word)} key={word}>
                   {currentWords[wordsChunk[word]].word}
                 </div>
               ))}

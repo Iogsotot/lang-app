@@ -71,7 +71,7 @@
 
   .current-word__container {
     position: relative;
-    height: 30rem;
+    height: calc(60vh - 150px);
     .current-word {
       height: inherit;
       color: $color_white;
@@ -114,8 +114,24 @@
       max-width: 50rem;
       margin: auto;
     }
-    .button {
+    .btn-answers {
+      position: relative;
       color: $color_white;
+      &:before {
+        position: absolute;
+        top: -20px;
+        right: -10px;
+        content: "1";
+      }
+      &:nth-of-type(2):before {
+        content: "2";
+      }
+      &:nth-of-type(3):before {
+        content: "3";
+      }
+      &:nth-of-type(4):before {
+        content: "4";
+      }
     }
   }
 
@@ -198,5 +214,26 @@
 @media (max-width: 1024px) {
   .savannah {
     height: calc(100vh - 100px);
+  }
+}
+
+@media (max-width: 930px) {
+  .savannah {
+    .wrapper {
+      max-width: calc(100vw - 150px) !important;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .savannah {
+    .crystal-block {
+      .crystal {
+        bottom: 7.7rem;
+      }
+    }
+    .wrapper {
+      max-width: calc(100vw - 50px) !important;
+    }
   }
 }

@@ -46,7 +46,6 @@ const GameScreen: FC<GameScreenProps> = (props) => {
   const [outline, setOutline] = useState('');
   const [playSuccess] = useSound(successSound);
   const [playFailure] = useSound(failureSound);
-  const currentLocation = useLocation();
 
   const startNewGame = () => {
     fetch(`${API_BASE_URL}/words/all?amount=5?group=${group}`)
@@ -116,13 +115,9 @@ const GameScreen: FC<GameScreenProps> = (props) => {
       switch (destination.droppableId) {
         case 'variants':
           if (source.droppableId === 'variants') {
-            // перетаскиваем из variants в variants - реордеринг
             const newState = reorder(collection, source.index, destination.index);
             setCollection(newState);
           } else if (source.droppableId === 'phrase') {
-            // перетаскиваем из phrase в variants - просто возвращаем элемент и обнуляем guess
-            // const newState = reorder(collection, source.index, destination.index);
-
             const updatedState = returnElementToList(guess, collection);
             const newState = reorder(collection, updatedState.length - 1, destination.index);
             setCollection(newState);
