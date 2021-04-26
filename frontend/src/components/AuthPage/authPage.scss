@@ -1,7 +1,6 @@
 @import "../../variables";
 
-
-main{
+main {
   .auth {
     color: var(--bg-text-subtitle);
     position: absolute;
@@ -16,10 +15,10 @@ main{
     min-height: calc(100vh);
     background: var(--bg-gradient-auth);
   }
-  
+
   .form {
     position: absolute;
-    top:33px;
+    top: 33px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -28,11 +27,15 @@ main{
     min-height: 32.5rem;
     margin: auto;
     z-index: 3;
-    label{
+    label {
       color: white;
     }
+
+    .auth-form-bg {
+      background-color: rgba(43, 41, 45, 0.7);
+    }
   }
-  
+
   .btn-submit {
     width: 100%;
     text-align: center;
@@ -41,7 +44,7 @@ main{
       color: $color_black;
     }
   }
-  
+
   .form__tabs {
     display: flex;
     align-items: center;
@@ -81,28 +84,29 @@ main{
     overflow: hidden;
     width: 100%;
     height: 100vh;
-    background: url( https://mixkit.imgix.net/videos/preview/mixkit-blonde-woman-reading-a-book-4948-0.jpg?q=80&auto=format%2Ccompress) no-repeat center center/cover;
+    background: url(https://mixkit.imgix.net/videos/preview/mixkit-blonde-woman-reading-a-book-4948-0.jpg?q=80&auto=format%2Ccompress)
+      no-repeat center center/cover;
     video {
-
-  min-width: 100%;
-  min-height: 100%;
+      min-width: 100%;
+      min-height: 100%;
       z-index: 1;
     }
   }
   .overlay {
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-image: linear-gradient(45deg, rgba(0,0,0,.3) 50%, rgba(0,0,0,.7) 50%);
-  background-size: 3px 3px;
-  z-index: 2;
-}
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.7) 50%);
+    background-size: 3px 3px;
+    z-index: 2;
+  }
 }
 .user__menu {
   display: flex;
   align-items: center;
+  margin: 0 0 0 auto;
 }
 
 .user {
@@ -156,31 +160,31 @@ main{
 }
 
 @media (max-width: 640px) {
-  .auth{
-    .form{
+  .auth {
+    .form {
       max-width: 25rem;
-      &__tabs__link{
+      &__tabs__link {
         font-size: 18px;
       }
-      .label{
+      .label {
         font-size: 0.8rem;
       }
-      .input{
+      .input {
         height: 2.5rem;
       }
-      .field.is-grouped{
+      .field.is-grouped {
         justify-content: center;
-        .btn{
+        .btn {
           padding: 1rem 3rem;
         }
       }
-    }   
-    .set-avatar{
+    }
+    .set-avatar {
       height: 4rem;
       width: 4rem;
       margin: 1.9rem auto -0.3rem;
     }
-    .user-avatar{
+    .user-avatar {
       width: 5rem;
       height: 5rem;
     }

@@ -25,7 +25,7 @@ export const messages = {
   TYPE: { ...TYPES },
   NAME_AVALIABLE: 'Это имя пользователя доступно',
   EMAIL_AVALIABLE: 'Этот адрес доступен',
-  PASSWORD_AVALIABLE: 'Приемлимая сложность пароля',
+  PASSWORD_AVALIABLE: 'Приемлемая сложность пароля',
   INCORRECT_NAME: 'Имя должно содержать минимум 3 символа и состоять только из латинских букв.',
   INCORRECT_EMAIL: 'Некоректный адрес электронной почты',
   INCORRECT_PASSWORD:

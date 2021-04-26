@@ -92,7 +92,6 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
   const WrongList = () => finishList(wrongAnswers);
 
   const handleReturnToGameList = async () => {
-    // нужно разобраться как правильно обрабатывать хэши с помощью useHistory
     await history.push('/');
     window.location.hash = '#games';
   };

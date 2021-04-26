@@ -10,8 +10,8 @@ const PromoPage: FC = () => {
     <main>
       <section className="promo">
         <ScrollAnimation animateIn="zoomIn">
-        <div className="wrapper">
-          <div className="info_block">
+          <div className="wrapper">
+            <div className="info_block">
               <h1 className="title title--bigest">Учи английский вместе с RSlang!</h1>
               <p className="content">Проводи время весело и с пользой! Ускорь свой прогресс! Возобновляй знания!</p>
               {!isLoggedIn ? (
@@ -21,19 +21,19 @@ const PromoPage: FC = () => {
               ) : (
                 <></>
               )}
+            </div>
           </div>
-        </div>
         </ScrollAnimation>
       </section>
       <section className="video" id="video">
-          <iframe
-            title="rs lang video review"
-            src="https://www.youtube.com/embed/qtsNbxgPngA"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="video-player"
-          />
+        <iframe
+          title="rs lang video review"
+          src="https://www.youtube.com/embed/jpMpVQut-1I"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="video-player"
+        />
       </section>
       <section className="features" id="features">
         <ScrollAnimation animateIn="bounceInUp">
@@ -80,7 +80,7 @@ const PromoPage: FC = () => {
           <h3 className="title">Наша команда</h3>
           <h3 className="subtitle">
             У нас огромная команда из высоквалифицированных лоу-перформеров. Вот тут ниже наши рожицы и кто что делал
-        </h3>
+          </h3>
         </ScrollAnimation>
         <ScrollAnimation animateIn="bounceInUp">
           <div className="team__group">
@@ -118,7 +118,7 @@ const PromoPage: FC = () => {
               </div>
 
               <div className="johnneon">
-                <p className="duty">Тимлид, авторизация, словарь, учебник, стили, бэк, redux, ревью кода. </p>
+                <p className="duty">И.о. тимлида, авторизация, словарь, учебник, стили, бэк, redux, ревью кода. </p>
                 <div className="teammate__info">
                   <img src="https://avatars.githubusercontent.com/u/53760291?v=4" alt="Efimovich Evgenii" />
                   <div className="name">Efimovich Evgenii</div>
@@ -156,9 +156,9 @@ const PromoPage: FC = () => {
               </Link>
             </ScrollAnimation>
             <ScrollAnimation animateIn="zoomIn">
-              <Link to="find-pair" className="game__block card">
+              <Link to="puzzle" className="game__block card">
                 <img src="./images/find-pair_logo_3.png" alt="find-pair" />
-                <p className="game__title game__find-pair">Найди пару</p>
+                <p className="game__title game__find-pair">Паззл</p>
               </Link>
             </ScrollAnimation>
             <ScrollAnimation animateIn="zoomIn">
@@ -208,7 +208,7 @@ const PromoPage: FC = () => {
                   <h4>90%</h4>
                   <p>
                     Всей информации в Интернете хранится на английском языке.
-                </p>
+                  </p>
                 </li>
               </ScrollAnimation>
             </ul>

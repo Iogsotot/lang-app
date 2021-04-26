@@ -17,10 +17,10 @@ main {
   font-size: 10px;
 
   .promo {
-    background-image: url("../../assets/images/promo_bg.png");
-    background-position: top right;
-    background-repeat: no-repeat;
-    background-size: 50% auto;
+    background-image: url("../../assets/images/promo_bg.png"), url("../../assets/images/bg_book_2.png");
+    background-position: top right, 100px bottom;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 50% auto, 50% auto;
 
     color: $color_black;
 
@@ -35,7 +35,6 @@ main {
     .title {
       margin-bottom: 1.8rem;
       text-align: left;
-      font-size: 70px;
     }
     .content {
       max-width: 26.625rem;
@@ -329,10 +328,10 @@ main {
 @media (max-width: 1800px) {
   main {
     .promo {
-      background-image: url("../../assets/images/promo_bg.png");
-      background-position: top right;
-      background-repeat: no-repeat;
-      background-size: 50% auto;
+      background-image: url("../../assets/images/promo_bg.png"), url("../../assets/images/bg_book_2.png");
+      background-position: top right, center bottom;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 50% auto, 80vh auto;
     }
   }
 }
@@ -365,6 +364,9 @@ main {
         width: 100% !important;
         padding: 1.5rem;
       }
+      .duty {
+        width: 505px !important;
+      }
       .team__group {
         .center {
           display: none;
@@ -372,14 +374,6 @@ main {
         .teammates {
           display: flex;
           flex-direction: column;
-
-          // margin: auto;
-          // grid-template-columns: 38px 309px 61px 125px 61px 275px 26px;
-          // grid-template-areas:
-          //   ". bramov bramov center ainuAnna ainuAnna ."
-          //   ". . . center . . . "
-          //   "svetlana svetlana . center . gregory gregory"
-          //   ". johnneon johnneon center iogsotot iogsotot .";
           .center {
             height: 8rem !important;
           }
@@ -395,16 +389,7 @@ main {
       background-position: top right;
       background-repeat: no-repeat;
       background-size: 44vw auto;
-      // padding-bottom: 10rem;
-      // height: 42vh;
-      // .info_block {
-      //   padding-top: 10rem;
-      // }
     }
-    // .video {
-    //   height: 40vh;
-    // }
-
     .team {
       height: 110rem;
       .subtitle {
@@ -452,8 +437,7 @@ main {
       background-position: center 0;
       background-repeat: no-repeat, no-repeat;
       background-size: 52vw auto, contain;
-      padding: 0;
-      height: 50vh;
+      padding: 0 0 1rem;
       .info_block {
         padding-top: 20rem;
         display: flex;

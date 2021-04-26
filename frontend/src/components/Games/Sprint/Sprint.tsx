@@ -166,6 +166,12 @@ const Sprint: FC = () => {
   };
 
   useEffect(() => {
+    if (!pair.word && sprintWords.length > 0) {
+      setPair(findWordPair());
+    }
+  }, [pair]);
+
+  useEffect(() => {
     if (isLvlSelected) {
       fetchRandomWords(group, page, wordsAmount);
     }
