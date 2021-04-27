@@ -1,6 +1,9 @@
 @import '../../variables';
 
 main.dictionary {
+  .custom__pagination {
+    margin-bottom: 20px;
+  }
   &.Novice {
     .section-tabs {
       ul {

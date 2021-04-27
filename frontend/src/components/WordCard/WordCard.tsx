@@ -13,7 +13,6 @@ const {
 const WordCard: FC<WordCardProps> = props => {
   const {
     id,
-    _id: dashedId,
     word,
     transcription,
     wordTranslate,
@@ -35,9 +34,8 @@ const WordCard: FC<WordCardProps> = props => {
     const body = JSON.stringify({
       isDeleted: true,
     });
-    const newId = isLoggedIn ? dashedId : id;
     const thisWord = { ...props, userWord: { isDeleted: true } };
-    updateWord(words, thisWord, token, userId, newId as string, body);
+    updateWord(words, thisWord, token, userId, id as string, body);
   };
 
   const addWordToHard = async () => {
@@ -45,27 +43,24 @@ const WordCard: FC<WordCardProps> = props => {
       difficulty: 'hard',
       isLearning: true,
     });
-    const newId = isLoggedIn ? dashedId : id;
     const thisWord = { ...props, userWord: { difficulty: 'hard', isLearning: true } };
-    updateWord(words, thisWord, token, userId, newId as string, body);
+    updateWord(words, thisWord, token, userId, id as string, body);
   };
 
   const restoreWord = async () => {
     const body = JSON.stringify({
       isDeleted: false,
     });
-    const newId = isLoggedIn ? dashedId : id;
     const thisWord = { ...props, userWord: { isDeleted: false } };
-    updateWord(words, thisWord, token, userId, newId as string, body, 'PUT');
+    updateWord(words, thisWord, token, userId, id as string, body, 'PUT');
   };
 
   const moveToEasy = async () => {
     const body = JSON.stringify({
       difficulty: 'easy',
     });
-    const newId = isLoggedIn ? dashedId : id;
     const thisWord = { ...props, userWord: { difficulty: 'easy', isLearning: true } };
-    updateWord(words, thisWord, token, userId, newId as string, body, 'PUT');
+    updateWord(words, thisWord, token, userId, id as string, body, 'PUT');
   };
 
   const playAudio = () => {
