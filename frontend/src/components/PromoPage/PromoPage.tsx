@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollAnimation from 'react-animate-on-scroll';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
