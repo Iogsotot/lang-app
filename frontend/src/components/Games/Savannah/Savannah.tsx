@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState, FC, useRef } from 'react';
 import useSound from 'use-sound';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { SavannahProps } from './Savannah.model';
+import { SavannahProps, IMapStateToProps } from './Savannah.model';
 import { SAVANNAH, API_BASE_URL } from '../../../constants';
 import ModalOnClose from '../ModalOnClose';
 import Difficulty from '../Difficulty';
@@ -29,7 +29,7 @@ type DispatchProps = typeof gameDataActions;
 
 const mapDispatchToProps = gameDataActions;
 
-const mapStateToProps = ({ gameData, wordList }: any) => {
+const mapStateToProps = ({ gameData, wordList }: IMapStateToProps) => {
   const { page, group } = gameData;
   const { words } = wordList;
 

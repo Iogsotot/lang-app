@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+// import { PieChart, Pie, Sector, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import PieComponent from './PieComponent';
 import BarComponent from './BarComponent';
 import './stats.scss';
@@ -13,15 +13,15 @@ const Stats: FC = () => {
     { name: 'Паззл', value: 15 },
     { name: 'Аудиовызов', value: 7 },
   ];
-  const [puzzle, setPuzzle] = useState(0);
-  const [savannah, setSavannah] = useState(0);
-  const [sprint, setSprint] = useState(0);
-  const [audiocall, setAudiocall] = useState(0);
+  // const [puzzle, setPuzzle] = useState(0);
+  // const [savannah, setSavannah] = useState(0);
+  // const [sprint, setSprint] = useState(0);
+  // const [audiocall, setAudiocall] = useState(0);
   const [totalWords, setTotalWords] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
 
-  const [sprintCorrectAnswers, setSprintCorrectAnswers] = useState(0);
+  // const [sprintCorrectAnswers, setSprintCorrectAnswers] = useState(0);
 
   const store = useTypedSelector(commonStore => commonStore);
   const { userId, token } = store.user.user;
