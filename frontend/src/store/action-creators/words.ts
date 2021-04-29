@@ -224,16 +224,17 @@ export const updateWord = (
       }
       return newWord;
     });
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
 
     const response = await fetch(
       `${API_BASE_URL}/users/${userId}/words/${newId}`,
       {
         method,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        headers,
         body,
       },
     );
@@ -243,11 +244,7 @@ export const updateWord = (
         `${API_BASE_URL}/users/${userId}/words/${newId}`,
         {
           method: 'PUT',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
+          headers,
           body,
         },
       );

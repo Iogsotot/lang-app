@@ -4,15 +4,17 @@ import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const AuthProvider: FC = ({ children }) => {
   const store = useTypedSelector(commonStore => commonStore);
-  const { user } = store.user;
+  const { user, isLoggedIn } = store.user;
   const { updateToken } = useAction();
 
   useEffect(() => {
-    const { token } = store.user.user;
-    const { exp } = JSON.parse(atob(token.split('.')[1]));
-    const second = 1000;
-    if (Date.now() > (exp * second)) {
-      updateToken(user);
+    if (isLoggedIn) {
+      const { token } = store.user.user;
+      const { exp } = JSON.parse(atob(token.split('.')[1]));
+      const second = 1000;
+      if (Date.now() > (exp * second)) {
+        updateToken(user);
+      }
     }
   }, [store]);
 
