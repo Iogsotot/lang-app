@@ -56,21 +56,26 @@ export const login = (formData: FormData) =>
 
 export const updateToken = (user: User) =>
   (async (dispatch: Dispatch<UserAction>): Promise<void> => {
-    const refresh = await fetch(`${API_BASE_URL}/users/${user.userId}/tokens`, {
+    const response = await fetch(`${API_BASE_URL}/users/${user.userId}/tokens`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${user.refreshToken}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    }).then((data) => data.json());
-
-    const { token, refreshToken } = refresh;
-
-    dispatch({
-      type: REFRESH_TOKEN,
-      payload: { ...user, token, refreshToken },
     });
+
+    if (response.status === 403 || response.status === 401) {
+      dispatch({ type: LOG_OUT });
+    } else {
+      const refresh = await response.json();
+      const { token, refreshToken } = refresh;
+
+      dispatch({
+        type: REFRESH_TOKEN,
+        payload: { ...user, token, refreshToken },
+      });
+    }
   });
 
 export const logout = () =>
