@@ -25,6 +25,13 @@ const Audiocall: FC = () => {
   const [correctButtonIdx, setCorrectButtonIdx] = useState(-1);
   const [series, setSeries] = useState(0);
 
+  const currentLocation = useLocation();
+  let previousLocation = '';
+  if (currentLocation.state) {
+    // eslint-disable-next-line prefer-destructuring
+    previousLocation = currentLocation.state.from;
+  }
+
   const startNewGame = () => {
     fetch(`${API_BASE_URL}/words/all?amount=10?group=${group}`)
       .then(res => res.json())
@@ -34,7 +41,13 @@ const Audiocall: FC = () => {
   };
 
   useEffect(() => {
-    startNewGame();
+    if (previousLocation !== 'dictionary' && previousLocation !== 'textbook') {
+      startNewGame();
+    } else {
+      startNewGame();
+      // setWords(storeWords.slice(9));
+    }
+    // console.log(words);
   }, []);
 
   const shuffle = (array: string[]): string[] => {
@@ -216,13 +229,6 @@ const Audiocall: FC = () => {
 
   const closeButtonClick = () =>
     (currentWordNumber < words.length ? setModalOnCloseIsActive(true) : handleSubmitClose());
-
-  const currentLocation = useLocation();
-  let previousLocation = '';
-  if (currentLocation.state) {
-    // eslint-disable-next-line prefer-destructuring
-    previousLocation = currentLocation.state.from;
-  }
 
   return (
     <section className="audiocall">
