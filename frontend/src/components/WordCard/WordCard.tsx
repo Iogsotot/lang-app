@@ -1,6 +1,5 @@
 import './wordCard.scss';
 import { FC } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { WordCardProps } from './WordCard.model';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useAction } from '../../hooks/useAction';
@@ -116,20 +115,22 @@ const WordCard: FC<WordCardProps> = props => {
 
   const Tags = () => {
     const tags = Object.entries(userWord || {}).map(([key, value]) => {
+      console.log(userWord, userId);
+
       switch (key) {
         case 'difficulty':
           return value === HARD ? (
-            <span key={uuidv4()} className="tag is-warning is-light">Сложное</span>
-          ) : <span key={uuidv4()}></span>;
+            <span key={`${userId + value}`} className="tag is-warning is-light">Сложное</span>
+          ) : <span key={`${userId + value}`}/>;
         case 'isLearning':
           return value ? (
-            <span key={uuidv4()} className="tag is-success is-light">Изучаемое</span>
-          ) : <span key={uuidv4()}></span>;
+            <span key={`${userId + value}`} className="tag is-success is-light">Изучаемое</span>
+          ) : <span key={`${userId + value}`}/>;
         case 'isDeleted':
           return value ? (
-            <span key={uuidv4()} className="tag is-danger is-light">Удаленное</span>
-          ) : <span key={uuidv4()}></span>;
-        default: return <span key={uuidv4()}></span>;
+            <span key={`${userId + value}`} className="tag is-danger is-light">Удаленное</span>
+          ) : <span key={`${userId + value}`}/>;
+        default: return <span key={`${userId + value}`}/>;
       }
     });
     return (
