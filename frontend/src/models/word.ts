@@ -75,8 +75,13 @@ interface FetchRandomWordListAction {
   type: WordListActionTypes.FETCH_RANDOM_WORD_LIST;
 }
 
-interface FetchWordListAction {
+export interface FetchWordListAction {
   type: WordListActionTypes.FETCH_WORDS_API;
+  payload: {
+    group: number,
+    page?: number,
+    sort: number,
+  }
 }
 
 interface FetchWordUpdateAction {

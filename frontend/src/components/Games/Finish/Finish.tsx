@@ -43,14 +43,9 @@ const Finish: FC<FinishProps> = ({ correctAnswers, wrongAnswers, score }) => {
       const location = browserLocation[browserLocation.length - 1];
 
       if (data.optional[dateString]) {
-        if (data.optional[dateString][location]) {
-          data.optional[dateString][location].wrongAnswers = res.optional[dateString][location].wrongAnswers++;
-          data.optional[dateString][location].correctAnswers = res.optional[dateString][location].correctAnswers++;
-        } else {
-          data.optional[dateString][location].wrongAnswers = res.optional[dateString][location].wrongAnswers++;
-          data.optional[dateString][location].correctAnswers = res.optional[dateString][location].correctAnswers++;
-        }
-      } else {
+        res.optional[dateString][location].wrongAnswers++;
+        res.optional[dateString][location].correctAnswers++;
+
         data.optional[dateString] = {};
         data.optional[dateString][location] = {
           wrongAnswers: wrongAnswers.length,

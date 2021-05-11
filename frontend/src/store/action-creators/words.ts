@@ -1,11 +1,12 @@
 import { Dispatch } from 'react';
 import { API_BASE_URL, USER_WORDS_FILTERS } from '../../constants';
 import {
+  DictionarySections,
+  FetchUserWordsProps,
+  FetchWordListAction,
+  Word,
   WordListAction,
   WordListActionTypes,
-  FetchUserWordsProps,
-  DictionarySections,
-  Word,
 } from '../../models';
 
 const {
@@ -59,6 +60,11 @@ export const fetchUserWords = ({
 }: FetchUserWordsProps) => async (dispatch: Dispatch<WordListAction>): Promise<void> => {
   dispatch({
     type: FETCH_WORDS_API,
+    payload: {
+      group,
+      page,
+      sort: 0,
+    },
   });
 
   let filter: string;
@@ -139,36 +145,9 @@ export const fetchUserWords = ({
   }, 1000);
 };
 
-export const fetchWords = (group: number, page: number, sort = 0) => async (
-  dispatch: Dispatch<WordListAction>,
-): Promise<void> => {
-  dispatch({
-    type: FETCH_WORDS_API,
-  });
-  let fetchWordsUrl = `${API_BASE_URL}/words?group=${group}&page=${page}`;
-  if (sort) {
-    fetchWordsUrl += `&sort=${sort}`;
-  }
-  const response = await fetch(fetchWordsUrl, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  })
-    .then(data => data.json())
-    .catch(error => {
-      dispatch({
-        type: FETCH_WORDS_API_ERROR,
-        payload: error,
-      });
-    });
-
-  dispatch({
-    type: FETCH_WORD_LIST_SUCCESS,
-    payload: response,
-  });
-};
+export const fetchWords = (group: number, page: number, sort = 0): FetchWordListAction => (
+  { type: FETCH_WORDS_API, payload: { group, page, sort } }
+);
 
 export const setPage = (number: number) => (dispatch: Dispatch<WordListAction>): void => {
   dispatch({

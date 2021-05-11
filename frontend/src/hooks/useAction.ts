@@ -10,5 +10,7 @@ type DispatchProps = WordsDispatchProps & UsersDispatchProps & ThemeDispatchProp
 export const useAction = (): DispatchProps => {
   const dispatch = useDispatch();
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return bindActionCreators(ActionCreators, dispatch);
 };
