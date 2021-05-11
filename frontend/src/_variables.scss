@@ -55,3 +55,7 @@ $Legendary: #d20000;
   }
   background-color: var(--bg-main);
 }
+
+div + span .class:not(#id) {
+  color: rgb(255, 0, 0);
+}  
