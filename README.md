@@ -1,5 +1,6 @@
 # RSLang
-
+Deploy: https://rslang-team31.netlify.app/  
+Backend: https://rslang-2020q3.herokuapp.com/
 ## Main stack
 
 - **React**
